@@ -12,7 +12,7 @@ public class BoardTest {
     public void getHexagon() throws Exception{
         Board TestBoard = new Board();
 
-        assert(TestBoard.getHexagonUsingPrivateIndexingForTest(0,0)
+        assert(TestBoard.getHexagon(0,0)
                 instanceof Hexagon);
     }
 
@@ -24,9 +24,9 @@ public class BoardTest {
 
         TestHexagon.incrementlevel();
 
-        TestBoard.setHexagonUsingPrivateIndexingForTest(0,0,TestHexagon);
+        TestBoard.setHexagon(0,0,TestHexagon);
 
-        Hexagon ReturnedHexagon = TestBoard.getHexagonUsingPrivateIndexingForTest(0,0);
+        Hexagon ReturnedHexagon = TestBoard.getHexagon(0,0);
 
         assertEquals(1, ReturnedHexagon.getlevel());
 
@@ -40,14 +40,14 @@ public class BoardTest {
 
         TestHexagon.incrementlevel();
 
-        TestBoard.setHexagonUsingPrivateIndexingForTest(102, 101, TestHexagon);
-        TestBoard.setHexagonUsingPrivateIndexingForTest(100, 101, TestHexagon);
+        TestBoard.setHexagon(102, 101, TestHexagon);
+        TestBoard.setHexagon(100, 101, TestHexagon);
 
-        TestBoard.setHexagonUsingPrivateIndexingForTest(101, 100, TestHexagon);
-        TestBoard.setHexagonUsingPrivateIndexingForTest(101, 102, TestHexagon);
+        TestBoard.setHexagon(101, 100, TestHexagon);
+        TestBoard.setHexagon(101, 102, TestHexagon);
 
-        TestBoard.setHexagonUsingPrivateIndexingForTest(102, 100, TestHexagon);
-        TestBoard.setHexagonUsingPrivateIndexingForTest(102, 102, TestHexagon);
+        TestBoard.setHexagon(102, 100, TestHexagon);
+        TestBoard.setHexagon(102, 102, TestHexagon);
 
         Hexagon[] neighbors = TestBoard.getNeighbors(101,101);
 
@@ -64,14 +64,14 @@ public class BoardTest {
 
         TestHexagon.incrementlevel();
 
-        TestBoard.setHexagonUsingPrivateIndexingForTest(53, 52, TestHexagon);
-        TestBoard.setHexagonUsingPrivateIndexingForTest(51, 52, TestHexagon);
+        TestBoard.setHexagon(53, 52, TestHexagon);
+        TestBoard.setHexagon(51, 52, TestHexagon);
 
-        TestBoard.setHexagonUsingPrivateIndexingForTest(52, 51, TestHexagon);
-        TestBoard.setHexagonUsingPrivateIndexingForTest(52, 53, TestHexagon);
+        TestBoard.setHexagon(52, 51, TestHexagon);
+        TestBoard.setHexagon(52, 53, TestHexagon);
 
-        TestBoard.setHexagonUsingPrivateIndexingForTest(51, 51, TestHexagon);
-        TestBoard.setHexagonUsingPrivateIndexingForTest(51, 53, TestHexagon);
+        TestBoard.setHexagon(51, 51, TestHexagon);
+        TestBoard.setHexagon(51, 53, TestHexagon);
 
         Hexagon[] neighbors = TestBoard.getNeighbors(52,52);
 
