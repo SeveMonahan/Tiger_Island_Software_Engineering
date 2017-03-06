@@ -1,13 +1,21 @@
 class Board {
     private Hexagon[][] hexagonArray;
 
-    Board() {
+    private void initalizeHexagonArray() {
         hexagonArray = new Hexagon[200][200];
         for(int i = 0; i < 200; i++) {
             for(int j = 0; j < 200; j++) {
                 hexagonArray[i][j] = new Hexagon();
             }
         }
+    }
+
+    Board(){
+        initalizeHexagonArray();
+    }
+
+    Board(Tile first_tile){
+        initalizeHexagonArray();
     }
 
     Hexagon getHexagon(int x, int y){
