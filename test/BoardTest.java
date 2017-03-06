@@ -22,7 +22,7 @@ public class BoardTest {
 
         Hexagon TestHexagon = new Hexagon();
 
-        TestHexagon.incrementlevel();
+        TestHexagon.changeTerrainTypeThoughExplosion(Terrain.ROCK);
 
         TestBoard.setHexagon(0,0,TestHexagon);
 
@@ -38,7 +38,7 @@ public class BoardTest {
 
         Hexagon TestHexagon = new Hexagon();
 
-        TestHexagon.incrementlevel();
+        TestHexagon.changeTerrainTypeThoughExplosion(Terrain.ROCK);
 
         TestBoard.setHexagon(102, 101, TestHexagon);
         TestBoard.setHexagon(100, 101, TestHexagon);
@@ -62,7 +62,7 @@ public class BoardTest {
 
         Hexagon TestHexagon = new Hexagon();
 
-        TestHexagon.incrementlevel();
+        TestHexagon.changeTerrainTypeThoughExplosion(Terrain.ROCK);
 
         TestBoard.setHexagon(53, 52, TestHexagon);
         TestBoard.setHexagon(51, 52, TestHexagon);
