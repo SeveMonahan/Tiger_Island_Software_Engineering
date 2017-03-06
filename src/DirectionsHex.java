@@ -11,14 +11,14 @@ public enum DirectionsHex {
             case UPPERLEFT:
                 return UPPERRIGHT;
             case UPPERRIGHT:
-                return LEFT;
-            case LEFT:
-                return LOWERLEFT;
-            case LOWERLEFT:
-                return LOWERRIGHT;
-            case LOWERRIGHT:
                 return RIGHT;
             case RIGHT:
+                return LOWERRIGHT;
+            case LOWERRIGHT:
+                return LOWERLEFT;
+            case LOWERLEFT:
+                return LEFT;
+            case LEFT:
                 return UPPERLEFT;
         }
 
