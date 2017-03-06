@@ -19,5 +19,11 @@ public class BoardAddingTilesTest {
         assertEquals(Terrain.BEACH, TestBoard.getHexagon(99, 100).getTerrain());
 
         assertEquals(Terrain.GRASS, TestBoard.getHexagon(99, 101).getTerrain());
+
+        assertEquals(1, TestBoard.getHexagon(100, 100).getlevel());
+
+        assertEquals(1, TestBoard.getHexagon(99, 100).getlevel());
+
+        assertEquals(1, TestBoard.getHexagon(99, 101).getlevel());
     }
 }
