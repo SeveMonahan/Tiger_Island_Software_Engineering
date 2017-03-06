@@ -16,6 +16,26 @@ class Board {
 
     Board(Tile first_tile){
         initalizeHexagonArray();
+        /* TODO: Make this work */
+    }
+
+    private Hexagon getHexagonNeighbor(int x, int y, DirectionsHex direction){
+        switch(direction){
+            case LEFT:
+                return hexagonArray[x-1][y];
+            case RIGHT:
+                return hexagonArray[x+1][y];
+            case UPPERLEFT:
+                return hexagonArray[x-1 + offset(x)][y+1];
+            case UPPERRIGHT:
+                return hexagonArray[x + offset(x)][y+1];
+            case LOWERLEFT:
+                return hexagonArray[x-1 + offset(x)][y-1];
+            case LOWERRIGHT:
+                return hexagonArray[x + offset(x)][y-1];
+        }
+        // Effectively an Error
+        return hexagonArray[0][0];
     }
 
     Hexagon getHexagon(int x, int y){
@@ -30,20 +50,19 @@ class Board {
         if(x % 2 == 1) {
             return 1;
         }else{
-            return -1;
+            return 0;
         }
     }
 
     Hexagon[] getNeighbors(int x, int y){
         Hexagon[] neighbors = new Hexagon[6];
 
-        neighbors[0] = hexagonArray[x+1][y];
-        neighbors[1] = hexagonArray[x-1][y];
-        neighbors[2] = hexagonArray[x][y+1];
-        neighbors[3] = hexagonArray[x][y-1];
+        int i = 0;
 
-        neighbors[4] = hexagonArray[x+offset(x)][y+1];
-        neighbors[5] = hexagonArray[x+offset(x)][y-1];
+        for(DirectionsHex direction : DirectionsHex.values()) {
+            neighbors[i] = getHexagonNeighbor(x, y, direction);
+            i++;
+        }
 
         return neighbors;
     }
