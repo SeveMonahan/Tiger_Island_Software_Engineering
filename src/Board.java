@@ -1,4 +1,9 @@
 class Board {
+    // This contains enough spaces for every hexagon on the board.
+    // The hexagons are stored in a square array, where each odd y
+    // value is offshifted to the right in order to replicate the six neighbors
+    // for hexagonal tiling.
+    // Higher y value is going "up" while higher x value is going "right."
     private Hexagon[][] hexagonArray;
 
     private void initalizeHexagonArray() {
