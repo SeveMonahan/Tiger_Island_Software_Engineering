@@ -13,4 +13,15 @@ public class TileTest {
         assertEquals(result[1], Terrain.JUNGLE);
         assertEquals(result[2], Terrain.ROCK);
     }
+
+    @Test
+    public void getTerrainsClockwiseFromVolcanoReverse(){
+        Tile TestTile = new Tile(Terrain.ROCK, Terrain.JUNGLE);
+
+        Terrain[] result = TestTile.getTerrainsClockwiseFromVolcano();
+
+        assertEquals(result[0], Terrain.VOLCANO);
+        assertEquals(result[1], Terrain.ROCK);
+        assertEquals(result[2], Terrain.JUNGLE);
+    }
 }
