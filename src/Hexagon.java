@@ -14,7 +14,7 @@ class Hexagon {
         return terrain;
     }
 
-    void incrementlevel(){
+    private void incrementlevel(){
         level++;
     }
 
