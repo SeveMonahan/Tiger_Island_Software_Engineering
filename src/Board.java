@@ -18,6 +18,14 @@ class Board {
         hexagonArray[x][y] = hex;
     }
 
+    int offset(int x){
+        if(x % 2 == 1) {
+            return 1;
+        }else{
+            return -1;
+        }
+    }
+
     Hexagon[] getNeighbors(int x, int y){
         Hexagon[] neighbors = new Hexagon[6];
 
@@ -26,16 +34,8 @@ class Board {
         neighbors[2] = hexagonArray[x][y+1];
         neighbors[3] = hexagonArray[x][y-1];
 
-        int offset;
-
-        if(x % 2 == 1) {
-            offset = 1;
-        }else{
-            offset = -1;
-        }
-
-        neighbors[4] = hexagonArray[x+offset][y+1];
-        neighbors[5] = hexagonArray[x+offset][y-1];
+        neighbors[4] = hexagonArray[x+offset(x)][y+1];
+        neighbors[5] = hexagonArray[x+offset(x)][y-1];
 
         return neighbors;
     }
