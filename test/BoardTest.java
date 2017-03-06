@@ -16,4 +16,19 @@ public class BoardTest {
                 instanceof Hexagon);
     }
 
+    @Test
+    public void setHexagon() throws Exception{
+        Board TestBoard = new Board();
+
+        Hexagon TestHexagon = new Hexagon();
+
+        TestHexagon.incrementlevel();
+
+        TestBoard.setHexagonUsingPrivateIndexingForTest(0,0,TestHexagon);
+
+        Hexagon ReturnedHexagon = TestBoard.getHexagonUsingPrivateIndexingForTest(0,0);
+
+        assertEquals(1, ReturnedHexagon.getlevel());
+
+    }
 }

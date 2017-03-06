@@ -13,4 +13,8 @@ class Board {
     Hexagon getHexagonUsingPrivateIndexingForTest(int x, int y){
         return hexagonArray[x][y];
     }
+
+    void setHexagonUsingPrivateIndexingForTest(int x, int y, Hexagon hex){
+        hexagonArray[x][y] = hex;
+    }
 }
