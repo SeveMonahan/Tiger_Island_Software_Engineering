@@ -8,4 +8,8 @@ class Hexagon {
     int getlevel(){
         return level;
     }
+
+    void incrementlevel(){
+        level++;
+    }
 }

@@ -8,4 +8,11 @@ public class HexagonTest {
         Hexagon TestHexagon = new Hexagon();
         assertEquals(0, TestHexagon.getlevel());
     }
+
+    @Test
+    public void incrementlevel() throws Exception {
+        Hexagon TestHexagon = new Hexagon();
+        TestHexagon.incrementlevel();
+        assertEquals(1, TestHexagon.getlevel());
+    }
 }
