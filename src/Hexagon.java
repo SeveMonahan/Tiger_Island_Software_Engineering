@@ -1,5 +1,6 @@
 class Hexagon {
     private int level;
+    private Terrain terrain;
 
     Hexagon() {
         level = 0;
@@ -9,7 +10,16 @@ class Hexagon {
         return level;
     }
 
+    Terrain getTerrain(){
+        return terrain;
+    }
+
     void incrementlevel(){
         level++;
+    }
+
+    void changeTerrainTypeThoughExplosion(Terrain new_terrain){
+        terrain = new_terrain;
+        incrementlevel();
     }
 }
