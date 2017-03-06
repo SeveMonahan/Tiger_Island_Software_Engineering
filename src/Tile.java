@@ -1,5 +1,19 @@
 public class Tile {
-    Tile(Terrain terrain_1, Terrain terrain_2){
+    private Terrain terrain_1;
+    private Terrain terrain_2;
 
+    Tile(Terrain terrain_1, Terrain terrain_2){
+        this.terrain_1 = terrain_1;
+        this.terrain_2 = terrain_2;
+    }
+
+    Terrain[] getTerrainsClockwiseFromVolcano(){
+        Terrain[] result = new Terrain[3];
+
+        result[0] = Terrain.VOLCANO;
+        result[1] = terrain_1;
+        result[2] = terrain_2;
+
+        return result;
     }
 }
