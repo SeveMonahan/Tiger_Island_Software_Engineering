@@ -8,4 +8,12 @@ public class BoardTest {
         Board TestBoard = new Board();
     }
 
+    @Test
+    public void getHexagon() throws Exception{
+        Board TestBoard = new Board();
+
+        assert(TestBoard.getHexagonUsingPrivateIndexingForTest(0,0)
+                instanceof Hexagon);
+    }
+
 }
