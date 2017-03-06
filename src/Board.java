@@ -24,6 +24,21 @@ class Board {
         /* TODO: Make this work */
     }
 
+    public void placeTileNoRestrictions(Tile tile, DirectionsHex direction, int x, int y){
+        hexagonArray[x][y].changeTerrainTypeThoughExplosion(Terrain.VOLCANO);
+
+        Hexagon overwritten_2 = getHexagonNeighbor(x, y, direction);
+
+        Hexagon overwritten_3 = getHexagonNeighbor(x, y, direction.getNextClockwise());
+
+        overwritten_2.changeTerrainTypeThoughExplosion(
+                tile.getTerrainsClockwiseFromVolcano()[1]);
+
+        overwritten_3.changeTerrainTypeThoughExplosion(
+                tile.getTerrainsClockwiseFromVolcano()[2]);
+
+    }
+
     private Hexagon getHexagonNeighbor(int x, int y, DirectionsHex direction){
         switch(direction){
             case LEFT:

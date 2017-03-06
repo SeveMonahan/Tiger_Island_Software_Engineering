@@ -8,6 +8,7 @@ class Hexagon {
 
     Hexagon() {
         level = 0;
+        terrain = Terrain.EMPTY;
     }
 
     int getlevel(){
