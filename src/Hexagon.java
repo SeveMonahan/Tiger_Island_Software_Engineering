@@ -11,7 +11,7 @@ class Hexagon {
         terrain = Terrain.EMPTY;
     }
 
-    int getlevel(){
+    int getLevel(){
         return level;
     }
 

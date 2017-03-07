@@ -28,7 +28,7 @@ public class BoardTest {
 
         Hexagon ReturnedHexagon = TestBoard.getHexagon(0,0);
 
-        assertEquals(1, ReturnedHexagon.getlevel());
+        assertEquals(1, ReturnedHexagon.getLevel());
 
     }
 
@@ -52,7 +52,7 @@ public class BoardTest {
         Hexagon[] neighbors = TestBoard.getNeighbors(101,101);
 
         for(int i=0; i<6; i++){
-            assertEquals(1, neighbors[i].getlevel());
+            assertEquals(1, neighbors[i].getLevel());
         }
     }
 
@@ -76,7 +76,7 @@ public class BoardTest {
         Hexagon[] neighbors = TestBoard.getNeighbors(52,52);
 
         for(int i=0; i<6; i++){
-            assertEquals(1, neighbors[i].getlevel());
+            assertEquals(1, neighbors[i].getLevel());
         }
     }
 
@@ -101,7 +101,7 @@ public class BoardTest {
         Hexagon[] neighbors = TestBoard.getNeighbors(71,70);
 
         for(int i=0; i<6; i++){
-            assertEquals(1, neighbors[i].getlevel());
+            assertEquals(1, neighbors[i].getLevel());
         }
     }
 }

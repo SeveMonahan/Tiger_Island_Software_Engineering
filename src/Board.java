@@ -98,9 +98,9 @@ class Board {
 
     private boolean canPlaceOutsideCurrentBoard(int x, int y) {
         boolean found_attach_point = false;
-        if(hexagonArray[x][y].getlevel() == 0){
+        if(hexagonArray[x][y].getLevel() == 0){
            for(Hexagon neighbor : getNeighbors(x,y)){
-               if(neighbor.getlevel() != 0){
+               if(neighbor.getLevel() != 0){
                    found_attach_point = true;
                }
            }

@@ -20,11 +20,11 @@ public class BoardAddingTilesTest {
 
         assertEquals(Terrain.GRASS, TestBoard.getHexagon(99, 101).getTerrain());
 
-        assertEquals(1, TestBoard.getHexagon(100, 100).getlevel());
+        assertEquals(1, TestBoard.getHexagon(100, 100).getLevel());
 
-        assertEquals(1, TestBoard.getHexagon(99, 100).getlevel());
+        assertEquals(1, TestBoard.getHexagon(99, 100).getLevel());
 
-        assertEquals(1, TestBoard.getHexagon(99, 101).getlevel());
+        assertEquals(1, TestBoard.getHexagon(99, 101).getLevel());
     }
 
     @Test
@@ -37,11 +37,11 @@ public class BoardAddingTilesTest {
 
         assertEquals(Terrain.GRASS, TestBoard.getHexagon(99, 101).getTerrain());
 
-        assertEquals(1, TestBoard.getHexagon(100, 100).getlevel());
+        assertEquals(1, TestBoard.getHexagon(100, 100).getLevel());
 
-        assertEquals(1, TestBoard.getHexagon(99, 100).getlevel());
+        assertEquals(1, TestBoard.getHexagon(99, 100).getLevel());
 
-        assertEquals(1, TestBoard.getHexagon(99, 101).getlevel());
+        assertEquals(1, TestBoard.getHexagon(99, 101).getLevel());
     }
 
     @Test
@@ -57,11 +57,11 @@ public class BoardAddingTilesTest {
 
         assertEquals(Terrain.JUNGLE, TestBoard.getHexagon(97, 100).getTerrain());
 
-        assertEquals(1, TestBoard.getHexagon(98, 100).getlevel());
+        assertEquals(1, TestBoard.getHexagon(98, 100).getLevel());
 
-        assertEquals(1, TestBoard.getHexagon(97, 99).getlevel());
+        assertEquals(1, TestBoard.getHexagon(97, 99).getLevel());
 
-        assertEquals(1, TestBoard.getHexagon(97, 100).getlevel());
+        assertEquals(1, TestBoard.getHexagon(97, 100).getLevel());
 
         assertEquals(true, success);
     }
@@ -79,11 +79,11 @@ public class BoardAddingTilesTest {
 
         assertEquals(Terrain.EMPTY, TestBoard.getHexagon(97, 50).getTerrain());
 
-        assertEquals(0, TestBoard.getHexagon(98, 50).getlevel());
+        assertEquals(0, TestBoard.getHexagon(98, 50).getLevel());
 
-        assertEquals(0, TestBoard.getHexagon(97, 49).getlevel());
+        assertEquals(0, TestBoard.getHexagon(97, 49).getLevel());
 
-        assertEquals(0, TestBoard.getHexagon(97, 50).getlevel());
+        assertEquals(0, TestBoard.getHexagon(97, 50).getLevel());
 
         assertEquals(false, success);
     }
