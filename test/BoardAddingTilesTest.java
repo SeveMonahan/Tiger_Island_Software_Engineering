@@ -87,4 +87,33 @@ public class BoardAddingTilesTest {
 
         assertEquals(false, success);
     }
+
+    @Test
+    public void overwriteLevel1Hex(){
+        Board TestBoard = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
+        TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE), DirectionsHex.RIGHT, 100, 101);
+
+        boolean isSuccess = TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.BEACH), DirectionsHex.UPPERLEFT, 100, 100);
+        assertEquals(true, isSuccess);
+
+        Hexagon newVolcano = TestBoard.getHexagon(100, 100);
+        Hexagon newRock = TestBoard.getHexagon(99, 101);
+        Hexagon newBeach = TestBoard.getHexagon(100, 101);
+
+        assertEquals(2, newVolcano.getLevel());
+        assertEquals(2, newRock.getLevel());
+        assertEquals(2, newBeach.getLevel());
+
+        assertEquals(Terrain.VOLCANO, newVolcano.getTerrain());
+        assertEquals(Terrain.ROCK, newRock.getTerrain());
+        assertEquals(Terrain.BEACH, newBeach.getTerrain());
+
+        assertEquals(Terrain.BEACH, TestBoard.getHexagon(99, 100).getTerrain());
+        assertEquals(Terrain.ROCK, TestBoard.getHexagon(101, 101).getTerrain());
+        assertEquals(Terrain.JUNGLE, TestBoard.getHexagon(101, 100).getTerrain());
+
+
+
+
+    }
 }
