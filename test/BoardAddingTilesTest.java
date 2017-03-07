@@ -45,7 +45,7 @@ public class BoardAddingTilesTest {
     }
 
     @Test
-    public void placeTileWithRestrictionsLevel0Sucess(){
+    public void placeTileWithRestrictionsLevel0Success(){
        Board TestBoard = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
 
        boolean success = TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE),
@@ -62,5 +62,29 @@ public class BoardAddingTilesTest {
         assertEquals(1, TestBoard.getHexagon(97, 99).getlevel());
 
         assertEquals(1, TestBoard.getHexagon(97, 100).getlevel());
+
+        assertEquals(true, success);
+    }
+
+    @Test
+    public void placeTileWithRestrictionsLevel0Fail(){
+        Board TestBoard = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
+
+        boolean success = TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE),
+                DirectionsHex.LOWERLEFT, 98, 50);
+
+        assertEquals(Terrain.EMPTY, TestBoard.getHexagon(98, 50).getTerrain());
+
+        assertEquals(Terrain.EMPTY, TestBoard.getHexagon(97, 49).getTerrain());
+
+        assertEquals(Terrain.EMPTY, TestBoard.getHexagon(97, 50).getTerrain());
+
+        assertEquals(0, TestBoard.getHexagon(98, 50).getlevel());
+
+        assertEquals(0, TestBoard.getHexagon(97, 49).getlevel());
+
+        assertEquals(0, TestBoard.getHexagon(97, 50).getlevel());
+
+        assertEquals(false, success);
     }
 }

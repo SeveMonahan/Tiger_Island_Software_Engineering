@@ -88,6 +88,19 @@ class Board {
     }
 
     public boolean placeTile(Tile tile, DirectionsHex direction, int x, int y) {
+        boolean found_attach_point = false;
+        if(hexagonArray[x][y].getlevel() == 0){
+           for(Hexagon neighbor : getNeighbors(x,y)){
+               if(neighbor.getlevel() != 0){
+                   found_attach_point = true;
+               }
+           }
+        }
+
+        if(!found_attach_point){
+            return false;
+        }
+
         placeTileNoRestrictions(tile, direction, x, y);
         return true;
     }
