@@ -63,6 +63,10 @@ class Board {
             placeTileNoRestrictions(tile, direction, x, y);
             return true;
         }
+        else if(hexagonIsGreaterThanLevel0AndAdjacentToEqualLevel(x, y)){
+            placeTileNoRestrictions(tile, direction, x, y);
+            return true;
+        }
 
         return false;
     }
@@ -76,6 +80,18 @@ class Board {
                    found_attach_point = true;
                }
            }
+        }
+        return found_attach_point;
+    }
+
+    private boolean hexagonIsGreaterThanLevel0AndAdjacentToEqualLevel(int x, int y){
+        boolean found_attach_point = false;
+        if(hexagonArray[x][y].getLevel() > 0){
+            for(Hexagon neighbor : getNeighbors(x,y)){
+                if(neighbor.getLevel() == hexagonArray[x][y].getLevel()){
+                    found_attach_point = true;
+                }
+            }
         }
         return found_attach_point;
     }
