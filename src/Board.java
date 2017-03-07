@@ -59,7 +59,7 @@ class Board {
     // place a tile, abiding by all game rules.
     // Unfinished as of 3/7/2017
     public boolean placeTile(Tile tile, DirectionsHex direction, int x, int y) {
-        if(canPlaceOutsideCurrentBoard(x, y)){
+        if(hexagonIsLevel0AndAdjacentToNonemptyBoard(x, y)){
             placeTileNoRestrictions(tile, direction, x, y);
             return true;
         }
@@ -68,7 +68,7 @@ class Board {
     }
 
     // Checks whether a hexagon is level 0 and has an adjacent level 1+ Hexagon.
-    private boolean canPlaceOutsideCurrentBoard(int x, int y) {
+    private boolean hexagonIsLevel0AndAdjacentToNonemptyBoard(int x, int y) {
         boolean found_attach_point = false;
         if(hexagonArray[x][y].getLevel() == 0){
            for(Hexagon neighbor : getNeighbors(x,y)){
