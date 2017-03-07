@@ -18,6 +18,9 @@ class Board {
         initalizeHexagonArray();
     }
 
+    // The first tile placement is arbitary, so we just put it in the center of the board.
+    // Note that you must use this initalizer if you want to use placeTile() to place any
+    // more tiles.
     Board(Tile first_tile){
         initalizeHexagonArray();
         placeTileNoRestrictions(first_tile, DirectionsHex.LEFT, 100, 100);
@@ -33,6 +36,11 @@ class Board {
     }
 
 
+    // Place a tile, ignoring all game rules such as the being adjacent to the rest of the board,
+    // requiring a volcano to overlap if placing over older tiles, etc.
+    // The parameter direction is where to place the first tile going clockwise on the tile,
+    // relative the the volcano tile (which is placed by x and y). The last tile is placed
+    // one direction more clockwise relative to the volcano then the first non-volcano one.
     public void placeTileNoRestrictions(Tile tile, DirectionsHex direction, int x, int y){
         hexagonArray[x][y].changeTerrainTypeThoughExplosion(Terrain.VOLCANO);
 
@@ -48,6 +56,8 @@ class Board {
 
     }
 
+    // place a tile, abiding by all game rules.
+    // Unfinished as of 3/7/2017
     public boolean placeTile(Tile tile, DirectionsHex direction, int x, int y) {
         if(canPlaceOutsideCurrentBoard(x, y)){
             placeTileNoRestrictions(tile, direction, x, y);
@@ -57,6 +67,7 @@ class Board {
         return false;
     }
 
+    // Checks whether a hexagon is level 0 and has an adjacent level 1+ Hexagon.
     private boolean canPlaceOutsideCurrentBoard(int x, int y) {
         boolean found_attach_point = false;
         if(hexagonArray[x][y].getLevel() == 0){
