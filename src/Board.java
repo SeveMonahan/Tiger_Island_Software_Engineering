@@ -46,13 +46,13 @@ class Board {
             case RIGHT:
                 return hexagonArray[x+1][y];
             case UPPERLEFT:
-                return hexagonArray[x-1 + offset(x)][y+1];
+                return hexagonArray[x-1 + offset(y)][y+1];
             case UPPERRIGHT:
-                return hexagonArray[x + offset(x)][y+1];
+                return hexagonArray[x + offset(y)][y+1];
             case LOWERLEFT:
-                return hexagonArray[x-1 + offset(x)][y-1];
+                return hexagonArray[x-1 + offset(y)][y-1];
             case LOWERRIGHT:
-                return hexagonArray[x + offset(x)][y-1];
+                return hexagonArray[x + offset(y)][y-1];
         }
         // Effectively an Error
         return hexagonArray[0][0];

@@ -79,4 +79,29 @@ public class BoardTest {
             assertEquals(1, neighbors[i].getlevel());
         }
     }
+
+    @Test
+    public void getNeighborsOddXEvenY() throws Exception{
+
+        Board TestBoard = new Board();
+
+        Hexagon TestHexagon = new Hexagon();
+
+        TestHexagon.changeTerrainTypeThoughExplosion(Terrain.ROCK);
+
+        TestBoard.setHexagon(70, 70, TestHexagon);
+        TestBoard.setHexagon(72, 70, TestHexagon);
+
+        TestBoard.setHexagon(70, 71, TestHexagon);
+        TestBoard.setHexagon(71, 71, TestHexagon);
+
+        TestBoard.setHexagon(70, 69, TestHexagon);
+        TestBoard.setHexagon(71, 69, TestHexagon);
+
+        Hexagon[] neighbors = TestBoard.getNeighbors(71,70);
+
+        for(int i=0; i<6; i++){
+            assertEquals(1, neighbors[i].getlevel());
+        }
+    }
 }
