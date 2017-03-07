@@ -21,7 +21,7 @@ class Board {
 
     Board(Tile first_tile){
         initalizeHexagonArray();
-        /* TODO: Make this work */
+        placeTileNoRestrictions(first_tile, DirectionsHex.LEFT, 100, 100);
     }
 
     public void placeTileNoRestrictions(Tile tile, DirectionsHex direction, int x, int y){
