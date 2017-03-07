@@ -88,6 +88,15 @@ class Board {
     }
 
     public boolean placeTile(Tile tile, DirectionsHex direction, int x, int y) {
+        if(canPlaceOutsideCurrentBoard(x, y)){
+            placeTileNoRestrictions(tile, direction, x, y);
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean canPlaceOutsideCurrentBoard(int x, int y) {
         boolean found_attach_point = false;
         if(hexagonArray[x][y].getlevel() == 0){
            for(Hexagon neighbor : getNeighbors(x,y)){
@@ -96,12 +105,6 @@ class Board {
                }
            }
         }
-
-        if(!found_attach_point){
-            return false;
-        }
-
-        placeTileNoRestrictions(tile, direction, x, y);
-        return true;
+        return found_attach_point;
     }
 }
