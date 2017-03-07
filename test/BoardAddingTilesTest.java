@@ -43,4 +43,24 @@ public class BoardAddingTilesTest {
 
         assertEquals(1, TestBoard.getHexagon(99, 101).getlevel());
     }
+
+    @Test
+    public void placeTileWithRestrictionsLevel0Sucess(){
+       Board TestBoard = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
+
+       boolean success = TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE),
+               DirectionsHex.LOWERLEFT, 98, 100);
+
+        assertEquals(Terrain.VOLCANO, TestBoard.getHexagon(98, 100).getTerrain());
+
+        assertEquals(Terrain.ROCK, TestBoard.getHexagon(97, 99).getTerrain());
+
+        assertEquals(Terrain.JUNGLE, TestBoard.getHexagon(97, 100).getTerrain());
+
+        assertEquals(1, TestBoard.getHexagon(98, 100).getlevel());
+
+        assertEquals(1, TestBoard.getHexagon(97, 99).getlevel());
+
+        assertEquals(1, TestBoard.getHexagon(97, 100).getlevel());
+    }
 }

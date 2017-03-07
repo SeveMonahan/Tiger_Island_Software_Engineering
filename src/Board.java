@@ -86,4 +86,9 @@ class Board {
 
         return neighbors;
     }
+
+    public boolean placeTile(Tile tile, DirectionsHex direction, int x, int y) {
+        placeTileNoRestrictions(tile, direction, x, y);
+        return true;
+    }
 }
