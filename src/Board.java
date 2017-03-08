@@ -6,12 +6,12 @@ class Board {
     // Higher y value is going "up" while higher x value is going "right."
     private Hexagon[][] hexagonArray;
 
-    Hexagon getHexagon(int x, int y){
-        return hexagonArray[x][y];
+    Hexagon getHexagon(Coordinate coordinate){
+        return hexagonArray[coordinate.getX()][coordinate.getY()];
     }
 
-    void setHexagon(int x, int y, Hexagon hex){
-        hexagonArray[x][y] = hex;
+    void setHexagon(Coordinate coordinate, Hexagon hex){
+        hexagonArray[coordinate.getX()][coordinate.getY()] = hex;
     }
 
     Board(){
