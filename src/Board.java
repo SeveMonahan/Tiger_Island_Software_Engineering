@@ -54,6 +54,11 @@ class Board {
         overwritten_3.changeTerrainTypeThoughExplosion(
                 tile.getTerrainsClockwiseFromVolcano()[2]);
 
+        // Setting the instance variables to all be the same
+        overwritten_2.tileHashCode = tile.hashCode();
+        overwritten_3.tileHashCode = tile.hashCode();
+        hexagonArray[coordinate.getX()][coordinate.getY()].tileHashCode = tile.hashCode();
+
     }
 
     // place a tile, abiding by all game rules.
@@ -65,14 +70,14 @@ class Board {
                 placeTileNoRestrictions(tile, direction, coordinate);
                 return true;
             }
-            else if(isHexagonGreaterThanLevel0AndAdjacentToEqualLevel(coordinate)){
+            else if(isHexagonGreaterThanLevel0AndAdjacentToEqualLevel(coordinate) &&
+                    !doesTileTotallyOverlapTileBelowIt(direction, coordinate) ){
                 if(hexagonArray[coordinate.getX()][coordinate.getY()].getTerrain() == Terrain.VOLCANO){
                     placeTileNoRestrictions(tile, direction, coordinate);
                     return true;
                 }
             }
         }
-
 
         return false;
     }
@@ -177,6 +182,19 @@ class Board {
         }else{
             return 0;
         }
+    }
+
+    public boolean doesTileTotallyOverlapTileBelowIt(DirectionsHex directionsHex, Coordinate coordinate) {
+
+        Hexagon overwritten_1 = hexagonArray[coordinate.getX()][coordinate.getY()];
+        Hexagon overwritten_2 = getHexagonNeighbor(coordinate, directionsHex);
+        Hexagon overwritten_3 = getHexagonNeighbor(coordinate, directionsHex.getNextClockwise());
+
+        if( (overwritten_1.tileHashCode != overwritten_2.tileHashCode && overwritten_1.tileHashCode == overwritten_3.tileHashCode)
+                || (overwritten_1.tileHashCode != overwritten_3.tileHashCode && overwritten_1.tileHashCode == overwritten_2.tileHashCode)
+                || (overwritten_1.tileHashCode != overwritten_3.tileHashCode && overwritten_2.tileHashCode == overwritten_3.tileHashCode) ) {
+            return false;
+        } else { return true; }
     }
 
 }

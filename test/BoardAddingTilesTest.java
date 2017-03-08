@@ -151,9 +151,10 @@ public class BoardAddingTilesTest {
 
     @Test
     public void overwriteLevel1HexFailDueToExactTileOverlap(){
-        Board TestBoard = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
+        Tile testTile = new Tile(Terrain.BEACH, Terrain.GRASS);
+        Board testBoard = new Board( testTile );
 
-        boolean isSuccess = TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE), DirectionsHex.LEFT, new Coordinate(100,100));
+        boolean isSuccess = testBoard.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE), DirectionsHex.LEFT, new Coordinate(100,100));
 
         assertEquals(false, isSuccess);
     }
