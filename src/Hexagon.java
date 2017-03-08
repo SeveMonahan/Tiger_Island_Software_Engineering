@@ -1,6 +1,7 @@
 class Hexagon {
     private int level;
     private Terrain terrain;
+    public int tileHashCode;
 
     private void incrementLevel(){
         level++;
