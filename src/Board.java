@@ -60,13 +60,12 @@ class Board {
     // Unfinished as of 3/7/2017
     public boolean placeTile(Tile tile, DirectionsHex direction, int x, int y) {
 
-        if(isAll3SpotsEqualLevels(direction, x, y)){
-            if(isAll3SpotsLevel0AndAdjacentToNonemptyBoard(direction, x, y)){
-
+        if(areAll3SpotsEqualLevels(direction, x, y)){
+            if(areAll3SpotsLevel0AndAdjacentToNonemptyBoard(direction, x, y)){
                 placeTileNoRestrictions(tile, direction, x, y);
                 return true;
             }
-            else if(hexagonIsGreaterThanLevel0AndAdjacentToEqualLevel(x, y)){
+            else if(isHexagonGreaterThanLevel0AndAdjacentToEqualLevel(x, y)){
                 if(hexagonArray[x][y].getTerrain() == Terrain.VOLCANO){
                     placeTileNoRestrictions(tile, direction, x, y);
                     return true;
@@ -79,7 +78,7 @@ class Board {
     }
 
     //If all 3 spots are equal level there can be no overhang when placing a tile on these spots
-    private boolean isAll3SpotsEqualLevels(DirectionsHex direction, int x, int y){
+    private boolean areAll3SpotsEqualLevels(DirectionsHex direction, int x, int y){
         Hexagon hexagonNeighbor1 = getHexagonNeighbor(x, y, direction);
         Hexagon hexagonNeighbor2 = getHexagonNeighbor(x, y, direction.getNextClockwise());
         if(hexagonArray[x][y].getLevel() == hexagonNeighbor1.getLevel()
@@ -90,11 +89,10 @@ class Board {
 
         else
             return false;
-
     }
 
     // Checks whether all 3 potential spots are level 0 and if one of them has an adjacent level 1+ Hexagon.
-    private boolean isAll3SpotsLevel0AndAdjacentToNonemptyBoard(DirectionsHex direction, int x, int y) {
+    private boolean areAll3SpotsLevel0AndAdjacentToNonemptyBoard(DirectionsHex direction, int x, int y) {
         Coordinate volcanoNeighbor1Coordinate = getHexagonNeighborCoordinate(x, y, direction);
         Coordinate volcanoNeighbor2Coordinate = getHexagonNeighborCoordinate(x, y, direction.getNextClockwise());
         boolean found_attach_point = false;
@@ -122,7 +120,7 @@ class Board {
         return found_attach_point;
     }
 
-    private boolean hexagonIsGreaterThanLevel0AndAdjacentToEqualLevel(int x, int y){
+    private boolean isHexagonGreaterThanLevel0AndAdjacentToEqualLevel(int x, int y){
         boolean found_attach_point = false;
         if(hexagonArray[x][y].getLevel() > 0){
             for(Hexagon neighbor : getNeighbors(x,y)){
@@ -148,22 +146,8 @@ class Board {
     }
 
     private Hexagon getHexagonNeighbor(int x, int y, DirectionsHex direction){
-        switch(direction){
-            case LEFT:
-                return hexagonArray[x-1][y];
-            case RIGHT:
-                return hexagonArray[x+1][y];
-            case UPPERLEFT:
-                return hexagonArray[x-1 + offset(y)][y+1];
-            case UPPERRIGHT:
-                return hexagonArray[x + offset(y)][y+1];
-            case LOWERLEFT:
-                return hexagonArray[x-1 + offset(y)][y-1];
-            case LOWERRIGHT:
-                return hexagonArray[x + offset(y)][y-1];
-        }
-        // Effectively an Error
-        return hexagonArray[0][0];
+        Coordinate coordinate = getHexagonNeighborCoordinate(x, y, direction);
+        return getHexagon(coordinate);
     }
 
     public Coordinate getHexagonNeighborCoordinate(int x, int y, DirectionsHex direction){
@@ -182,6 +166,8 @@ class Board {
             case LOWERRIGHT:
                 return new Coordinate(x + offset(y), y-1);
         }
+
+        //Effectively an error
         return new Coordinate(0, 0);
     }
 
