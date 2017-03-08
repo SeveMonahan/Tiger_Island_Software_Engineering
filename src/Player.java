@@ -5,8 +5,8 @@ public class Player {
     private int totoroCount;
 
     Player() {
-        meepleCount = 0;
-        totoroCount = 0;
+        meepleCount = 20;
+        totoroCount = 3;
         score = 0;
     }
 
