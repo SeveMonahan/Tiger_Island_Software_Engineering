@@ -15,8 +15,10 @@ public class Player {
     }
 
     public void modifyScore(int modification) {
-        if(score + modification >= 0) {
+        if( modification > 0 ) {
             score = score + modification;
+        } else { // Score must be negative
+            score = modification;
         }
     }
 

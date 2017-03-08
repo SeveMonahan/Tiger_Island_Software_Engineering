@@ -24,7 +24,7 @@ public class PlayerScoreTest {
 
         myPlayer.modifyScore(-1);
 
-        assertEquals(0, myPlayer.getScore());
+        assertEquals(-1, myPlayer.getScore());
     }
 
 }
