@@ -59,16 +59,36 @@ class Board {
     // place a tile, abiding by all game rules.
     // Unfinished as of 3/7/2017
     public boolean placeTile(Tile tile, DirectionsHex direction, int x, int y) {
-        if(hexagonIsLevel0AndAdjacentToNonemptyBoard(x, y)){
-            placeTileNoRestrictions(tile, direction, x, y);
-            return true;
-        }
-        else if(hexagonIsGreaterThanLevel0AndAdjacentToEqualLevel(x, y)){
-            placeTileNoRestrictions(tile, direction, x, y);
-            return true;
+
+        if(isAll3SpotsEqualLevels(tile, direction, x, y)){
+            if(hexagonIsLevel0AndAdjacentToNonemptyBoard(x, y)){
+
+                placeTileNoRestrictions(tile, direction, x, y);
+                return true;
+            }
+            else if(hexagonIsGreaterThanLevel0AndAdjacentToEqualLevel(x, y)){
+                placeTileNoRestrictions(tile, direction, x, y);
+                return true;
+            }
         }
 
+
         return false;
+    }
+
+    //If all 3 spots are equal level there can be no overhang when placing a tile on these spots
+    private boolean isAll3SpotsEqualLevels(Tile tile, DirectionsHex direction, int x, int y){
+        Hexagon hexagonNeighbor1 = getHexagonNeighbor(x, y, direction);
+        Hexagon hexagonNeighbor2 = getHexagonNeighbor(x, y, direction.getNextClockwise());
+        if(hexagonArray[x][y].getLevel() == hexagonNeighbor1.getLevel()
+                && hexagonArray[x][y].getLevel() == hexagonNeighbor2.getLevel()
+                    && hexagonNeighbor1.getLevel() == hexagonNeighbor2.getLevel()
+                )
+            return true;
+
+        else
+            return false;
+
     }
 
     // Checks whether a hexagon is level 0 and has an adjacent level 1+ Hexagon.
