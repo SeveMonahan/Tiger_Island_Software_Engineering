@@ -14,19 +14,15 @@ public class Player {
         return score;
     }
 
-    public void modifyScore(int modification) {
-        if( modification > 0 ) {
-            score = score + modification;
-        } else { // Score must be negative
-            score = modification;
-        }
+    public void modifyScore(int newScore) {
+        this.score = newScore;
     }
 
-    public void deductTotoro() {
-        totoroCount--;
+    public void setAutoLoseScore() {
+        this.score = -1;
     }
 
-    public void deductMeeple(int level) {
+    public void meeplePlacementCountReduction(int level) {
         meepleCount = meepleCount - ( level * level );
     }
 }

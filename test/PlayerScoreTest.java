@@ -22,9 +22,9 @@ public class PlayerScoreTest {
     public void scoreOfPlayerSettingNegative() {
         Player myPlayer = new Player();
 
-        myPlayer.modifyScore(-1);
+        myPlayer.setAutoLoseScore();
 
-        assertEquals(-1, myPlayer.getScore());
+        assertEquals(-1, myPlayer.getScore() );
     }
 
 }
