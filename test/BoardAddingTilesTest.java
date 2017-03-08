@@ -122,4 +122,14 @@ public class BoardAddingTilesTest {
         boolean isSuccess = TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.BEACH), DirectionsHex.RIGHT, 100, 100);
         assertEquals(false, isSuccess);
     }
+
+    @Test
+    public void overwriteLevel1HexFailDueToVolcanoMismatch(){
+        Board TestBoard = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
+        TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE), DirectionsHex.RIGHT, 97, 101);
+
+        boolean isSuccess = TestBoard.placeTile(new Tile(Terrain.BEACH, Terrain.ROCK), DirectionsHex.UPPERRIGHT, 98, 100);
+
+        assertEquals(false, isSuccess);
+    }
 }
