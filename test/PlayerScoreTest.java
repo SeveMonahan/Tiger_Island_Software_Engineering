@@ -13,7 +13,7 @@ public class PlayerScoreTest {
     public void scoreOfPlayerAfterAddition() {
         Player myPlayer = new Player();
 
-        myPlayer.modifyScore(5);
+        myPlayer.setScore(5);
 
         assertEquals(5, myPlayer.getScore() );
     }

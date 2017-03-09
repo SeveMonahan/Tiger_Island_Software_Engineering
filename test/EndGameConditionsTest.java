@@ -14,7 +14,7 @@ public class EndGameConditionsTest {
     @Test
     public void pointBasedWin() {
         Game game = new Game();
-        game.player1.modifyScore(4);
+        game.player1.setScore(4);
         game.endGameConditions();
 
         assert( game.player1.equals( game.winner ));
