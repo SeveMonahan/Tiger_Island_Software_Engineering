@@ -86,11 +86,8 @@ public class MeeplesTest {
         Player myPlayer = new Player(myMeeples);
         myMeeples.populateHex(TestHexagon);
 
-        if(myMeeples.checkIfPopulated(TestHexagon)){
-            myMeeples.nuke(TestHexagon);
-            TestHexagon.changeTerrainTypeThoughExplosion(Terrain.BEACH);
-            myMeeples.populateHex(TestHexagon);
-        }
+        myMeeples.beforeNewLevel(TestHexagon,Terrain.BEACH);
+
         assertEquals(2, TestHexagon.getPopulation());
 
     }

@@ -37,4 +37,12 @@ public class Meeples {
     public void nuke(Hexagon hexagon){
         hexagon.decreasePopulation(hexagon.getPopulation());
     }
+
+    public void beforeNewLevel(Hexagon hexagon, Terrain type){
+        if(checkIfPopulated(hexagon)){
+            nuke(hexagon);
+            hexagon.changeTerrainTypeThoughExplosion(type);
+            populateHex(hexagon);
+        }
+    }
 }
