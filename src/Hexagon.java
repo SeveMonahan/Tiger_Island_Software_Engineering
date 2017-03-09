@@ -2,6 +2,7 @@ class Hexagon {
     private int level;
     private Terrain terrain;
     public int tileHashCode;
+    private int population;
 
     private void incrementLevel(){
         level++;
@@ -32,5 +33,11 @@ class Hexagon {
             return false;
     }
 
+    void increasePopulation(int byPopulationOf){
+        population += byPopulationOf;
+    }
 
+    int getPopulation(){
+        return this.population;
+    }
 }

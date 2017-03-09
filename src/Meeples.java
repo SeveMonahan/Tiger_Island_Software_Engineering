@@ -12,6 +12,13 @@ public class Meeples {
         return count;
     }
 
-
+    public void populateHex(Hexagon hexagon){
+        int level = hexagon.getLevel();
+        if(hexagon.isVolcanoHex() == false){
+            hexagon.increasePopulation(level);
+        }
+        else
+            System.out.print("can't add meeples to VOLCANO hex tile");
+    }
 
 }

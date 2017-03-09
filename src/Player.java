@@ -11,6 +11,14 @@ public class Player {
         score = 0;
     }
 
+    Player(Meeples meeples) {
+        meepleCount = meeples.getCount();
+        totoroCount = 3;
+        score = 0;
+    }
+
+
+
     public int getScore() {
         return score;
     }
