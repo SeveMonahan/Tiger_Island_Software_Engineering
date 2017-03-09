@@ -1,5 +1,6 @@
 import org.junit.Test;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class HexagonTest {
@@ -15,5 +16,12 @@ public class HexagonTest {
         TestHexagon.changeTerrainTypeThoughExplosion(Terrain.BEACH);
         assertEquals(1, TestHexagon.getLevel());
         assertEquals(Terrain.BEACH, TestHexagon.getTerrain());
+    }
+
+    @Test
+    public void isVolcanoTest() throws Exception {
+        Hexagon TestHexagon = new Hexagon();
+        TestHexagon.changeTerrainTypeThoughExplosion(Terrain.VOLCANO);
+        assertEquals(true, TestHexagon.isVolcanoHex());
     }
 }

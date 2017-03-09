@@ -24,4 +24,13 @@ class Hexagon {
         terrain = new_terrain;
         incrementLevel();
     }
+
+    boolean isVolcanoHex(){
+        if(this.terrain == Terrain.VOLCANO)
+            return true;
+        else
+            return false;
+    }
+
+
 }
