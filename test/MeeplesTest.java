@@ -12,7 +12,20 @@ public class MeeplesTest {
     }
 
     @Test
-    public void populationTest() throws Exception {
+    public void populationLevelTest() throws Exception {
+        Hexagon TestHexagon = new Hexagon();
+        TestHexagon.changeTerrainTypeThoughExplosion(Terrain.BEACH);
+
+        Meeples myMeeples = new Meeples();
+        Player myPlayer = new Player(myMeeples);
+        myMeeples.populateHex(TestHexagon);
+
+        assertEquals(1, TestHexagon.getLevel());
+
+    }
+
+    @Test
+    public void populationLevel3Test() throws Exception {
         Hexagon TestHexagon = new Hexagon();
         TestHexagon.changeTerrainTypeThoughExplosion(Terrain.BEACH);
         TestHexagon.changeTerrainTypeThoughExplosion(Terrain.GRASS);
