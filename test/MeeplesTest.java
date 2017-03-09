@@ -53,4 +53,18 @@ public class MeeplesTest {
 
     }
 
+    @Test
+    public void populateVolcano() throws Exception {
+        Hexagon TestHexagon = new Hexagon();
+        TestHexagon.changeTerrainTypeThoughExplosion(Terrain.VOLCANO);
+
+        Meeples myMeeples = new Meeples();
+        Player myPlayer = new Player(myMeeples);
+        myMeeples.populateHex(TestHexagon);
+
+        assertEquals(20, myMeeples.getCount());
+        assertEquals(0, TestHexagon.getPopulation());
+
+    }
+
 }
