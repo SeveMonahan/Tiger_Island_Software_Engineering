@@ -16,6 +16,7 @@ public class Meeples {
         int level = hexagon.getLevel();
         if(hexagon.isVolcanoHex() == false){
             hexagon.increasePopulation(level);
+            count -= level;
         }
         else
             System.out.print("can't add meeples to VOLCANO hex tile");

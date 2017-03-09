@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class MeeplesTest {
     @Test
-    public void meeplesCount() throws Exception {
+    public void meeplesCountTest() throws Exception {
         Meeples myMeeples = new Meeples();
         assertEquals(20, myMeeples.getCount());
     }
@@ -21,7 +21,6 @@ public class MeeplesTest {
         myMeeples.populateHex(TestHexagon);
 
         assertEquals(1, TestHexagon.getLevel());
-
     }
 
     @Test
@@ -38,4 +37,20 @@ public class MeeplesTest {
         assertEquals(3, TestHexagon.getLevel());
 
     }
+
+    @Test
+    public void meepleCountAfterPopulateTest() throws Exception {
+        Hexagon TestHexagon = new Hexagon();
+        TestHexagon.changeTerrainTypeThoughExplosion(Terrain.BEACH);
+        TestHexagon.changeTerrainTypeThoughExplosion(Terrain.GRASS);
+        TestHexagon.changeTerrainTypeThoughExplosion(Terrain.GRASS);
+
+        Meeples myMeeples = new Meeples();
+        Player myPlayer = new Player(myMeeples);
+        myMeeples.populateHex(TestHexagon);
+
+        assertEquals(17, myMeeples.getCount());
+
+    }
+
 }
