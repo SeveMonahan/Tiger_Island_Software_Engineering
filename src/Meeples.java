@@ -11,8 +11,15 @@ public class Meeples {
     public int getCount() {
         return count;
     }
+
     public boolean checkLevel(Hexagon hexagon){
         if(hexagon.getLevel() > 0)
+            return true;
+        else return false;
+    }
+
+    public boolean checkIfPopulated(Hexagon hexagon){
+        if(hexagon.getPopulation() > 0)
             return true;
         else return false;
     }
@@ -27,4 +34,7 @@ public class Meeples {
             System.out.print("can't add meeples to VOLCANO hex tile");
     }
 
+    public void nuke(Hexagon hexagon){
+        hexagon.decreasePopulation(hexagon.getPopulation());
+    }
 }
