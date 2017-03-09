@@ -22,6 +22,16 @@ public class MeeplesTest {
 
         assertEquals(1, TestHexagon.getLevel());
     }
+    @Test
+    public void checkLevelTest() throws Exception {
+        Hexagon TestHexagon = new Hexagon();
+
+        Meeples myMeeples = new Meeples();
+        Player myPlayer = new Player(myMeeples);
+        myMeeples.populateHex(TestHexagon);
+
+        assertEquals(false, myMeeples.checkLevel(TestHexagon));
+    }
 
     @Test
     public void populationLevel3Test() throws Exception {
