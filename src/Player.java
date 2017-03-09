@@ -5,7 +5,8 @@ public class Player {
     private int totoroCount;
 
     Player() {
-        meepleCount = 20;
+        Meeples meeples = new Meeples();
+        meepleCount = meeples.getCount();
         totoroCount = 3;
         score = 0;
     }
