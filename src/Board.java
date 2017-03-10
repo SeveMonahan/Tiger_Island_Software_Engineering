@@ -103,8 +103,8 @@ class Board {
 
     // Checks whether all 3 potential spots are level 0 and if one of them has an adjacent level 1+ Hexagon.
     private boolean areAll3SpotsLevel0AndAdjacentToNonemptyBoard(HexagonNeighborDirection direction, Coordinate coordinate) {
-        Coordinate volcanoNeighbor1Coordinate = getHexagonNeighborCoordinate(coordinate, direction);
-        Coordinate volcanoNeighbor2Coordinate = getHexagonNeighborCoordinate(coordinate, direction.getNextClockwise());
+        Coordinate volcanoNeighbor1Coordinate = coordinate.getHexagonNeighborCoordinate(direction);
+        Coordinate volcanoNeighbor2Coordinate = coordinate.getHexagonNeighborCoordinate(direction.getNextClockwise());
         boolean found_attach_point = false;
         if(hexagonArray[coordinate.getX()][coordinate.getY()].getLevel() == 0){
            for(Hexagon neighbor : getNeighbors(coordinate)){
@@ -170,37 +170,8 @@ class Board {
     }
 
     private Hexagon getHexagonNeighbor(Coordinate coordinate, HexagonNeighborDirection direction){
-        Coordinate neighborCoordinate = getHexagonNeighborCoordinate(coordinate, direction);
+        Coordinate neighborCoordinate = coordinate.getHexagonNeighborCoordinate(direction);
         return getHexagon(neighborCoordinate);
-    }
-
-    public Coordinate getHexagonNeighborCoordinate(Coordinate coordinate, HexagonNeighborDirection direction){
-        switch(direction){
-
-            case LEFT:
-                return new Coordinate(coordinate.getX()-1, coordinate.getY());
-            case RIGHT:
-               return new Coordinate(coordinate.getX()+1, coordinate.getY());
-            case UPPERLEFT:
-                return new Coordinate(coordinate.getX()-1 + offset(coordinate.getY()), coordinate.getY()+1);
-            case UPPERRIGHT:
-                return new Coordinate(coordinate.getX() + offset(coordinate.getY()), coordinate.getY()+1);
-            case LOWERLEFT:
-                return new Coordinate(coordinate.getX()-1 + offset(coordinate.getY()), coordinate.getY()-1);
-            case LOWERRIGHT:
-                return new Coordinate(coordinate.getX() + offset(coordinate.getY()), coordinate.getY()-1);
-        }
-
-        //Effectively an error
-        return new Coordinate(0, 0);
-    }
-
-    private int offset(int y){
-        if(y % 2 == 1) {
-            return 1;
-        }else{
-            return 0;
-        }
     }
 
     public boolean doesTileTotallyOverlapTileBelowIt(HexagonNeighborDirection hexagonNeighborDirection, Coordinate coordinate) {

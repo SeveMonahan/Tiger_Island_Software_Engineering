@@ -24,7 +24,7 @@ public class MeeplesTest {
     @Test
     public void placeMeepleOnLevelOne() throws Exception {
         Board board = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
-        Coordinate coordinate = board.getHexagonNeighborCoordinate(new Coordinate(100,100), HexagonNeighborDirection.LEFT);
+        Coordinate coordinate = new Coordinate(100,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT);
         Hexagon hexagon = board.getHexagon(coordinate);
         Player player = new Player(Color.WHITE);
         Piece newMeeple = new Meeple(Color.WHITE);
