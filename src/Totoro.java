@@ -1,9 +1,5 @@
 public class Totoro extends Piece {
 
-    private final boolean canBeKilled = false;
-
-    private final int points = 200;
-
     public HexagonOccupationStatus getOccupyStatus(){
         return HexagonOccupationStatus.Totoro;
     }
@@ -13,7 +9,7 @@ public class Totoro extends Piece {
     }
 
     public int getPointsAfterPlacement(Hexagon occupiedHexagon) {
-        return points;
+        return 200;
     }
 
     public int populationRequirements(Hexagon hexagonYouWishToOccupy) {

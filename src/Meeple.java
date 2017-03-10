@@ -1,9 +1,5 @@
 public class Meeple extends Piece {
 
-    private final boolean canBeKilled = true;
-
-    private final int points = 1;
-
     private HexagonOccupationStatus occupyStatus = HexagonOccupationStatus.Meeples;
 
     Meeple( Color color ) {
