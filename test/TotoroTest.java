@@ -7,7 +7,7 @@ public class TotoroTest {
     @Test
     public void shouldInitializeToThreeTotoro() {
         Player player = new Player(Color.WHITE);
-        assertEquals(player.getTotoroCount(), 3);
+        assertEquals(3, player.getTotoroCount());
     }
     /*
     @Test

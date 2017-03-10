@@ -9,9 +9,9 @@ public class TileTest {
 
         Terrain[] result = TestTile.getTerrainsClockwiseFromVolcano();
 
-        assertEquals(result[0], Terrain.VOLCANO);
-        assertEquals(result[1], Terrain.JUNGLE);
-        assertEquals(result[2], Terrain.ROCK);
+        assertEquals(Terrain.VOLCANO, result[0]);
+        assertEquals(Terrain.JUNGLE, result[1]);
+        assertEquals(Terrain.ROCK, result[2]);
     }
 
     @Test
@@ -20,8 +20,8 @@ public class TileTest {
 
         Terrain[] result = TestTile.getTerrainsClockwiseFromVolcano();
 
-        assertEquals(result[0], Terrain.VOLCANO);
-        assertEquals(result[1], Terrain.ROCK);
-        assertEquals(result[2], Terrain.JUNGLE);
+        assertEquals(Terrain.VOLCANO, result[0]);
+        assertEquals(Terrain.ROCK, result[1]);
+        assertEquals(Terrain.JUNGLE, result[2]);
     }
 }
