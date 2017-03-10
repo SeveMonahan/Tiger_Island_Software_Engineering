@@ -25,6 +25,7 @@ class Hexagon {
     public void setOccupationStatus(Piece piece) {
         occupationStatus = piece.getOccupyStatus();
         population = piece.populationRequirements(this);
+        pieces.add(piece);
     }
 
     Terrain getTerrain(){
@@ -52,6 +53,11 @@ class Hexagon {
     //TODO need to replace below function with something more polymorphic... e.g. canPieceBeKilled
     //TODO you can use the canThisBeKilled() function in Piece to check this
     boolean containsTotoro() {
+        for(Piece piece : getPieces()){
+           if(piece.getOccupyStatus() == HexagonOccupationStatus.Totoro){
+               return true;
+           }
+        }
         return false;
     }
 
