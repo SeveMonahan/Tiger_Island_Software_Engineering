@@ -4,7 +4,9 @@ public class Totoro extends Piece {
 
     private final int points = 200;
 
-    private HexagonOccupationStatus occupyStatus = HexagonOccupationStatus.Totoro;
+    public HexagonOccupationStatus getOccupyStatus(){
+        return HexagonOccupationStatus.Totoro;
+    }
 
     Totoro( Color color ) {
         super(color);
