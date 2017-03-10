@@ -1,4 +1,3 @@
-import org.junit.Assert;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
@@ -13,7 +12,7 @@ public class TotoroTest {
     @Test
     public void totoroShouldStopTilePlacement() {
         Board board = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
-        assertEquals(true, board.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE), DirectionsHex.RIGHT, new Coordinate(100,101)));
+        assertEquals(true, board.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(100,101)));
         Hexagon hexagon = board.getHexagon(new Coordinate(101,100));
 
         Player player = new Player(Color.WHITE);
@@ -21,7 +20,7 @@ public class TotoroTest {
 
         assertEquals(true, player.attemptToPlacePiece(newTotoro, hexagon));
 
-        boolean isValidMove = board.placeTile(new Tile(Terrain.ROCK, Terrain.ROCK), DirectionsHex.LOWERRIGHT, new Coordinate(100,101));
+        boolean isValidMove = board.placeTile(new Tile(Terrain.ROCK, Terrain.ROCK), HexagonNeighborDirection.LOWERRIGHT, new Coordinate(100,101));
 
         assertEquals(false, isValidMove);
     }

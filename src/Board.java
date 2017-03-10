@@ -23,7 +23,7 @@ class Board {
     // more tiles.
     Board(Tile first_tile){
         initializeHexagonArray();
-        placeTileNoRestrictions(first_tile, DirectionsHex.LEFT, new Coordinate(100,100));
+        placeTileNoRestrictions(first_tile, HexagonNeighborDirection.LEFT, new Coordinate(100,100));
     }
 
     private void initializeHexagonArray() {
@@ -41,7 +41,7 @@ class Board {
     // The parameter direction is where to place the first tile going clockwise on the tile,
     // relative the the volcano tile (which is placed by x and y). The last tile is placed
     // one direction more clockwise relative to the volcano then the first non-volcano one.
-    public void placeTileNoRestrictions(Tile tile, DirectionsHex direction, Coordinate coordinate){
+    public void placeTileNoRestrictions(Tile tile, HexagonNeighborDirection direction, Coordinate coordinate){
         hexagonArray[coordinate.getX()][coordinate.getY()].changeTerrainTypeThoughExplosion(Terrain.VOLCANO);
 
         Hexagon overwritten_2 = getHexagonNeighbor(coordinate, direction);
@@ -64,7 +64,7 @@ class Board {
     }
 
     // place a tile, abiding by all game rules.
-    public boolean placeTile(Tile tile, DirectionsHex direction, Coordinate coordinate) {
+    public boolean placeTile(Tile tile, HexagonNeighborDirection direction, Coordinate coordinate) {
 
         if (totoroIsInTheWay(tile, direction, coordinate)) {
             return false;
@@ -88,7 +88,7 @@ class Board {
     }
 
     //If all 3 spots are equal level there can be no overhang when placing a tile on these spots
-    private boolean areAll3SpotsEqualLevels(DirectionsHex direction, Coordinate coordinate){
+    private boolean areAll3SpotsEqualLevels(HexagonNeighborDirection direction, Coordinate coordinate){
         Hexagon hexagonNeighbor1 = getHexagonNeighbor(coordinate, direction);
         Hexagon hexagonNeighbor2 = getHexagonNeighbor(coordinate, direction.getNextClockwise());
         if(hexagonArray[coordinate.getX()][coordinate.getY()].getLevel() == hexagonNeighbor1.getLevel()
@@ -102,7 +102,7 @@ class Board {
     }
 
     // Checks whether all 3 potential spots are level 0 and if one of them has an adjacent level 1+ Hexagon.
-    private boolean areAll3SpotsLevel0AndAdjacentToNonemptyBoard(DirectionsHex direction, Coordinate coordinate) {
+    private boolean areAll3SpotsLevel0AndAdjacentToNonemptyBoard(HexagonNeighborDirection direction, Coordinate coordinate) {
         Coordinate volcanoNeighbor1Coordinate = getHexagonNeighborCoordinate(coordinate, direction);
         Coordinate volcanoNeighbor2Coordinate = getHexagonNeighborCoordinate(coordinate, direction.getNextClockwise());
         boolean found_attach_point = false;
@@ -144,9 +144,9 @@ class Board {
 
     // TODO: Here we shouldn't be checking if a Totoro is in the way... instead we should have a
     // function that checks "isPieceInWay" which refers to the Piece canThisBeKilled function call
-    private boolean totoroIsInTheWay(Tile tile, DirectionsHex direction, Coordinate coordinate) {
+    private boolean totoroIsInTheWay(Tile tile, HexagonNeighborDirection direction, Coordinate coordinate) {
         Hexagon firstChild = getHexagonNeighbor(coordinate, direction);
-        DirectionsHex newDirection = direction.getNextClockwise();
+        HexagonNeighborDirection newDirection = direction.getNextClockwise();
         Hexagon secondChild = getHexagonNeighbor(coordinate, newDirection);
 
         if (firstChild.containsTotoro() || secondChild.containsTotoro()) {
@@ -161,7 +161,7 @@ class Board {
 
         int i = 0;
 
-        for(DirectionsHex direction : DirectionsHex.values()) {
+        for(HexagonNeighborDirection direction : HexagonNeighborDirection.values()) {
             neighbors[i] = getHexagonNeighbor(coordinate, direction);
             i++;
         }
@@ -169,12 +169,12 @@ class Board {
         return neighbors;
     }
 
-    private Hexagon getHexagonNeighbor(Coordinate coordinate, DirectionsHex direction){
+    private Hexagon getHexagonNeighbor(Coordinate coordinate, HexagonNeighborDirection direction){
         Coordinate neighborCoordinate = getHexagonNeighborCoordinate(coordinate, direction);
         return getHexagon(neighborCoordinate);
     }
 
-    public Coordinate getHexagonNeighborCoordinate(Coordinate coordinate, DirectionsHex direction){
+    public Coordinate getHexagonNeighborCoordinate(Coordinate coordinate, HexagonNeighborDirection direction){
         switch(direction){
 
             case LEFT:
@@ -203,11 +203,11 @@ class Board {
         }
     }
 
-    public boolean doesTileTotallyOverlapTileBelowIt(DirectionsHex directionsHex, Coordinate coordinate) {
+    public boolean doesTileTotallyOverlapTileBelowIt(HexagonNeighborDirection hexagonNeighborDirection, Coordinate coordinate) {
 
         Hexagon overwritten_1 = hexagonArray[coordinate.getX()][coordinate.getY()];
-        Hexagon overwritten_2 = getHexagonNeighbor(coordinate, directionsHex);
-        Hexagon overwritten_3 = getHexagonNeighbor(coordinate, directionsHex.getNextClockwise());
+        Hexagon overwritten_2 = getHexagonNeighbor(coordinate, hexagonNeighborDirection);
+        Hexagon overwritten_3 = getHexagonNeighbor(coordinate, hexagonNeighborDirection.getNextClockwise());
 
         if( (overwritten_1.tileHashCode != overwritten_2.tileHashCode && overwritten_1.tileHashCode == overwritten_3.tileHashCode)
                 || (overwritten_1.tileHashCode != overwritten_3.tileHashCode && overwritten_1.tileHashCode == overwritten_2.tileHashCode)

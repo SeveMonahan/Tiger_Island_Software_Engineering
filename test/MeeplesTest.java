@@ -1,4 +1,3 @@
-import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
@@ -25,7 +24,7 @@ public class MeeplesTest {
     @Test
     public void placeMeepleOnLevelOne() throws Exception {
         Board board = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
-        Coordinate coordinate = board.getHexagonNeighborCoordinate(new Coordinate(100,100), DirectionsHex.LEFT);
+        Coordinate coordinate = board.getHexagonNeighborCoordinate(new Coordinate(100,100), HexagonNeighborDirection.LEFT);
         Hexagon hexagon = board.getHexagon(coordinate);
         Player player = new Player(Color.WHITE);
         Piece newMeeple = new Meeple(Color.WHITE);
@@ -40,8 +39,8 @@ public class MeeplesTest {
     @Test
     public void placeMeepleOnLevelTwo() throws Exception {
         Board board = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
-        board.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE), DirectionsHex.RIGHT, new Coordinate(100,101));
-        board.placeTile(new Tile(Terrain.ROCK, Terrain.ROCK), DirectionsHex.LOWERRIGHT, new Coordinate(100,101));
+        board.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(100,101));
+        board.placeTile(new Tile(Terrain.ROCK, Terrain.ROCK), HexagonNeighborDirection.LOWERRIGHT, new Coordinate(100,101));
         Hexagon hexagon = board.getHexagon(new Coordinate(100, 100));
         Player player = new Player(Color.WHITE);
         Piece newMeeple = new Meeple(Color.WHITE);
@@ -69,7 +68,7 @@ public class MeeplesTest {
     @Test
     public void meeplesShouldBeEliminatedWhenNuked() throws Exception {
         Board board = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
-        board.placeTile(new Tile(Terrain.JUNGLE, Terrain.ROCK), DirectionsHex.LOWERLEFT, new Coordinate(98,101));
+        board.placeTile(new Tile(Terrain.JUNGLE, Terrain.ROCK), HexagonNeighborDirection.LOWERLEFT, new Coordinate(98,101));
         Hexagon hexagonOne = board.getHexagon(new Coordinate(99,101));
         Hexagon hexagonTwo = board.getHexagon(new Coordinate(99,100));
         Player player = new Player(Color.WHITE);
@@ -79,7 +78,7 @@ public class MeeplesTest {
         player.attemptToPlacePiece(newMeeple, hexagonOne);
         player.attemptToPlacePiece(newMeeple2, hexagonTwo);
 
-        board.placeTile(new Tile(Terrain.JUNGLE, Terrain.JUNGLE), DirectionsHex.RIGHT, new Coordinate(98,101));
+        board.placeTile(new Tile(Terrain.JUNGLE, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(98,101));
 
         // Assert.assertTrue(hexagonOne.getPieces().size() , 0);
         // Assert.assertTrue(hexagonTwo.getPieces().size() , 0);

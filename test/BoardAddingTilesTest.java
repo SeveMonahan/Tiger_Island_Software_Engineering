@@ -12,7 +12,7 @@ public class BoardAddingTilesTest {
     public void placeTileNoRestrictions() {
         Board TestBoard = new Board();
         TestBoard.placeTileNoRestrictions(new Tile(Terrain.BEACH, Terrain.GRASS),
-                                            DirectionsHex.LEFT, new Coordinate(100,100));
+                                            HexagonNeighborDirection.LEFT, new Coordinate(100,100));
 
         Coordinate TestCoordinate1 = new Coordinate(100,100);
         Coordinate TestCoordinate2 = new Coordinate(99,100);
@@ -61,7 +61,7 @@ public class BoardAddingTilesTest {
         Coordinate TestCoordinate3 = new Coordinate(97,100);
 
        boolean success = TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE),
-               DirectionsHex.LOWERLEFT, new Coordinate(98,100));
+               HexagonNeighborDirection.LOWERLEFT, new Coordinate(98,100));
 
         assertEquals(Terrain.VOLCANO, TestBoard.getHexagon(TestCoordinate1).getTerrain());
 
@@ -87,7 +87,7 @@ public class BoardAddingTilesTest {
         Coordinate TestCoordinate3 = new Coordinate(97,50);
 
         boolean success = TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE),
-                DirectionsHex.LOWERLEFT, new Coordinate(98,50));
+                HexagonNeighborDirection.LOWERLEFT, new Coordinate(98,50));
 
         assertEquals(Terrain.EMPTY, TestBoard.getHexagon(TestCoordinate1).getTerrain());
 
@@ -107,9 +107,9 @@ public class BoardAddingTilesTest {
     @Test
     public void overwriteLevel1Hex(){
         Board TestBoard = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
-        TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE), DirectionsHex.RIGHT, new Coordinate(100,101));
+        TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(100,101));
 
-        boolean isSuccess = TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.BEACH), DirectionsHex.UPPERLEFT, new Coordinate(100,100));
+        boolean isSuccess = TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.BEACH), HexagonNeighborDirection.UPPERLEFT, new Coordinate(100,100));
         assertEquals(true, isSuccess);
 
         Hexagon newVolcano = TestBoard.getHexagon(new Coordinate(100,100));
@@ -133,18 +133,18 @@ public class BoardAddingTilesTest {
     @Test
     public void overwriteLevel1HexFailDueToOverhang(){
         Board TestBoard = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
-        TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE), DirectionsHex.RIGHT, new Coordinate(100,101));
+        TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(100,101));
 
-        boolean isSuccess = TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.BEACH), DirectionsHex.RIGHT, new Coordinate(100,100));
+        boolean isSuccess = TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.BEACH), HexagonNeighborDirection.RIGHT, new Coordinate(100,100));
         assertEquals(false, isSuccess);
     }
 
     @Test
     public void overwriteLevel1HexFailDueToVolcanoMismatch(){
         Board TestBoard = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
-        TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE), DirectionsHex.RIGHT, new Coordinate(97,101));
+        TestBoard.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(97,101));
 
-        boolean isSuccess = TestBoard.placeTile(new Tile(Terrain.BEACH, Terrain.ROCK), DirectionsHex.UPPERRIGHT, new Coordinate(98,100));
+        boolean isSuccess = TestBoard.placeTile(new Tile(Terrain.BEACH, Terrain.ROCK), HexagonNeighborDirection.UPPERRIGHT, new Coordinate(98,100));
 
         assertEquals(false, isSuccess);
     }
@@ -154,7 +154,7 @@ public class BoardAddingTilesTest {
         Tile testTile = new Tile(Terrain.BEACH, Terrain.GRASS);
         Board testBoard = new Board( testTile );
 
-        boolean isSuccess = testBoard.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE), DirectionsHex.LEFT, new Coordinate(100,100));
+        boolean isSuccess = testBoard.placeTile(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.LEFT, new Coordinate(100,100));
 
         assertEquals(false, isSuccess);
     }

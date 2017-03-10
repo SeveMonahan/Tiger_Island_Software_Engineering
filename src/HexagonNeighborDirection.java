@@ -1,4 +1,4 @@
-public enum DirectionsHex {
+public enum HexagonNeighborDirection {
     UPPERLEFT,
     UPPERRIGHT,
     LEFT,
@@ -6,7 +6,7 @@ public enum DirectionsHex {
     LOWERLEFT,
     LOWERRIGHT;
 
-    DirectionsHex getNextClockwise(){
+    HexagonNeighborDirection getNextClockwise(){
         switch(this) {
             case UPPERLEFT:
                 return UPPERRIGHT;
@@ -23,6 +23,6 @@ public enum DirectionsHex {
         }
 
         // Error result
-        return DirectionsHex.LEFT;
+        return HexagonNeighborDirection.LEFT;
     }
 }
