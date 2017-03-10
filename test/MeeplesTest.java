@@ -19,7 +19,6 @@ public class MeeplesTest {
 
         assertEquals(0, player.getScore());
         assertEquals(20, player.getMeeplesCount());
-        assertEquals(0, hexagon.getPieces().size());
         assertEquals(0 , hexagon.getPopulation());
     }
 
