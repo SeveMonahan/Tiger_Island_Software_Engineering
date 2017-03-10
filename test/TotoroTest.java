@@ -1,11 +1,13 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertEquals;
+
 public class TotoroTest {
     @Test
     public void shouldInitializeToThreeTotoro() {
         Player player = new Player(Color.WHITE);
-        Assert.assertTrue(player.getTotoroCount() == 3);
+        assertEquals(player.getTotoroCount(), 3);
     }
     /*
     @Test

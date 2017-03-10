@@ -18,7 +18,7 @@ public class MeeplesTest {
         Player player = new Player(Color.BLACK);
         Piece newMeeple = new Meeple(Color.BLACK);
         player.attemptToPlacePiece(newMeeple, hexagon);
-        Assert.assertTrue( hexagon.getOccupationStatus() == HexagonOccupationStatus.Meeples );
+        assertEquals( hexagon.getOccupationStatus() , HexagonOccupationStatus.Meeples );
     }
     */
 
@@ -30,8 +30,8 @@ public class MeeplesTest {
         Player player = new Player(Color.WHITE);
         Piece newTotoro = new Totoro(Color.WHITE);
         player.attemptToPlacePiece(newTotoro, hexagon);
-        // Assert.assertTrue(hexagon.getPieces().get(0).getPieceColor() == Color.WHITE);
-        Assert.assertTrue(hexagon.getOccupationStatus() == HexagonOccupationStatus.Totoro);
+        // assertEquals(hexagon.getPieces().get(0).getPieceColor() , Color.WHITE);
+        assertEquals(hexagon.getOccupationStatus() , HexagonOccupationStatus.Totoro);
     }
     */
 
@@ -42,10 +42,10 @@ public class MeeplesTest {
         Piece newMeeple = new Meeple(Color.WHITE);
         player.attemptToPlacePiece(newMeeple, hexagon);
 
-        Assert.assertTrue(player.getScore() == 0);
-        Assert.assertTrue(player.getMeeplesCount() == 20);
-        Assert.assertTrue(hexagon.getPieces().size() == 0);
-        Assert.assertTrue( hexagon.getPopulation() == 0 );
+        assertEquals(player.getScore() , 0);
+        assertEquals(player.getMeeplesCount() , 20);
+        assertEquals(hexagon.getPieces().size() , 0);
+        assertEquals(hexagon.getPopulation() , 0 );
     }
 
     @Test
@@ -58,9 +58,9 @@ public class MeeplesTest {
 
         player.attemptToPlacePiece(newMeeple, hexagon);
 
-        Assert.assertTrue(player.getScore() == 1);
-        Assert.assertTrue(player.getMeeplesCount() == 19);
-        Assert.assertTrue( hexagon.getPopulation() == 1);
+        assertEquals(player.getScore() , 1);
+        assertEquals(player.getMeeplesCount() , 19);
+        assertEquals(hexagon.getPopulation() , 1);
     }
 
     @Test
@@ -73,9 +73,9 @@ public class MeeplesTest {
         Piece newMeeple = new Meeple(Color.WHITE);
         player.attemptToPlacePiece(newMeeple, hexagon);
 
-        Assert.assertTrue(player.getMeeplesCount() == 18);
-        Assert.assertTrue(player.getScore() == 4);
-        Assert.assertTrue( hexagon.getPopulation() == 2);
+        assertEquals(player.getMeeplesCount() , 18);
+        assertEquals(player.getScore() , 4);
+        assertEquals(hexagon.getPopulation() , 2);
     }
 
     /*
@@ -88,9 +88,9 @@ public class MeeplesTest {
 
         player.attemptToPlacePiece(newMeeple, hexagon);
 
-        Assert.assertTrue(player.getScore() == 0);
-        Assert.assertTrue(player.getMeeplesCount() == 20);
-        Assert.assertTrue( hexagon.getPopulation() == 0 );
+        assertEquals(player.getScore() , 0);
+        assertEquals(player.getMeeplesCount() , 20);
+        assertEquals( hexagon.getPopulation() , 0 );
     }
     */
 
@@ -109,11 +109,11 @@ public class MeeplesTest {
 
         board.placeTile(new Tile(Terrain.JUNGLE, Terrain.JUNGLE), DirectionsHex.RIGHT, new Coordinate(98,101));
 
-        // Assert.assertTrue(hexagonOne.getPieces().size() == 0);
-        // Assert.assertTrue(hexagonTwo.getPieces().size() == 0);
-        Assert.assertTrue( hexagonOne.getPopulation() == 0);
-        Assert.assertTrue( hexagonTwo.getPopulation() == 0);
-        Assert.assertTrue(player.getMeeplesCount() == 18);
-        Assert.assertTrue(player.getScore() == 2);
+        // Assert.assertTrue(hexagonOne.getPieces().size() , 0);
+        // Assert.assertTrue(hexagonTwo.getPieces().size() , 0);
+        assertEquals(hexagonOne.getPopulation() , 0);
+        assertEquals(hexagonTwo.getPopulation() , 0);
+        assertEquals(player.getMeeplesCount() , 18);
+        assertEquals(player.getScore() , 2);
     }
 }

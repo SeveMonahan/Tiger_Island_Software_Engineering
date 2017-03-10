@@ -17,7 +17,7 @@ public class EndGameConditionsTest {
         game.player1.setScore(4);
         game.endGameConditions();
 
-        assert( game.player1.equals( game.winner ));
+        assertEquals(game.player1, game.winner);
     }
 
     @Test
@@ -28,7 +28,7 @@ public class EndGameConditionsTest {
 
         game.endGameConditions();
 
-        assert( game.player2.equals( game.winner ));
+        assertEquals(game.player2, game.winner);
 
     }
 }
