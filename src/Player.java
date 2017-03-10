@@ -98,8 +98,9 @@ public class Player {
     }
 
     public void turnSwitch(Player opponent){
-        this.setTurn(false);
-        opponent.setTurn(true);
+        boolean p1 = this.getTurn();
+        this.setTurn(!p1);
+        opponent.setTurn(p1);
     }
 
     public boolean canDrawFrom(TileBag tileBag){
