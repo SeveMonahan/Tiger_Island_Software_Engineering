@@ -37,10 +37,6 @@ class Hexagon {
         population += byPopulationOf;
     }
 
-    void decreasePopulation(int byPopulationOf){
-        population -= byPopulationOf;
-    }
-
     int getPopulation(){
         return this.population;
     }

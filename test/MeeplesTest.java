@@ -77,19 +77,4 @@ public class MeeplesTest {
 
     }
 
-    @Test
-    public void nukeTest() throws Exception {
-        Hexagon TestHexagon = new Hexagon();
-        TestHexagon.changeTerrainTypeThoughExplosion(Terrain.BEACH);
-
-        Meeples myMeeples = new Meeples();
-        Player myPlayer = new Player(myMeeples);
-        myMeeples.populateHex(TestHexagon);
-
-        myMeeples.beforeNewLevel(TestHexagon,Terrain.BEACH);
-
-        assertEquals(2, TestHexagon.getPopulation());
-
-    }
-
 }
