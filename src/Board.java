@@ -66,21 +66,24 @@ class Board {
     // place a tile, abiding by all game rules.
     public boolean placeTile(Tile tile, HexagonNeighborDirection direction, Coordinate coordinate) {
 
+        if(!areAll3SpotsEqualLevels(direction, coordinate)){
+            return false;
+        }
+
+        if(areAll3SpotsLevel0AndAdjacentToNonemptyBoard(direction, coordinate)){
+            placeTileNoRestrictions(tile, direction, coordinate);
+            return true;
+        }
+
         if (totoroIsInTheWay(tile, direction, coordinate)) {
             return false;
         }
 
-        if(areAll3SpotsEqualLevels(direction, coordinate)){
-            if(areAll3SpotsLevel0AndAdjacentToNonemptyBoard(direction, coordinate)){
+        if(isHexagonGreaterThanLevel0AndAdjacentToEqualLevel(coordinate) &&
+                !doesTileTotallyOverlapTileBelowIt(direction, coordinate) ){
+            if(hexagonArray[coordinate.getX()][coordinate.getY()].getTerrain() == Terrain.VOLCANO){
                 placeTileNoRestrictions(tile, direction, coordinate);
                 return true;
-            }
-            else if(isHexagonGreaterThanLevel0AndAdjacentToEqualLevel(coordinate) &&
-                    !doesTileTotallyOverlapTileBelowIt(direction, coordinate) ){
-                if(hexagonArray[coordinate.getX()][coordinate.getY()].getTerrain() == Terrain.VOLCANO){
-                    placeTileNoRestrictions(tile, direction, coordinate);
-                    return true;
-                }
             }
         }
 
