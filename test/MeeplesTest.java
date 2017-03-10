@@ -9,6 +9,22 @@ public class MeeplesTest {
         assertEquals(20, player.getMeeplesCount());
     }
     @Test
+    public void placedMeepleShouldBePlayerColor() throws Exception {
+        Board board = new Board(new Tile(Terrain.GRASS, Terrain.GRASS));
+        Hexagon hexagon = board.getHexagon(new Coordinate(99,100));
+        Player player = new Player(Color.BLACK);
+        player.placeMeepleOnHexagon(hexagon);
+        Assert.assertTrue(hexagon.getPieces().get(0).getPieceColor() == Color.BLACK);
+    }
+    @Test
+    public void placedTotoroShouldBePlayerColor() throws Exception {
+        Board board = new Board(new Tile(Terrain.GRASS, Terrain.GRASS));
+        Hexagon hexagon = board.getHexagon(new Coordinate(99,100));
+        Player player = new Player(Color.WHITE);
+        player.placeTotoroOnHexagon(hexagon);
+        Assert.assertTrue(hexagon.getPieces().get(0).getPieceColor() == Color.WHITE);
+    }
+    @Test
     public void placeMeepleOnLevelZero() throws Exception {
         Hexagon hexagon = new Hexagon();
         Player player = new Player(Color.WHITE);
