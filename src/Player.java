@@ -91,7 +91,7 @@ public class Player {
     }
 
     public boolean isTurn() {
-        if(turn == true)
+        if(turn)
             return turn;
         else return false;
     }
@@ -103,10 +103,8 @@ public class Player {
     }
 
     public boolean canDrawFrom(TileBag tileBag){
-        if(turn == true){
+        if(turn)
             return true;
-        }
-        else
-            return false;
+        else return false;
     }
 }
