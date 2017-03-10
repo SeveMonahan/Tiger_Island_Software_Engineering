@@ -193,8 +193,8 @@ class Board {
         return new Coordinate(0, 0);
     }
 
-    private int offset(int x){
-        if(x % 2 == 1) {
+    private int offset(int y){
+        if(y % 2 == 1) {
             return 1;
         }else{
             return 0;
