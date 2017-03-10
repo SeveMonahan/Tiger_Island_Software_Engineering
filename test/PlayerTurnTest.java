@@ -16,4 +16,12 @@ public class PlayerTurnTest {
         assertEquals(true, player1.getTurn());
         assertEquals(false, player2.getTurn());
     }
+
+    @Test
+    public void canDrawFromTest() throws Exception {
+        TileBag testBag = new TileBag();
+        Player player1 = new Player(Color.BLACK, true);
+        assertEquals(true, player1.canDrawFrom(testBag));
+    }
+
 }
