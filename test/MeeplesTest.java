@@ -2,9 +2,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by jayC on 3/8/17.
- */
 public class MeeplesTest {
     @Test
     public void shouldInitializeToTwentyMeeples() throws Exception {
