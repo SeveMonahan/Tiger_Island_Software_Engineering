@@ -39,15 +39,12 @@ public class Player {
     public void setTurn(boolean turn){this.turn = turn;}
 
     public boolean hexIsVolcano(Hexagon hexagon){
-        if (hexagon.getTerrain() == Terrain.VOLCANO)
-            return true;
-        else return false;
+        return (hexagon.getTerrain() == Terrain.VOLCANO);
     }
 
     public boolean hexDoesntExist(Hexagon hexagon){
-        if(hexagon.getLevel() == 0)
-            return true;
-        else return false;
+        return hexagon.getLevel() == 0;
+
     }
 
     public boolean placementIsValidOnHexagon(Hexagon hexagon) {
