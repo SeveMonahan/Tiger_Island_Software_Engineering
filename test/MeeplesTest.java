@@ -10,31 +10,6 @@ public class MeeplesTest {
         assertEquals(20, player.getMeeplesCount());
     }
 
-    /*
-    @Test
-    public void placedMeepleShouldBePlayerColor() throws Exception {
-        Board board = new Board(new Tile(Terrain.GRASS, Terrain.GRASS));
-        Hexagon hexagon = board.getHexagon(new Coordinate(99,100));
-        Player player = new Player(Color.BLACK);
-        Piece newMeeple = new Meeple(Color.BLACK);
-        player.attemptToPlacePiece(newMeeple, hexagon);
-        assertEquals(HexagonOccupationStatus.Meeples, hexagon.getOccupationStatus());
-    }
-    */
-
-    /*
-    @Test
-    public void placedTotoroShouldBePlayerColor() throws Exception {
-        Board board = new Board(new Tile(Terrain.GRASS, Terrain.GRASS));
-        Hexagon hexagon = board.getHexagon(new Coordinate(99,100));
-        Player player = new Player(Color.WHITE);
-        Piece newTotoro = new Totoro(Color.WHITE);
-        player.attemptToPlacePiece(newTotoro, hexagon);
-        // assertEquals(Color.WHITE, hexagon.getPieces().get(0).getPieceColor());
-        assertEquals(HexagonOccupationStatus.Totoro, hexagon.getOccupationStatus());
-    }
-    */
-
     @Test
     public void placeMeepleOnLevelZero() throws Exception {
         Hexagon hexagon = new Hexagon();
