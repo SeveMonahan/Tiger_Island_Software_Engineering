@@ -64,8 +64,11 @@ class Board {
     }
 
     // place a tile, abiding by all game rules.
-    // Unfinished as of 3/7/2017
     public boolean placeTile(Tile tile, DirectionsHex direction, Coordinate coordinate) {
+
+        if (totoroIsInTheWay(tile, direction, coordinate)) {
+            return false;
+        }
 
         if(areAll3SpotsEqualLevels(direction, coordinate)){
             if(areAll3SpotsLevel0AndAdjacentToNonemptyBoard(direction, coordinate)){
@@ -75,10 +78,8 @@ class Board {
             else if(isHexagonGreaterThanLevel0AndAdjacentToEqualLevel(coordinate) &&
                     !doesTileTotallyOverlapTileBelowIt(direction, coordinate) ){
                 if(hexagonArray[coordinate.getX()][coordinate.getY()].getTerrain() == Terrain.VOLCANO){
-                    if (!totoroIsInTheWay(tile, direction, coordinate)) {
-                        placeTileNoRestrictions(tile, direction, coordinate);
-                        return true;
-                    }
+                    placeTileNoRestrictions(tile, direction, coordinate);
+                    return true;
                 }
             }
         }
@@ -144,14 +145,15 @@ class Board {
     // TODO: Here we shouldn't be checking if a Totoro is in the way... instead we should have a
     // function that checks "isPieceInWay" which refers to the Piece canThisBeKilled function call
     private boolean totoroIsInTheWay(Tile tile, DirectionsHex direction, Coordinate coordinate) {
-        boolean totoroIsInTheWay = false;
         Hexagon firstChild = getHexagonNeighbor(coordinate, direction);
         DirectionsHex newDirection = direction.getNextClockwise();
         Hexagon secondChild = getHexagonNeighbor(coordinate, newDirection);
+
         if (firstChild.containsTotoro() || secondChild.containsTotoro()) {
-            totoroIsInTheWay = true;
+            return true;
         }
-        return totoroIsInTheWay;
+
+        return false;
     }
 
     Hexagon[] getNeighbors(Coordinate coordinate){
