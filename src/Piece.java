@@ -1,12 +1,31 @@
 public class Piece {
+
     private PieceType type;
     private Color color;
+    private boolean canBeKilled;
+    private int points;
+    private HexagonOccupationStatus occupyStatus;
 
-    Piece(PieceType type, Color color) {
-        this.type = type;
+    Piece(Color color) {
+        // this.type = type;
         this.color = color;
     }
 
-    PieceType getPieceType() { return type; }
+    public HexagonOccupationStatus getOccupyStatus() {
+        return occupyStatus;
+    }
+
+    public boolean canThisBeKilled() {
+        return this.canBeKilled;
+    }
+
     Color getPieceColor() { return color; }
+
+    public int getPointsAfterPlacement(Hexagon occupiedHexagon) {
+        return points;
+    }
+
+    public int populationRequirements(Hexagon hexagonYouWishToOccupy) {
+        return 0;
+    }
 }
