@@ -14,7 +14,7 @@ public class Game {
         return playerWhoseTurn;
     }
 
-    public void changTurn(Player player){
+    public void changeTurn(){
         if(playerWhoseTurn == player1)
             playerWhoseTurn = player2;
         else
