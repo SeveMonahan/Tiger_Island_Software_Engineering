@@ -15,18 +15,18 @@ class Board {
     }
 
     Board(){
-        initalizeHexagonArray();
+        initializeHexagonArray();
     }
 
     // The first tile placement is arbitary, so we just put it in the center of the board.
     // Note that you must use this initalizer if you want to use placeTile() to place any
     // more tiles.
     Board(Tile first_tile){
-        initalizeHexagonArray();
+        initializeHexagonArray();
         placeTileNoRestrictions(first_tile, DirectionsHex.LEFT, new Coordinate(100,100));
     }
 
-    private void initalizeHexagonArray() {
+    private void initializeHexagonArray() {
         hexagonArray = new Hexagon[200][200];
         for(int i = 0; i < 200; i++) {
             for(int j = 0; j < 200; j++) {
@@ -50,9 +50,11 @@ class Board {
 
         overwritten_2.changeTerrainTypeThoughExplosion(
                 tile.getTerrainsClockwiseFromVolcano()[1]);
+        overwritten_2.eliminatePieces();
 
         overwritten_3.changeTerrainTypeThoughExplosion(
                 tile.getTerrainsClockwiseFromVolcano()[2]);
+        overwritten_3.eliminatePieces();
 
         // Setting the instance variables to all be the same
         overwritten_2.tileHashCode = tile.hashCode();
@@ -73,8 +75,10 @@ class Board {
             else if(isHexagonGreaterThanLevel0AndAdjacentToEqualLevel(coordinate) &&
                     !doesTileTotallyOverlapTileBelowIt(direction, coordinate) ){
                 if(hexagonArray[coordinate.getX()][coordinate.getY()].getTerrain() == Terrain.VOLCANO){
-                    placeTileNoRestrictions(tile, direction, coordinate);
-                    return true;
+                    if (!totoroIsInTheWay(tile, direction, coordinate)) {
+                        placeTileNoRestrictions(tile, direction, coordinate);
+                        return true;
+                    }
                 }
             }
         }
@@ -135,6 +139,17 @@ class Board {
             }
         }
         return found_attach_point;
+    }
+
+    private boolean totoroIsInTheWay(Tile tile, DirectionsHex direction, Coordinate coordinate) {
+        boolean totoroIsInTheWay = false;
+        Hexagon firstChild = getHexagonNeighbor(coordinate, direction);
+        DirectionsHex newDirection = direction.getNextClockwise();
+        Hexagon secondChild = getHexagonNeighbor(coordinate, newDirection);
+        if (firstChild.containsTotoro() || secondChild.containsTotoro()) {
+            totoroIsInTheWay = true;
+        }
+        return totoroIsInTheWay;
     }
 
     Hexagon[] getNeighbors(Coordinate coordinate){
