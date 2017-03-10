@@ -64,25 +64,25 @@ class Board {
     }
 
     // place a tile, abiding by all game rules.
-    public boolean placeTile(Tile tile, HexagonNeighborDirection direction, Coordinate coordinate) {
+    public boolean placeTile(TileMove tileMove) {
 
-        if(!areAll3SpotsEqualLevels(direction, coordinate)){
+        if(!areAll3SpotsEqualLevels(tileMove.getDirection(), tileMove.getCoordinate())){
             return false;
         }
 
-        if(areAll3SpotsLevel0AndAdjacentToNonemptyBoard(direction, coordinate)){
-            placeTileNoRestrictions(tile, direction, coordinate);
+        if(areAll3SpotsLevel0AndAdjacentToNonemptyBoard(tileMove.getDirection(), tileMove.getCoordinate())){
+            placeTileNoRestrictions(tileMove.getTile(), tileMove.getDirection(), tileMove.getCoordinate());
             return true;
         }
 
-        if (totoroIsInTheWay(tile, direction, coordinate)) {
+        if (totoroIsInTheWay(tileMove.getTile(), tileMove.getDirection(), tileMove.getCoordinate())) {
             return false;
         }
 
-        if(isHexagonGreaterThanLevel0AndAdjacentToEqualLevel(coordinate) &&
-                !doesTileTotallyOverlapTileBelowIt(direction, coordinate) ){
-            if(hexagonArray[coordinate.getX()][coordinate.getY()].getTerrain() == Terrain.VOLCANO){
-                placeTileNoRestrictions(tile, direction, coordinate);
+        if(isHexagonGreaterThanLevel0AndAdjacentToEqualLevel(tileMove.getCoordinate()) &&
+                !doesTileTotallyOverlapTileBelowIt(tileMove.getDirection(), tileMove.getCoordinate()) ){
+            if(hexagonArray[tileMove.getCoordinate().getX()][tileMove.getCoordinate().getY()].getTerrain() == Terrain.VOLCANO){
+                placeTileNoRestrictions(tileMove.getTile(), tileMove.getDirection(), tileMove.getCoordinate());
                 return true;
             }
         }
