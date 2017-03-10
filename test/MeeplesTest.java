@@ -10,6 +10,7 @@ public class MeeplesTest {
         assertEquals(20, player.getMeeplesCount());
     }
 
+    /*
     @Test
     public void placedMeepleShouldBePlayerColor() throws Exception {
         Board board = new Board(new Tile(Terrain.GRASS, Terrain.GRASS));
@@ -19,7 +20,9 @@ public class MeeplesTest {
         player.attemptToPlacePiece(newMeeple, hexagon);
         Assert.assertTrue( hexagon.getOccupationStatus() == HexagonOccupationStatus.Meeples );
     }
+    */
 
+    /*
     @Test
     public void placedTotoroShouldBePlayerColor() throws Exception {
         Board board = new Board(new Tile(Terrain.GRASS, Terrain.GRASS));
@@ -30,6 +33,7 @@ public class MeeplesTest {
         // Assert.assertTrue(hexagon.getPieces().get(0).getPieceColor() == Color.WHITE);
         Assert.assertTrue(hexagon.getOccupationStatus() == HexagonOccupationStatus.Totoro);
     }
+    */
 
     @Test
     public void placeMeepleOnLevelZero() throws Exception {
@@ -74,6 +78,7 @@ public class MeeplesTest {
         Assert.assertTrue( hexagon.getPopulation() == 2);
     }
 
+    /*
     @Test
     public void volcanoShouldPreventMeeplePlacement() throws Exception {
         Board board = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
@@ -87,6 +92,7 @@ public class MeeplesTest {
         Assert.assertTrue(player.getMeeplesCount() == 20);
         Assert.assertTrue( hexagon.getPopulation() == 0 );
     }
+    */
 
     @Test
     public void meeplesShouldBeEliminatedWhenNuked() throws Exception {

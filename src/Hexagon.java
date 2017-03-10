@@ -51,18 +51,9 @@ class Hexagon {
 
     //TODO need to replace below function with something more polymorphic... e.g. canPieceBeKilled
     //TODO you can use the canThisBeKilled() function in Piece to check this
-
-/*
     boolean containsTotoro() {
-        boolean containsTotoro = false;
-        if (this.getPieces().size() != 0) {
-            if (this.getPieces().get(0).getPieceType() == PieceType.TOTORO) {
-                containsTotoro = true;
-            }
-        }
-        return containsTotoro;
+        return false;
     }
-*/
 
     int getPopulation(){
         return this.population;
@@ -73,4 +64,5 @@ class Hexagon {
         occupationStatus = HexagonOccupationStatus.empty;
         population = 0;
     }
+
 }

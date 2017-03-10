@@ -25,6 +25,7 @@ public class HexagonTest {
         assertEquals(true, TestHexagon.isVolcanoHex());
     }
 
+    /*
     @Test
     public void populationTest() throws Exception {
         Hexagon TestHexagon = new Hexagon();
@@ -32,4 +33,5 @@ public class HexagonTest {
         TestHexagon.increasePopulation(2);
         assertEquals(2, TestHexagon.getPopulation());
     }
+    */
 }
