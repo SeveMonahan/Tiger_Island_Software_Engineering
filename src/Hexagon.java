@@ -13,11 +13,20 @@ class Hexagon {
         terrain = Terrain.EMPTY;
         pieces = new ArrayList<Piece>();
     }
+    private void incrementLevel(){
+        level++;
+    }
 
     int getLevel(){
         return level;
     }
-
+    int getPopulation(){
+        return this.population;
+    }
+    Terrain getTerrain(){
+        return terrain;
+    }
+    ArrayList<Piece> getPieces() { return pieces; }
     public HexagonOccupationStatus getOccupationStatus() {
         return occupationStatus;
     }
@@ -26,16 +35,6 @@ class Hexagon {
         occupationStatus = piece.getOccupyStatus();
         population = piece.populationRequirements(this);
         pieces.add(piece);
-    }
-
-    Terrain getTerrain(){
-        return terrain;
-    }
-
-    ArrayList<Piece> getPieces() { return pieces; }
-
-    private void incrementLevel(){
-        level++;
     }
 
     void changeTerrainTypeThoughExplosion(Terrain new_terrain){
@@ -59,10 +58,6 @@ class Hexagon {
            }
         }
         return false;
-    }
-
-    int getPopulation(){
-        return this.population;
     }
 
     // TODO this function assumes that the piece elimination is valid... need to check we aren't killing Totoro

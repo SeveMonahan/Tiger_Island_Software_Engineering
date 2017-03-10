@@ -18,7 +18,6 @@ public class TileBag {
     LinkedList<Tile> getAllTilesInBag() {
         return this.bag;
     }
-
     int getNumberOfTilesInBag() {
         return numberOfTilesInBag;
     }

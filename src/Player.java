@@ -38,12 +38,24 @@ public class Player {
     }
     public void setTurn(boolean turn){this.turn = turn;}
 
+    public boolean hexIsVolcano(Hexagon hexagon){
+        if (hexagon.getTerrain() == Terrain.VOLCANO)
+            return true;
+        else return false;
+    }
+
+    public boolean hexDoesntExist(Hexagon hexagon){
+        if(hexagon.getLevel() == 0)
+            return true;
+        else return false;
+    }
+
     public boolean placementIsValidOnHexagon(Hexagon hexagon) {
         boolean placementIsValid = true;
-        if (hexagon.getTerrain() == Terrain.VOLCANO) {
+        if (hexIsVolcano(hexagon)) {
             placementIsValid = false;
         }
-        if (hexagon.getLevel() == 0) {
+        if (hexDoesntExist(hexagon)) {
             placementIsValid = false;
         }
         return placementIsValid;

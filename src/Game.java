@@ -10,24 +10,36 @@ public class Game {
         playerWhoseTurn = player1;
     }
 
-    public Player getTurn(){
+    public Player getTurn() {
         return playerWhoseTurn;
     }
 
-    public void changeTurn(){
-        if(playerWhoseTurn == player1)
+    public void changeTurn() {
+        if (playerWhoseTurn == player1)
             playerWhoseTurn = player2;
         else
-           playerWhoseTurn = player1;
+            playerWhoseTurn = player1;
     }
+
+    public boolean lossCondition(Player player) {
+        if (player.getScore() == -1)
+            return true;
+        else return false;
+    }
+
+    public boolean playerScoreIsLessThanOpponent(Player player1, Player opponent) {
+        if (player1.getScore() < opponent.getScore())
+            return true;
+        else return false;
+    }
+
     public void endGameConditions() {
-        if( player1.getScore() == -1 || player2.getScore() > player1.getScore() ) {
+        if (lossCondition(player1)|| playerScoreIsLessThanOpponent(player1,player2)) {
             winner = player2;
-        } else if( player2.getScore() == -1 || player1.getScore() > player2.getScore() ) {
+        } else if (lossCondition(player2) || playerScoreIsLessThanOpponent(player2,player1)) {
             winner = player1;
         } else { // Tie game
             winner = null;
         }
     }
-
 }

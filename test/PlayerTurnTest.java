@@ -17,4 +17,9 @@ public class PlayerTurnTest {
         game.changeTurn();
         assertEquals(game.player1,game.getTurn());
     }
+
+    @Test
+    public void placeHexTest() throws Exception {
+
+    }
 }

@@ -13,8 +13,7 @@ public class MeeplesTest {
     public void placeMeepleOnLevelZero() throws Exception {
         Hexagon hexagon = new Hexagon();
         Player player = new Player(Color.WHITE);
-        Piece newMeeple = new Meeple(Color.WHITE);
-        player.attemptToPlacePiece(newMeeple, hexagon);
+        player.placeMeepleOnHexagon(hexagon);
 
         assertEquals(0, player.getScore());
         assertEquals(20, player.getMeeplesCount());
@@ -27,9 +26,8 @@ public class MeeplesTest {
         Coordinate coordinate = new Coordinate(100,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT);
         Hexagon hexagon = board.getHexagon(coordinate);
         Player player = new Player(Color.WHITE);
-        Piece newMeeple = new Meeple(Color.WHITE);
 
-        player.attemptToPlacePiece(newMeeple, hexagon);
+        player.placeMeepleOnHexagon(hexagon);
 
         assertEquals(1, player.getScore());
         assertEquals(19, player.getMeeplesCount());
@@ -43,8 +41,7 @@ public class MeeplesTest {
         board.placeTile(new Tile(Terrain.ROCK, Terrain.ROCK), HexagonNeighborDirection.LOWERRIGHT, new Coordinate(100,101));
         Hexagon hexagon = board.getHexagon(new Coordinate(100, 100));
         Player player = new Player(Color.WHITE);
-        Piece newMeeple = new Meeple(Color.WHITE);
-        player.attemptToPlacePiece(newMeeple, hexagon);
+        player.placeMeepleOnHexagon(hexagon);
 
         assertEquals(18, player.getMeeplesCount());
         assertEquals(4, player.getScore());
@@ -56,9 +53,8 @@ public class MeeplesTest {
         Board board = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
         Hexagon hexagon = board.getHexagon(new Coordinate(100,100));
         Player player = new Player(Color.WHITE);
-        Piece newMeeple = new Meeple(Color.WHITE);
 
-        player.attemptToPlacePiece(newMeeple, hexagon);
+        player.placeMeepleOnHexagon(hexagon);
 
         assertEquals(0, player.getScore());
         assertEquals(20, player.getMeeplesCount());
@@ -72,11 +68,9 @@ public class MeeplesTest {
         Hexagon hexagonOne = board.getHexagon(new Coordinate(99,101));
         Hexagon hexagonTwo = board.getHexagon(new Coordinate(99,100));
         Player player = new Player(Color.WHITE);
-        Piece newMeeple = new Meeple(Color.WHITE);
-        Piece newMeeple2 = new Meeple(Color.WHITE);
 
-        player.attemptToPlacePiece(newMeeple, hexagonOne);
-        player.attemptToPlacePiece(newMeeple2, hexagonTwo);
+        player.placeMeepleOnHexagon(hexagonOne);
+        player.placeMeepleOnHexagon(hexagonTwo);
 
         board.placeTile(new Tile(Terrain.JUNGLE, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(98,101));
 
