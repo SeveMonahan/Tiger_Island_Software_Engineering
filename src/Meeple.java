@@ -4,7 +4,7 @@ public class Meeple extends Piece {
 
     private final int points = 1;
 
-    private HexagonOccupationStatus occupyStatus = HexagonOccupationStatus.Totoro;
+    private HexagonOccupationStatus occupyStatus = HexagonOccupationStatus.Meeples;
 
     Meeple( Color color ) {
         super(color);
