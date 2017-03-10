@@ -5,13 +5,13 @@ import static org.junit.Assert.assertEquals;
 public class PlayerScoreTest {
     @Test
     public void scoreOfInitializedPlayer() {
-        Player myPlayer = new Player();
+        Player myPlayer = new Player(Color.WHITE);
         assertEquals(0, myPlayer.getScore() );
     }
 
     @Test
     public void scoreOfPlayerAfterAddition() {
-        Player myPlayer = new Player();
+        Player myPlayer = new Player(Color.WHITE);
 
         myPlayer.setScore(5);
 
@@ -20,7 +20,7 @@ public class PlayerScoreTest {
 
     @Test
     public void scoreOfPlayerSettingNegative() {
-        Player myPlayer = new Player();
+        Player myPlayer = new Player(Color.WHITE);
 
         myPlayer.setAutoLoseScore();
 

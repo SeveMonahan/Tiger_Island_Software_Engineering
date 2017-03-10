@@ -4,8 +4,8 @@ public class Game {
     protected Player winner;
 
     Game() {
-        player1 = new Player();
-        player2 = new Player();
+        player1 = new Player(Color.WHITE);
+        player2 = new Player(Color.BLACK);
     }
 
     public void endGameConditions() {
