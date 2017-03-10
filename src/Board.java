@@ -141,6 +141,8 @@ class Board {
         return found_attach_point;
     }
 
+    // TODO: Here we shouldn't be checking if a Totoro is in the way... instead we should have a
+    // function that checks "isPieceInWay" which refers to the Piece canThisBeKilled function call
     private boolean totoroIsInTheWay(Tile tile, DirectionsHex direction, Coordinate coordinate) {
         boolean totoroIsInTheWay = false;
         Hexagon firstChild = getHexagonNeighbor(coordinate, direction);

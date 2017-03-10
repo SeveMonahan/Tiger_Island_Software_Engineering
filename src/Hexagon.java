@@ -6,6 +6,7 @@ class Hexagon {
     public int tileHashCode;
     private int population;
     private ArrayList<Piece> pieces;
+    private HexagonOccupationStatus occupationStatus;
 
     Hexagon() {
         level = 0;
@@ -16,9 +17,20 @@ class Hexagon {
     int getLevel(){
         return level;
     }
+
+    public HexagonOccupationStatus getOccupationStatus() {
+        return occupationStatus;
+    }
+
+    public void setOccupationStatus(Piece piece) {
+        occupationStatus = piece.getOccupyStatus();
+        population = piece.populationRequirements(this);
+    }
+
     Terrain getTerrain(){
         return terrain;
     }
+
     ArrayList<Piece> getPieces() { return pieces; }
 
     private void incrementLevel(){
@@ -37,15 +49,10 @@ class Hexagon {
             return false;
     }
 
-    void increasePopulation(int byPopulationOf){
-        population += byPopulationOf;
-    }
+    //TODO need to replace below function with something more polymorphic... e.g. canPieceBeKilled
+    //TODO you can use the canThisBeKilled() function in Piece to check this
 
-    void addPiece(Piece piece) {
-        this.pieces.add(piece);
-    }
-    void eliminatePieces() { this.pieces = new ArrayList<Piece>(); }
-
+/*
     boolean containsTotoro() {
         boolean containsTotoro = false;
         if (this.getPieces().size() != 0) {
@@ -55,8 +62,15 @@ class Hexagon {
         }
         return containsTotoro;
     }
+*/
 
     int getPopulation(){
         return this.population;
+    }
+
+    // TODO this function assumes that the piece elimination is valid... need to check we aren't killing Totoro
+    public void eliminatePieces() {
+        occupationStatus = HexagonOccupationStatus.empty;
+        population = 0;
     }
 }

@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Player {
 
     private int score;
@@ -20,25 +18,28 @@ public class Player {
     public int getMeeplesCount() { return meepleCount; }
     public int getTotoroCount() { return totoroCount; }
 
+    // TODO Make this properly polymorphic
+    public void deductPlacedPieces(Piece piece, Hexagon hexagon) {
+        int piecesPlaced = piece.populationRequirements(hexagon);
+        if(piece instanceof Meeple) {
+            meepleCount -= piecesPlaced;
+        } else if (piece instanceof Totoro) {
+            totoroCount -= piecesPlaced;
+        }
+    }
+
+    public void setScoreAfterPiecePlacement(Piece piece, Hexagon hexagon) {
+        score += piece.getPointsAfterPlacement(hexagon);
+    }
+
     public void setScore(int newScore) {
         this.score = newScore;
     }
+
     public void setAutoLoseScore() {
         this.score = -1;
     }
 
-    // TODO: This will be used in a 'expandFromHexagonToTerrain' method.
-        // That method should check that the Player has enough Meeples to perform the entire expansion.
-    public void placeMeepleOnHexagon(Hexagon hexagon) {
-        if (placementIsValidOnHexagon(hexagon)) {
-            int level = hexagon.getLevel();
-            for (int i = 0; i < level; i++) {
-                hexagon.addPiece(new Piece(PieceType.MEEPLE, color));
-                meepleCount--;
-                score += level;
-            }
-        }
-    }
     public boolean placementIsValidOnHexagon(Hexagon hexagon) {
         boolean placementIsValid = true;
         if (hexagon.getTerrain() == Terrain.VOLCANO) {
@@ -49,10 +50,27 @@ public class Player {
         }
         return placementIsValid;
     }
-    // TODO: Check to see that the Totoro is being placed in a valid way.
+
+    public boolean isPiecePlacementValid() {
+        return true;
+    }
+
+    public void placeMeepleOnHexagon(Hexagon hexagon) {
+        Piece newPiece = new Meeple(this.color);
+        attemptToPlacePiece(newPiece, hexagon);
+    }
+
     public void placeTotoroOnHexagon(Hexagon hexagon) {
-        hexagon.addPiece(new Piece(PieceType.TOTORO, color));
-        totoroCount--;
-        score += 200;
+        Piece newPiece = new Totoro(this.color);
+        attemptToPlacePiece(newPiece, hexagon);
+    }
+
+    // TODO finish this function to check if Totoro placement is valid
+    public void attemptToPlacePiece(Piece piece, Hexagon hexagon) {
+        if( isPiecePlacementValid() ) {
+            hexagon.setOccupationStatus(piece);
+            deductPlacedPieces(piece, hexagon);
+            setScoreAfterPiecePlacement(piece, hexagon);
+        }
     }
 }
