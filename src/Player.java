@@ -3,6 +3,7 @@ public class Player {
     private int score;
     private int meepleCount;
     private int totoroCount;
+    private boolean turn;
     private Color color;
 
     Player(Color color) {
@@ -17,6 +18,7 @@ public class Player {
     }
     public int getMeeplesCount() { return meepleCount; }
     public int getTotoroCount() { return totoroCount; }
+    public boolean getTurn(){return turn;}
 
     // TODO Make this properly polymorphic
     public void deductPlacedPieces(Piece piece, Hexagon hexagon) {
@@ -35,10 +37,10 @@ public class Player {
     public void setScore(int newScore) {
         this.score = newScore;
     }
-
     public void setAutoLoseScore() {
         this.score = -1;
     }
+    public void setTurn(boolean turn){this.turn = turn;}
 
     public boolean placementIsValidOnHexagon(Hexagon hexagon) {
         boolean placementIsValid = true;
@@ -80,5 +82,24 @@ public class Player {
             setScoreAfterPiecePlacement(piece, hexagon);
         }
         return placementValid;
+    }
+
+    public boolean isTurn() {
+        if(turn == true)
+            return turn;
+        else return false;
+    }
+
+    public void turnSwitch(Player opponent){
+        this.setTurn(false);
+        opponent.setTurn(true);
+    }
+
+    public boolean canDrawFrom(TileBag tileBag){
+        if(turn == true){
+            return true;
+        }
+        else
+            return false;
     }
 }
