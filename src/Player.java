@@ -90,23 +90,4 @@ public class Player {
         }
     }
 
-    public void startSettlement(Hexagon hexagon){
-        placeMeepleOnHexagon(hexagon);
-    }
-
-    public boolean isTurn() {
-            return turn;
-    }
-
-    public void turnSwitch(Player opponent){
-        boolean p1 = this.getTurn();
-        this.setTurn(!p1);
-        opponent.setTurn(p1);
-    }
-
-    public boolean canDrawFrom(TileBag tileBag){
-        if(turn)
-            return true;
-        else return false;
-    }
 }
