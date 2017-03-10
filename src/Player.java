@@ -12,6 +12,13 @@ public class Player {
         totoroCount = 3;
         this.color = color;
     }
+    Player(Color color, boolean turn) {
+        score = 0;
+        meepleCount = 20;
+        totoroCount = 3;
+        this.color = color;
+        this.turn = turn;
+    }
 
     public int getScore() {
         return score;
