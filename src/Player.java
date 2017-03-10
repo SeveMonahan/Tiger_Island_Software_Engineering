@@ -11,6 +11,7 @@ public class Player {
         meepleCount = 20;
         totoroCount = 3;
         this.color = color;
+        this.turn = true;
     }
     Player(Color color, boolean turn) {
         score = 0;
@@ -27,20 +28,8 @@ public class Player {
     public int getTotoroCount() { return totoroCount; }
     public boolean getTurn(){return turn;}
 
-    // TODO Make this properly polymorphic
-    public void deductPlacedPieces(Piece piece, Hexagon hexagon) {
-        int piecesPlaced = piece.populationRequirements(hexagon);
-        if(piece instanceof Meeple) {
-            meepleCount -= piecesPlaced;
-        } else if (piece instanceof Totoro) {
-            totoroCount -= piecesPlaced;
-        }
-    }
 
-    public void setScoreAfterPiecePlacement(Piece piece, Hexagon hexagon) {
-        score += piece.getPointsAfterPlacement(hexagon);
-    }
-
+    public void setScoreAfterPiecePlacement(Piece piece, Hexagon hexagon) {score += piece.getPointsAfterPlacement(hexagon);}
     public void setScore(int newScore) {
         this.score = newScore;
     }
@@ -89,6 +78,16 @@ public class Player {
             setScoreAfterPiecePlacement(piece, hexagon);
         }
         return placementValid;
+    }
+
+    // TODO Make this properly polymorphic
+    public void deductPlacedPieces(Piece piece, Hexagon hexagon) {
+        int piecesPlaced = piece.populationRequirements(hexagon);
+        if(piece instanceof Meeple) {
+            meepleCount -= piecesPlaced;
+        } else if (piece instanceof Totoro) {
+            totoroCount -= piecesPlaced;
+        }
     }
 
     public boolean isTurn() {
