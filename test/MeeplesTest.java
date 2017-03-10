@@ -53,7 +53,6 @@ public class MeeplesTest {
         assertEquals(2, hexagon.getPopulation());
     }
 
-    /*
     @Test
     public void volcanoShouldPreventMeeplePlacement() throws Exception {
         Board board = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
@@ -67,7 +66,6 @@ public class MeeplesTest {
         assertEquals(20, player.getMeeplesCount());
         assertEquals(0,  hexagon.getPopulation());
     }
-    */
 
     @Test
     public void meeplesShouldBeEliminatedWhenNuked() throws Exception {
