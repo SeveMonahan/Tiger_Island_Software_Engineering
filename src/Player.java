@@ -72,11 +72,13 @@ public class Player {
     }
 
     // TODO finish this function to check if Totoro placement is valid
-    public void attemptToPlacePiece(Piece piece, Hexagon hexagon) {
-        if( isPiecePlacementValid(piece, hexagon) ) {
+    public boolean attemptToPlacePiece(Piece piece, Hexagon hexagon) {
+        boolean placementValid = isPiecePlacementValid(piece, hexagon);
+        if(placementValid) {
             hexagon.setOccupationStatus(piece);
             deductPlacedPieces(piece, hexagon);
             setScoreAfterPiecePlacement(piece, hexagon);
         }
+        return placementValid;
     }
 }
