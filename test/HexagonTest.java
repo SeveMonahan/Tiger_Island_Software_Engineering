@@ -24,14 +24,4 @@ public class HexagonTest {
         TestHexagon.changeTerrainTypeThoughExplosion(Terrain.VOLCANO);
         assertEquals(true, TestHexagon.isVolcanoHex());
     }
-
-    /*
-    @Test
-    public void populationTest() throws Exception {
-        Hexagon TestHexagon = new Hexagon();
-        TestHexagon.changeTerrainTypeThoughExplosion(Terrain.BEACH);
-        TestHexagon.increasePopulation(2);
-        assertEquals(2, TestHexagon.getPopulation());
-    }
-    */
 }
