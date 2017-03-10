@@ -51,8 +51,14 @@ public class Player {
         return placementIsValid;
     }
 
-    public boolean isPiecePlacementValid() {
-        return true;
+    public boolean isPiecePlacementValid(Piece piece, Hexagon hexagon) {
+        // TODO Check that settlement >5 and not containg Totoro (if Piece == Totoro)
+        // TODO Have to check somewhere that we have sufficient pieces
+        if( !hexagon.isVolcanoHex() ) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void placeMeepleOnHexagon(Hexagon hexagon) {
@@ -67,7 +73,7 @@ public class Player {
 
     // TODO finish this function to check if Totoro placement is valid
     public void attemptToPlacePiece(Piece piece, Hexagon hexagon) {
-        if( isPiecePlacementValid() ) {
+        if( isPiecePlacementValid(piece, hexagon) ) {
             hexagon.setOccupationStatus(piece);
             deductPlacedPieces(piece, hexagon);
             setScoreAfterPiecePlacement(piece, hexagon);
