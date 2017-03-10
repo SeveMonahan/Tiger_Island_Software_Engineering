@@ -90,10 +90,12 @@ public class Player {
         }
     }
 
+    public void startSettlement(Hexagon hexagon){
+        placeMeepleOnHexagon(hexagon);
+    }
+
     public boolean isTurn() {
-        if(turn)
             return turn;
-        else return false;
     }
 
     public void turnSwitch(Player opponent){
