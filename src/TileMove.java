@@ -67,28 +67,7 @@ public class TileMove {
             return false;
         }
 
-        Coordinate volcanoNeighbor1Coordinate = coordinate.getHexagonNeighborCoordinate(direction);
-        Coordinate volcanoNeighbor2Coordinate = coordinate.getHexagonNeighborCoordinate(direction.getNextClockwise());
-
-        boolean found_attach_point = false;
-
-        for(Hexagon neighbor : board.getNeighbors(coordinate)){
-            if(neighbor.getLevel() != 0){
-                found_attach_point = true;
-            }
-        }
-        for(Hexagon neighbor : board.getNeighbors(volcanoNeighbor1Coordinate)){
-            if(neighbor.getLevel() != 0){
-                found_attach_point = true;
-            }
-        }
-        for(Hexagon neighbor : board.getNeighbors(volcanoNeighbor2Coordinate)){
-            if(neighbor.getLevel() != 0){
-                found_attach_point = true;
-            }
-        }
-
-        return found_attach_point;
+        return board.isAdjacentToNonemptyBoard(direction, coordinate, this);
     }
 
     // TODO: Here we shouldn't be checking if a Totoro is in the way... instead we should have a

@@ -110,4 +110,28 @@ class Board {
         } else { return true; }
     }
 
+    boolean isAdjacentToNonemptyBoard(HexagonNeighborDirection direction, Coordinate coordinate, TileMove tileMove) {
+        Coordinate volcanoNeighbor1Coordinate = coordinate.getHexagonNeighborCoordinate(direction);
+        Coordinate volcanoNeighbor2Coordinate = coordinate.getHexagonNeighborCoordinate(direction.getNextClockwise());
+
+        boolean found_attach_point = false;
+
+        for(Hexagon neighbor : getNeighbors(coordinate)){
+            if(neighbor.getLevel() != 0){
+                found_attach_point = true;
+            }
+        }
+        for(Hexagon neighbor : getNeighbors(volcanoNeighbor1Coordinate)){
+            if(neighbor.getLevel() != 0){
+                found_attach_point = true;
+            }
+        }
+        for(Hexagon neighbor : getNeighbors(volcanoNeighbor2Coordinate)){
+            if(neighbor.getLevel() != 0){
+                found_attach_point = true;
+            }
+        }
+
+        return found_attach_point;
+    }
 }
