@@ -6,7 +6,7 @@ class Board {
     // Higher y value is going "up" while higher x value is going "right."
     private Hexagon[][] hexagonArray;
 
-    Hexagon getHexagon(Coordinate coordinate){
+    public Hexagon getHexagon(Coordinate coordinate){
         return hexagonArray[coordinate.getX()][coordinate.getY()];
     }
 
@@ -65,7 +65,7 @@ class Board {
 
     // place a tile, abiding by all game rules.
     public boolean placeTile(TileMove tileMove) {
-        if (isplaceTileLegal(tileMove)) {
+        if (tileMove.isplaceTileLegal(this)) {
             placeTileNoRestrictions(tileMove.getTile(), tileMove.getDirection(), tileMove.getCoordinate());
             return true;
         }
@@ -73,96 +73,7 @@ class Board {
         return false;
     }
 
-    public boolean isplaceTileLegal(TileMove tileMove) {
-
-        if(!areAll3SpotsEqualLevels(tileMove.getDirection(), tileMove.getCoordinate())){
-            return false;
-        }
-
-        if(areAll3SpotsLevel0AndAdjacentToNonemptyBoard(tileMove.getDirection(), tileMove.getCoordinate())){
-            return true;
-        }
-
-        if (totoroIsInTheWay(tileMove.getTile(), tileMove.getDirection(), tileMove.getCoordinate())) {
-            return false;
-        }
-
-        if(isHexagonGreaterThanLevel0AndAdjacentToEqualLevel(tileMove.getCoordinate()) &&
-                !doesTileTotallyOverlapTileBelowIt(tileMove.getDirection(), tileMove.getCoordinate()) ){
-            if(this.getHexagon(tileMove.getCoordinate()).getTerrain() == Terrain.VOLCANO){
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    //If all 3 spots are equal level there can be no overhang when placing a tile on these spots
-    private boolean areAll3SpotsEqualLevels(HexagonNeighborDirection direction, Coordinate coordinate){
-        Hexagon hexagonNeighbor1 = getHexagonNeighbor(coordinate, direction);
-        Hexagon hexagonNeighbor2 = getHexagonNeighbor(coordinate, direction.getNextClockwise());
-
-        final int volcano_hexagon_level = getHexagon(coordinate).getLevel();
-
-        return volcano_hexagon_level == hexagonNeighbor1.getLevel() && volcano_hexagon_level == hexagonNeighbor2.getLevel();
-    }
-
-    // Checks whether all 3 potential spots are level 0 and if one of them has an adjacent level 1+ Hexagon.
-    private boolean areAll3SpotsLevel0AndAdjacentToNonemptyBoard(HexagonNeighborDirection direction, Coordinate coordinate) {
-        Coordinate volcanoNeighbor1Coordinate = coordinate.getHexagonNeighborCoordinate(direction);
-        Coordinate volcanoNeighbor2Coordinate = coordinate.getHexagonNeighborCoordinate(direction.getNextClockwise());
-        boolean found_attach_point = false;
-        if(getHexagon(coordinate).getLevel() == 0){
-           for(Hexagon neighbor : getNeighbors(coordinate)){
-               if(neighbor.getLevel() != 0){
-                   found_attach_point = true;
-               }
-           }
-        }
-        if(getHexagon(volcanoNeighbor1Coordinate).getLevel() == 0){
-            for(Hexagon neighbor : getNeighbors(volcanoNeighbor1Coordinate)){
-                if(neighbor.getLevel() != 0){
-                    found_attach_point = true;
-                }
-            }
-        }
-        if(getHexagon(volcanoNeighbor2Coordinate).getLevel() == 0){
-            for(Hexagon neighbor : getNeighbors(volcanoNeighbor2Coordinate)){
-                if(neighbor.getLevel() != 0){
-                    found_attach_point = true;
-                }
-            }
-        }
-        return found_attach_point;
-    }
-
-    private boolean isHexagonGreaterThanLevel0AndAdjacentToEqualLevel(Coordinate coordinate){
-        boolean found_attach_point = false;
-        if(getHexagon(coordinate).getLevel() > 0){
-            for(Hexagon neighbor : getNeighbors(coordinate)){
-                if(neighbor.getLevel() == getHexagon(coordinate).getLevel()){
-                    found_attach_point = true;
-                }
-            }
-        }
-        return found_attach_point;
-    }
-
-    // TODO: Here we shouldn't be checking if a Totoro is in the way... instead we should have a
-    // function that checks "isPieceInWay" which refers to the Piece canThisBeKilled function call
-    private boolean totoroIsInTheWay(Tile tile, HexagonNeighborDirection direction, Coordinate coordinate) {
-        Hexagon firstChild = getHexagonNeighbor(coordinate, direction);
-        HexagonNeighborDirection newDirection = direction.getNextClockwise();
-        Hexagon secondChild = getHexagonNeighbor(coordinate, newDirection);
-
-        if (firstChild.containsTotoro() || secondChild.containsTotoro()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    Hexagon[] getNeighbors(Coordinate coordinate){
+    public Hexagon[] getNeighbors(Coordinate coordinate){
         Hexagon[] neighbors = new Hexagon[6];
 
         int i = 0;
@@ -175,7 +86,7 @@ class Board {
         return neighbors;
     }
 
-    private Hexagon getHexagonNeighbor(Coordinate coordinate, HexagonNeighborDirection direction){
+    public Hexagon getHexagonNeighbor(Coordinate coordinate, HexagonNeighborDirection direction){
         Coordinate neighborCoordinate = coordinate.getHexagonNeighborCoordinate(direction);
         return getHexagon(neighborCoordinate);
     }
