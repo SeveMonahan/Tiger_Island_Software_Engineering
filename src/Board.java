@@ -71,7 +71,7 @@ class Board {
 
         Hexagon overwritten_3 = getHexagonNeighbor(tileMove.getCoordinate(), tileMove.getDirection().getNextClockwise());
 
-        if (tileMove.isplaceTileLegal(this, volcanoHexagon, overwritten_2, overwritten_3)) {
+        if (tileMove.isPlaceTileLegal(this, volcanoHexagon, overwritten_2, overwritten_3)) {
             placeTileNoRestrictions(tileMove.getTile(), tileMove.getDirection(), tileMove.getCoordinate());
             return true;
         }

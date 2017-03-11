@@ -25,7 +25,7 @@ public class TileMove {
         return coordinate;
     }
 
-    public boolean isplaceTileLegal(Board board, Hexagon volcanoHexagon, Hexagon hexagon1, Hexagon hexagon2) {
+    public boolean isPlaceTileLegal(Board board, Hexagon volcanoHexagon, Hexagon hexagon1, Hexagon hexagon2) {
         this.board = board;
         this.volcanoHexagon = volcanoHexagon;
         this.neighborHexagon1 = hexagon1;
