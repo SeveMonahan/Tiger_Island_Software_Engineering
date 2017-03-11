@@ -6,7 +6,7 @@ class Board {
     // Higher y value is going "up" while higher x value is going "right."
     private Hexagon[][] hexagonArray;
 
-    public Hexagon getHexagon(Coordinate coordinate){
+    Hexagon getHexagon(Coordinate coordinate){
         return hexagonArray[coordinate.getX()][coordinate.getY()];
     }
 
