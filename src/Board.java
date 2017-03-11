@@ -65,13 +65,21 @@ class Board {
 
     // place a tile, abiding by all game rules.
     public boolean placeTile(TileMove tileMove) {
+        if (isplaceTileLegal(tileMove)) {
+            placeTileNoRestrictions(tileMove.getTile(), tileMove.getDirection(), tileMove.getCoordinate());
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean isplaceTileLegal(TileMove tileMove) {
 
         if(!areAll3SpotsEqualLevels(tileMove.getDirection(), tileMove.getCoordinate())){
             return false;
         }
 
         if(areAll3SpotsLevel0AndAdjacentToNonemptyBoard(tileMove.getDirection(), tileMove.getCoordinate())){
-            placeTileNoRestrictions(tileMove.getTile(), tileMove.getDirection(), tileMove.getCoordinate());
             return true;
         }
 
@@ -82,7 +90,6 @@ class Board {
         if(isHexagonGreaterThanLevel0AndAdjacentToEqualLevel(tileMove.getCoordinate()) &&
                 !doesTileTotallyOverlapTileBelowIt(tileMove.getDirection(), tileMove.getCoordinate()) ){
             if(hexagonArray[tileMove.getCoordinate().getX()][tileMove.getCoordinate().getY()].getTerrain() == Terrain.VOLCANO){
-                placeTileNoRestrictions(tileMove.getTile(), tileMove.getDirection(), tileMove.getCoordinate());
                 return true;
             }
         }
