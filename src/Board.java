@@ -41,7 +41,7 @@ class Board {
     // The parameter direction is where to place the first tile going clockwise on the tile,
     // relative the the volcano tile (which is placed by x and y). The last tile is placed
     // one direction more clockwise relative to the volcano then the first non-volcano one.
-    public void placeTileNoRestrictions(Tile tile, HexagonNeighborDirection direction, Coordinate coordinate){
+    void placeTileNoRestrictions(Tile tile, HexagonNeighborDirection direction, Coordinate coordinate){
         hexagonArray[coordinate.getX()][coordinate.getY()].changeTerrainTypeThoughExplosion(Terrain.VOLCANO);
 
         Hexagon overwritten_2 = getHexagonNeighbor(coordinate, direction);
@@ -64,7 +64,7 @@ class Board {
     }
 
     // place a tile, abiding by all game rules.
-    public boolean placeTile(TileMove tileMove) {
+    boolean placeTile(TileMove tileMove) {
         Hexagon volcanoHexagon = getHexagon(tileMove.getCoordinate());
 
         Hexagon overwritten_2 = getHexagonNeighbor(tileMove.getCoordinate(), tileMove.getDirection());
@@ -79,7 +79,7 @@ class Board {
         return false;
     }
 
-    public Hexagon[] getNeighbors(Coordinate coordinate){
+    Hexagon[] getNeighbors(Coordinate coordinate){
         Hexagon[] neighbors = new Hexagon[6];
 
         int i = 0;
@@ -92,12 +92,12 @@ class Board {
         return neighbors;
     }
 
-    public Hexagon getHexagonNeighbor(Coordinate coordinate, HexagonNeighborDirection direction){
+    Hexagon getHexagonNeighbor(Coordinate coordinate, HexagonNeighborDirection direction){
         Coordinate neighborCoordinate = coordinate.getHexagonNeighborCoordinate(direction);
         return getHexagon(neighborCoordinate);
     }
 
-    boolean isAdjacentToNonemptyBoard(TileMove tileMove) {
+    private boolean isAdjacentToNonemptyBoard(TileMove tileMove) {
         Coordinate coordinate = tileMove.getCoordinate();
         HexagonNeighborDirection direction = tileMove.getDirection();
 
