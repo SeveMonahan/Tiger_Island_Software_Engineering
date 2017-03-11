@@ -89,7 +89,7 @@ class Board {
 
         if(isHexagonGreaterThanLevel0AndAdjacentToEqualLevel(tileMove.getCoordinate()) &&
                 !doesTileTotallyOverlapTileBelowIt(tileMove.getDirection(), tileMove.getCoordinate()) ){
-            if(hexagonArray[tileMove.getCoordinate().getX()][tileMove.getCoordinate().getY()].getTerrain() == Terrain.VOLCANO){
+            if(this.getHexagon(tileMove.getCoordinate()).getTerrain() == Terrain.VOLCANO){
                 return true;
             }
         }
@@ -101,14 +101,10 @@ class Board {
     private boolean areAll3SpotsEqualLevels(HexagonNeighborDirection direction, Coordinate coordinate){
         Hexagon hexagonNeighbor1 = getHexagonNeighbor(coordinate, direction);
         Hexagon hexagonNeighbor2 = getHexagonNeighbor(coordinate, direction.getNextClockwise());
-        if(hexagonArray[coordinate.getX()][coordinate.getY()].getLevel() == hexagonNeighbor1.getLevel()
-                && hexagonArray[coordinate.getX()][coordinate.getY()].getLevel() == hexagonNeighbor2.getLevel()
-                    && hexagonNeighbor1.getLevel() == hexagonNeighbor2.getLevel()
-                )
-            return true;
 
-        else
-            return false;
+        final int volcano_hexagon_level = getHexagon(coordinate).getLevel();
+
+        return volcano_hexagon_level == hexagonNeighbor1.getLevel() && volcano_hexagon_level == hexagonNeighbor2.getLevel();
     }
 
     // Checks whether all 3 potential spots are level 0 and if one of them has an adjacent level 1+ Hexagon.
@@ -116,21 +112,21 @@ class Board {
         Coordinate volcanoNeighbor1Coordinate = coordinate.getHexagonNeighborCoordinate(direction);
         Coordinate volcanoNeighbor2Coordinate = coordinate.getHexagonNeighborCoordinate(direction.getNextClockwise());
         boolean found_attach_point = false;
-        if(hexagonArray[coordinate.getX()][coordinate.getY()].getLevel() == 0){
+        if(getHexagon(coordinate).getLevel() == 0){
            for(Hexagon neighbor : getNeighbors(coordinate)){
                if(neighbor.getLevel() != 0){
                    found_attach_point = true;
                }
            }
         }
-        if(hexagonArray[volcanoNeighbor1Coordinate.getX()][volcanoNeighbor1Coordinate.getY()].getLevel() == 0){
+        if(getHexagon(volcanoNeighbor1Coordinate).getLevel() == 0){
             for(Hexagon neighbor : getNeighbors(volcanoNeighbor1Coordinate)){
                 if(neighbor.getLevel() != 0){
                     found_attach_point = true;
                 }
             }
         }
-        if(hexagonArray[volcanoNeighbor2Coordinate.getX()][volcanoNeighbor2Coordinate.getY()].getLevel() == 0){
+        if(getHexagon(volcanoNeighbor2Coordinate).getLevel() == 0){
             for(Hexagon neighbor : getNeighbors(volcanoNeighbor2Coordinate)){
                 if(neighbor.getLevel() != 0){
                     found_attach_point = true;
@@ -142,9 +138,9 @@ class Board {
 
     private boolean isHexagonGreaterThanLevel0AndAdjacentToEqualLevel(Coordinate coordinate){
         boolean found_attach_point = false;
-        if(hexagonArray[coordinate.getX()][coordinate.getY()].getLevel() > 0){
+        if(getHexagon(coordinate).getLevel() > 0){
             for(Hexagon neighbor : getNeighbors(coordinate)){
-                if(neighbor.getLevel() == hexagonArray[coordinate.getX()][coordinate.getY()].getLevel()){
+                if(neighbor.getLevel() == getHexagon(coordinate).getLevel()){
                     found_attach_point = true;
                 }
             }
