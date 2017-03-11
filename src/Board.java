@@ -71,7 +71,7 @@ class Board {
 
         Hexagon overwritten_3 = getHexagonNeighbor(tileMove.getCoordinate(), tileMove.getDirection().getNextClockwise());
 
-        if (tileMove.isPlaceTileLegal(this, volcanoHexagon, overwritten_2, overwritten_3)) {
+        if (tileMove.isPlaceTileLegal(volcanoHexagon, overwritten_2, overwritten_3, isAdjacentToNonemptyBoard(tileMove))) {
             placeTileNoRestrictions(tileMove.getTile(), tileMove.getDirection(), tileMove.getCoordinate());
             return true;
         }
@@ -95,19 +95,6 @@ class Board {
     public Hexagon getHexagonNeighbor(Coordinate coordinate, HexagonNeighborDirection direction){
         Coordinate neighborCoordinate = coordinate.getHexagonNeighborCoordinate(direction);
         return getHexagon(neighborCoordinate);
-    }
-
-    public boolean doesTileTotallyOverlapTileBelowIt(HexagonNeighborDirection hexagonNeighborDirection, Coordinate coordinate) {
-
-        Hexagon overwritten_1 = hexagonArray[coordinate.getX()][coordinate.getY()];
-        Hexagon overwritten_2 = getHexagonNeighbor(coordinate, hexagonNeighborDirection);
-        Hexagon overwritten_3 = getHexagonNeighbor(coordinate, hexagonNeighborDirection.getNextClockwise());
-
-        if( (overwritten_1.tileHashCode != overwritten_2.tileHashCode && overwritten_1.tileHashCode == overwritten_3.tileHashCode)
-                || (overwritten_1.tileHashCode != overwritten_3.tileHashCode && overwritten_1.tileHashCode == overwritten_2.tileHashCode)
-                || (overwritten_1.tileHashCode != overwritten_3.tileHashCode && overwritten_2.tileHashCode == overwritten_3.tileHashCode) ) {
-            return false;
-        } else { return true; }
     }
 
     boolean isAdjacentToNonemptyBoard(TileMove tileMove) {

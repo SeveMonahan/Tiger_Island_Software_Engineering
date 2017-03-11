@@ -2,7 +2,6 @@ public class TileMove {
     private final Tile tile;
     private final HexagonNeighborDirection direction;
     private final Coordinate coordinate;
-    private Board board;
     private Hexagon volcanoHexagon;
     private Hexagon neighborHexagon1;
     private Hexagon neighborHexagon2;
@@ -25,8 +24,7 @@ public class TileMove {
         return coordinate;
     }
 
-    public boolean isPlaceTileLegal(Board board, Hexagon volcanoHexagon, Hexagon hexagon1, Hexagon hexagon2) {
-        this.board = board;
+    public boolean isPlaceTileLegal(Hexagon volcanoHexagon, Hexagon hexagon1, Hexagon hexagon2, boolean adjacentToCurrentBoard) {
         this.volcanoHexagon = volcanoHexagon;
         this.neighborHexagon1 = hexagon1;
         this.neighborHexagon2 = hexagon2;
@@ -35,7 +33,7 @@ public class TileMove {
             return false;
         }
 
-        if(this.volcanoHexagon.getLevel() == 0 && this.board.isAdjacentToNonemptyBoard(this)){
+        if(this.volcanoHexagon.getLevel() == 0 && adjacentToCurrentBoard){
             return true;
         }
 
@@ -43,7 +41,7 @@ public class TileMove {
             return false;
         }
 
-        if(board.doesTileTotallyOverlapTileBelowIt(getDirection(), getCoordinate())){
+        if(doesTileTotallyOverlapTileBelowIt()){
             return false;
         }
 
@@ -59,6 +57,12 @@ public class TileMove {
         final int volcano_hexagon_level = volcanoHexagon.getLevel();
 
         return volcano_hexagon_level == neighborHexagon1.getLevel() && volcano_hexagon_level == neighborHexagon2.getLevel();
+    }
+
+    public boolean doesTileTotallyOverlapTileBelowIt() {
+        int volcanoTileHashCode = volcanoHexagon.tileHashCode;
+
+        return volcanoTileHashCode == neighborHexagon1.tileHashCode && volcanoTileHashCode == neighborHexagon2.tileHashCode;
     }
 
     // TODO: Here we shouldn't be checking if a Totoro is in the way... instead we should have a
