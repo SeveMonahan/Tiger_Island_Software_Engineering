@@ -3,6 +3,9 @@ public class TileMove {
     private final HexagonNeighborDirection direction;
     private final Coordinate coordinate;
     private Board board;
+    private Hexagon volcanoHexagon;
+    private Hexagon neighborHexagon1;
+    private Hexagon neighborHexagon2;
 
     public TileMove(Tile tile, HexagonNeighborDirection direction, Coordinate coordinate) {
         this.tile = tile;
@@ -22,8 +25,11 @@ public class TileMove {
         return coordinate;
     }
 
-    public boolean isplaceTileLegal(Board board) {
+    public boolean isplaceTileLegal(Board board, Hexagon volcanoHexagon, Hexagon hexagon1, Hexagon hexagon2) {
         this.board = board;
+        this.volcanoHexagon = volcanoHexagon;
+        this.neighborHexagon1 = hexagon1;
+        this.neighborHexagon2 = hexagon2;
 
         if(!areAll3SpotsEqualLevels(getDirection(), getCoordinate())){
             return false;

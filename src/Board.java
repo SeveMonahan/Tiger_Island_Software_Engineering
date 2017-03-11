@@ -65,7 +65,13 @@ class Board {
 
     // place a tile, abiding by all game rules.
     public boolean placeTile(TileMove tileMove) {
-        if (tileMove.isplaceTileLegal(this)) {
+        Hexagon volcanoHexagon = getHexagon(tileMove.getCoordinate());
+
+        Hexagon overwritten_2 = getHexagonNeighbor(tileMove.getCoordinate(), tileMove.getDirection());
+
+        Hexagon overwritten_3 = getHexagonNeighbor(tileMove.getCoordinate(), tileMove.getDirection().getNextClockwise());
+
+        if (tileMove.isplaceTileLegal(this, volcanoHexagon, overwritten_2, overwritten_3)) {
             placeTileNoRestrictions(tileMove.getTile(), tileMove.getDirection(), tileMove.getCoordinate());
             return true;
         }
