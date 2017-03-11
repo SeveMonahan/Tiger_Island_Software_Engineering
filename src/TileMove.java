@@ -35,7 +35,7 @@ public class TileMove {
             return false;
         }
 
-        if(areAll3SpotsLevel0AndAdjacentToNonemptyBoard(getDirection(), getCoordinate())){
+        if(isVolcanoHexagonLevel0AndAHexagonAdjacentToNonemptyBoard(getDirection(), getCoordinate())){
             return true;
         }
 
@@ -62,33 +62,32 @@ public class TileMove {
     }
 
     // Checks whether all 3 potential spots are level 0 and if one of them has an adjacent level 1+ Hexagon.
-    private boolean areAll3SpotsLevel0AndAdjacentToNonemptyBoard(HexagonNeighborDirection direction, Coordinate coordinate) {
+    private boolean isVolcanoHexagonLevel0AndAHexagonAdjacentToNonemptyBoard(HexagonNeighborDirection direction, Coordinate coordinate) {
+        if(volcanoHexagon.getLevel() != 0){
+            return false;
+        }
+
         Coordinate volcanoNeighbor1Coordinate = coordinate.getHexagonNeighborCoordinate(direction);
         Coordinate volcanoNeighbor2Coordinate = coordinate.getHexagonNeighborCoordinate(direction.getNextClockwise());
 
         boolean found_attach_point = false;
 
-        if(volcanoHexagon.getLevel() == 0){
-            for(Hexagon neighbor : board.getNeighbors(coordinate)){
-                if(neighbor.getLevel() != 0){
-                    found_attach_point = true;
-                }
+        for(Hexagon neighbor : board.getNeighbors(coordinate)){
+            if(neighbor.getLevel() != 0){
+                found_attach_point = true;
             }
         }
-        if(neighborHexagon1.getLevel() == 0){
-            for(Hexagon neighbor : board.getNeighbors(volcanoNeighbor1Coordinate)){
-                if(neighbor.getLevel() != 0){
-                    found_attach_point = true;
-                }
+        for(Hexagon neighbor : board.getNeighbors(volcanoNeighbor1Coordinate)){
+            if(neighbor.getLevel() != 0){
+                found_attach_point = true;
             }
         }
-        if(neighborHexagon2.getLevel() == 0){
-            for(Hexagon neighbor : board.getNeighbors(volcanoNeighbor2Coordinate)){
-                if(neighbor.getLevel() != 0){
-                    found_attach_point = true;
-                }
+        for(Hexagon neighbor : board.getNeighbors(volcanoNeighbor2Coordinate)){
+            if(neighbor.getLevel() != 0){
+                found_attach_point = true;
             }
         }
+
         return found_attach_point;
     }
 
