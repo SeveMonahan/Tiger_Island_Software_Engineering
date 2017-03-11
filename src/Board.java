@@ -110,7 +110,10 @@ class Board {
         } else { return true; }
     }
 
-    boolean isAdjacentToNonemptyBoard(HexagonNeighborDirection direction, Coordinate coordinate, TileMove tileMove) {
+    boolean isAdjacentToNonemptyBoard(TileMove tileMove) {
+        Coordinate coordinate = tileMove.getCoordinate();
+        HexagonNeighborDirection direction = tileMove.getDirection();
+
         Coordinate volcanoNeighbor1Coordinate = coordinate.getHexagonNeighborCoordinate(direction);
         Coordinate volcanoNeighbor2Coordinate = coordinate.getHexagonNeighborCoordinate(direction.getNextClockwise());
 

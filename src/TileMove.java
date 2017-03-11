@@ -35,7 +35,7 @@ public class TileMove {
             return false;
         }
 
-        if(isVolcanoHexagonLevel0AndAHexagonAdjacentToNonemptyBoard(getDirection(), getCoordinate())){
+        if(this.volcanoHexagon.getLevel() == 0 && this.board.isAdjacentToNonemptyBoard(this)){
             return true;
         }
 
@@ -59,15 +59,6 @@ public class TileMove {
         final int volcano_hexagon_level = volcanoHexagon.getLevel();
 
         return volcano_hexagon_level == neighborHexagon1.getLevel() && volcano_hexagon_level == neighborHexagon2.getLevel();
-    }
-
-    // Checks whether all 3 potential spots are level 0 and if one of them has an adjacent level 1+ Hexagon.
-    private boolean isVolcanoHexagonLevel0AndAHexagonAdjacentToNonemptyBoard(HexagonNeighborDirection direction, Coordinate coordinate) {
-        if(volcanoHexagon.getLevel() != 0){
-            return false;
-        }
-
-        return board.isAdjacentToNonemptyBoard(direction, coordinate, this);
     }
 
     // TODO: Here we shouldn't be checking if a Totoro is in the way... instead we should have a
