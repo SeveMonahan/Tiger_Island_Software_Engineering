@@ -43,11 +43,12 @@ public class TileMove {
             return false;
         }
 
-        if(isHexagonGreaterThanLevel0AndAdjacentToEqualLevel(getCoordinate()) &&
-                !board.doesTileTotallyOverlapTileBelowIt(getDirection(), getCoordinate()) ){
-            if(volcanoHexagon.getTerrain() == Terrain.VOLCANO){
-                return true;
-            }
+        if(board.doesTileTotallyOverlapTileBelowIt(getDirection(), getCoordinate())){
+            return false;
+        }
+
+        if(volcanoHexagon.getTerrain() == Terrain.VOLCANO){
+            return true;
         }
 
         return false;
@@ -84,18 +85,6 @@ public class TileMove {
         if(neighborHexagon2.getLevel() == 0){
             for(Hexagon neighbor : board.getNeighbors(volcanoNeighbor2Coordinate)){
                 if(neighbor.getLevel() != 0){
-                    found_attach_point = true;
-                }
-            }
-        }
-        return found_attach_point;
-    }
-
-    private boolean isHexagonGreaterThanLevel0AndAdjacentToEqualLevel(Coordinate coordinate){
-        boolean found_attach_point = false;
-        if(volcanoHexagon.getLevel() > 0){
-            for(Hexagon neighbor : board.getNeighbors(coordinate)){
-                if(neighbor.getLevel() == volcanoHexagon.getLevel()){
                     found_attach_point = true;
                 }
             }
