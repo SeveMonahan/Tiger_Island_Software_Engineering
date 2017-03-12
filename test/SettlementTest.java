@@ -19,6 +19,7 @@ public class SettlementTest {
         }
      }
      */
+
     @Test
     public void settlementOfSizeOne() {
         //Not really a real settlement test
@@ -32,23 +33,22 @@ public class SettlementTest {
         Coordinate coordinate = new Coordinate(100,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT);
         Hexagon hexagon = board.getHexagon(coordinate);
         player.placeMeepleOnHexagon(hexagon);
-        if (hexagon.getPopulation() == 0) {
-            return;
-        }
+        //start of function
         hexagonQueue.add(hexagon);
         while(!hexagonQueue.isEmpty()) {
             currentHexagon = hexagonQueue.remove();
             map.put(currentHexagon.hashCode(),true);
             size++;
             //have to create for loop for all neighbors
-            currentCoordinate = coordinate.getHexagonNeighborCoordinate(HexagonNeighborDirection.UPPERLEFT);
-            currentHexagon = board.getHexagon(currentCoordinate);
-            if (currentHexagon.getPopulation() > 0 && map.containsKey(currentHexagon.hashCode())) {
-                map.put(currentHexagon.hashCode(),1);
+            for (HexagonNeighborDirection dir : HexagonNeighborDirection.values()) {
+                currentCoordinate = coordinate.getHexagonNeighborCoordinate(dir);
+                currentHexagon = board.getHexagon(currentCoordinate);
+                if (currentHexagon.getPopulation() > 0 && map.containsKey(currentHexagon.hashCode())) {
+                    map.put(currentHexagon.hashCode(),1);
+                }
             }
-
         }
-        assertEquals(1, hexagon.getPopulation());
+        assertEquals(1,size);
     }
     @Test
     public void settlementOfSizeTwo() {
