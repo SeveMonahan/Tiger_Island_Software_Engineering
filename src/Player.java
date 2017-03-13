@@ -32,8 +32,6 @@ public class Player {
     public void setAutoLoseScore() { this.score = -1; }
     public void setTurn(boolean turn) { this.turn = turn; }
 
-    public boolean hexIsVolcano(Hexagon hexagon) { return (hexagon.getTerrain() == Terrain.VOLCANO); }
-
     public boolean hexDoesntExist(Hexagon hexagon){
         return hexagon.getLevel() == 0;
     }
@@ -53,6 +51,7 @@ public class Player {
         attemptToPlacePiece(newPiece, hexagon);
     }
 
+    // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
     public void placeTotoroOnHexagon(Hexagon hexagon) {
         Piece newPiece = new Totoro(this.color);
         attemptToPlacePiece(newPiece, hexagon);
