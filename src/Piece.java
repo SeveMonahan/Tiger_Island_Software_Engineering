@@ -26,4 +26,8 @@ public class Piece {
     public int populationRequirements(Hexagon hexagonYouWishToOccupy) {
         return 0;
     }
+
+    public boolean isPlacementValid(Hexagon hexagon) {
+        return false;
+    }
 }

@@ -14,4 +14,12 @@ public class Meeple extends Piece {
         return hexagonYouWishToOccupy.getLevel();
     }
 
+    public boolean isPlacementValid(Hexagon hexagon) {
+        if( !hexagon.isVolcanoHex() ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

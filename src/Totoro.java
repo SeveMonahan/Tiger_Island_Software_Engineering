@@ -15,4 +15,12 @@ public class Totoro extends Piece {
     public int populationRequirements(Hexagon hexagonYouWishToOccupy) {
         return 1;
     }
+
+    public boolean isPlacementValid(Hexagon hexagon) {
+        if( !hexagon.isVolcanoHex() ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
