@@ -65,10 +65,10 @@ public class TileMove {
         return volcanoTileHashCode == neighborHexagon1.tileHashCode && volcanoTileHashCode == neighborHexagon2.tileHashCode;
     }
 
-    // TODO: Here we shouldn't be checking if a Totoro is in the way... instead we should have a
-    // function that checks "isPieceInWay" which refers to the Piece canThisBeKilled function call
+
+    // TODO: We already have a function that does this in Hexagon.containsUnKillablePiece()
     private boolean totoroIsInTheWay(Tile tile, HexagonNeighborDirection direction, Coordinate coordinate) {
-        if (neighborHexagon1.containsTotoro() || neighborHexagon2.containsTotoro()) {
+        if (neighborHexagon1.containsUnKillablePiece() || neighborHexagon2.containsUnKillablePiece()) {
             return true;
         }
 
