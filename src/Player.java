@@ -27,7 +27,9 @@ public class Player {
     public int getMeeplesCount() { return meepleCount; }
     public int getTotoroCount() { return totoroCount; }
     public boolean getTurn(){return turn;}
-
+    public Color getColor() {
+        return color;
+    }
 
     public void setScoreAfterPiecePlacement(Piece piece, Hexagon hexagon) {score += piece.getPointsAfterPlacement(hexagon);}
     public void setScore(int newScore) {

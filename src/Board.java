@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
+
 class Board {
     // This contains enough spaces for every hexagon on the board.
     // The hexagons are stored in a square array, where each odd y
@@ -123,5 +128,38 @@ class Board {
         }
 
         return found_attach_point;
+    }
+
+    public int settlementSize(Coordinate coordinate, Color playerColor) {
+        int size = 0;
+        Color color;
+        ArrayList<Piece> pieces;
+        HashMap map = new HashMap();
+        Queue<Hexagon> hexagonQueue = new LinkedList<>();
+        Coordinate currentCoordinate = coordinate;
+        Hexagon currentHexagon = this.getHexagon(currentCoordinate);
+        if (currentHexagon.getOccupationStatus() != HexagonOccupationStatus.empty) {
+            hexagonQueue.add(currentHexagon);
+            while(!hexagonQueue.isEmpty()) {
+                currentHexagon = hexagonQueue.remove();
+                map.put(currentHexagon.hashCode(),true);
+                size++;
+                for (HexagonNeighborDirection dir : HexagonNeighborDirection.values()) {
+                    currentCoordinate = coordinate.getHexagonNeighborCoordinate(dir);
+                    currentHexagon = this.getHexagon(currentCoordinate);
+                    if (!map.containsKey(currentHexagon.hashCode())) {
+                        map.put(currentHexagon.hashCode(),1);
+                        if (currentHexagon.getPopulation() > 0) {
+                            pieces = currentHexagon.getPieces();
+                            color = pieces.get(0).getPieceColor();
+                            if (color == playerColor) {
+                                hexagonQueue.add(currentHexagon);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return size;
     }
 }
