@@ -11,7 +11,7 @@ public class TotoroTest {
 
     @Test
     public void totoroShouldStopTilePlacement() {
-        Board board = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
+        Board board = new Board(new Tile(Terrain.LAKE, Terrain.GRASSLAND));
         assertEquals(true, board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(100, 101))));
         Hexagon hexagon = board.getHexagon(new Coordinate(101,100));
 

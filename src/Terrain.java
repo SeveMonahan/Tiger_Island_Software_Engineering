@@ -3,6 +3,6 @@ public enum Terrain {
     VOLCANO,
     ROCK,
     JUNGLE,
-    BEACH,
-    GRASS
+    LAKE,
+    GRASSLAND
 }

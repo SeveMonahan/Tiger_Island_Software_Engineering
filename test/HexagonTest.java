@@ -13,9 +13,9 @@ public class HexagonTest {
     @Test
     public void changeTerrainTypeThoughExplosion() throws Exception {
         Hexagon TestHexagon = new Hexagon();
-        TestHexagon.changeTerrainTypeThoughExplosion(Terrain.BEACH);
+        TestHexagon.changeTerrainTypeThoughExplosion(Terrain.LAKE);
         assertEquals(1, TestHexagon.getLevel());
-        assertEquals(Terrain.BEACH, TestHexagon.getTerrain());
+        assertEquals(Terrain.LAKE, TestHexagon.getTerrain());
     }
 
     @Test
