@@ -10,6 +10,7 @@ class Hexagon {
     private int population;
     private ArrayList<Piece> pieces;
     private HexagonOccupationStatus occupationStatus;
+    private Color occupationColor;
 
     Hexagon() {
         level = 0;
@@ -37,8 +38,11 @@ class Hexagon {
     public void setOccupationStatus(Piece piece) {
         occupationStatus = piece.getOccupyStatus();
         population = piece.populationRequirements(this);
+        occupationColor = piece.getPieceColor();
         pieces.add(piece);
     }
+
+    public Color getOccupationColor() { return occupationColor; }
 
     void changeTerrainTypeThoughExplosion(Terrain new_terrain){
         terrain = new_terrain;
@@ -67,6 +71,7 @@ class Hexagon {
     public void eliminatePieces() {
         occupationStatus = HexagonOccupationStatus.empty;
         population = 0;
+        occupationColor = null;
     }
 
 

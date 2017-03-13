@@ -153,12 +153,11 @@ class Board {
                     currentHexagon = this.getHexagon(currentCoordinate);
                     if (!map.containsKey(currentHexagon.hashCode())) {
                         map.put(currentHexagon.hashCode(),1);
-                        if (currentHexagon.getPopulation() > 0) {
-                            pieces = currentHexagon.getPieces();
-                            color = pieces.get(0).getPieceColor();
-                            if (color == playerColor) {
+                        if (currentHexagon.getOccupationStatus() != HexagonOccupationStatus.empty) {
+                            if( currentHexagon.getOccupationColor() == playerColor) {
                                 hexagonQueue.add(currentHexagon);
                             }
+
                         }
                     }
                 }
