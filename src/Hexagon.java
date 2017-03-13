@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 class Hexagon {
     private int level;
     private Terrain terrain;
