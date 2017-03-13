@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class Hexagon {
     private int level;
@@ -64,6 +67,31 @@ class Hexagon {
     public void eliminatePieces() {
         occupationStatus = HexagonOccupationStatus.empty;
         population = 0;
+    }
+
+    int settlementSize(Board board, Coordinate coordinate) {
+        int size = 0;
+        HashMap map = new HashMap();
+        Queue<Hexagon> hexagonQueue = new LinkedList<>();
+        Coordinate currentCoordinate = coordinate;
+        Hexagon currentHexagon = board.getHexagon(currentCoordinate);
+        if (currentHexagon.getPopulation() > 0) {
+            hexagonQueue.add(currentHexagon);
+            while(!hexagonQueue.isEmpty()) {
+                currentHexagon = hexagonQueue.remove();
+                map.put(currentHexagon.hashCode(),true);
+                size++;
+                for (HexagonNeighborDirection dir : HexagonNeighborDirection.values()) {
+                    currentCoordinate = coordinate.getHexagonNeighborCoordinate(dir);
+                    currentHexagon = board.getHexagon(currentCoordinate);
+                    if (currentHexagon.getPopulation() > 0 && !map.containsKey(currentHexagon.hashCode())) {
+                        map.put(currentHexagon.hashCode(),1);
+                        hexagonQueue.add(currentHexagon);
+                    }
+                }
+            }
+        }
+        return size;
     }
 
 }

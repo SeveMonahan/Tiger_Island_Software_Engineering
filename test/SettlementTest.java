@@ -23,45 +23,24 @@ public class SettlementTest {
     @Test
     public void settlementOfSizeOne() {
         //Not really a real settlement test
-        int size = 0;
-        HashMap map = new HashMap();
-        Queue<Hexagon> hexagonQueue = new LinkedList<>();
-        Coordinate currentCoordinate;
-        Hexagon currentHexagon;
         Player player = new Player(Color.WHITE);
         Board board = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
         Coordinate coordinate = new Coordinate(100,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT);
         Hexagon hexagon = board.getHexagon(coordinate);
         player.placeMeepleOnHexagon(hexagon);
-        //start of function
-        hexagonQueue.add(hexagon);
-        while(!hexagonQueue.isEmpty()) {
-            currentHexagon = hexagonQueue.remove();
-            map.put(currentHexagon.hashCode(),true);
-            size++;
-            //have to create for loop for all neighbors
-            for (HexagonNeighborDirection dir : HexagonNeighborDirection.values()) {
-                currentCoordinate = coordinate.getHexagonNeighborCoordinate(dir);
-                currentHexagon = board.getHexagon(currentCoordinate);
-                if (currentHexagon.getPopulation() > 0 && map.containsKey(currentHexagon.hashCode())) {
-                    map.put(currentHexagon.hashCode(),1);
-                }
-            }
-        }
-        assertEquals(1,size);
+        assertEquals(1,hexagon.settlementSize(board,coordinate));
     }
     @Test
-    public void settlementOfSizeTwo() {
-        //Need to implement algorithm above
+    public void settlementOfSizeTwo() { //need to implement function into the class, but it works!
         Player player = new Player(Color.WHITE);
         Board board = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
         Coordinate coordinate = new Coordinate(100,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT);
-        Coordinate coordinate1 = new Coordinate(100,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.UPPERLEFT);
         Hexagon hexagon = board.getHexagon(coordinate);
-        Hexagon hexagon1 = board.getHexagon(coordinate1);
         player.placeMeepleOnHexagon(hexagon);
-        player.placeMeepleOnHexagon(hexagon1);
-
+        coordinate = new Coordinate(100,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.UPPERLEFT);
+        hexagon = board.getHexagon(coordinate);
+        player.placeMeepleOnHexagon(hexagon);
+        assertEquals(2,hexagon.settlementSize(board,coordinate));
     }
     @Test
     public void settlementOfSizeOneShouldPreventTilePlacement() {
