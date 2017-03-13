@@ -5,14 +5,12 @@ class Hexagon {
     private Terrain terrain;
     public int tileHashCode;
     private int population;
-    private ArrayList<Piece> pieces;
     private HexagonOccupationStatus occupationStatus;
     private Color occupationColor;
 
     Hexagon() {
         level = 0;
         terrain = Terrain.EMPTY;
-        pieces = new ArrayList<Piece>();
     }
     private void incrementLevel(){
         level++;
@@ -21,13 +19,15 @@ class Hexagon {
     int getLevel(){
         return level;
     }
+
     int getPopulation(){
         return this.population;
     }
+
     Terrain getTerrain(){
         return terrain;
     }
-    ArrayList<Piece> getPieces() { return pieces; }
+
     public HexagonOccupationStatus getOccupationStatus() {
         return occupationStatus;
     }
@@ -36,11 +36,11 @@ class Hexagon {
         occupationStatus = piece.getOccupyStatus();
         population = piece.populationRequirements(this);
         occupationColor = piece.getPieceColor();
-        pieces.add(piece);
     }
 
     public Color getOccupationColor() { return occupationColor; }
 
+    //TODO: Should below function call eliminatePieces() ?
     void changeTerrainTypeThoughExplosion(Terrain new_terrain){
         terrain = new_terrain;
         incrementLevel();

@@ -139,9 +139,7 @@ class Board {
         Coordinate currentCoordinate = coordinate;
         Hexagon currentHexagon = this.getHexagon(currentCoordinate);
         if (currentHexagon.getOccupationStatus() != HexagonOccupationStatus.empty) {
-            pieces = currentHexagon.getPieces();
-            color = pieces.get(0).getPieceColor();
-            if (color == playerColor) {
+            if (currentHexagon.getOccupationColor() == playerColor) {
                 hexagonQueue.add(currentHexagon);
             }
             while(!hexagonQueue.isEmpty()) {
