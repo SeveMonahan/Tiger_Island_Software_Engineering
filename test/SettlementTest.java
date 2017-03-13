@@ -7,33 +7,22 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 
 public class SettlementTest {
-    /*
-    Pseudocode for the Hex.settlementSize():
-    hashmap.add(hex) //I think a hashmap could work as a set of visited hexagons
-    queue.add(hex)
-    while (queue not empty) {
-        current = queue.dequeue();
-        size++;
-        for (every unvisited neighbor of current with population > 0) {
-            enqueue neighbor
-        }
-     }
-     */
-
     @Test
     public void settlementOfSizeOne() {
-        //Not really a real settlement test
         Player player = new Player(Color.WHITE);
+        Player playerTwo = new Player(Color.BLACK);
         Board board = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));
         Coordinate coordinate = new Coordinate(100,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT);
         Hexagon hexagon = board.getHexagon(coordinate);
         player.placeMeepleOnHexagon(hexagon);
-        assertEquals(1,board.settlementSize(coordinate, player.getColor()));
+        coordinate = new Coordinate(100,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.UPPERLEFT);
+        hexagon = board.getHexagon(coordinate);
+        playerTwo.placeMeepleOnHexagon(hexagon);
+        assertEquals(1,board.settlementSize(coordinate, playerTwo.getColor()));
+
     }
     @Test
     public void settlementOfSizeTwo() {
-        //player One and Two have settlements that are adjacent to each other
-
         Player player = new Player(Color.WHITE);
         Player playerTwo = new Player(Color.BLACK);
         Board board = new Board(new Tile(Terrain.BEACH, Terrain.GRASS));

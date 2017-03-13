@@ -1,6 +1,4 @@
 public class Piece {
-
-    private PieceType type;
     private Color color;
     private boolean canBeKilled;
     private int points;
