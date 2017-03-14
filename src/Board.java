@@ -28,7 +28,8 @@ class Board {
     // more tiles.
     Board(Tile first_tile){
         initializeHexagonArray();
-        placeTileNoRestrictions(first_tile, HexagonNeighborDirection.LEFT, new Coordinate(100,100));
+        TileMove starting_tile_move = new TileMove(first_tile, HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
+        placeTileNoRestrictions(starting_tile_move);
     }
 
     private void initializeHexagonArray() {
@@ -46,7 +47,12 @@ class Board {
     // The parameter direction is where to place the first tile going clockwise on the tile,
     // relative the the volcano tile (which is placed by x and y). The last tile is placed
     // one direction more clockwise relative to the volcano then the first non-volcano one.
-    void placeTileNoRestrictions(Tile tile, HexagonNeighborDirection direction, Coordinate coordinate){
+    void placeTileNoRestrictions(TileMove tilemove){
+
+        Tile tile = tilemove.getTile();
+        HexagonNeighborDirection direction = tilemove.getDirection();
+        Coordinate coordinate = tilemove.getCoordinate();
+
         hexagonArray[coordinate.getX()][coordinate.getY()].changeTerrainTypeThoughExplosion(Terrain.VOLCANO);
 
         Hexagon overwritten_2 = getHexagonNeighbor(coordinate, direction);
@@ -77,7 +83,7 @@ class Board {
         Hexagon overwritten_3 = getHexagonNeighbor(tileMove.getCoordinate(), tileMove.getDirection().getNextClockwise());
 
         if (tileMove.isPlaceTileLegal(volcanoHexagon, overwritten_2, overwritten_3, isAdjacentToNonemptyBoard(tileMove))) {
-            placeTileNoRestrictions(tileMove.getTile(), tileMove.getDirection(), tileMove.getCoordinate());
+            placeTileNoRestrictions(tileMove);
             return true;
         }
 

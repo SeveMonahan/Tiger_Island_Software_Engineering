@@ -11,8 +11,10 @@ public class BoardAddingTilesTest {
     @Test
     public void placeTileNoRestrictions() {
         Board TestBoard = new Board();
-        TestBoard.placeTileNoRestrictions(new Tile(Terrain.LAKE, Terrain.GRASSLAND),
-                                            HexagonNeighborDirection.LEFT, new Coordinate(100,100));
+        TileMove testTileMove = new TileMove ( new Tile(Terrain.LAKE, Terrain.GRASSLAND),
+                                            HexagonNeighborDirection.LEFT, new Coordinate(100,100) );
+
+        TestBoard.placeTileNoRestrictions(testTileMove);
 
         Coordinate TestCoordinate1 = new Coordinate(100,100);
         Coordinate TestCoordinate2 = new Coordinate(99,100);
