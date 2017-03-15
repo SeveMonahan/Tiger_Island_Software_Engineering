@@ -1,5 +1,3 @@
-package Annotation;
-
 import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
