@@ -1,3 +1,5 @@
+package TigerIsland;
+
 public class Player {
 
     private int score;
@@ -6,7 +8,7 @@ public class Player {
     private boolean turn;
     private Color color;
 
-    Player(Color color) {
+    public Player(Color color) {
         score = 0;
         meepleCount = 20;
         totoroCount = 3;
@@ -36,7 +38,7 @@ public class Player {
         return hexagon.getLevel() == 0;
     }
 
-    // TODO finish moving this to Piece
+    // TODO finish moving this to TigerIsland.Piece
     public boolean isPiecePlacementValid(Piece piece, Hexagon hexagon) {
         if( !hexagon.isVolcanoHex() ) {
             return true;

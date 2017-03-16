@@ -1,3 +1,7 @@
+import TigerIsland.Board;
+import TigerIsland.Coordinate;
+import TigerIsland.Hexagon;
+import TigerIsland.Terrain;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

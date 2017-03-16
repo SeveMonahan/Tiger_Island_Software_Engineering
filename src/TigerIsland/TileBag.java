@@ -1,3 +1,5 @@
+package TigerIsland;
+
 import java.util.LinkedList;
 
 public class TileBag {
@@ -5,20 +7,20 @@ public class TileBag {
     private LinkedList<Tile> bag;
     private int numberOfTilesInBag;
 
-    TileBag() {
+    public TileBag() {
         bag = new LinkedList<Tile>();
         permutationForAllTiles();
     }
 
-    Tile drawTile() {
+    public Tile drawTile() {
         numberOfTilesInBag--;
         return this.bag.pop();
     }
 
-    LinkedList<Tile> getAllTilesInBag() {
+    public LinkedList<Tile> getAllTilesInBag() {
         return this.bag;
     }
-    int getNumberOfTilesInBag() {
+    public int getNumberOfTilesInBag() {
         return numberOfTilesInBag;
     }
 

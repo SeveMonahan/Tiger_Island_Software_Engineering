@@ -1,3 +1,4 @@
+import TigerIsland.HexagonNeighborDirection;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;

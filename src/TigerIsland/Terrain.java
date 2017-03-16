@@ -1,3 +1,5 @@
+package TigerIsland;
+
 public enum Terrain {
     EMPTY,
     VOLCANO,

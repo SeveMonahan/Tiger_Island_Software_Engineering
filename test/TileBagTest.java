@@ -1,3 +1,5 @@
+import TigerIsland.Tile;
+import TigerIsland.TileBag;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import java.util.NoSuchElementException;
@@ -7,7 +9,7 @@ public class TileBagTest {
     public void drawTileFromBag() {
         TileBag testBag = new TileBag();
 
-        assert( testBag.drawTile() instanceof Tile );
+        assert( testBag.drawTile() instanceof Tile);
         assertEquals(47, testBag.getNumberOfTilesInBag() );
     }
 

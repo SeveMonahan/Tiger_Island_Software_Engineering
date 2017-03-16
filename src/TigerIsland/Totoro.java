@@ -1,17 +1,21 @@
-public class Meeple extends Piece {
+package TigerIsland;
 
-    private HexagonOccupationStatus occupyStatus = HexagonOccupationStatus.Meeples;
+public class Totoro extends Piece {
 
-    Meeple( Color color ) {
+    public HexagonOccupationStatus getOccupyStatus(){
+        return HexagonOccupationStatus.Totoro;
+    }
+
+    public Totoro( Color color ) {
         super(color);
     }
 
     public int getPointsAfterPlacement(Hexagon occupiedHexagon) {
-        return (int) Math.pow( occupiedHexagon.getLevel(), 2);
+        return 200;
     }
 
     public int populationRequirements(Hexagon hexagonYouWishToOccupy) {
-        return hexagonYouWishToOccupy.getLevel();
+        return 1;
     }
 
     public boolean isPlacementValid(Hexagon hexagon) {
@@ -21,5 +25,4 @@ public class Meeple extends Piece {
             return false;
         }
     }
-
 }

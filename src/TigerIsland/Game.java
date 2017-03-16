@@ -1,10 +1,12 @@
+package TigerIsland;
+
 public class Game {
     public Player player1;
     public Player player2;
     private Player playerWhoseTurn;
-    protected Player winner;
+    public Player winner;
 
-    Game() {
+    public Game() {
         player1 = new Player(Color.WHITE);
         player2 = new Player(Color.BLACK);
         playerWhoseTurn = player1;

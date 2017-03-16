@@ -1,13 +1,15 @@
+package TigerIsland;
+
 public class Tile {
     private Terrain terrain_1;
     private Terrain terrain_2;
 
-    Tile(Terrain terrain_1, Terrain terrain_2){
+    public Tile(Terrain terrain_1, Terrain terrain_2){
         this.terrain_1 = terrain_1;
         this.terrain_2 = terrain_2;
     }
 
-    Terrain[] getTerrainsClockwiseFromVolcano(){
+    public Terrain[] getTerrainsClockwiseFromVolcano(){
         Terrain[] result = new Terrain[3];
 
         result[0] = Terrain.VOLCANO;

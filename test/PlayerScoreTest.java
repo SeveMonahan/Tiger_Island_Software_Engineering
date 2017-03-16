@@ -1,3 +1,5 @@
+import TigerIsland.Color;
+import TigerIsland.Player;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

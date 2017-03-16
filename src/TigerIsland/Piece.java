@@ -1,10 +1,12 @@
+package TigerIsland;
+
 public class Piece {
     private Color color;
     private boolean canBeKilled;
     private int points;
     private HexagonOccupationStatus occupyStatus;
 
-    Piece(Color color) {
+    public Piece(Color color) {
         // this.type = type;
         this.color = color;
     }

@@ -1,4 +1,6 @@
-class Hexagon {
+package TigerIsland;
+
+public class Hexagon {
     private int level;
     private Terrain terrain;
     public int tileHashCode;
@@ -6,7 +8,7 @@ class Hexagon {
     private HexagonOccupationStatus occupationStatus;
     private Color occupationColor;
 
-    Hexagon() {
+    public Hexagon() {
         level = 0;
         terrain = Terrain.EMPTY;
     }
@@ -14,15 +16,15 @@ class Hexagon {
         level++;
     }
 
-    int getLevel(){
+    public int getLevel(){
         return level;
     }
 
-    int getPopulation(){
+    public int getPopulation(){
         return this.population;
     }
 
-    Terrain getTerrain(){
+    public Terrain getTerrain(){
         return terrain;
     }
 
@@ -39,19 +41,19 @@ class Hexagon {
     public Color getOccupationColor() { return occupationColor; }
 
     //TODO: Should below function call eliminatePieces() ?
-    void changeTerrainTypeThoughExplosion(Terrain new_terrain){
+    public void changeTerrainTypeThoughExplosion(Terrain new_terrain){
         terrain = new_terrain;
         incrementLevel();
     }
 
-    boolean isVolcanoHex(){
+    public boolean isVolcanoHex(){
         if(this.terrain == Terrain.VOLCANO)
             return true;
         else
             return false;
     }
 
-    boolean containsUnKillablePiece() {
+    public boolean containsUnKillablePiece() {
         if( occupationStatus == HexagonOccupationStatus.Totoro ) {
             return true;
         } else {

@@ -1,9 +1,11 @@
+package TigerIsland;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
-class Board {
+public class Board {
     // This contains enough spaces for every hexagon on the board.
     // The hexagons are stored in a square array, where each odd y
     // value is offshifted to the right in order to replicate the six neighbors
@@ -11,22 +13,22 @@ class Board {
     // Higher y value is going "up" while higher x value is going "right."
     private Hexagon[][] hexagonArray;
 
-    Hexagon getHexagon(Coordinate coordinate){
+    public Hexagon getHexagon(Coordinate coordinate){
         return hexagonArray[coordinate.getX()][coordinate.getY()];
     }
 
-    void setHexagon(Coordinate coordinate, Hexagon hex){
+    public void setHexagon(Coordinate coordinate, Hexagon hex){
         hexagonArray[coordinate.getX()][coordinate.getY()] = hex;
     }
 
-    Board(){
+    public Board(){
         initializeHexagonArray();
     }
 
     // The first tile placement is arbitary, so we just put it in the center of the board.
     // Note that you must use this initalizer if you want to use placeTile() to place any
     // more tiles.
-    Board(Tile first_tile){
+    public Board(Tile first_tile){
         initializeHexagonArray();
         TileMove starting_tile_move = new TileMove(first_tile, HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         placeTileNoRestrictions(starting_tile_move);
@@ -47,7 +49,7 @@ class Board {
     // The parameter direction is where to place the first tile going clockwise on the tile,
     // relative the the volcano tile (which is placed by x and y). The last tile is placed
     // one direction more clockwise relative to the volcano then the first non-volcano one.
-    void placeTileNoRestrictions(TileMove tilemove){
+    public void placeTileNoRestrictions(TileMove tilemove){
 
         Tile tile = tilemove.getTile();
         HexagonNeighborDirection direction = tilemove.getDirection();
@@ -75,7 +77,7 @@ class Board {
     }
 
     // place a tile, abiding by all game rules.
-    boolean placeTile(TileMove tileMove) {
+    public boolean placeTile(TileMove tileMove) {
         Hexagon volcanoHexagon = getHexagon(tileMove.getCoordinate());
 
         Hexagon overwritten_2 = getHexagonNeighbor(tileMove.getCoordinate(), tileMove.getDirection());
@@ -90,7 +92,7 @@ class Board {
         return false;
     }
 
-    Hexagon[] getNeighbors(Coordinate coordinate){
+    public Hexagon[] getNeighbors(Coordinate coordinate){
         Hexagon[] neighbors = new Hexagon[6];
 
         int i = 0;
@@ -103,7 +105,7 @@ class Board {
         return neighbors;
     }
 
-    Hexagon getHexagonNeighbor(Coordinate coordinate, HexagonNeighborDirection direction){
+    public Hexagon getHexagonNeighbor(Coordinate coordinate, HexagonNeighborDirection direction){
         Coordinate neighborCoordinate = coordinate.getHexagonNeighborCoordinate(direction);
         return getHexagon(neighborCoordinate);
     }

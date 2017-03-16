@@ -1,3 +1,5 @@
+package TigerIsland;
+
 public enum HexagonNeighborDirection {
     UPPERLEFT,
     UPPERRIGHT,
@@ -6,7 +8,7 @@ public enum HexagonNeighborDirection {
     LOWERLEFT,
     LOWERRIGHT;
 
-    HexagonNeighborDirection getNextClockwise(){
+    public HexagonNeighborDirection getNextClockwise(){
         switch(this) {
             case UPPERLEFT:
                 return UPPERRIGHT;
