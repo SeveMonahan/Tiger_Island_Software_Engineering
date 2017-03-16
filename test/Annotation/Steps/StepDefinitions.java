@@ -14,7 +14,7 @@ import static org.hamcrest.core.AnyOf.anyOf;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertEquals;
 
-public class annotation {
+public class StepDefinitions {
     private TileBag testBag = null;
     private Tile testTile = null;
     private Board board = null;
