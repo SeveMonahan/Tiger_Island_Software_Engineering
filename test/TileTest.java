@@ -25,5 +25,9 @@ public class TileTest {
         assertEquals(Terrain.VOLCANO, result[0]);
         assertEquals(Terrain.ROCK, result[1]);
         assertEquals(Terrain.JUNGLE, result[2]);
+
+
     }
+
+
 }

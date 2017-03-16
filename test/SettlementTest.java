@@ -15,8 +15,6 @@ public class SettlementTest {
         hexagon = board.getHexagon(coordinateTwo);
         playerTwo.placeMeepleOnHexagon(hexagon);
         assertEquals(1,board.settlementSize(coordinateOne, player.getColor()));
-        assertEquals(1,board.settlementSize(coordinateTwo, playerTwo.getColor()));
-
     }
     @Test
     public void settlementOfSizeTwo() {
@@ -37,9 +35,6 @@ public class SettlementTest {
         hexagon = board.getHexagon(playerTwoMeepleTwo);
         playerTwo.placeMeepleOnHexagon(hexagon);
         assertEquals(2,board.settlementSize(playerOneMeepleOne,player.getColor()));
-        assertEquals(2,board.settlementSize(playerOneMeepleTwo,player.getColor()));
-        assertEquals(2,board.settlementSize(playerTwoMeepleOne,playerTwo.getColor()));
-        assertEquals(2,board.settlementSize(playerTwoMeepleTwo,playerTwo.getColor()));
     }
 
     @Test
