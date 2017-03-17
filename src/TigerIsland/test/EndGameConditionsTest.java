@@ -1,4 +1,4 @@
-package test;
+package TigerIsland.test;
 
 import TigerIsland.Game;
 import org.junit.Test;
