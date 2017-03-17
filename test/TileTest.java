@@ -1,3 +1,5 @@
+package test;
+
 import TigerIsland.Terrain;
 import TigerIsland.Tile;
 import org.junit.Test;

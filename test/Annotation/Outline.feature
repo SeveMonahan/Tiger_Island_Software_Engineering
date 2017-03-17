@@ -1,7 +1,7 @@
 Feature: TileBag
 
 #Tile bag scenario test
-Scenario:
+Scenario: tiles reduce tile bag count
    Given a new tile bag
    When a tile is drawn
    Then the bag should have 47 tiles

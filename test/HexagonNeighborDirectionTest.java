@@ -1,3 +1,5 @@
+package test;
+
 import TigerIsland.HexagonNeighborDirection;
 import org.junit.Test;
 

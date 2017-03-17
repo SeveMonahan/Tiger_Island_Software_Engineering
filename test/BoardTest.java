@@ -1,3 +1,5 @@
+package test;
+
 import TigerIsland.Board;
 import TigerIsland.Coordinate;
 import TigerIsland.Hexagon;

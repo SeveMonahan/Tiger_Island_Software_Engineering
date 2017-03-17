@@ -1,6 +1,7 @@
+package test;
+
 import TigerIsland.*;
 import org.junit.Test;
-
 import static junit.framework.TestCase.assertEquals;
 
 public class BoardAddingTilesTest {

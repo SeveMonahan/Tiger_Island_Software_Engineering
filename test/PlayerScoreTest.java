@@ -1,3 +1,5 @@
+package test;
+
 import TigerIsland.Color;
 import TigerIsland.Player;
 import org.junit.Test;

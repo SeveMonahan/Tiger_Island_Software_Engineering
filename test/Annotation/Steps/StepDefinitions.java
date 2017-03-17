@@ -1,5 +1,4 @@
-package Annotation.Steps;
-
+package test.Annotation.Steps;
 import TigerIsland.Board;
 import TigerIsland.Terrain;
 import TigerIsland.Tile;
