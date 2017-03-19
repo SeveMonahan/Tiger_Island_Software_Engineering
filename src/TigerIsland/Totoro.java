@@ -2,7 +2,6 @@ package TigerIsland;
 
 public class Totoro implements Piece {
     private Color color;
-
     public boolean canBeKilled() { return false; }
     public HexagonOccupationStatus getOccupyStatus(){
         return HexagonOccupationStatus.Totoro;

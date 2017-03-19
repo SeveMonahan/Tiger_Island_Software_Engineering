@@ -78,8 +78,6 @@ public class MeeplesTest {
 
         board.placeTile(new TileMove(new Tile(Terrain.JUNGLE, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(98, 101)));
 
-        // Assert.assertTrue(hexagonOne.getPieces().size() , 0);
-        // Assert.assertTrue(hexagonTwo.getPieces().size() , 0);
         assertEquals(0, hexagonOne.getPopulation());
         assertEquals(0, hexagonTwo.getPopulation());
         assertEquals(18, player.getMeeplesCount());
