@@ -1,14 +1,12 @@
 package TigerIsland;
 
 public class Totoro extends Piece {
-
+    public boolean canBeKilled() { return false; }
     public HexagonOccupationStatus getOccupyStatus(){
         return HexagonOccupationStatus.Totoro;
     }
 
-    public Totoro( Color color ) {
-        super(color);
-    }
+    public Totoro( Color color ) { super(color); }
 
     public int getPointsAfterPlacement(Hexagon occupiedHexagon) {
         return 200;

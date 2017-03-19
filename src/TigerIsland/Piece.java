@@ -2,12 +2,12 @@ package TigerIsland;
 
 public class Piece {
     private Color color;
-    private boolean canBeKilled;
-    private int points;
+    public boolean canBeKilled() {
+        return false;
+    }
     private HexagonOccupationStatus occupyStatus;
 
     public Piece(Color color) {
-        // this.type = type;
         this.color = color;
     }
 
@@ -15,14 +15,10 @@ public class Piece {
         return occupyStatus;
     }
 
-    public boolean canThisBeKilled() {
-        return this.canBeKilled;
-    }
-
     Color getPieceColor() { return color; }
 
     public int getPointsAfterPlacement(Hexagon occupiedHexagon) {
-        return points;
+        return 0;
     }
 
     public int populationRequirements(Hexagon hexagonYouWishToOccupy) {

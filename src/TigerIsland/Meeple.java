@@ -1,8 +1,8 @@
 package TigerIsland;
 
 public class Meeple extends Piece {
-
-    private HexagonOccupationStatus occupyStatus = HexagonOccupationStatus.Meeples;
+    public boolean canBeKilled() { return true; }
+    public HexagonOccupationStatus getOccupyStatus() { return HexagonOccupationStatus.Meeples; }
 
     public Meeple( Color color ) {
         super(color);
@@ -23,5 +23,4 @@ public class Meeple extends Piece {
             return false;
         }
     }
-
 }
