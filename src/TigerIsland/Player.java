@@ -34,10 +34,6 @@ public class Player {
     public void setAutoLoseScore() { this.score = -1; }
     public void setTurn(boolean turn) { this.turn = turn; }
 
-    public boolean hexDoesntExist(Hexagon hexagon){
-        return hexagon.getLevel() == 0;
-    }
-
     // TODO finish moving this to TigerIsland.Piece
     public boolean isPiecePlacementValid(Piece piece, Hexagon hexagon) {
         if( !hexagon.isVolcanoHex() ) {
