@@ -35,17 +35,6 @@ public class Player {
     public void setAutoLoseScore() { this.score = -1; }
     public void setTurn(boolean turn) { this.turn = turn; }
 
-    // TODO finish moving this to TigerIsland.Piece
-    public boolean isPiecePlacementValid(Piece piece, Hexagon hexagon) {
-        if(!hexagon.isVolcanoHex() &&
-                (hexagon.getOccupationStatus() != HexagonOccupationStatus.empty) ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
     // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
     public void placeMeepleOnHexagon(Hexagon hexagon) {
         Piece newPiece = new Meeple(this.color);
