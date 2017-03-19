@@ -39,6 +39,20 @@ public class MeeplesTest {
     }
 
     @Test
+    public void startMeepleSettlement() throws Exception {
+        Board board = new Board(new Tile(Terrain.LAKE, Terrain.GRASSLAND));
+        Coordinate coordinate = new Coordinate(100,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT);
+        Hexagon hexagon = board.getHexagon(coordinate);
+        Player player = new Player(Color.WHITE);
+
+        player.placeSettlement(hexagon);
+
+        assertEquals(1, player.getScore());
+        assertEquals(19, player.getMeeplesCount());
+        assertEquals(1, hexagon.getPopulation());
+    }
+
+    @Test
     public void placeMeepleOnLevelTwo() throws Exception {
         Board board = new Board(new Tile(Terrain.LAKE, Terrain.GRASSLAND));
         board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(100, 101)));
