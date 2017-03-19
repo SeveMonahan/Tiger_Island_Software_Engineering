@@ -22,7 +22,7 @@ public class Meeple implements Piece {
     }
 
     public boolean isPlacementValid(Hexagon hexagon) {
-        if( !hexagon.isVolcanoHex() ) {
+        if( !hexagon.isVolcanoHex() && (hexagon.getOccupationStatus() == HexagonOccupationStatus.empty) ) {
             return true;
         } else {
             return false;
