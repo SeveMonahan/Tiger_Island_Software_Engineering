@@ -7,8 +7,10 @@ public class Hexagon {
     private int population;
     private HexagonOccupationStatus occupationStatus;
     private Color occupationColor;
+    private boolean canBeNuked;
 
     public Hexagon() {
+        canBeNuked = true;
         level = 0;
         terrain = Terrain.EMPTY;
     }
@@ -36,6 +38,7 @@ public class Hexagon {
         occupationStatus = piece.getOccupyStatus();
         population = piece.populationRequirements(this);
         occupationColor = piece.getPieceColor();
+        this.canBeNuked = piece.canBeKilled();
     }
 
     public Color getOccupationColor() { return occupationColor; }
@@ -44,6 +47,7 @@ public class Hexagon {
     public void changeTerrainTypeThoughExplosion(Terrain new_terrain){
         terrain = new_terrain;
         incrementLevel();
+        eliminatePieces();
     }
 
     public boolean isVolcanoHex(){
@@ -54,14 +58,10 @@ public class Hexagon {
     }
 
     public boolean containsUnKillablePiece() {
-        if( occupationStatus == HexagonOccupationStatus.Totoro ) {
-            return true;
-        } else {
-            return false;
-        }
+        return !this.canBeNuked;
     }
 
-    public void eliminatePieces() {
+    private void eliminatePieces() {
         occupationStatus = HexagonOccupationStatus.empty;
         population = 0;
         occupationColor = null;

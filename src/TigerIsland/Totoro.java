@@ -1,13 +1,16 @@
 package TigerIsland;
 
-public class Totoro extends Piece {
-
+public class Totoro implements Piece {
+    private Color color;
+    public boolean canBeKilled() { return false; }
     public HexagonOccupationStatus getOccupyStatus(){
         return HexagonOccupationStatus.Totoro;
     }
 
-    public Totoro( Color color ) {
-        super(color);
+    public Totoro( Color color ) { this.color = color; }
+
+    public Color getPieceColor() {
+        return this.color;
     }
 
     public int getPointsAfterPlacement(Hexagon occupiedHexagon) {
@@ -19,7 +22,7 @@ public class Totoro extends Piece {
     }
 
     public boolean isPlacementValid(Hexagon hexagon) {
-        if( !hexagon.isVolcanoHex() ) {
+        if( !hexagon.isVolcanoHex() && (hexagon.getOccupationStatus() == HexagonOccupationStatus.empty) ) {
             return true;
         } else {
             return false;
