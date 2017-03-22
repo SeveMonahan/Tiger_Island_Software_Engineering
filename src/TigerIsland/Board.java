@@ -1,5 +1,6 @@
 package TigerIsland;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -62,9 +63,11 @@ public class Board {
 
         overwritten_2.changeTerrainTypeThoughExplosion(
                 tile.getTerrainsClockwiseFromVolcano()[1]);
+        overwritten_2.eliminatePieces();
 
         overwritten_3.changeTerrainTypeThoughExplosion(
                 tile.getTerrainsClockwiseFromVolcano()[2]);
+        overwritten_3.eliminatePieces();
 
         // Setting the instance variables to all be the same
         overwritten_2.tileHashCode = tile.hashCode();
@@ -137,6 +140,8 @@ public class Board {
 
     public int settlementSize(Coordinate coordinate, Color playerColor) {
         int size = 0;
+        Color color;
+        ArrayList<Piece> pieces;
         HashMap map = new HashMap();
         Queue<Hexagon> hexagonQueue = new LinkedList<>();
         Coordinate currentCoordinate = coordinate;
@@ -153,7 +158,7 @@ public class Board {
                     currentCoordinate = coordinate.getHexagonNeighborCoordinate(dir);
                     currentHexagon = this.getHexagon(currentCoordinate);
                     if (!map.containsKey(currentHexagon.hashCode())) {
-                        map.put(currentHexagon.hashCode(), true);
+                        map.put(currentHexagon.hashCode(),1);
                         if (currentHexagon.getOccupationStatus() != HexagonOccupationStatus.empty) {
                             if( currentHexagon.getOccupationColor() == playerColor) {
                                 hexagonQueue.add(currentHexagon);

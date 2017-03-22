@@ -15,7 +15,6 @@ public class Player {
         this.color = color;
         this.turn = true;
     }
-
     Player(Color color, boolean turn) {
         score = 0;
         meepleCount = 20;
@@ -34,6 +33,19 @@ public class Player {
     public void setScore(int newScore) { this.score = newScore; }
     public void setAutoLoseScore() { this.score = -1; }
     public void setTurn(boolean turn) { this.turn = turn; }
+
+    public boolean hexDoesntExist(Hexagon hexagon){
+        return hexagon.getLevel() == 0;
+    }
+
+    // TODO finish moving this to TigerIsland.Piece
+    public boolean isPiecePlacementValid(Piece piece, Hexagon hexagon) {
+        if( !hexagon.isVolcanoHex() ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
     public void placeMeepleOnHexagon(Hexagon hexagon) {
@@ -65,16 +77,6 @@ public class Player {
         } else if (piece instanceof Totoro) {
             totoroCount -= piecesPlaced;
         }
-    }
-
-    public boolean placeSettlement(Hexagon hexagon) {
-        Piece meeple = new Meeple(this.color);
-        if( hexagon.getLevel() == 1 ) {
-            if( attemptToPlacePiece(meeple, hexagon) ) {
-                return true;
-            }
-        }
-        return false;
     }
 
 }
