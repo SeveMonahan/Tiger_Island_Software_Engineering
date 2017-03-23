@@ -5,6 +5,7 @@ public class Player {
     private int score;
     private int meepleCount;
     private int totoroCount;
+    private int tigerCount;
     private boolean turn;
     private Color color;
 
@@ -12,6 +13,7 @@ public class Player {
         score = 0;
         meepleCount = 20;
         totoroCount = 3;
+        tigerCount = 2;
         this.color = color;
         this.turn = true;
     }
@@ -20,6 +22,7 @@ public class Player {
         score = 0;
         meepleCount = 20;
         totoroCount = 3;
+        tigerCount = 2;
         this.color = color;
         this.turn = turn;
     }
@@ -27,6 +30,7 @@ public class Player {
     public int getScore() { return score; }
     public int getMeeplesCount() { return meepleCount; }
     public int getTotoroCount() { return totoroCount; }
+    public int getTigerCount() { return tigerCount; }
     public boolean getTurn(){return turn;}
     public Color getColor() { return color; }
 
