@@ -68,6 +68,7 @@ public class TileMove {
     }
 
 
+    // TODO: We already have a function that does this in TigerIsland.Hexagon.containsUnKillablePiece()
     private boolean totoroIsInTheWay(Tile tile, HexagonNeighborDirection direction, Coordinate coordinate) {
         if (neighborHexagon1.containsUnKillablePiece() || neighborHexagon2.containsUnKillablePiece()) {
             return true;

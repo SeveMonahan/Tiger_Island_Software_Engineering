@@ -26,19 +26,4 @@ public class TotoroTest {
 
         assertEquals(false, isValidMove);
     }
-
-    // TODO This will fail when we start checking for Totoro min settlement size
-    @Test
-    public void placeTotoroOnVolcano() throws Exception {
-        Board board = new Board(new Tile(Terrain.LAKE, Terrain.GRASSLAND));
-        Coordinate coordinate = new Coordinate(101,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT);
-        Hexagon hexagon = board.getHexagon(coordinate);
-        Player player = new Player(Color.WHITE);
-
-        player.placeTotoroOnHexagon(hexagon);
-
-        assertEquals(0, player.getScore());
-        assertEquals(3, player.getTotoroCount());
-        assertEquals(0, hexagon.getPopulation());
-    }
 }
