@@ -1,11 +1,16 @@
 package TigerIsland;
 
-public class Meeple extends Piece {
-
-    private HexagonOccupationStatus occupyStatus = HexagonOccupationStatus.Meeples;
+public class Meeple implements Piece {
+    private Color color;
+    public boolean canBeKilled() { return true; }
+    public HexagonOccupationStatus getOccupyStatus() { return HexagonOccupationStatus.Meeples; }
 
     public Meeple( Color color ) {
-        super(color);
+        this.color = color;
+    }
+
+    public Color getPieceColor() {
+        return this.color;
     }
 
     public int getPointsAfterPlacement(Hexagon occupiedHexagon) {
@@ -17,11 +22,10 @@ public class Meeple extends Piece {
     }
 
     public boolean isPlacementValid(Hexagon hexagon) {
-        if( !hexagon.isVolcanoHex() ) {
+        if( !hexagon.isVolcanoHex() && (hexagon.getOccupationStatus() == HexagonOccupationStatus.empty) ) {
             return true;
         } else {
             return false;
         }
     }
-
 }
