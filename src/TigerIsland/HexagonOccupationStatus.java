@@ -4,5 +4,5 @@ public enum HexagonOccupationStatus {
     empty,
     Meeples,
     Totoro,
-    Tiger
+    Tigers
 }
