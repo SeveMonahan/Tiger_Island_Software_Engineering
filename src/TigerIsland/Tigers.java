@@ -1,0 +1,31 @@
+package TigerIsland;
+
+public class Tigers implements Piece {
+    private Color color;
+    public boolean canBeKilled() { return true; }
+    public HexagonOccupationStatus getOccupyStatus() { return HexagonOccupationStatus.Tigers; }
+
+    public Tigers( Color color ) {
+        this.color = color;
+    }
+
+    public Color getPieceColor() {
+        return this.color;
+    }
+
+    public int getPointsAfterPlacement(Hexagon occupiedHexagon) {
+        return (int) Math.pow( occupiedHexagon.getLevel(), 75);
+    }
+
+    public int populationRequirements(Hexagon hexagonYouWishToOccupy) {
+        return hexagonYouWishToOccupy.getLevel();
+    }
+
+    public boolean isPlacementValid(Hexagon hexagon) {
+        if( !hexagon.isVolcanoHex() && (hexagon.getOccupationStatus() == HexagonOccupationStatus.empty) ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
