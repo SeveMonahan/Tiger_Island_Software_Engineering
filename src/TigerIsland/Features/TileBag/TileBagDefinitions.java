@@ -1,9 +1,6 @@
 package TigerIsland.Features.TileBag;
 
-import TigerIsland.Board;
-import TigerIsland.Terrain;
-import TigerIsland.Tile;
-import TigerIsland.TileBag;
+import TigerIsland.*;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -18,6 +15,23 @@ public class TileBagDefinitions {
     private TileBag testBag = null;
     private Tile testTile = null;
     private Board board = null;
+    private Player player = null;
+    private int meeples;
+
+    @Given("^an initialized player$")
+    public void initPlayer() {
+        player = new Player(Color.BLACK);
+    }
+
+    @When("^querying that players meeples$")
+    public void queryPlayerMeeples() {
+        meeples = player.getMeeplesCount();
+    }
+
+    @Then("^that player has (\\d+) meeples$")
+    public void queryPlayerMeeples(int number) {
+        Assert.assertEquals(number, meeples);
+    }
 
     @Given("^a new tile bag$")
     public void initTileBag() {
@@ -37,14 +51,11 @@ public class TileBagDefinitions {
     @Then("^the bag should have (\\d+) tiles$")
     public void tilesExistingInBag(int number) {
         assertEquals(number, testBag.getNumberOfTilesInBag());
-
-        System.out.println("Test1 Pass");
     }
 
     @Then("^I should be returned a tile instance$")
     public void I_should_be_returned_a_tile_instance() {
         assert( testTile != null );
-        System.out.println("Test2 Pass");
     }
 
     @Then("^the tile should have terrains$")
@@ -63,6 +74,5 @@ public class TileBagDefinitions {
                 containsString(Terrain.LAKE.toString()),
                 containsString(Terrain.ROCK.toString()))
         );
-        System.out.println("Test3 Pass");
     }
 }

@@ -30,7 +30,6 @@ public class SettlementDefinitions {
     }
     @Then("^moo$")
     public void tilesExistingInBag() {
-
         System.out.println("moo");
     }
 
