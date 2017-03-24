@@ -39,7 +39,7 @@ public class TileMove {
             return true;
         }
 
-        if(totoroIsInTheWay(getTile(), getDirection(), getCoordinate())) {
+        if(unkillablePieceIsInTheWay(getTile(), getDirection(), getCoordinate())) {
             return false;
         }
 
@@ -68,7 +68,7 @@ public class TileMove {
     }
 
 
-    private boolean totoroIsInTheWay(Tile tile, HexagonNeighborDirection direction, Coordinate coordinate) {
+    private boolean unkillablePieceIsInTheWay(Tile tile, HexagonNeighborDirection direction, Coordinate coordinate) {
         if (neighborHexagon1.containsUnKillablePiece() || neighborHexagon2.containsUnKillablePiece()) {
             return true;
         }
