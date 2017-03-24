@@ -1,4 +1,4 @@
-package TigerIsland.test;
+package TigerIsland.Features.TileBag;
 
 import TigerIsland.Board;
 import TigerIsland.Terrain;
@@ -14,7 +14,7 @@ import static org.hamcrest.core.AnyOf.anyOf;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertEquals;
 
-public class StepDefinitions {
+public class TileBagDefinitions {
     private TileBag testBag = null;
     private Tile testTile = null;
     private Board board = null;

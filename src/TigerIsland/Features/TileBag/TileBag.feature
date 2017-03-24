@@ -11,3 +11,5 @@ Scenario: drawn tile has terrain types
    Given a new tile bag
    When a tile is drawn
    Then the tile should have terrains
+
+
