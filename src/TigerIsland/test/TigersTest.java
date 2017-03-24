@@ -1,6 +1,7 @@
 package TigerIsland.test;
 
 import TigerIsland.*;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
@@ -13,7 +14,30 @@ public class TigersTest {
         assertEquals(2, player.getTigerCount());
     }
 
+    @Test
+    public void placeTigerOnLevelZero() throws Exception {
+        Hexagon hexagon = new Hexagon();
+        Player player = new Player(Color.WHITE);
+        player.placeTigerOnHexagon(hexagon);
 
+        Assert.assertEquals(0, player.getScore());
+        Assert.assertEquals(2, player.getTigerCount());
+        Assert.assertEquals(0 , hexagon.getPopulation());
+    }
+
+    @Test
+    public void placeTigerOnLevelOne() throws Exception {
+        Board board = new Board(new Tile(Terrain.LAKE, Terrain.GRASSLAND));
+        Coordinate coordinate = new Coordinate(100,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT);
+        Hexagon hexagon = board.getHexagon(coordinate);
+        Player player = new Player(Color.WHITE);
+
+        player.placeTigerOnHexagon(hexagon);
+
+        Assert.assertEquals(75, player.getScore());
+        Assert.assertEquals(1, player.getTigerCount());
+        Assert.assertEquals(1, hexagon.getPopulation());
+    }
     @Test
     public void placeTigerOnVolcano() throws Exception {
         Board board = new Board(new Tile(Terrain.LAKE, Terrain.GRASSLAND));

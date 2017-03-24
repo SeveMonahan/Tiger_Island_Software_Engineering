@@ -14,7 +14,7 @@ public class Tigers implements Piece {
     }
 
     public int getPointsAfterPlacement(Hexagon occupiedHexagon) {
-        return (int) Math.pow( occupiedHexagon.getLevel(), 75);
+        return 75;
     }
 
     public int populationRequirements(Hexagon hexagonYouWishToOccupy) {

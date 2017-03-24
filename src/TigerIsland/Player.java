@@ -50,6 +50,11 @@ public class Player {
         Piece newPiece = new Totoro(this.color);
         attemptToPlacePiece(newPiece, hexagon);
     }
+    // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
+    public void placeTigerOnHexagon(Hexagon hexagon) {
+        Piece newPiece = new Tigers(this.color);
+        attemptToPlacePiece(newPiece, hexagon);
+    }
 
     public boolean attemptToPlacePiece(Piece piece, Hexagon hexagon) {
         boolean placementValid = piece.isPlacementValid(hexagon);
@@ -68,7 +73,10 @@ public class Player {
             meepleCount -= piecesPlaced;
         } else if (piece instanceof Totoro) {
             totoroCount -= piecesPlaced;
+        } else if (piece instanceof Tigers ){
+            tigerCount -= piecesPlaced;
         }
+
     }
 
     public boolean placeSettlement(Hexagon hexagon) {
