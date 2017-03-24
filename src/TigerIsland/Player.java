@@ -52,7 +52,7 @@ public class Player {
     }
     // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
     public void placeTigerOnHexagon(Hexagon hexagon) {
-        Piece newPiece = new Tigers(this.color);
+        Piece newPiece = new Tiger(this.color);
         attemptToPlacePiece(newPiece, hexagon);
     }
 
@@ -73,7 +73,7 @@ public class Player {
             meepleCount -= piecesPlaced;
         } else if (piece instanceof Totoro) {
             totoroCount -= piecesPlaced;
-        } else if (piece instanceof Tigers ){
+        } else if (piece instanceof Tiger ){
             tigerCount -= piecesPlaced;
         }
 

@@ -1,11 +1,11 @@
 package TigerIsland;
 
-public class Tigers implements Piece {
+public class Tiger implements Piece {
     private Color color;
     public boolean canBeKilled() { return true; }
     public HexagonOccupationStatus getOccupyStatus() { return HexagonOccupationStatus.Tigers; }
 
-    public Tigers( Color color ) {
+    public Tiger( Color color ) {
         this.color = color;
     }
 
