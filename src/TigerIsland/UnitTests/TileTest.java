@@ -1,4 +1,4 @@
-package TigerIsland.Tests;
+package TigerIsland.UnitTests;
 
 import TigerIsland.Terrain;
 import TigerIsland.Tile;
