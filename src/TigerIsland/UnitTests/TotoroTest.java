@@ -3,6 +3,7 @@ package TigerIsland.UnitTests;
 import TigerIsland.*;
 import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 
 public class TotoroTest {
     @Test
@@ -39,6 +40,6 @@ public class TotoroTest {
 
         assertEquals(0, player.getScore());
         assertEquals(3, player.getTotoroCount());
-        assertEquals(0, hexagon.getPopulation());
+        assertEquals(HexagonOccupationStatus.empty, hexagon.getOccupationStatus());
     }
 }

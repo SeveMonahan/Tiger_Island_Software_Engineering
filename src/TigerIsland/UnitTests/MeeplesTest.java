@@ -21,7 +21,7 @@ public class MeeplesTest {
 
         assertEquals(0, player.getScore());
         assertEquals(20, player.getMeeplesCount());
-        assertEquals(0 , hexagon.getPopulation());
+        assertEquals(HexagonOccupationStatus.empty, hexagon.getOccupationStatus());
     }
 
     @Test
@@ -35,7 +35,7 @@ public class MeeplesTest {
 
         assertEquals(1, player.getScore());
         assertEquals(19, player.getMeeplesCount());
-        assertEquals(1, hexagon.getPopulation());
+        assertEquals(HexagonOccupationStatus.Meeples, hexagon.getOccupationStatus());
     }
 
     @Test
@@ -49,7 +49,7 @@ public class MeeplesTest {
 
         assertEquals(1, player.getScore());
         assertEquals(19, player.getMeeplesCount());
-        assertEquals(1, hexagon.getPopulation());
+        assertEquals(HexagonOccupationStatus.Meeples, hexagon.getOccupationStatus());
     }
 
     @Test
@@ -63,7 +63,7 @@ public class MeeplesTest {
 
         assertEquals(0, player.getScore());
         assertEquals(20, player.getMeeplesCount());
-        assertEquals(0, hexagon.getPopulation());
+        assertEquals(HexagonOccupationStatus.empty, hexagon.getOccupationStatus());
     }
 
     @Test
@@ -78,7 +78,7 @@ public class MeeplesTest {
 
         assertEquals(20, player.getMeeplesCount());
         assertEquals(0, player.getScore());
-        assertEquals(0, hexagon.getPopulation());
+        assertEquals(HexagonOccupationStatus.empty, hexagon.getOccupationStatus());
     }
 
     @Test
@@ -94,7 +94,7 @@ public class MeeplesTest {
         assertEquals(player.placeSettlement(hexagon), false);
         assertEquals(20, player.getMeeplesCount());
         assertEquals(0, player.getScore());
-        assertEquals(0, hexagon.getPopulation());
+        assertEquals(HexagonOccupationStatus.empty, hexagon.getOccupationStatus());
     }
 
     @Test
@@ -111,7 +111,7 @@ public class MeeplesTest {
         assertEquals(player2.placeSettlement(hexagon), false);
         assertEquals(20, player.getMeeplesCount());
         assertEquals(0, player.getScore());
-        assertEquals(0, hexagon.getPopulation());
+        assertEquals(HexagonOccupationStatus.empty, hexagon.getOccupationStatus());
     }
 
     @Test
@@ -125,7 +125,7 @@ public class MeeplesTest {
 
         assertEquals(20, player.getMeeplesCount());
         assertEquals(0, player.getScore());
-        assertEquals(0, hexagon.getPopulation());
+        assertEquals(HexagonOccupationStatus.empty, hexagon.getOccupationStatus());
     }
 
     @Test
@@ -138,7 +138,7 @@ public class MeeplesTest {
 
         assertEquals(0, player.getScore());
         assertEquals(20, player.getMeeplesCount());
-        assertEquals(0,  hexagon.getPopulation());
+        assertEquals(HexagonOccupationStatus.empty, hexagon.getOccupationStatus());
     }
 
     @Test
@@ -154,8 +154,8 @@ public class MeeplesTest {
 
         board.placeTile(new TileMove(new Tile(Terrain.JUNGLE, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(98, 101)));
 
-        assertEquals(0, hexagonOne.getPopulation());
-        assertEquals(0, hexagonTwo.getPopulation());
+        assertEquals(HexagonOccupationStatus.empty, hexagonOne.getOccupationStatus());
+        assertEquals(HexagonOccupationStatus.empty, hexagonTwo.getOccupationStatus());
         assertEquals(18, player.getMeeplesCount());
         assertEquals(2, player.getScore());
     }

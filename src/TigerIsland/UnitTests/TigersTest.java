@@ -21,7 +21,7 @@ public class TigersTest {
 
         Assert.assertEquals(0, player.getScore());
         Assert.assertEquals(2, player.getTigerCount());
-        Assert.assertEquals(0 , hexagon.getPopulation());
+        assertEquals(HexagonOccupationStatus.empty, hexagon.getOccupationStatus());
     }
 
     @Test
@@ -35,7 +35,7 @@ public class TigersTest {
 
         Assert.assertEquals(75, player.getScore());
         Assert.assertEquals(1, player.getTigerCount());
-        Assert.assertEquals(1, hexagon.getPopulation());
+        assertEquals(HexagonOccupationStatus.Tigers, hexagon.getOccupationStatus());
     }
     @Test
     public void placeTigerOnVolcano() throws Exception {
@@ -48,6 +48,6 @@ public class TigersTest {
 
         assertEquals(0, player.getScore());
         assertEquals(2, player.getTigerCount());
-        assertEquals(0, hexagon.getPopulation());
+        assertEquals(HexagonOccupationStatus.empty, hexagon.getOccupationStatus());
     }
 }

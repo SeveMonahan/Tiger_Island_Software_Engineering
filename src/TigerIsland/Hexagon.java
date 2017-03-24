@@ -13,6 +13,7 @@ public class Hexagon {
         canBeNuked = true;
         level = 0;
         terrain = Terrain.EMPTY;
+        occupationStatus = HexagonOccupationStatus.empty;
     }
     private void incrementLevel(){
         level++;
@@ -20,10 +21,6 @@ public class Hexagon {
 
     public int getLevel(){
         return level;
-    }
-
-    public int getPopulation(){
-        return this.population;
     }
 
     public Terrain getTerrain(){
