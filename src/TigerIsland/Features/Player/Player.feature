@@ -1,10 +1,16 @@
-Feature: test
+Feature: Player
 
-#Tile bag scenario test
-Scenario: tiles reduce tile bag count
-   Given cow
-   When hungry
-   Then moo
+#Player scenario test
+Scenario: Score of initialized player
+    Given I have initialized player
+    When I query that player's score
+    Then I receive 0
+
+Scenario: Score of player after addition
+    Given I have initialized a player and added 5 to their score
+    When I query that player's score
+    Then I receive 5
+
 
 
 
