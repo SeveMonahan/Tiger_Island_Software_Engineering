@@ -18,20 +18,6 @@ public class TileBagDefinitions {
     private Player player = null;
     private int meeples;
 
-    @Given("^an initialized player$")
-    public void initPlayer() {
-        player = new Player(Color.BLACK);
-    }
-
-    @When("^querying that players meeples$")
-    public void queryPlayerMeeples() {
-        meeples = player.getMeeplesCount();
-    }
-
-    @Then("^that player has (\\d+) meeples$")
-    public void queryPlayerMeeples(int number) {
-        Assert.assertEquals(number, meeples);
-    }
 
     @Given("^a new tile bag$")
     public void initTileBag() {
