@@ -14,12 +14,13 @@ Scenario: Build new settlement fails because its on a volcano
 
 Scenario: Build new settlement fails because its past Level 1
     Given A board with a tile placed on it, and all hexagons set to Level 2
-    When I attempt to build a settlement on a non-volcano tile
+    When I attempt to build a settlement on a level 2 non-volcano tile
     Then The operation fails
 
 Scenario: Build new settlement fails because there are already meeples on the hexagon
-    Given A board with a tile placed on it, and each non-volcano tile has a meeple on it
-    When I attempt to build a settlement on a non-volcano tile
+    Given A board with a tile placed on it
+    And each non-volcano tile has a meeple on it
+    When I attempt to build a settlement on an occupied non-volcano tile
     Then The operation fails
 
 Scenario: Build new settlement fails because there are already another player's meeples on hexagon
