@@ -158,12 +158,52 @@ public class Board {
                             if( currentHexagon.getOccupationColor() == playerColor) {
                                 hexagonQueue.add(currentHexagon);
                             }
-
                         }
                     }
                 }
             }
         }
         return size;
+    }
+
+    public boolean expandSettlementCheck(Player player, Coordinate coordinate, Terrain terrain) {
+        Queue<Coordinate> settlement = expandSettlementFloodFill(coordinate, terrain);
+        if(settlement.size() <= player.getMeeplesCount()) {
+
+        }
+
+        return false;
+    }
+
+    public Queue<Coordinate> expandSettlementFloodFill(Coordinate coordinate, Terrain terrain) {
+        HashMap map = new HashMap();
+        Queue<Coordinate> coordinateQueue = new LinkedList<>();
+        Queue<Coordinate> expansion = new LinkedList<>();
+        // Hexagon currentHexagon = this.getHexagon(currentCoordinate);
+        Coordinate currentCoordinate = coordinate;
+
+        coordinateQueue.add(coordinate);
+
+        while (!coordinateQueue.isEmpty()) {
+            currentCoordinate = coordinateQueue.remove();
+            map.put(currentCoordinate.hashCode(), true);
+
+            for (HexagonNeighborDirection dir : HexagonNeighborDirection.values()) {
+                currentCoordinate = coordinate.getHexagonNeighborCoordinate(dir);
+                // currentHexagon = this.getHexagon(currentCoordinate);
+                // if (!map.containsKey(currentHexagon.hashCode())) {
+                if( !map.containsKey(currentCoordinate.hashCode())) {
+                    map.put(currentCoordinate.hashCode(), true);
+                    // Conditions to flood fill
+                    Hexagon hexagon = this.getHexagon(currentCoordinate);
+                    if(hexagon.getOccupationStatus() == HexagonOccupationStatus.empty &&
+                            hexagon.getTerrain() == terrain) {
+                        expansion.add(currentCoordinate);
+                    }
+                }
+            }
+        }
+
+        return expansion;
     }
 }
