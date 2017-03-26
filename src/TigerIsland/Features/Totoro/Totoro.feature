@@ -4,7 +4,7 @@ Feature: Totoro
 
 Scenario: Totoros of initialized player
     Given I have initialized player
-    When I query that player's meeples
+    When I query that player's Totoros
     Then that player has 3 Totoros
 
 Scenario: Totoro stops tile placement
