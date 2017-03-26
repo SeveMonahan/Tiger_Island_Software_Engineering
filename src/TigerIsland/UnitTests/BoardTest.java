@@ -1,9 +1,6 @@
 package TigerIsland.UnitTests;
 
-import TigerIsland.Board;
-import TigerIsland.Coordinate;
-import TigerIsland.Hexagon;
-import TigerIsland.Terrain;
+import TigerIsland.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -109,5 +106,31 @@ public class BoardTest {
         for(int i=0; i<6; i++){
             assertEquals(1, neighbors[i].getLevel());
         }
+    }
+
+    @Test
+    public void settlementExpansionFloodFill() throws Exception{
+        Board TestBoard = new Board();
+        Player player = new Player(Color.BLACK);
+
+        Hexagon TestHexagon = new Hexagon();
+
+        TestHexagon.changeTerrainTypeThoughExplosion(Terrain.ROCK);
+
+        TestBoard.setHexagon( new Coordinate(70,70), TestHexagon);
+        TestBoard.setHexagon( new Coordinate(72,70), TestHexagon);
+
+        TestBoard.setHexagon( new Coordinate(70,71), TestHexagon);
+        TestBoard.setHexagon( new Coordinate(71,71), TestHexagon);
+
+        TestBoard.setHexagon( new Coordinate(70,69), TestHexagon);
+        TestBoard.setHexagon( new Coordinate(71,69), TestHexagon);
+
+        // Hexagon[] neighbors = TestBoard.getNeighbors(new Coordinate(71,70));
+
+        Coordinate coordinate = new Coordinate(71, 70);
+        Terrain terrain = Terrain.ROCK;
+        boolean result = TestBoard.expandSettlementCheck(player, coordinate, terrain);
+        assertEquals(true,result);
     }
 }
