@@ -10,7 +10,7 @@ public class PlayerDefinitions {
     private Player player = null;
     private int score;
 
-    @Given("^I have initialized a player$")
+    @Given("^I have initialized a player in player$")
     public void initPlayer() { player = new Player(Color.BLACK); }
 
     @Given("^I add 5 to that player's score$")
