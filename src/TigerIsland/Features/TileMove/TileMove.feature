@@ -6,7 +6,6 @@ Scenario: Place first tile
    When I place a tile
    Then The operation is successful
    And I receive the placed tiles notification
-   And I can query the hexagon properties of any hexagon on the board
    And The hexagon level of every hexagon which has been overwritten by a tile is 1
 
 Scenario: Place tile on Level 0 Hexagons
