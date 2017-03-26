@@ -1,4 +1,4 @@
-Feature: test
+Feature: Tile
 
 #Tile bag scenario test
 Scenario: tiles reduce tile bag count
