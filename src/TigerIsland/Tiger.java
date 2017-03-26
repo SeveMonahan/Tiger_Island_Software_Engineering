@@ -22,8 +22,16 @@ public class Tiger implements Piece {
     }
 
     public boolean isPlacementValid(Hexagon hexagon) {
-        return !hexagon.isVolcanoHex()
-                && hexagon.getLevel() > 0
-                && (hexagon.getOccupationStatus() == HexagonOccupationStatus.empty);
+        if (hexagon.isVolcanoHex()) {
+            return false;
+        }
+        if (hexagon.getLevel() < 3) {
+            return false;
+        }
+        if (hexagon.getOccupationStatus() != HexagonOccupationStatus.empty) {
+            return false;
+        }
+        // TODO: Check that there's an adjacent settlement of the same player color.
+        return true;
     }
 }
