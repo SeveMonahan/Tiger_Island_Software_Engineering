@@ -2,13 +2,17 @@ Feature: Settlement
 
 #Settlement scenario test
 Scenario: Settlement Size is 1
-    Given I have initialized a player, and initialized a board and placed a tile on it
+    Given I have initialized a player
+    And initialized a board
+    And placed a tile on it
     And I have placed a meeple on a hexagon on the board
     When I ask for the settlement size of that meeple
     Then I receive 1
 
 Scenario: Settlement Size is 2
-    Given I have initialized a player, and initialized a board and placed a tile on it
+    Given I have initialized a player
+    And initialized a board
+    And placed a tile on it
     And I have placed a meeple on both non-volcanic level 1 hexagons on the board
     When I ask for the settlement size of a Meeple’s hexagon
     Then I receive 2
