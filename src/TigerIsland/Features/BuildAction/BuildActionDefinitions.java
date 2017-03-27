@@ -47,11 +47,13 @@ public class BuildActionDefinitions {
         testHexagon = board.getHexagon(coordinate);
         Player player = new Player(Color.BLACK);
         player.placeSettlement(testHexagon);
+        Hexagon testHexagon2 = board.getHexagon(new Coordinate(100, 100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LOWERLEFT));
+        player.placeSettlement(testHexagon2);
     }
 
     @Given("^A board with a tile placed on it, and all hexagons set to Level 2$")
     public void initBoardWithLevel2Tiles() {
-        Board board = new Board(new Tile(Terrain.LAKE, Terrain.GRASSLAND));
+        board = new Board(new Tile(Terrain.LAKE, Terrain.GRASSLAND));
         board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(100, 101)));
         board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.ROCK), HexagonNeighborDirection.LOWERRIGHT, new Coordinate(100, 101)));
     }
@@ -59,19 +61,28 @@ public class BuildActionDefinitions {
     @When("^I attempt to build a settlement on a level 2 non-volcano tile$")
     public void attemptToStartLevel2Settlement() {
         testHexagon = board.getHexagon(new Coordinate(100, 100));
-        Player player = new Player(Color.WHITE);
+        player = new Player(Color.WHITE);
         player.placeSettlement(testHexagon);
     }
 
-    @When("^The operation fails$")
-    public void startSettlementLevel2Fails() {
+    @Then("^The tile place fails$")
+    public void tilePlaceFails() {
         assertEquals(20, player.getMeeplesCount());
         assertEquals(0, player.getScore());
         assertEquals(HexagonOccupationStatus.empty, testHexagon.getOccupationStatus());
     }
 
+    @Then("^The tile place fails, but there is still a meeple in the target Hexagon$")
+    public void tilePlaceFailsButMeepleInTargetHexagon() {
+        assertEquals(20, player.getMeeplesCount());
+        assertEquals(0, player.getScore());
+        assertEquals(HexagonOccupationStatus.Meeples, testHexagon.getOccupationStatus());
+    }
+
     @When("^I attempt to build a settlement on an occupied non-volcano tile$")
     public void attemptToPlaceOnOccupiedHex() {
+        player = new Player(Color.WHITE);
+        player.placeSettlement(board.getHexagon(new Coordinate(100, 100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT)));
     }
 
 /*

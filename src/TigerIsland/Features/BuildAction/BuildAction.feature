@@ -10,29 +10,29 @@ Scenario: Successful build new settlement
 Scenario: Build new settlement fails because its on a volcano
     Given A board with a tile placed on it
     When I attempt to build a settlement on a volcano tile
-    Then The operation fails
+    Then The tile place fails
 
 Scenario: Build new settlement fails because its past Level 1
     Given A board with a tile placed on it, and all hexagons set to Level 2
     When I attempt to build a settlement on a level 2 non-volcano tile
-    Then The operation fails
+    Then The tile place fails
 
 Scenario: Build new settlement fails because there are already meeples on the hexagon
     Given A board with a tile placed on it
     And each non-volcano tile has a meeple on it
     When I attempt to build a settlement on an occupied non-volcano tile
-    Then The operation fails
+    Then The tile place fails, but there is still a Meeple in the target Hexagon
 
 Scenario: Build new settlement fails because there are already another player's meeples on hexagon
     Given A board with a tile placed on it
     And each non-volcano tile has a meeple from a different player on it
     When I attempt to build a settlement on a non-volcano tile
-    Then The operation fails
+    Then The tile place fails
 
 Scenario: Develop settlement fails because no valid adjacent hexagon selected
     Given A board with a volcano, beach, and rock hexagons, and a meeple on the rock hexagon
     When I attempt to develop settlement choosing the meeple settlement and "Jungle"
-    Then The operation fails
+    Then The tile place fails
 
 Scenario: Develop settlement places meeples in exactly one territory
     Given A board with a volcano, beach, and rock hexagons, and a meeple on the rock hexagon
@@ -69,30 +69,30 @@ Scenario: Develop settlement fails due to insufficient meeples
     And there is a meeple on the beach hexagon
     And the player has exactly one meeple left
     When I attempt to develop settlement choosing the meeple settlement and "rock"
-    Then The operation fails
+    Then The tile place fails
 
 Scenario: Build Totoro fails because there is not a big enough settlement
     Given A board with a tile placed on it
     When I attempt to place a Totoro on a non-volcano hexagon
-    Then The operation fails
+    Then The tile place fails
 
 Scenario: Attempt to place Totoro on volcano hexagon
     Given A board with a tile placed on it
     When I attempt to place a Totoro on a volcano hexagon
-    Then The operation fails
+    Then The tile place fails
 
 Scenario: Build Totoro fails because there is not a big enough settlement adjacent
     Given A board with 8 non-volcano hexagons connected in a straight line
     And The first five from some index have meeples from the same player's
     When I attempt to place a Totoro on the last hexagon from that index
-    Then The operation fails
+    Then The tile place fails
 
-Scenario: Build Totoro fails because there is already a Totoro in an adjacent settlement
-    Given A board with 6 non-volcano hexagons connected in a straight line
-    And The first five from some index have meeples from the same player
-    And The next hexagon has a totoro from the same player
-    When The player attempts to add another totoro adjacent to this settlement
-    Then The operation fails
+    Scenario: Build Totoro fails because there is already a Totoro in an adjacent settlement
+        Given A board with 6 non-volcano hexagons connected in a straight line
+        And The first five from some index have meeples from the same player
+        And The next hexagon has a totoro from the same player
+        When The player attempts to add another totoro adjacent to this settlement
+        Then The tile place fails
 
 Scenario: Build Totoro is successful
     Given A board with 8 non-volcano hexagons connected in a straight line
