@@ -58,14 +58,22 @@ public class SettlementDefinitions {
         else {
             ChosenOne = playerTwo;
         }
+
         ChosenOne.placeMeepleOnHexagon(hexagon);
-        throw new PendingException();
     }
 
     @Then("^the settlement at (\\d+),(\\d+) should be (\\d+) for player (\\d+)$")
     public void theSettlementAtShouldBeForPlayer(int arg0, int arg1, int arg2, int arg3) throws Throwable {
-
-        throw new PendingException();
+        Coordinate coordinateOne = new Coordinate(arg0, arg1);
+        Player ChosenOne = null;
+        if (arg3 == 1) {
+            ChosenOne = playerOne;
+        }
+        else {
+            ChosenOne = playerTwo;
+        }
+        assertEquals(arg2,board.settlementSize(coordinateOne, ChosenOne.getColor()));
     }
+
 
 }
