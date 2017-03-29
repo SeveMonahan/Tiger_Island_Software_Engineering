@@ -2,11 +2,11 @@ Feature: Settlement
 
 #Settlement scenario test
 Scenario: Settlement Size is 1
-    Given I have initialized a player
-    And initialized a board and placed a tile on it
-    And I have placed a meeple on a hexagon on the board
-    When I ask for the settlement size of a Meeple’s hexagon
-    Then I receive 1
+    Given I have initialized the players
+    And I have initialized a board
+    When I placed a tile without restrictions at 98, 100 with terrain ROCK, JUNGLE and direction LOWERLEFT
+    When Player 1 places a meeple at 97,99
+    Then the settlement at 97,99 should be 1 for player 1
 
 Scenario: Settlement Size is 2
     Given I have initialized a player

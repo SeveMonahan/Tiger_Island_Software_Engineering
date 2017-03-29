@@ -1,6 +1,7 @@
-package TigerIsland.Features.Settlement;
+package Settlement;
 
 import TigerIsland.*;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -12,63 +13,59 @@ import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertEquals;
 
 public class SettlementDefinitions {
-    Player player = null;
-    Board board = null;
-    int SettlementSize;
+    private TileBag testBag = null;
+    private Tile testTile = null;
+    private Board board = null;
+    private Player playerOne = null;
+    private Player playerTwo = null;
 
-    @Given("^I have initialized a player$")
-    public void initPlayer() {
-        player = new Player(Color.BLACK);
+    @Given("^I have initialized a board$")
+    public void newBoard() throws Throwable {
+        board = new Board();
+        Assert.assertNotNull(board);
     }
 
-    @Given("^initialized a board and placed a tile on it$")
-    public void initBoard() {
-        board = new Board(new Tile(Terrain.LAKE, Terrain.GRASSLAND));
+    @Given("^I have initialized the players$")
+    public void newPlayer() throws Throwable {
+        playerOne = new Player(Color.WHITE);
+        playerTwo = new Player(Color.BLACK);
+        Assert.assertNotNull(playerOne);
+        Assert.assertNotNull(playerTwo);
     }
 
-    @Given("^I have placed a meeple on a hexagon on the board$")
-    public void placeMeeple() {
-        Coordinate coordinateOne = new Coordinate(100,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT);
-        Hexagon hexagon = board.getHexagon(coordinateOne);
-        player.placeMeepleOnHexagon(hexagon);
+
+    @Then("^moo$")
+    public void moo() {
+        System.out.println("moo");
     }
 
-    @Then("^I receive 1$")
-    public void settlementSizeCheck1() {
-        assertEquals(1, SettlementSize);
+    @When("^I placed a tile without restrictions at (\\d+), (\\d+) with terrain (.*), (.*) and direction (.*)$")
+    public void placeTile(int arg1, int arg2, String arg3, String arg4, String arg5) {
+        HexagonNeighborDirection dir = HexagonNeighborDirection.valueOf(arg5);
+        Terrain terrainOne = Terrain.valueOf(arg3);
+        Terrain terrainTwo = Terrain.valueOf(arg4);
+        board.placeTileNoRestrictions(
+                new TileMove(new Tile(terrainOne, terrainTwo), dir, new Coordinate(arg1, arg2)));
     }
 
-    @Given("^I have placed a meeple on both non-volcanic level 1 hexagons on the board$")
-    public void placeAllMeeplesAllowed() {
-        Coordinate coordinate = new Coordinate(100,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT);
-        Hexagon hexagon = board.getHexagon(coordinate);
-        player.placeMeepleOnHexagon(hexagon);
-
-        Coordinate coordinate2 = new Coordinate(100,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.UPPERLEFT);
-        Hexagon hexagon2 = board.getHexagon(coordinate2);
-        player.placeMeepleOnHexagon(hexagon2);
+    @When("^Player (\\d+) places a meeple at (\\d+),(\\d+)$")
+    public void playerPlacesAMeepleAt(int arg0, int arg1, int arg2) throws Throwable {
+        Hexagon hexagon = board.getHexagon(new Coordinate(arg1, arg2));
+        Player ChosenOne;
+        if (arg0 == 1) {
+            ChosenOne = playerOne;
+        }
+        else {
+            ChosenOne = playerTwo;
+        }
+        ChosenOne.placeMeepleOnHexagon(hexagon);
+        throw new PendingException();
     }
 
-    @When("^I ask for the settlement size of a Meeple’s hexagon$")
-    public void queryHexagonMeeples() {
-        SettlementSize = board.settlementSize( new Coordinate(100, 100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT),player.getColor());
-    }
+    @Then("^the settlement at (\\d+),(\\d+) should be (\\d+) for player (\\d+)$")
+    public void theSettlementAtShouldBeForPlayer(int arg0, int arg1, int arg2, int arg3) throws Throwable {
 
-    @Then("^I receive 2$")
-    public void setSettlementSizeCheck2() {
-        assertEquals(2,SettlementSize);
+        throw new PendingException();
     }
 
 }
-
-/*
-Scenario: Settlement Size of 1 stops tile placement
-X    Given I have initialized a board
-	And placed two tiles adjacent to each other with two touching hexagons across tiles
-	And the tiles have adjacent volcanoes
-	And There is a meeple on a non-volcano hexagon which is adjacent to both volcanos
-	And There are no other meeples on the board
-    When I attempt to place a tile on a volcano so it overlaps onto the other tile
-	And The tile would overwrite the meeple
-    Then The operation should fail
- */
