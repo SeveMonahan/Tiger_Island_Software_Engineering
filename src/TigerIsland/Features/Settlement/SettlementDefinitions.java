@@ -6,6 +6,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
+import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.AnyOf.anyOf;
@@ -60,6 +61,8 @@ public class SettlementDefinitions {
         }
 
         ChosenOne.placeMeepleOnHexagon(hexagon);
+
+
     }
 
     @Then("^the settlement at (\\d+),(\\d+) should be (\\d+) for player (\\d+)$")
