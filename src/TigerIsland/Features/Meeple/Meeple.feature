@@ -1,6 +1,6 @@
-Feature: test
+Feature: Meeple
 
-#Tile bag scenario test
+#Meeple scenario test
   Scenario: Meeples of initialized player 
     Given I have initialized player in meeple 
     When I query that player's meeples 

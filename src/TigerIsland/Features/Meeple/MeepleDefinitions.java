@@ -9,7 +9,8 @@ import org.junit.Assert;
 
 import static org.junit.Assert.assertEquals;
 
-public class MeeplDefinitions {
+public class MeepleDefinitions
+{
     private Player player = null;
     private Board board = null;
     private Hexagon hexagon = null;
