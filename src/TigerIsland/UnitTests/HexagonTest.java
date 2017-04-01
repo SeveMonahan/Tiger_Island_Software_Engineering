@@ -26,6 +26,6 @@ public class HexagonTest {
     public void isVolcanoTest() throws Exception {
         Hexagon TestHexagon = new Hexagon();
         TestHexagon.changeTerrainTypeThoughExplosion(Terrain.VOLCANO);
-        assertEquals(true, TestHexagon.isVolcanoHex());
+        assertEquals(true, TestHexagon.isVolcano());
     }
 }

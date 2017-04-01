@@ -37,7 +37,7 @@ public class MeeplDefinitions {
     }
     @Given("^I place a tile on it in meeple$")
     public void placedTile(){
-        Coordinate coordinate = new Coordinate(100,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT);
+        Coordinate coordinate = board.getNeighboringCoordinate(new Coordinate(100,100), HexagonNeighborDirection.LEFT);
         this.hexagon = board.getHexagon(coordinate);
     }
     @When("^I attempt to populate a Level 1 non-volcano hexagon $")
@@ -46,7 +46,7 @@ public class MeeplDefinitions {
     }
     @Then("^I place 1 meeple on Hexagon hexagon $")
     public void oneMeepleIsPlaced(){
-        assertEquals(HexagonOccupationStatus.Meeples, hexagon.getOccupationStatus());
+        assertEquals(HexagonOccupationStatus.MEEPLES, hexagon.getOccupationStatus());
     }
     @Then("^the player now has 1 point $")
     public void playerHasAPoing(){

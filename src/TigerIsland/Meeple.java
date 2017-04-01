@@ -3,7 +3,7 @@ package TigerIsland;
 public class Meeple implements Piece {
     private Color color;
     public boolean canBeKilled() { return true; }
-    public HexagonOccupationStatus getOccupyStatus() { return HexagonOccupationStatus.Meeples; }
+    public HexagonOccupationStatus getOccupyStatus() { return HexagonOccupationStatus.MEEPLES; }
 
     public Meeple( Color color ) {
         this.color = color;
@@ -22,8 +22,8 @@ public class Meeple implements Piece {
     }
 
     public boolean isPlacementValid(Hexagon hexagon) {
-        return !hexagon.isVolcanoHex()
+        return !hexagon.isVolcano()
                 && hexagon.getLevel() > 0
-                && (hexagon.getOccupationStatus() == HexagonOccupationStatus.empty);
+                && (hexagon.getOccupationStatus() == HexagonOccupationStatus.EMPTY);
     }
 }

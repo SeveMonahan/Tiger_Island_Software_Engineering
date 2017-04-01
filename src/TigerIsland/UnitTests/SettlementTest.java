@@ -1,3 +1,5 @@
+package TigerIsland.UnitTests;
+
 import TigerIsland.*;
 import org.junit.Test;
 
@@ -9,13 +11,13 @@ public class SettlementTest {
         Player player = new Player(Color.WHITE);
         Player playerTwo = new Player(Color.BLACK);
         Board board = new Board(new Tile(Terrain.LAKE, Terrain.GRASSLAND));
-        Coordinate coordinateOne = new Coordinate(100,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT);
+        Coordinate coordinateOne = board.getNeighboringCoordinate(new Coordinate(100,100), HexagonNeighborDirection.LEFT);
         Hexagon hexagon = board.getHexagon(coordinateOne);
         player.placeMeepleOnHexagon(hexagon);
-        Coordinate coordinateTwo = new Coordinate(100,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.UPPERLEFT);
+        Coordinate coordinateTwo = board.getNeighboringCoordinate(new Coordinate(100,100), HexagonNeighborDirection.UPPERLEFT);
         hexagon = board.getHexagon(coordinateTwo);
         playerTwo.placeMeepleOnHexagon(hexagon);
-        assertEquals(1,board.settlementSize(coordinateOne, player.getColor()));
+        assertEquals(1,board.getSettlementSize(coordinateOne));
     }
     @Test
     public void settlementOfSizeTwo() {
@@ -35,11 +37,6 @@ public class SettlementTest {
         playerTwo.placeMeepleOnHexagon(hexagon);
         hexagon = board.getHexagon(playerTwoMeepleTwo);
         playerTwo.placeMeepleOnHexagon(hexagon);
-        assertEquals(2,board.settlementSize(playerOneMeepleOne,player.getColor()));
-    }
-
-    @Test
-    public void settlementOfSizeOneShouldPreventTilePlacement() {
-
+        assertEquals(2,board.getSettlementSize(playerOneMeepleOne));
     }
 }

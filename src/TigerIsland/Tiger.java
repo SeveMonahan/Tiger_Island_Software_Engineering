@@ -3,7 +3,7 @@ package TigerIsland;
 public class Tiger implements Piece {
     private Color color;
     public boolean canBeKilled() { return true; }
-    public HexagonOccupationStatus getOccupyStatus() { return HexagonOccupationStatus.Tigers; }
+    public HexagonOccupationStatus getOccupyStatus() { return HexagonOccupationStatus.TIGERS; }
 
     public Tiger( Color color ) {
         this.color = color;
@@ -22,13 +22,13 @@ public class Tiger implements Piece {
     }
 
     public boolean isPlacementValid(Hexagon hexagon) {
-        if (hexagon.isVolcanoHex()) {
+        if (hexagon.isVolcano()) {
             return false;
         }
         if (hexagon.getLevel() < 3) {
             return false;
         }
-        if (hexagon.getOccupationStatus() != HexagonOccupationStatus.empty) {
+        if (hexagon.isEmpty()) {
             return false;
         }
         // TODO: Check that there's an adjacent settlement of the same player color.

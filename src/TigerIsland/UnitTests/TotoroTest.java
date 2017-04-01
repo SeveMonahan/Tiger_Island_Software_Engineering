@@ -32,7 +32,7 @@ public class TotoroTest {
     @Test
     public void placeTotoroOnVolcano() throws Exception {
         Board board = new Board(new Tile(Terrain.LAKE, Terrain.GRASSLAND));
-        Coordinate coordinate = new Coordinate(101,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT);
+        Coordinate coordinate = board.getNeighboringCoordinate(new Coordinate(101,100), HexagonNeighborDirection.LEFT);
         Hexagon hexagon = board.getHexagon(coordinate);
         Player player = new Player(Color.WHITE);
 
@@ -40,6 +40,6 @@ public class TotoroTest {
 
         assertEquals(0, player.getScore());
         assertEquals(3, player.getTotoroCount());
-        assertEquals(HexagonOccupationStatus.empty, hexagon.getOccupationStatus());
+        assertEquals(HexagonOccupationStatus.EMPTY, hexagon.getOccupationStatus());
     }
 }

@@ -22,7 +22,7 @@ public class BuildActionDefinitions {
 
     @When("^I attempt to build a settlement on a non-volcano tile$")
     public void attemptToBuildSettlementNonVolcano() {
-        Coordinate coordinate = new Coordinate(100,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT);
+        Coordinate coordinate = board.getNeighboringCoordinate(new Coordinate(100,100), HexagonNeighborDirection.LEFT);
         testHexagon = board.getHexagon(coordinate);
         Player player = new Player(Color.BLACK);
         player.placeSettlement(testHexagon);
@@ -30,12 +30,12 @@ public class BuildActionDefinitions {
 
     @Then("^A meeple is placed on that hexagon$")
     public void meeplePlacedOnHexagon() {
-        assertEquals(HexagonOccupationStatus.Meeples, testHexagon.getOccupationStatus() );
+        assertEquals(HexagonOccupationStatus.MEEPLES, testHexagon.getOccupationStatus() );
     }
 
     @When("^I attempt to build a settlement on a volcano tile$")
     public void attemptToBuildSettlementVolcano() {
-        Coordinate coordinate = new Coordinate(101,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT);
+        Coordinate coordinate = board.getNeighboringCoordinate(new Coordinate(101, 100), HexagonNeighborDirection.LEFT);
         testHexagon = board.getHexagon(coordinate);
         player = new Player(Color.BLACK);
         player.placeSettlement(testHexagon);
@@ -43,11 +43,11 @@ public class BuildActionDefinitions {
 
     @Given("^each non-volcano tile has a meeple on it$")
     public void populateAllAvailableLocations() {
-        Coordinate coordinate = new Coordinate(100,100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT);
+        Coordinate coordinate = board.getNeighboringCoordinate(new Coordinate(100,100), HexagonNeighborDirection.LEFT);
         testHexagon = board.getHexagon(coordinate);
         Player player = new Player(Color.BLACK);
         player.placeSettlement(testHexagon);
-        Hexagon testHexagon2 = board.getHexagon(new Coordinate(100, 100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LOWERLEFT));
+        Hexagon testHexagon2 = board.getNeighboringHexagon(new Coordinate(100,100), HexagonNeighborDirection.LOWERLEFT);
         player.placeSettlement(testHexagon2);
     }
 
@@ -69,20 +69,20 @@ public class BuildActionDefinitions {
     public void tilePlaceFails() {
         assertEquals(20, player.getMeeplesCount());
         assertEquals(0, player.getScore());
-        assertEquals(HexagonOccupationStatus.empty, testHexagon.getOccupationStatus());
+        assertEquals(HexagonOccupationStatus.EMPTY, testHexagon.getOccupationStatus());
     }
 
     @Then("^The tile place fails, but there is still a meeple in the target Hexagon$")
     public void tilePlaceFailsButMeepleInTargetHexagon() {
         assertEquals(20, player.getMeeplesCount());
         assertEquals(0, player.getScore());
-        assertEquals(HexagonOccupationStatus.Meeples, testHexagon.getOccupationStatus());
+        assertEquals(HexagonOccupationStatus.MEEPLES, testHexagon.getOccupationStatus());
     }
 
     @When("^I attempt to build a settlement on an occupied non-volcano tile$")
     public void attemptToPlaceOnOccupiedHex() {
         player = new Player(Color.WHITE);
-        player.placeSettlement(board.getHexagon(new Coordinate(100, 100).getHexagonNeighborCoordinate(HexagonNeighborDirection.LEFT)));
+        player.placeSettlement(board.getNeighboringHexagon(new Coordinate(100,100), HexagonNeighborDirection.LEFT));
     }
 
 /*

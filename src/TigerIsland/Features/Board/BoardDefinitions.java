@@ -31,7 +31,7 @@ public class BoardDefinitions {
 
     @When("^I query a Hexagon's neighbors$")
     public void getAllNeighborTiles() {
-        neighbors = board.getNeighbors(new Coordinate(101,101));
+        neighbors = board.getNeighboringHexagons(new Coordinate(101,101));
     }
 
     @Then("^I receive that Hexagon's neighbors as a result$")

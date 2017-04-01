@@ -4,7 +4,7 @@ public class Totoro implements Piece {
     private Color color;
     public boolean canBeKilled() { return false; }
     public HexagonOccupationStatus getOccupyStatus(){
-        return HexagonOccupationStatus.Totoro;
+        return HexagonOccupationStatus.TOTORO;
     }
 
     public Totoro( Color color ) { this.color = color; }
@@ -22,7 +22,7 @@ public class Totoro implements Piece {
     }
 
     public boolean isPlacementValid(Hexagon hexagon) {
-        if( !hexagon.isVolcanoHex() && (hexagon.getOccupationStatus() == HexagonOccupationStatus.empty) ) {
+        if( !hexagon.isVolcano() && (hexagon.isEmpty()) ) {
             return true;
         } else {
             return false;
