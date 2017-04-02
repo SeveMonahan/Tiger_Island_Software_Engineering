@@ -9,4 +9,8 @@ public class GameModel {
         this.game = game;
         this.player = player;
     }
+
+    public GameOutcome getGameOutcome(){
+        return game.getGameOutcome(player);
+    }
 }

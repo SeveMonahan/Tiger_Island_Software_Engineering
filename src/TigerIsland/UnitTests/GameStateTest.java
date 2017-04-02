@@ -22,15 +22,15 @@ public class GameStateTest {
 
         TestGameState = new GameState(player_1, player_2);
 
-        GameModel player_1_model = TestGameState.getPlayerOneModel();
-        GameModel player_2_model = TestGameState.getPlayerTwoModel();
+        player_1_model = TestGameState.getPlayerOneModel();
+        player_2_model = TestGameState.getPlayerTwoModel();
 
     }
 
     @Test
     public void gameNotOver(){
-        assertEquals(GameOutcome.UNDETERMINED, TestGameState.getGameOutcome(player_1));
-        assertEquals(GameOutcome.UNDETERMINED, TestGameState.getGameOutcome(player_2));
+        assertEquals(GameOutcome.UNDETERMINED, player_1_model.getGameOutcome());
+        assertEquals(GameOutcome.UNDETERMINED, player_2_model.getGameOutcome());
     }
 
     @Test
@@ -39,16 +39,16 @@ public class GameStateTest {
 
         TestGameState.setGameIsOver();
 
-        assertEquals(GameOutcome.WIN, TestGameState.getGameOutcome(player_1));
-        assertEquals(GameOutcome.LOSS, TestGameState.getGameOutcome(player_2));
+        assertEquals(GameOutcome.WIN, player_1_model.getGameOutcome());
+        assertEquals(GameOutcome.LOSS, player_2_model.getGameOutcome());
     }
 
     @Test
     public void gameIsTied(){
         TestGameState.setGameIsOver();
 
-        assertEquals(GameOutcome.TIE, TestGameState.getGameOutcome(player_1));
-        assertEquals(GameOutcome.TIE, TestGameState.getGameOutcome(player_2));
+        assertEquals(GameOutcome.TIE, player_1_model.getGameOutcome());
+        assertEquals(GameOutcome.TIE, player_2_model.getGameOutcome());
     }
 
     @Test
@@ -57,7 +57,7 @@ public class GameStateTest {
 
         TestGameState.setGameIsOver();
 
-        assertEquals(GameOutcome.LOSS, TestGameState.getGameOutcome(player_1));
-        assertEquals(GameOutcome.WIN, TestGameState.getGameOutcome(player_2));
+        assertEquals(GameOutcome.LOSS, player_1_model.getGameOutcome());
+        assertEquals(GameOutcome.WIN, player_2_model.getGameOutcome());
     }
 }
