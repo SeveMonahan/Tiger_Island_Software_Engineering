@@ -17,12 +17,11 @@ public class Coordinate {
     }
 
     public Coordinate(int xC, int yC, int zC){
-        int col = yC + (zC-(zC&1))/2;
-        int row = zC;
+        int col = yC + (xC-(xC&1))/2;
+        int row = -xC;
 
         this.x = col+100;
         this.y = row+100;
-        System.out.println(this.x+" "+this.y);
     }
 
     public int[] ConvertToCube(){
