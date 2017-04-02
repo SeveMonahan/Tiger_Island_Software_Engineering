@@ -5,7 +5,6 @@ public class Hexagon {
     private int level;
     private Terrain terrain;
     private int tileHashCode;
-    private int population;
     private HexagonOccupationStatus occupationStatus;
     private Color occupationColor;
     private boolean canBeNuked;
@@ -27,7 +26,6 @@ public class Hexagon {
     // Setters
     public void setOccupationStatus(Piece piece) {
         occupationStatus = piece.getOccupyStatus();
-        population = piece.populationRequirements(this);
         occupationColor = piece.getPieceColor();
         this.canBeNuked = piece.canBeKilled();
     }
@@ -73,7 +71,6 @@ public class Hexagon {
     }
     private void eliminatePieces() {
         occupationStatus = HexagonOccupationStatus.EMPTY;
-        population = 0;
         occupationColor = null;
     }
 }
