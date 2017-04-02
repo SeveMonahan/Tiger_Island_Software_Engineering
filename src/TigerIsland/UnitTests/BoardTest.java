@@ -149,6 +149,15 @@ public class BoardTest {
         assertEquals(99, testCoordinate3.getX());
         assertEquals(99, testCoordinate3.getY());
 
+        Coordinate testCoordinate4 = new Coordinate(0,-1,1);
+        assertEquals(99, testCoordinate4.getX());
+        assertEquals(100, testCoordinate4.getY());
+
+        Coordinate testCoordinate5 = new Coordinate(-1,0,1);
+        assertEquals(99, testCoordinate5.getX());
+        assertEquals(101, testCoordinate5.getY());
+
+
     }
 
 
