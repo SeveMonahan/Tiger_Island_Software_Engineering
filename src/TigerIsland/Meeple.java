@@ -24,6 +24,6 @@ public class Meeple implements Piece {
     public boolean isPlacementValid(Hexagon hexagon) {
         return !hexagon.isVolcano()
                 && hexagon.getLevel() > 0
-                && (hexagon.getOccupationStatus() == HexagonOccupationStatus.EMPTY);
+                && (hexagon.isEmpty());
     }
 }

@@ -2,6 +2,7 @@ Feature: BuildAction
 
   Scenario: Successful build new settlement
     Given A board with a tile placed on it
+    And I have initialized a player in BuildActionDefinitions
     When I attempt to build a settlement on a non-volcano tile
     Then A meeple is placed on that hexagon
 
@@ -17,6 +18,7 @@ Feature: BuildAction
 
   Scenario: Build new settlement fails because there are already meeples on the hexagon
     Given A board with a tile placed on it
+    And I have initialized a player in BuildActionDefinitions
     And each non-volcano tile has a meeple on it
     When I attempt to build a settlement on an occupied non-volcano tile
     Then The tile place fails

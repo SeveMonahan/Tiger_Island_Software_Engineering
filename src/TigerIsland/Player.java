@@ -25,12 +25,6 @@ public class Player {
     public void setScore(int newScore) { this.score = newScore; }
     public void setAutoLoseScore(){ this.score = -1; }
 
-    public void startSettlement(Hexagon hexagon) {
-        if (hexagon.getLevel() == 1) {
-            placeMeepleOnHexagon(hexagon);
-        }
-    }
-
     // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
     public void placeMeepleOnHexagon(Hexagon hexagon) {
         Piece newPiece = new Meeple(this.color);
@@ -73,12 +67,11 @@ public class Player {
 
     public boolean placeSettlement(Hexagon hexagon) {
         Piece meeple = new Meeple(this.color);
-        if( hexagon.getLevel() == 1 ) {
-            if( attemptToPlacePiece(meeple, hexagon) ) {
+        if (hexagon.getLevel() == 1) {
+            if (attemptToPlacePiece(meeple, hexagon)) {
                 return true;
             }
         }
         return false;
     }
-
 }

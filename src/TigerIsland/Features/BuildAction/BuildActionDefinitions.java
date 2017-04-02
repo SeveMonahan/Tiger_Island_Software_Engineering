@@ -4,52 +4,56 @@ import TigerIsland.*;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
 
 import static org.junit.Assert.assertEquals;
 
 
 public class BuildActionDefinitions {
     Board board = null;
-    Hexagon testHexagon = null;
+    Hexagon targetHexagon = null;
     Player player = null;
+    private boolean isValid;
 
     @Given("^A board with a tile placed on it$")
     public void initBoard() {
-        Tile newTile = new Tile(Terrain.GRASSLAND, Terrain.JUNGLE);
-        Board boardWithTile = new Board();
-        TileMove startingTileMove = new TileMove(newTile, HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
-        boardWithTile.placeTile(startingTileMove);
-        board = boardWithTile;
+        board = new Board();
+        board.placeStartingTile();
+    }
+
+    @Given("^I have initialized a player in BuildActionDefinitions$")
+    public void initializePlayer() {
+        player = new Player(Color.BLACK);
     }
 
     @When("^I attempt to build a settlement on a non-volcano tile$")
     public void attemptToBuildSettlementNonVolcano() {
-        Coordinate coordinate = board.getNeighboringCoordinate(new Coordinate(100,100), HexagonNeighborDirection.LEFT);
-        testHexagon = board.getHexagon(coordinate);
-        Player player = new Player(Color.BLACK);
-        player.placeSettlement(testHexagon);
+        Coordinate coordinate = board.getNeighboringCoordinate(new Coordinate(100,100), HexagonNeighborDirection.UPPERLEFT);
+        targetHexagon = board.getHexagon(coordinate);
+        isValid = player.placeSettlement(targetHexagon);
+        Assert.assertEquals(true, isValid);
     }
 
     @Then("^A meeple is placed on that hexagon$")
     public void meeplePlacedOnHexagon() {
-        assertEquals(HexagonOccupationStatus.MEEPLES, testHexagon.getOccupationStatus() );
+        assertEquals(HexagonOccupationStatus.MEEPLES, targetHexagon.getOccupationStatus());
     }
 
     @When("^I attempt to build a settlement on a volcano tile$")
     public void attemptToBuildSettlementVolcano() {
         Coordinate coordinate = board.getNeighboringCoordinate(new Coordinate(101, 100), HexagonNeighborDirection.LEFT);
-        testHexagon = board.getHexagon(coordinate);
+        targetHexagon = board.getHexagon(coordinate);
         player = new Player(Color.BLACK);
-        player.placeSettlement(testHexagon);
+        isValid = player.placeSettlement(targetHexagon);
+        Assert.assertEquals(false, isValid);
     }
 
     @Given("^each non-volcano tile has a meeple on it$")
     public void populateAllAvailableLocations() {
-        Coordinate coordinate = board.getNeighboringCoordinate(new Coordinate(100,100), HexagonNeighborDirection.LEFT);
-        testHexagon = board.getHexagon(coordinate);
-        Player player = new Player(Color.BLACK);
-        player.placeSettlement(testHexagon);
-        Hexagon testHexagon2 = board.getNeighboringHexagon(new Coordinate(100,100), HexagonNeighborDirection.LOWERLEFT);
+        Coordinate coordinate = board.getNeighboringCoordinate(new Coordinate(100,100), HexagonNeighborDirection.UPPERLEFT);
+        targetHexagon = board.getHexagon(coordinate);
+        player.placeSettlement(targetHexagon);
+        Hexagon testHexagon2 = board.getNeighboringHexagon(new Coordinate(100,100), HexagonNeighborDirection.UPPERRIGHT);
         player.placeSettlement(testHexagon2);
     }
 
@@ -65,23 +69,22 @@ public class BuildActionDefinitions {
 
     @When("^I attempt to build a settlement on a level 2 non-volcano tile$")
     public void attemptToStartLevel2Settlement() {
-        testHexagon = board.getHexagon(new Coordinate(100, 100));
+        targetHexagon = board.getHexagon(new Coordinate(100, 100));
         player = new Player(Color.WHITE);
-        player.placeSettlement(testHexagon);
+        player.placeSettlement(targetHexagon);
     }
 
     @Then("^The tile place fails$")
     public void tilePlaceFails() {
         assertEquals(20, player.getMeeplesCount());
         assertEquals(0, player.getScore());
-        assertEquals(HexagonOccupationStatus.EMPTY, testHexagon.getOccupationStatus());
     }
 
     @Then("^The tile place fails, but there is still a meeple in the target Hexagon$")
     public void tilePlaceFailsButMeepleInTargetHexagon() {
         assertEquals(20, player.getMeeplesCount());
         assertEquals(0, player.getScore());
-        assertEquals(HexagonOccupationStatus.MEEPLES, testHexagon.getOccupationStatus());
+        assertEquals(HexagonOccupationStatus.MEEPLES, targetHexagon.getOccupationStatus());
     }
 
     @When("^I attempt to build a settlement on an occupied non-volcano tile$")
