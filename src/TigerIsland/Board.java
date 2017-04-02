@@ -56,10 +56,7 @@ public class Board {
     }
     // Coordinate (100, 100) is the center of the board.
     // Note: you must use this initializer if you want to use placeTile() to place more tiles.
-    public Board(Tile startingTile){
-        initializeHexagonArray();
-        TileMove startingTileMove = new TileMove(startingTile, HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
-        placeTile(startingTileMove);
+    private Board(Tile startingTile){
     }
 
     public Board(Board board){

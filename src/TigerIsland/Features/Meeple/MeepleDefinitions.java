@@ -1,7 +1,6 @@
 package Meeple;
 
 import TigerIsland.*;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -34,7 +33,10 @@ public class MeepleDefinitions
 
     @Given("^I have an initialized board$")
     public void newBoard() throws Throwable {
-        Board board = new Board(new Tile(Terrain.LAKE, Terrain.GRASSLAND));
+        Board boardWithTile = new Board();
+        TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASSLAND), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
+        boardWithTile.placeTile(startingTileMove);
+        Board board = boardWithTile;
     }
     @Given("^I place a tile on it in meeple$")
     public void placedTile(){

@@ -32,7 +32,10 @@ public class TotoroDefinitions {
     @Given("^I have initialized a board$")
     public void initBoardTotoro() {
         Tile newTile = new Tile(Terrain.GRASSLAND, Terrain.JUNGLE);
-        board = new Board(newTile);
+        Board boardWithTile = new Board();
+        TileMove startingTileMove = new TileMove(newTile, HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
+        boardWithTile.placeTile(startingTileMove);
+        board = boardWithTile;
     }
 
     @Given("^placed two tiles adjacent to each other with two touching hexagons across tiles$")
@@ -43,7 +46,10 @@ public class TotoroDefinitions {
     @Given("^the tiles have adjacent volcanoes$")
     public void tilesHaveAdjacentVolcano() {
         Tile newTile = new Tile(Terrain.GRASSLAND, Terrain.JUNGLE);
-        board = new Board(newTile);
+        Board boardWithTile = new Board();
+        TileMove startingTileMove = new TileMove(newTile, HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
+        boardWithTile.placeTile(startingTileMove);
+        board = boardWithTile;
     }
 
     @Given("^There is a Totoro on a non-volcano hexagon which is adjacent to both volcanos$")
@@ -57,7 +63,10 @@ public class TotoroDefinitions {
     @When("^I attempt to place a tile on a volcano so it overlaps onto the other tile$")
     public void placeTileOverVolcano() {
         Tile newTile = new Tile(Terrain.GRASSLAND, Terrain.JUNGLE);
-        board = new Board(newTile);
+        Board boardWithTile = new Board();
+        TileMove startingTileMove = new TileMove(newTile, HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
+        boardWithTile.placeTile(startingTileMove);
+        board = boardWithTile;
     }
 
     @When("^The tile would overwrite the totoro$")

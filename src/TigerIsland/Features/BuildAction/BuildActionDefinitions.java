@@ -4,7 +4,6 @@ import TigerIsland.*;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import junit.framework.TestCase;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,7 +16,10 @@ public class BuildActionDefinitions {
     @Given("^A board with a tile placed on it$")
     public void initBoard() {
         Tile newTile = new Tile(Terrain.GRASSLAND, Terrain.JUNGLE);
-        board = new Board(newTile);
+        Board boardWithTile = new Board();
+        TileMove startingTileMove = new TileMove(newTile, HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
+        boardWithTile.placeTile(startingTileMove);
+        board = boardWithTile;
     }
 
     @When("^I attempt to build a settlement on a non-volcano tile$")
@@ -53,7 +55,10 @@ public class BuildActionDefinitions {
 
     @Given("^A board with a tile placed on it, and all hexagons set to Level 2$")
     public void initBoardWithLevel2Tiles() {
-        board = new Board(new Tile(Terrain.LAKE, Terrain.GRASSLAND));
+        Board boardWithTile = new Board();
+        TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASSLAND), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
+        boardWithTile.placeTile(startingTileMove);
+        board = boardWithTile;
         board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(100, 101)));
         board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.ROCK), HexagonNeighborDirection.LOWERRIGHT, new Coordinate(100, 101)));
     }
