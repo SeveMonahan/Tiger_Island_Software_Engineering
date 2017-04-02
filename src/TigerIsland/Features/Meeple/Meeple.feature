@@ -14,4 +14,3 @@ Feature: Meeple
     Then I place 1 meeple on the hexagon 
     And the player now has 1 point 
     And the player has 19 meeples  
-
