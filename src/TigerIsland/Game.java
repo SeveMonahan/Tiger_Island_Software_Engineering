@@ -1,19 +1,20 @@
 package TigerIsland;
 
 public class Game {
-    public Player player1;
-    public Player player2;
+    private Player player1;
+    private Player player2;
     private Player playerWhoseTurn;
-    public Player winner;
+    private boolean gameIsOver;
 
     public Game() {
         player1 = new Player(Color.WHITE);
         player2 = new Player(Color.BLACK);
         playerWhoseTurn = player1;
+        gameIsOver = false;
     }
 
-    public Player getTurn() {
-        return playerWhoseTurn;
+    public boolean isMyTurn(Player me) {
+        return me == playerWhoseTurn;
     }
 
     public void changeTurn() {
@@ -23,25 +24,33 @@ public class Game {
             playerWhoseTurn = player1;
     }
 
-    public boolean lossCondition(Player player) {
-        if (player.getScore() == -1)
-            return true;
-        else return false;
+    private boolean playerScoreIsLessThanOpponent(Player player1, Player opponent) {
+        return player1.getScore() < opponent.getScore();
     }
 
-    public boolean playerScoreIsLessThanOpponent(Player player1, Player opponent) {
-        if (player1.getScore() < opponent.getScore())
-            return true;
-        else return false;
+    public void setGameIsOver(){
+        gameIsOver = true;
     }
 
-    public void endGameConditions() {
-        if (lossCondition(player1)|| playerScoreIsLessThanOpponent(player1,player2)) {
-            winner = player2;
-        } else if (lossCondition(player2) || playerScoreIsLessThanOpponent(player2,player1)) {
-            winner = player1;
-        } else { // Tie game
-            winner = null;
+    public GameOutcome getGameOutcome(Player me) {
+        Player winner;
+
+        if(gameIsOver){
+            if (playerScoreIsLessThanOpponent(player1, player2)) {
+                winner = player2;
+            } else if (playerScoreIsLessThanOpponent(player2, player1)) {
+                winner = player1;
+            } else { // Tie game
+                return GameOutcome.TIE;
+            }
+
+            if(winner == me){
+                return GameOutcome.WIN;
+            }else{
+                return GameOutcome.LOSS;
+            }
         }
+
+        return GameOutcome.UNDETERMINED;
     }
 }
