@@ -13,6 +13,14 @@ public class Game {
         gameIsOver = false;
     }
 
+    public Player getPlayerOne(){
+        return player1;
+    }
+
+    public Player getPlayerTwo(){
+        return player2;
+    }
+
     public boolean isMyTurn(Player me) {
         return me == playerWhoseTurn;
     }
