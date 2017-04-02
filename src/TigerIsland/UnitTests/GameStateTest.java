@@ -20,7 +20,7 @@ public class GameStateTest {
         player_1 = new Player(Color.WHITE);
         player_2 = new Player(Color.BLACK);
 
-        TestGameState = new GameState(player_1, player_2);
+        TestGameState = GameState.createGameStateWithInjectedPlayersForTesting(player_1, player_2);
 
         player_1_model = TestGameState.getPlayerOneModel();
         player_2_model = TestGameState.getPlayerTwoModel();

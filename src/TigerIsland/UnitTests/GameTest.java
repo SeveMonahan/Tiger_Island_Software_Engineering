@@ -16,7 +16,7 @@ public class GameTest {
         player_1 = new Player(Color.WHITE);
         player_2 = new Player(Color.BLACK);
 
-        TestGameState = new GameState(player_1, player_2);
+        TestGameState = GameState.createGameStateWithInjectedPlayersForTesting(player_1, player_2);
     }
 
     @Test

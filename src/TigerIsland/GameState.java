@@ -13,12 +13,17 @@ public class GameState {
         gameIsOver = false;
     }
 
-    public GameState(Player player_1, Player player_2) {
+    private GameState(Player player_1, Player player_2) {
         this.player_1 = player_1;
         this.player_2 = player_2;
         playerWhoseTurn = player_1;
         gameIsOver = false;
     }
+
+    public static GameState createGameStateWithInjectedPlayersForTesting(Player player_1, Player player_2) {
+        return new GameState(player_1, player_2);
+    }
+
     public GameModel getPlayerOneModel(){
         return new GameModel(this, player_1);
     }
