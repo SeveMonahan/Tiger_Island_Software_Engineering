@@ -3,6 +3,7 @@ package TigerIsland.UnitTests;
 import TigerIsland.*;
 import org.junit.Test;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class BoardTest {
@@ -16,23 +17,6 @@ public class BoardTest {
         Board TestBoard = new Board();
         assert(TestBoard.getHexagon( new Coordinate(0,0))
                 instanceof Hexagon);
-    }
-
-    @Test
-    public void startTile() throws Exception{
-        Board TestBoard = new Board();
-        TestBoard.placeStartingTile();
-        Coordinate centerCoord = new Coordinate(100,100);
-        Hexagon center = TestBoard.getHexagon(centerCoord);
-        Hexagon upperLeft = TestBoard.getNeighboringHexagon(centerCoord,HexagonNeighborDirection.UPPERLEFT);
-        Hexagon upperRight = TestBoard.getNeighboringHexagon(centerCoord,HexagonNeighborDirection.UPPERRIGHT);
-        Hexagon lowerRight = TestBoard.getNeighboringHexagon(centerCoord, HexagonNeighborDirection.LOWERRIGHT);
-        Hexagon lowerLeft = TestBoard.getNeighboringHexagon(centerCoord,HexagonNeighborDirection.LOWERLEFT);
-        assertEquals(Terrain.JUNGLE, upperLeft.getTerrain() );
-        assertEquals(Terrain.LAKE,upperRight.getTerrain() );
-        assertEquals(Terrain.GRASSLAND,lowerRight.getTerrain() );
-        assertEquals(Terrain.ROCK,lowerLeft.getTerrain()  );
-        assertEquals(Terrain.VOLCANO, center.getTerrain() );
     }
 
     @Test
@@ -147,24 +131,69 @@ public class BoardTest {
 
         Coordinate coordinate = new Coordinate(71, 70);
         Terrain terrain = Terrain.ROCK;
-        boolean result = TestBoard.expandSettlementWithCheck(player, coordinate, terrain);
+        boolean result = TestBoard.expandSettlementCheck(player, coordinate, terrain);
         assertEquals(true,result);
     }
-
     @Test
-    public void BoardClone(){
-        Board TestBoard = new Board();
-        Board ClonedBoard = new Board(TestBoard);
+    public void convertToSquare() throws Exception{
+        Coordinate testCoordinate = new Coordinate(0,1,-1);
+        assertEquals(101, testCoordinate.getX());
+        assertEquals(100, testCoordinate.getY());
 
-        Hexagon TestHexagon = new Hexagon();
-        TestHexagon.changeTerrainTypeThoughExplosion(Terrain.ROCK);
+        Coordinate testCoordinate2 = new Coordinate(0,2,-2);
+        assertEquals(102, testCoordinate2.getX());
+        assertEquals(100, testCoordinate2.getY());
 
-        Coordinate default_coordinate = new Coordinate (100, 100);
-
-        TestBoard.setHexagon(default_coordinate, TestHexagon);
-
-        assertEquals(Terrain.ROCK, TestBoard.getHexagon(default_coordinate).getTerrain());
-        assertEquals(Terrain.EMPTY, ClonedBoard.getHexagon(default_coordinate).getTerrain());
+        Coordinate testCoordinate3 = new Coordinate(1,-1,0);
+        assertEquals(99, testCoordinate3.getX());
+        assertEquals(99, testCoordinate3.getY());
 
     }
+
+
+    @Test
+    public void convertToCubeCordinates() throws Exception{
+
+        Coordinate testCoordinate = new Coordinate(101,100);
+        int result[] = testCoordinate.ConvertToCube();
+        int testResult[] = {0,1,-1};
+        assertArrayEquals(testResult,result);
+
+        Coordinate testCoordinate1 = new Coordinate(102,100);
+        int result1[] = testCoordinate1.ConvertToCube();
+        int testResult1[] = {0,2,-2};
+        assertArrayEquals(testResult1,result1);
+
+        Coordinate testCoordinate2 = new Coordinate(99,100);
+        int result2[] = testCoordinate2.ConvertToCube();
+        int testResult2[] = {0,-1,1};
+        assertArrayEquals(testResult2, result2);
+
+        Coordinate testCoordinate3 = new Coordinate(100,101);
+        int result3[] = testCoordinate3.ConvertToCube();
+        int testResult3[] = {-1,1,0};
+        assertArrayEquals(testResult3, result3);
+
+        Coordinate testCoordinate4 = new Coordinate(99,99);
+        int result4[] = testCoordinate4.ConvertToCube();
+        int testResult4[] = {1,-1,0};
+        assertArrayEquals(testResult4, result4);
+
+        Coordinate testCoordinate5 = new Coordinate(99,100);
+        int result5[] = testCoordinate5.ConvertToCube();
+        int testResult5[] = {0,-1,1};
+        assertArrayEquals(testResult5, result5);
+
+        Coordinate testCoordinate6 = new Coordinate(99,101);
+        int result6[] = testCoordinate6.ConvertToCube();
+        int testResult6[] = {-1,0,1};
+        assertArrayEquals(testResult6, result6);
+
+        Coordinate testCoordinate7 = new Coordinate(101,101);
+        int result7[] = testCoordinate7.ConvertToCube();
+        int testResult7[] = {-1,2,-1};
+        assertArrayEquals(testResult7, result7);
+
+    }
+
 }
