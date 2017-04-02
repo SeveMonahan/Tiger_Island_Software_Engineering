@@ -1,7 +1,6 @@
 package TigerIsland;
 
 public class Player {
-
     private int score;
     private int meepleCount;
     private int totoroCount;
@@ -25,6 +24,12 @@ public class Player {
     public void setScoreAfterPiecePlacement(Piece piece, Hexagon hexagon) {score += piece.getPointsAfterPlacement(hexagon);}
     public void setScore(int newScore) { this.score = newScore; }
     public void setAutoLoseScore(){ this.score = -1; }
+
+    public void startSettlement(Hexagon hexagon) {
+        if (hexagon.getLevel() == 1) {
+            placeMeepleOnHexagon(hexagon);
+        }
+    }
 
     // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
     public void placeMeepleOnHexagon(Hexagon hexagon) {
