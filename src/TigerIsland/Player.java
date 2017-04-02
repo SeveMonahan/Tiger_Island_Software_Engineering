@@ -6,7 +6,6 @@ public class Player {
     private int meepleCount;
     private int totoroCount;
     private int tigerCount;
-    private boolean turn;
     private Color color;
 
     public Player(Color color) {
@@ -15,29 +14,17 @@ public class Player {
         totoroCount = 3;
         tigerCount = 2;
         this.color = color;
-        this.turn = true;
-    }
-
-    Player(Color color, boolean turn) {
-        score = 0;
-        meepleCount = 20;
-        totoroCount = 3;
-        tigerCount = 2;
-        this.color = color;
-        this.turn = turn;
     }
 
     public int getScore() { return score; }
     public int getMeeplesCount() { return meepleCount; }
     public int getTotoroCount() { return totoroCount; }
     public int getTigerCount() { return tigerCount; }
-    public boolean getTurn(){return turn;}
     public Color getColor() { return color; }
 
     public void setScoreAfterPiecePlacement(Piece piece, Hexagon hexagon) {score += piece.getPointsAfterPlacement(hexagon);}
     public void setScore(int newScore) { this.score = newScore; }
-    public void setAutoLoseScore() { this.score = -1; }
-    public void setTurn(boolean turn) { this.turn = turn; }
+    public void setAutoLoseScore(){ this.score = -1; }
 
     // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
     public void placeMeepleOnHexagon(Hexagon hexagon) {
