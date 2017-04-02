@@ -16,14 +16,6 @@ public class Coordinate {
         this.y = y;
     }
 
-    public Coordinate(int xC, int yC, int zC){
-        int col = yC + (zC-(zC&1))/2;
-        int row = zC;
-
-        this.x = col+100;
-        this.y = row+100;
-        System.out.println(this.x+" "+this.y);
-    }
 
     public int[] ConvertToCube(){
         int x = this.x;
