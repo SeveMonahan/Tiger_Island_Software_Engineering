@@ -1,7 +1,6 @@
 package TigerIsland;
 
 public class Hexagon {
-    // Members
     private int level;
     private Terrain terrain;
     private int tileHashCode;
@@ -9,7 +8,6 @@ public class Hexagon {
     private Color occupationColor;
     private boolean canBeNuked;
 
-    // Getters
     public int getLevel(){
         return level;
     }
@@ -40,6 +38,15 @@ public class Hexagon {
         level = 0;
         terrain = Terrain.EMPTY;
         occupationStatus = HexagonOccupationStatus.EMPTY;
+    }
+
+    public Hexagon(Hexagon copied) {
+        canBeNuked = copied.getCanBeNuked();
+        level = copied.getLevel();
+        terrain = copied.getTerrain();
+        occupationStatus = copied.getOccupationStatus();
+        tileHashCode = copied.getTileHashCode();
+        occupationColor = copied.getOccupationColor();
     }
 
     // Methods

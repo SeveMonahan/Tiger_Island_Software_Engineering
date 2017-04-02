@@ -62,6 +62,24 @@ public class Board {
         placeTile(startingTileMove);
     }
 
+    public Board(Board board){
+        Hexagon [][] OldHexagonArray = board.getHexagonArray();
+
+        hexagonArray = new Hexagon[200][200];
+
+        for(int i = 0; i < 200; i++) {
+            for (int j = 0; j < 200; j++) {
+                Hexagon OldHexagon = OldHexagonArray[i][j];
+                Hexagon NewHexagon = new Hexagon(OldHexagon);
+                hexagonArray[i][j] = NewHexagon;
+            }
+        }
+    }
+
+    private Hexagon[][] getHexagonArray(){
+            return hexagonArray;
+    }
+
     // Methods
     private void initializeHexagonArray() {
         hexagonArray = new Hexagon[200][200];

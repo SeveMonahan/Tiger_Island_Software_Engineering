@@ -133,4 +133,21 @@ public class BoardTest {
         boolean result = TestBoard.expandSettlementCheck(player, coordinate, terrain);
         assertEquals(true,result);
     }
+
+    @Test
+    public void BoardClone(){
+        Board TestBoard = new Board();
+        Board ClonedBoard = new Board(TestBoard);
+
+        Hexagon TestHexagon = new Hexagon();
+        TestHexagon.changeTerrainTypeThoughExplosion(Terrain.ROCK);
+
+        Coordinate default_coordinate = new Coordinate (100, 100);
+
+        TestBoard.setHexagon(default_coordinate, TestHexagon);
+
+        assertEquals(Terrain.ROCK, TestBoard.getHexagon(default_coordinate).getTerrain());
+        assertEquals(Terrain.EMPTY, ClonedBoard.getHexagon(default_coordinate).getTerrain());
+
+    }
 }
