@@ -176,12 +176,20 @@ public class Board {
     public boolean expandSettlementCheck(Player player, Coordinate coordinate, Terrain terrain) {
         Queue<Coordinate> settlement = expandSettlementFloodFill(coordinate, terrain);
         if(settlement.size() <= player.getMeeplesCount()) {
+            performFloodFill(player, settlement );
             return true;
         }
         return false;
     }
 
-    public Queue<Coordinate> expandSettlementFloodFill(Coordinate coordinate, Terrain terrain) {
+    private void performFloodFill(Player player, Queue<Coordinate> expansion ) {
+        while( !expansion.isEmpty() ) {
+            Hexagon hexagon = this.getHexagon( expansion.remove() );
+            player.placeMeepleOnHexagon(hexagon);
+        }
+    }
+
+    private Queue<Coordinate> expandSettlementFloodFill(Coordinate coordinate, Terrain terrain) {
         HashMap map = new HashMap();
         Queue<Coordinate> coordinateQueue = new LinkedList<>();
         Queue<Coordinate> expansion = new LinkedList<>();
