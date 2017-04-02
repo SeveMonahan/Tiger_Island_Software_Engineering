@@ -132,23 +132,20 @@ public class TileMoveChecker {
     private boolean noEntireSettlementsUnderneath() {
         Hexagon hexagonUnderNeighborOne = underneathHexagons[1];
         Hexagon hexagonUnderNeighborTwo = underneathHexagons[2];
+        int settlementHexOne = board.getSettlementSize(tileCoordinates[1]);
+        int settlementHexTwo = board.getSettlementSize(tileCoordinates[2]);
         // If both hexagons are occupied...
         if (hexagonUnderNeighborOne.isOccupied() && hexagonUnderNeighborTwo.isOccupied()) {
             // If both hexagons are occupied by the same player...
             if (hexagonUnderNeighborOne.getOccupationColor() == hexagonUnderNeighborTwo.getOccupationColor()) {
-                int settlementSize = board.getSettlementSize(tileCoordinates[1]);
-                if (settlementSize > 2) {
+                if (settlementHexOne > 2) {
                     return true;
                 }
                 else {
                     return false;
                 }
-            }
-            // If the 2 hexagons are occupied by 2 different players...
-            else {
-                int settlementSizeOfNeighborOne = board.getSettlementSize(tileCoordinates[1]);
-                int settlementSizeOfNeighborTwo = board.getSettlementSize(tileCoordinates[2]);
-                if (settlementSizeOfNeighborOne > 1 && settlementSizeOfNeighborTwo > 1) {
+            } else { // If the 2 hexagons are occupied by 2 different players...
+                if (settlementHexOne > 1 && settlementHexTwo > 1) {
                     return true;
                 }
                 else {
@@ -163,18 +160,11 @@ public class TileMoveChecker {
             }
             // If 1 hexagon is empty and the other is occupied...
             else {
-                Coordinate occupiedCoordinate;
-                if (hexagonUnderNeighborOne.isOccupied()) {
-                    occupiedCoordinate = tileCoordinates[1];
-                }
-                else {
-                    occupiedCoordinate = tileCoordinates[2];
-                }
-                int settlementSize = board.getSettlementSize(occupiedCoordinate);
-                if (settlementSize > 1) {
+                if( settlementHexOne > 1 && settlementHexTwo == 0  ) {
                     return true;
-                }
-                else {
+                } else if ( settlementHexOne == 0 && settlementHexTwo > 1 ) {
+                    return true;
+                } else {
                     return false;
                 }
             }
