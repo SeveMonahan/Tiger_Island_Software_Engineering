@@ -131,10 +131,25 @@ public class BoardTest {
 
         Coordinate coordinate = new Coordinate(71, 70);
         Terrain terrain = Terrain.ROCK;
-       // boolean result = TestBoard.expandSettlementCheck(player, coordinate, terrain);
-       // assertEquals(true,result);
+        boolean result = TestBoard.expandSettlementCheck(player, coordinate, terrain);
+        assertEquals(true,result);
     }
 
+    @Test
+    public void convertToSquare() throws Exception{
+        Coordinate testCoordinate = new Coordinate(0,1,-1);
+        assertEquals(101, testCoordinate.getX());
+        assertEquals(100, testCoordinate.getY());
+
+        Coordinate testCoordinate2 = new Coordinate(0,2,-2);
+        assertEquals(102, testCoordinate2.getX());
+        assertEquals(100, testCoordinate2.getY());
+
+        Coordinate testCoordinate3 = new Coordinate(1,-1,0);
+        assertEquals(99, testCoordinate3.getX());
+        assertEquals(99, testCoordinate3.getY());
+
+    }
 
 
     @Test
