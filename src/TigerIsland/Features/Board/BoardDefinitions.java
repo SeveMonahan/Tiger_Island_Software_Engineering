@@ -12,7 +12,7 @@ public class BoardDefinitions {
     Hexagon[] neighbors = null;
     Hexagon TestHexagon = null;
 
-    @Given("^I have initialized a Board$")
+    @Given("^I have initialized a board without a starting tile$")
     public void initBoard_TestBoard() {
         board = new Board();
         TestHexagon = new Hexagon();
