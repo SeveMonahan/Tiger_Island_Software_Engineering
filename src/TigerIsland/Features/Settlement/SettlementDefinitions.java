@@ -31,12 +31,6 @@ public class SettlementDefinitions {
         Assert.assertNotNull(playerTwo);
     }
 
-
-    @Then("^moo$")
-    public void moo() {
-        System.out.println("moo");
-    }
-
     @When("^I placed a tile without restrictions at (\\d+), (\\d+) with terrain (.*), (.*) and direction (.*)$")
     public void placeTile(int arg1, int arg2, String arg3, String arg4, String arg5) {
         HexagonNeighborDirection dir = HexagonNeighborDirection.valueOf(arg5);
