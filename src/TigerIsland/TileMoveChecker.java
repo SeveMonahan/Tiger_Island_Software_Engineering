@@ -15,21 +15,26 @@ public class TileMoveChecker {
         this.underneathHexagons = getHexagonsUnderneathTile();
         this.tileCoordinates = getTileCoordinates();
 
-        if (tileIsAdjacentToBoard() && flatUnderneathTile()) {
-            if (placingOnTopOfOtherTiles()) {
-                if (coveringMoreThanOneTile() && volcanoesLineUp() && allowedToNukePiecesUnderneath()) {
-                    return true;
+        if (this.board.isEmpty()) {
+            return true;
+        }
+        else {
+            if (tileIsAdjacentToBoard() && flatUnderneathTile()) {
+                if (placingOnTopOfOtherTiles()) {
+                    if (coveringMoreThanOneTile() && volcanoesLineUp() && allowedToNukePiecesUnderneath()) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
                 }
                 else {
-                    return false;
+                    return true;
                 }
             }
             else {
-                return true;
+                return false;
             }
-        }
-        else {
-            return false;
         }
     }
     // Helper Methods

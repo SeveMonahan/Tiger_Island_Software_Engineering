@@ -59,7 +59,7 @@ public class Board {
     public Board(Tile startingTile){
         initializeHexagonArray();
         TileMove startingTileMove = new TileMove(startingTile, HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
-        placeTileNoRestrictions(startingTileMove);
+        placeTile(startingTileMove);
     }
 
     // Methods
@@ -76,30 +76,37 @@ public class Board {
         TileMoveChecker tileMoveChecker = new TileMoveChecker();
         boolean validTilePlacement = tileMoveChecker.checkForValidity(tileMove, this);
         if (validTilePlacement) {
-            placeTileNoRestrictions(tileMove);
+            Tile tile = tileMove.getTile();
+            HexagonNeighborDirection direction = tileMove.getDirection();
+            Coordinate coordinate = tileMove.getCoordinate();
+
+            hexagonArray[coordinate.getX()][coordinate.getY()].changeTerrainTypeThoughExplosion(Terrain.VOLCANO);
+
+            Hexagon overwritten_2 = getNeighboringHexagon(coordinate, direction);
+            Hexagon overwritten_3 = getNeighboringHexagon(coordinate, direction.getNextClockwise());
+
+            overwritten_2.changeTerrainTypeThoughExplosion(tile.getTerrainsClockwiseFromVolcano()[1]);
+            overwritten_3.changeTerrainTypeThoughExplosion(tile.getTerrainsClockwiseFromVolcano()[2]);
+
+            // Setting the instance variables to be part of the same tile.
+            overwritten_2.setTileHashCode(tile.hashCode());
+            overwritten_3.setTileHashCode(tile.hashCode());
+            hexagonArray[coordinate.getX()][coordinate.getY()].setTileHashCode(tile.hashCode());
             return true;
         }
         else {
             return false;
         }
     }
-    public void placeTileNoRestrictions(TileMove tileMove) {
-        Tile tile = tileMove.getTile();
-        HexagonNeighborDirection direction = tileMove.getDirection();
-        Coordinate coordinate = tileMove.getCoordinate();
 
-        hexagonArray[coordinate.getX()][coordinate.getY()].changeTerrainTypeThoughExplosion(Terrain.VOLCANO);
-
-        Hexagon overwritten_2 = getNeighboringHexagon(coordinate, direction);
-        Hexagon overwritten_3 = getNeighboringHexagon(coordinate, direction.getNextClockwise());
-
-        overwritten_2.changeTerrainTypeThoughExplosion(tile.getTerrainsClockwiseFromVolcano()[1]);
-        overwritten_3.changeTerrainTypeThoughExplosion(tile.getTerrainsClockwiseFromVolcano()[2]);
-
-        // Setting the instance variables to be part of the same tile.
-        overwritten_2.setTileHashCode(tile.hashCode());
-        overwritten_3.setTileHashCode(tile.hashCode());
-        hexagonArray[coordinate.getX()][coordinate.getY()].setTileHashCode(tile.hashCode());
+    public boolean isEmpty() {
+        Hexagon startingHexagon = this.getHexagon(new Coordinate(100,100));
+        if (startingHexagon.getLevel() == 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public int getSettlementSize(Coordinate sourceCoordinate) {

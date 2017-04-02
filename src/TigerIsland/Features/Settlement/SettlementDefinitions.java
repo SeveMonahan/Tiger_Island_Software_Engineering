@@ -44,8 +44,7 @@ public class SettlementDefinitions {
         HexagonNeighborDirection dir = HexagonNeighborDirection.valueOf(arg5);
         Terrain terrainOne = Terrain.valueOf(arg3);
         Terrain terrainTwo = Terrain.valueOf(arg4);
-        board.placeTileNoRestrictions(
-                new TileMove(new Tile(terrainOne, terrainTwo), dir, new Coordinate(arg1, arg2)));
+        board.placeTile(new TileMove(new Tile(terrainOne, terrainTwo), dir, new Coordinate(arg1, arg2)));
     }
 
     @When("^Player (\\d+) places a meeple at (\\d+),(\\d+)$")
