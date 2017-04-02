@@ -19,6 +19,23 @@ public class BoardTest {
     }
 
     @Test
+    public void startTile() throws Exception{
+        Board TestBoard = new Board();
+        TestBoard.placeStartingTile();
+        Coordinate centerCoord = new Coordinate(100,100);
+        Hexagon center = TestBoard.getHexagon(centerCoord);
+        Hexagon upperLeft = TestBoard.getNeighboringHexagon(centerCoord,HexagonNeighborDirection.UPPERLEFT);
+        Hexagon upperRight = TestBoard.getNeighboringHexagon(centerCoord,HexagonNeighborDirection.UPPERRIGHT);
+        Hexagon lowerRight = TestBoard.getNeighboringHexagon(centerCoord, HexagonNeighborDirection.LOWERRIGHT);
+        Hexagon lowerLeft = TestBoard.getNeighboringHexagon(centerCoord,HexagonNeighborDirection.LOWERLEFT);
+        assertEquals(Terrain.JUNGLE, upperLeft.getTerrain() );
+        assertEquals(Terrain.LAKE,upperRight.getTerrain() );
+        assertEquals(Terrain.GRASSLAND,lowerRight.getTerrain() );
+        assertEquals(Terrain.ROCK,lowerLeft.getTerrain()  );
+        assertEquals(Terrain.VOLCANO, center.getTerrain() );
+    }
+
+    @Test
     public void setHexagon() throws Exception{
         Board TestBoard = new Board();
 

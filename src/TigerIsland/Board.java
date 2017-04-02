@@ -71,6 +71,21 @@ public class Board {
             }
         }
     }
+    public void placeStartingTile() {
+        Coordinate coordCenter = new Coordinate(100,100);
+
+        Hexagon volcanoHex = this.getHexagon(coordCenter);
+        Hexagon upperLeft = this.getNeighboringHexagon(coordCenter, HexagonNeighborDirection.UPPERLEFT);
+        Hexagon upperRight = this.getNeighboringHexagon(coordCenter, HexagonNeighborDirection.UPPERRIGHT);
+        Hexagon lowerRight = this.getNeighboringHexagon(coordCenter, HexagonNeighborDirection.LOWERRIGHT);
+        Hexagon lowerLeft = this.getNeighboringHexagon(coordCenter, HexagonNeighborDirection.LOWERLEFT);
+
+        volcanoHex.changeTerrainTypeThoughExplosion(Terrain.VOLCANO);
+        upperLeft.changeTerrainTypeThoughExplosion(Terrain.JUNGLE);
+        upperRight.changeTerrainTypeThoughExplosion(Terrain.LAKE);
+        lowerRight.changeTerrainTypeThoughExplosion(Terrain.GRASSLAND);
+        lowerLeft.changeTerrainTypeThoughExplosion(Terrain.ROCK);
+    }
 
     public boolean placeTile(TileMove tileMove) {
         TileMoveChecker tileMoveChecker = new TileMoveChecker();
