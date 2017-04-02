@@ -56,8 +56,6 @@ public class Board {
     }
     // Coordinate (100, 100) is the center of the board.
     // Note: you must use this initializer if you want to use placeTile() to place more tiles.
-    private Board(Tile startingTile){
-    }
 
     public Board(Board board){
         Hexagon [][] OldHexagonArray = board.getHexagonArray();
