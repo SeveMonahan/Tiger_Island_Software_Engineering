@@ -3,9 +3,13 @@ package TigerIsland.UnitTests;
 import TigerIsland.*;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
-public class GameTest {
+public class GameStateTest {
+    private GameModel player_1_model = null;
+    private GameModel player_2_model = null;
+
     private Player player_1 = null;
     private Player player_2 = null;
 
@@ -17,6 +21,10 @@ public class GameTest {
         player_2 = new Player(Color.BLACK);
 
         TestGameState = new GameState(player_1, player_2);
+
+        GameModel player_1_model = TestGameState.getPlayerOneModel();
+        GameModel player_2_model = TestGameState.getPlayerTwoModel();
+
     }
 
     @Test
