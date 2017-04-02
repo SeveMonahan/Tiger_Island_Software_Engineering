@@ -20,31 +20,33 @@ public class SettlementDefinitions {
     private Player playerOne = null;
     private Player playerTwo = null;
 
-//    @Given("^I have initialized a board$")
-//    public void newBoard() throws Throwable {
-//        board = new Board();
-//        Assert.assertNotNull(board);
-//    }
+    @Given("^I have initialized a board$")
+    public void newBoardSettlement() throws Throwable {
+        board = new Board();
+        Assert.assertNotNull(board);
+    }
 
     @Given("^I have initialized the players$")
-    public void newPlayer() throws Throwable {
+    public void newPlayerSettlement() throws Throwable {
         playerOne = new Player(Color.WHITE);
         playerTwo = new Player(Color.BLACK);
         Assert.assertNotNull(playerOne);
         Assert.assertNotNull(playerTwo);
     }
 
-//    @Then("^moo$")
-//    public void moo() {
-//        System.out.println("moo");
-//    }
+
+    @Then("^moo$")
+    public void moo() {
+        System.out.println("moo");
+    }
 
     @When("^I placed a tile without restrictions at (\\d+), (\\d+) with terrain (.*), (.*) and direction (.*)$")
     public void placeTile(int arg1, int arg2, String arg3, String arg4, String arg5) {
         HexagonNeighborDirection dir = HexagonNeighborDirection.valueOf(arg5);
         Terrain terrainOne = Terrain.valueOf(arg3);
         Terrain terrainTwo = Terrain.valueOf(arg4);
-        board.placeTile(new TileMove(new Tile(terrainOne, terrainTwo), dir, new Coordinate(arg1, arg2)));
+        board.placeTile(
+                new TileMove(new Tile(terrainOne, terrainTwo), dir, new Coordinate(arg1, arg2)));
     }
 
     @When("^Player (\\d+) places a meeple at (\\d+),(\\d+)$")
