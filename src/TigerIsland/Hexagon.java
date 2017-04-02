@@ -1,36 +1,33 @@
 package TigerIsland;
 
 public class Hexagon {
-    // Members
     private int level;
     private Terrain terrain;
     private int tileHashCode;
-    private int population;
     private HexagonOccupationStatus occupationStatus;
     private Color occupationColor;
     private boolean canBeNuked;
 
-    // Getters
     public int getLevel(){
         return level;
     }
     public Terrain getTerrain(){
         return terrain;
     }
-    public int getTileHashCode() { return tileHashCode; }
+    int getTileHashCode() { return tileHashCode; }
     public HexagonOccupationStatus getOccupationStatus() {
         return occupationStatus;
     }
-    public Color getOccupationColor() { return occupationColor; }
-    public boolean getCanBeNuked() { return canBeNuked; }
+    Color getOccupationColor() { return occupationColor; }
+    boolean getCanBeNuked() { return canBeNuked; }
 
     // Setters
     public void setOccupationStatus(Piece piece) {
         occupationStatus = piece.getOccupyStatus();
-        population = piece.populationRequirements(this);
         occupationColor = piece.getPieceColor();
         this.canBeNuked = piece.canBeKilled();
     }
+
     public void setTileHashCode(int tileHashCode) {
         this.tileHashCode = tileHashCode;
     }
@@ -43,20 +40,22 @@ public class Hexagon {
         occupationStatus = HexagonOccupationStatus.EMPTY;
     }
 
+    public Hexagon(Hexagon copied) {
+        canBeNuked = copied.getCanBeNuked();
+        level = copied.getLevel();
+        terrain = copied.getTerrain();
+        occupationStatus = copied.getOccupationStatus();
+        tileHashCode = copied.getTileHashCode();
+        occupationColor = copied.getOccupationColor();
+    }
+
     // Methods
     public boolean isVolcano() {
-        if(terrain == Terrain.VOLCANO)
-            return true;
-        else
-            return false;
+        return terrain == Terrain.VOLCANO;
     }
+
     public boolean isOccupied() {
-        if (occupationStatus != HexagonOccupationStatus.EMPTY) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return occupationStatus != HexagonOccupationStatus.EMPTY;
     }
     public boolean isEmpty() {
         return !isOccupied();
@@ -65,15 +64,15 @@ public class Hexagon {
     private void incrementLevel(){
         level++;
     }
-    //TODO: Should below function call eliminatePieces() ?
+
     public void changeTerrainTypeThoughExplosion(Terrain new_terrain){
         terrain = new_terrain;
         incrementLevel();
         eliminatePieces();
     }
+
     private void eliminatePieces() {
         occupationStatus = HexagonOccupationStatus.EMPTY;
-        population = 0;
         occupationColor = null;
     }
 }

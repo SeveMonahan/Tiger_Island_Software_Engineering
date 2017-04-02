@@ -30,7 +30,7 @@ public class TotoroDefinitions {
     }
 
     @Given("^I have initialized a board$")
-    public void initBoard() {
+    public void initBoardTotoro() {
         Tile newTile = new Tile(Terrain.GRASSLAND, Terrain.JUNGLE);
         board = new Board(newTile);
     }
