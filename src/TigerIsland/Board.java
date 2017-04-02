@@ -171,7 +171,7 @@ public class Board {
         return size;
     }
 
-    public boolean expandSettlementCheck(Player player, Coordinate coordinate, Terrain terrain) {
+    public boolean expandSettlementWithCheck(Player player, Coordinate coordinate, Terrain terrain) {
         Queue<Coordinate> settlement = expandSettlementFloodFill(coordinate, terrain);
         if(settlement.size() <= player.getMeeplesCount()) {
             performFloodFill(player, settlement );

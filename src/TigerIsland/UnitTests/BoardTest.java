@@ -147,7 +147,7 @@ public class BoardTest {
 
         Coordinate coordinate = new Coordinate(71, 70);
         Terrain terrain = Terrain.ROCK;
-        boolean result = TestBoard.expandSettlementCheck(player, coordinate, terrain);
+        boolean result = TestBoard.expandSettlementWithCheck(player, coordinate, terrain);
         assertEquals(true,result);
     }
 

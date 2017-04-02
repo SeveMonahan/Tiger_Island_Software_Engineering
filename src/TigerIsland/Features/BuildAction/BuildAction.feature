@@ -30,16 +30,19 @@ Feature: BuildAction
     Then The tile place fails
 
   Scenario: Develop settlement fails because no valid adjacent hexagon selected
-    Given A board with a volcano, beach, and rock hexagons, and a meeple on the rock hexagon
-    When I attempt to develop settlement choosing the meeple settlement and "Jungle"
-    Then The tile place fails
+    Given A board with a volcano, jungle, and rock tile
+    And I have initialized a player in BuildActionDefinitions
+    And A meeple on the rock hexagon
+    When I attempt to develop settlement choosing the meeple settlement and Grassland
+    Then The settlement size should still be 0
 
   Scenario: Develop settlement places meeples in exactly one territory
-    Given A board with a volcano, beach, and rock hexagons, and a meeple on the rock hexagon
-    And the hexagons are all level 0
-    When I attempt to develop settlement choosing the meeple settlement and "Rock"
+    Given A board with a volcano, jungle, and rock tile
+    And I have initialized a player in BuildActionDefinitions
+    And A meeple on the rock hexagon
+    When I attempt to develop settlement choosing the meeple settlement and Rock
     Then A meeple is placed on the rock hexagon
-    And exactly one meeple is depleted from the player's supply
+    And The proper amount of meeples are depleted from the player's supply
 
   Scenario: Develop settlement places meeples in two adjacent territories
     Given A board with a volcano, beach, and rock hexagons on a tile
