@@ -20,9 +20,36 @@ public class GameTest {
     }
 
     @Test
-    public void gameNoteOver(){
+    public void gameNotOver(){
         assertEquals(GameOutcome.UNDETERMINED, TestGameState.getGameOutcome(player_1));
         assertEquals(GameOutcome.UNDETERMINED, TestGameState.getGameOutcome(player_2));
     }
 
+    @Test
+    public void playerOneWins(){
+        player_1.setScore(100);
+
+        TestGameState.setGameIsOver();
+
+        assertEquals(GameOutcome.WIN, TestGameState.getGameOutcome(player_1));
+        assertEquals(GameOutcome.LOSS, TestGameState.getGameOutcome(player_2));
+    }
+
+    @Test
+    public void gameIsTied(){
+        TestGameState.setGameIsOver();
+
+        assertEquals(GameOutcome.TIE, TestGameState.getGameOutcome(player_1));
+        assertEquals(GameOutcome.TIE, TestGameState.getGameOutcome(player_2));
+    }
+
+    @Test
+    public void playerTwoWinsDueToPlayerOneHavingNegativeScore(){
+        player_1.setScore(-1);
+
+        TestGameState.setGameIsOver();
+
+        assertEquals(GameOutcome.LOSS, TestGameState.getGameOutcome(player_1));
+        assertEquals(GameOutcome.WIN, TestGameState.getGameOutcome(player_2));
+    }
 }
