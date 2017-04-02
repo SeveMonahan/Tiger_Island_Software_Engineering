@@ -1,5 +1,7 @@
 package TigerIsland;
 
+import java.util.Arrays;
+
 public class Parser {
 
     private int challenges;
@@ -22,6 +24,9 @@ public class Parser {
         this.tournamentPassword = tournamentPassword;
         this.username = username;
         this.password = password;
+    }
+    public Parser() {
+
     }
     public void setChallenges(int challenges) {
         this.challenges = challenges;
@@ -67,13 +72,34 @@ public class Parser {
         this.movePlanningTime = movePlanningTime;
     }
 
-    public void readMessage(String message) {
-        if(message == "WELCOME TO ANOTHER EDITION OF THUNDERDOME!")
+    public int getRounds() { return rounds;}
+
+    public boolean readMessage(String message) {
+        if(message == "WELCOME TO ANOTHER EDITION OF THUNDERDOME!"){
             enterTournamentPassword();
-        else if(message == "TWO SHALL ENTER, ONE SHALL LEAVE")
+            return true;
+        }
+        else if(message == "TWO SHALL ENTER, ONE SHALL LEAVE"){
             enterUsernameAndPassword();
-        else if(message.contains("WAIT FOR THE TOURNAMENT TO BEGIN"))
+            return true;
+        }
+        else if(message.contains("WAIT FOR THE TOURNAMENT TO BEGIN")) {
             waitForTournamentToBegin();
+            return true;
+        }
+        else if(message.contains("NEW CHALLENGE")) {
+            challengeProtocol(message);
+            return true;
+        }
+        else if(message.contains("END OF CHALLENGES")) {
+            endOfChallenges();
+            return true;
+        }
+        else if(message.contains("WAIT FOR THE NEXT CHALLENGE TO BEGIN")) {
+            waitForNextChallengeToBegin();
+            return true;
+        }
+        return false;
     }
     private void enterTournamentPassword() {
         //Output Tournament Password
@@ -85,7 +111,27 @@ public class Parser {
         System.out.println(password);
     }
     private void waitForTournamentToBegin() {
-        //Wait for the tournament to begin
+        //Wait for the tournament to begin placeholder
+        System.out.println("Wait for tournament to begin");
+    }
+
+    private void challengeProtocol(String message) {
+        final int roundsIndex = 6;
+        String[] messageSplitBySpaceArray = message.split("\\s+");
+        rounds = Integer.parseInt(messageSplitBySpaceArray[roundsIndex]);
+        for(int i = 0;i < rounds;i++){
+            //Call round protocol
+            System.out.println(i);
+        }
+    }
+
+    private void endOfChallenges() {
+        //end of challenges placeholder
+        System.out.println("end of challenges");
+    }
+
+    private void waitForNextChallengeToBegin() {
+        //wait for next challenge to begin placeholder
+        System.out.println("wait for next challenge to begin");
     }
 }
-

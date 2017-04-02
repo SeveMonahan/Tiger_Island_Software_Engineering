@@ -3,6 +3,7 @@ package TigerIsland.UnitTests;
 import TigerIsland.*;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 public class ParserTest {
     @Test
     public void authenticationProtocol() {
@@ -15,8 +16,33 @@ public class ParserTest {
         final String password = "passwordExample";
         Parser messageParser = new Parser(tournamentPassword, username, password);
 
-        messageParser.readMessage(serverLine1);
-        messageParser.readMessage(serverLine2);
-        messageParser.readMessage(serverLine3);
+        boolean isLine1ReadSuccess = messageParser.readMessage(serverLine1);
+        boolean isLine2ReadSuccess = messageParser.readMessage(serverLine2);
+        boolean isLine3ReadSuccess = messageParser.readMessage(serverLine3);
+
+        assertEquals(true, isLine1ReadSuccess);
+        assertEquals(true, isLine2ReadSuccess);
+        assertEquals(true, isLine3ReadSuccess);
+
+    }
+
+    @Test
+    public void challengeProtocol() {
+        String serverLine1 = "NEW CHALLENGE <cid> YOU WILL PLAY 5 MATCH";
+        String serverLine2 = "END OF CHALLENGES";
+        String serverLine3 = "WAIT FOR THE NEXT CHALLENGE TO BEGIN";
+
+        Parser messageParser = new Parser();
+
+        boolean isLine1ReadSuccess = messageParser.readMessage(serverLine1);
+
+        final int roundsExpected = 5;
+        assertEquals(roundsExpected, messageParser.getRounds());
+
+        boolean isLine2ReadSuccess = messageParser.readMessage(serverLine2);
+        boolean isLine3ReadSuccess = messageParser.readMessage(serverLine3);
+        assertEquals(true, isLine1ReadSuccess);
+        assertEquals(true, isLine2ReadSuccess);
+        assertEquals(true, isLine3ReadSuccess);
     }
 }
