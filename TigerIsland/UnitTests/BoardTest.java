@@ -174,6 +174,10 @@ public class BoardTest {
         assertEquals(99, testCoordinate5.getX());
         assertEquals(101, testCoordinate5.getY());
 
+        Coordinate testCoordinate6 = new Coordinate(-1,2,-1);
+        assertEquals(101, testCoordinate6.getX());
+        assertEquals(101, testCoordinate6.getY());
+
 
     }
 
