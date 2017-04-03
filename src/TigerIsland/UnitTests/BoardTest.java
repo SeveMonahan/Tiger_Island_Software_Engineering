@@ -37,6 +37,23 @@ public class BoardTest {
     }
 
     @Test
+    public void startTile() throws Exception {
+        Board TestBoard = new Board();
+        TestBoard.placeStartingTile();
+        Coordinate centerCoord = new Coordinate(100, 100);
+        Hexagon center = TestBoard.getHexagon(centerCoord);
+        Hexagon upperLeft = TestBoard.getNeighboringHexagon(centerCoord, HexagonNeighborDirection.UPPERLEFT);
+        Hexagon upperRight = TestBoard.getNeighboringHexagon(centerCoord, HexagonNeighborDirection.UPPERRIGHT);
+        Hexagon lowerRight = TestBoard.getNeighboringHexagon(centerCoord, HexagonNeighborDirection.LOWERRIGHT);
+        Hexagon lowerLeft = TestBoard.getNeighboringHexagon(centerCoord, HexagonNeighborDirection.LOWERLEFT);
+        assertEquals(Terrain.JUNGLE, upperLeft.getTerrain());
+        assertEquals(Terrain.LAKE, upperRight.getTerrain());
+        assertEquals(Terrain.GRASSLAND, lowerRight.getTerrain());
+        assertEquals(Terrain.ROCK, lowerLeft.getTerrain());
+        assertEquals(Terrain.VOLCANO, center.getTerrain());
+    }
+
+    @Test
     public void getNeighborsOddX() throws Exception{
         Board TestBoard = new Board();
 
@@ -131,7 +148,7 @@ public class BoardTest {
 
         Coordinate coordinate = new Coordinate(71, 70);
         Terrain terrain = Terrain.ROCK;
-        boolean result = TestBoard.expandSettlementCheck(player, coordinate, terrain);
+        boolean result = TestBoard.expandSettlementWithCheck(player, coordinate, terrain);
         assertEquals(true,result);
     }
 
