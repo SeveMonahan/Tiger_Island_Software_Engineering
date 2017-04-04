@@ -21,7 +21,8 @@ public class Totoro implements Piece {
         return 1;
     }
 
-    public boolean isPlacementValid(Hexagon hexagon) {
+    public boolean isPlacementValid(Coordinate coordinate, Board board) {
+        Hexagon hexagon = board.getHexagon(coordinate);
         if( !hexagon.isVolcano() && (hexagon.isEmpty()) ) {
             return true;
         } else {

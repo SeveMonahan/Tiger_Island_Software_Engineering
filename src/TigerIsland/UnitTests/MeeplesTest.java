@@ -15,9 +15,15 @@ public class MeeplesTest {
 
     @Test
     public void placeMeepleOnLevelZero() throws Exception {
-        Hexagon hexagon = new Hexagon();
+        Board board = new Board();
+
+        Coordinate coordinate = new Coordinate(101, 100);
+
+        Hexagon hexagon = board.getHexagon(coordinate);
+
         Player player = new Player(Color.WHITE);
-        player.placeMeepleOnHexagon(hexagon);
+
+        player.placeMeepleOnHexagon(coordinate, board);
 
         assertEquals(0, player.getScore());
         assertEquals(20, player.getMeeplesCount());
@@ -34,7 +40,7 @@ public class MeeplesTest {
         Hexagon hexagon = board.getHexagon(coordinate);
         Player player = new Player(Color.WHITE);
 
-        player.placeMeepleOnHexagon(hexagon);
+        player.placeMeepleOnHexagon(coordinate, board);
 
         assertEquals(1, player.getScore());
         assertEquals(19, player.getMeeplesCount());
@@ -51,7 +57,7 @@ public class MeeplesTest {
         Hexagon hexagon = board.getHexagon(coordinate);
         Player player = new Player(Color.WHITE);
 
-        player.placeSettlement(hexagon);
+        player.placeSettlement(coordinate, board);
 
         assertEquals(1, player.getScore());
         assertEquals(19, player.getMeeplesCount());
@@ -68,7 +74,7 @@ public class MeeplesTest {
         Hexagon hexagon = board.getHexagon(coordinate);
         Player player = new Player(Color.WHITE);
 
-        player.placeSettlement(hexagon);
+        player.placeSettlement(coordinate, board);
 
         assertEquals(0, player.getScore());
         assertEquals(20, player.getMeeplesCount());
@@ -83,10 +89,14 @@ public class MeeplesTest {
         Board board = boardWithTile;
         board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(100, 101)));
         board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.ROCK), HexagonNeighborDirection.LOWERRIGHT, new Coordinate(100, 101)));
-        Hexagon hexagon = board.getHexagon(new Coordinate(100, 100));
+
+        Coordinate Level2Coordinate = new Coordinate(100, 100);
+
+        Hexagon hexagon = board.getHexagon(Level2Coordinate);
+
         Player player = new Player(Color.WHITE);
 
-        player.placeSettlement(hexagon);
+        player.placeSettlement(Level2Coordinate, board);
 
         assertEquals(20, player.getMeeplesCount());
         assertEquals(0, player.getScore());
@@ -101,12 +111,14 @@ public class MeeplesTest {
         Board board = boardWithTile;
         board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(100, 101)));
         board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.ROCK), HexagonNeighborDirection.LOWERRIGHT, new Coordinate(100, 101)));
-        Hexagon hexagon = board.getHexagon(new Coordinate(100, 100));
+
+        Coordinate testCoordinate = new Coordinate (100, 100);
+        Hexagon hexagon = board.getHexagon(testCoordinate);
         Player player = new Player(Color.WHITE);
 
-        player.placeSettlement(hexagon);
+        boolean success = player.placeSettlement(testCoordinate, board);
 
-        assertEquals(player.placeSettlement(hexagon), false);
+        assertEquals(false, success);
         assertEquals(20, player.getMeeplesCount());
         assertEquals(0, player.getScore());
         assertEquals(HexagonOccupationStatus.EMPTY, hexagon.getOccupationStatus());
@@ -120,13 +132,17 @@ public class MeeplesTest {
         Board board = boardWithTile;
         board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(100, 101)));
         board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.ROCK), HexagonNeighborDirection.LOWERRIGHT, new Coordinate(100, 101)));
-        Hexagon hexagon = board.getHexagon(new Coordinate(100, 100));
+
+        Coordinate testCoordinate = new Coordinate (100, 100);
+        Hexagon hexagon = board.getHexagon(testCoordinate);
+
         Player player = new Player(Color.WHITE);
-        player.placeSettlement(hexagon);
+
+        player.placeSettlement(testCoordinate, board);
 
         Player player2 = new Player(Color.BLACK);
 
-        assertEquals(player2.placeSettlement(hexagon), false);
+        assertEquals(false, player2.placeSettlement(testCoordinate, board));
         assertEquals(20, player.getMeeplesCount());
         assertEquals(0, player.getScore());
         assertEquals(HexagonOccupationStatus.EMPTY, hexagon.getOccupationStatus());
@@ -140,9 +156,14 @@ public class MeeplesTest {
         Board board = boardWithTile;
         board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(100, 101)));
         board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.ROCK), HexagonNeighborDirection.LOWERRIGHT, new Coordinate(100, 101)));
+
+        Coordinate testCoordinate = new Coordinate (100, 100);
+
         Hexagon hexagon = board.getHexagon(new Coordinate(100, 100));
+
         Player player = new Player(Color.WHITE);
-        player.placeSettlement(hexagon);
+
+        player.placeSettlement(testCoordinate, board);
 
         assertEquals(20, player.getMeeplesCount());
         assertEquals(0, player.getScore());
@@ -155,10 +176,14 @@ public class MeeplesTest {
         TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASSLAND), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
         Board board = boardWithTile;
-        Hexagon hexagon = board.getHexagon(new Coordinate(100,100));
+
+        Coordinate testCoordinate = new Coordinate(100, 100);
+
+        Hexagon hexagon = board.getHexagon(testCoordinate);
+
         Player player = new Player(Color.WHITE);
 
-        player.placeMeepleOnHexagon(hexagon);
+        player.placeMeepleOnHexagon(testCoordinate, board);
 
         assertEquals(0, player.getScore());
         assertEquals(20, player.getMeeplesCount());
@@ -172,12 +197,17 @@ public class MeeplesTest {
         boardWithTile.placeTile(startingTileMove);
         Board board = boardWithTile;
         board.placeTile(new TileMove(new Tile(Terrain.JUNGLE, Terrain.ROCK), HexagonNeighborDirection.LOWERLEFT, new Coordinate(98, 101)));
-        Hexagon hexagonOne = board.getHexagon(new Coordinate(99,101));
-        Hexagon hexagonTwo = board.getHexagon(new Coordinate(99,100));
+
+        Coordinate testCoordinateOne = new Coordinate(99, 101);
+        Coordinate testCoordinateTwo = new Coordinate(99, 100);
+
+        Hexagon hexagonOne = board.getHexagon(testCoordinateOne);
+        Hexagon hexagonTwo = board.getHexagon(testCoordinateTwo);
+
         Player player = new Player(Color.WHITE);
 
-        player.placeMeepleOnHexagon(hexagonOne);
-        player.placeMeepleOnHexagon(hexagonTwo);
+        player.placeMeepleOnHexagon(testCoordinateOne, board);
+        player.placeMeepleOnHexagon(testCoordinateTwo, board);
 
         board.placeTile(new TileMove(new Tile(Terrain.JUNGLE, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(98, 101)));
 

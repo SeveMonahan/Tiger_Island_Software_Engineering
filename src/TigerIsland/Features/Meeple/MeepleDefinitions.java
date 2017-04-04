@@ -31,21 +31,18 @@ public class MeepleDefinitions
 
 
 
-    @Given("^I have an initialized board$")
+    @Given("^I have an initialized board with a tile (in meeple folder)$")
     public void newBoard() throws Throwable {
         Board boardWithTile = new Board();
         TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASSLAND), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
         Board board = boardWithTile;
     }
-    @Given("^I place a tile on it in meeple$")
-    public void placedTile(){
-        Coordinate coordinate = board.getNeighboringCoordinate(new Coordinate(100,100), HexagonNeighborDirection.LEFT);
-        this.hexagon = board.getHexagon(coordinate);
-    }
+
     @When("^I attempt to populate a Level 1 non-volcano hexagon $")
     public void populateLevelOneHex(){
-        player.placeMeepleOnHexagon(this.hexagon);
+        Coordinate coordinate = board.getNeighboringCoordinate(new Coordinate(100,100), HexagonNeighborDirection.LEFT);
+        player.placeMeepleOnHexagon(coordinate, board);
     }
     @Then("^I place 1 meeple on Hexagon hexagon $")
     public void oneMeepleIsPlaced(){

@@ -15,9 +15,15 @@ public class TigersTest {
 
     @Test
     public void placeTigerOnLevelZero() throws Exception {
-        Hexagon hexagon = new Hexagon();
+        Board board = new Board();
+        board.placeStartingTile();
+
+        Coordinate testCoordinate = new Coordinate(100, 101);
+        Hexagon hexagon = board.getHexagon(testCoordinate);
+
         Player player = new Player(Color.WHITE);
-        player.placeTigerOnHexagon(hexagon);
+
+        player.placeTigerOnHexagon(testCoordinate, board);
 
         Assert.assertEquals(0, player.getScore());
         Assert.assertEquals(2, player.getTigerCount());
@@ -31,13 +37,17 @@ public class TigersTest {
         boardWithTile.placeTile(startingTileMove);
         Board board = boardWithTile;
         Coordinate coordinate = board.getNeighboringCoordinate(new Coordinate(100,100),HexagonNeighborDirection.LEFT);
-        Hexagon hexagon = board.getHexagon(coordinate);
+
+
         Player player = new Player(Color.WHITE);
 
-        player.placeTigerOnHexagon(hexagon);
+        player.placeTigerOnHexagon(coordinate, board);
 
-        Assert.assertEquals(0, player.getScore());
-        Assert.assertEquals(2, player.getTigerCount());
+        assertEquals(0, player.getScore());
+        assertEquals(2, player.getTigerCount());
+
+        Hexagon hexagon = board.getHexagon(coordinate);
+
         assertEquals(HexagonOccupationStatus.EMPTY, hexagon.getOccupationStatus());
     }
     @Test
@@ -50,7 +60,7 @@ public class TigersTest {
         Hexagon hexagon = board.getHexagon(coordinate);
         Player player = new Player(Color.WHITE);
 
-        player.placeTigerOnHexagon(hexagon);
+        player.placeTigerOnHexagon(coordinate, board);
 
         assertEquals(0, player.getScore());
         assertEquals(2, player.getTigerCount());

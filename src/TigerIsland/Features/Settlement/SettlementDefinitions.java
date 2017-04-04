@@ -42,7 +42,6 @@ public class SettlementDefinitions {
 
     @When("^Player (\\d+) places a meeple at (\\d+),(\\d+)$")
     public void playerPlacesAMeepleAt(int arg0, int arg1, int arg2) throws Throwable {
-        Hexagon hexagon = SettlementBoard.getHexagon(new Coordinate(arg1, arg2));
         Player ChosenOne;
         if (arg0 == 1) {
             ChosenOne = playerOne;
@@ -51,7 +50,7 @@ public class SettlementDefinitions {
             ChosenOne = playerTwo;
         }
 
-        ChosenOne.placeMeepleOnHexagon(hexagon);
+        ChosenOne.placeMeepleOnHexagon(new Coordinate(arg1, arg2), SettlementBoard);
 
 
     }

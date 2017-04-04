@@ -26,24 +26,25 @@ public class Player {
     public void setAutoLoseScore(){ this.score = -1; }
 
     // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
-    public void placeMeepleOnHexagon(Hexagon hexagon) {
+    public void placeMeepleOnHexagon(Coordinate coordinate, Board board) {
         Piece newPiece = new Meeple(this.color);
-        attemptToPlacePiece(newPiece, hexagon);
+        attemptToPlacePiece(newPiece, coordinate, board);
     }
 
     // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
-    public void placeTotoroOnHexagon(Hexagon hexagon) {
+    public void placeTotoroOnHexagon(Coordinate coordinate, Board board) {
         Piece newPiece = new Totoro(this.color);
-        attemptToPlacePiece(newPiece, hexagon);
+        attemptToPlacePiece(newPiece, coordinate, board);
     }
     // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
-    public void placeTigerOnHexagon(Hexagon hexagon) {
+    public void placeTigerOnHexagon(Coordinate coordinate, Board board) {
         Piece newPiece = new Tiger(this.color);
-        attemptToPlacePiece(newPiece, hexagon);
+        attemptToPlacePiece(newPiece, coordinate, board);
     }
 
-    public boolean attemptToPlacePiece(Piece piece, Hexagon hexagon) {
-        boolean placementValid = piece.isPlacementValid(hexagon);
+    public boolean attemptToPlacePiece(Piece piece, Coordinate coordinate, Board board) {
+        boolean placementValid = piece.isPlacementValid(coordinate, board);
+        Hexagon hexagon = board.getHexagon(coordinate);
         if(placementValid) {
             hexagon.setOccupationStatus(piece);
             deductPlacedPieces(piece, hexagon);
@@ -65,10 +66,11 @@ public class Player {
 
     }
 
-    public boolean placeSettlement(Hexagon hexagon) {
+    public boolean placeSettlement(Coordinate coordinate, Board board) {
         Piece meeple = new Meeple(this.color);
+        Hexagon hexagon = board.getHexagon(coordinate);
         if (hexagon.getLevel() == 1) {
-            if (attemptToPlacePiece(meeple, hexagon)) {
+            if (attemptToPlacePiece(meeple, coordinate, board)) {
                 return true;
             }
         }

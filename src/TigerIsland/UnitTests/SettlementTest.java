@@ -15,11 +15,13 @@ public class SettlementTest {
         boardWithTile.placeTile(startingTileMove);
         Board board = boardWithTile;
         Coordinate coordinateOne = board.getNeighboringCoordinate(new Coordinate(100,100), HexagonNeighborDirection.LEFT);
-        Hexagon hexagon = board.getHexagon(coordinateOne);
-        player.placeMeepleOnHexagon(hexagon);
+
+        player.placeMeepleOnHexagon(coordinateOne, board);
+
         Coordinate coordinateTwo = board.getNeighboringCoordinate(new Coordinate(100,100), HexagonNeighborDirection.UPPERLEFT);
-        hexagon = board.getHexagon(coordinateTwo);
-        playerTwo.placeMeepleOnHexagon(hexagon);
+
+        playerTwo.placeMeepleOnHexagon(coordinateTwo, board);
+
         assertEquals(1,board.getSettlementSize(coordinateOne));
     }
     @Test
@@ -35,14 +37,15 @@ public class SettlementTest {
         Coordinate playerOneMeepleTwo = new Coordinate (99,101);
         Coordinate playerTwoMeepleOne = new Coordinate(98,100);
         Coordinate playerTwoMeepleTwo = new Coordinate (98,101);
-        Hexagon hexagon = board.getHexagon(playerOneMeepleOne);
-        player.placeMeepleOnHexagon(hexagon);
-        hexagon = board.getHexagon(playerOneMeepleTwo);
-        player.placeMeepleOnHexagon(hexagon);
-        hexagon = board.getHexagon(playerTwoMeepleOne);
-        playerTwo.placeMeepleOnHexagon(hexagon);
-        hexagon = board.getHexagon(playerTwoMeepleTwo);
-        playerTwo.placeMeepleOnHexagon(hexagon);
+
+        player.placeMeepleOnHexagon(playerOneMeepleOne, board);
+
+        player.placeMeepleOnHexagon(playerOneMeepleTwo, board);
+
+        playerTwo.placeMeepleOnHexagon(playerTwoMeepleOne, board);
+
+        playerTwo.placeMeepleOnHexagon(playerTwoMeepleTwo, board);
+
         assertEquals(2,board.getSettlementSize(playerOneMeepleOne));
     }
 }

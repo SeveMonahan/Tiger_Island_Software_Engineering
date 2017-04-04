@@ -11,6 +11,7 @@ public class Board {
     public Hexagon getHexagon(Coordinate coordinate){
         return hexagonArray[coordinate.getX()][coordinate.getY()];
     }
+
     public Coordinate getNeighboringCoordinate(Coordinate coordinate, HexagonNeighborDirection direction) {
         int x = coordinate.getX();
         int y = coordinate.getY();
@@ -31,6 +32,7 @@ public class Board {
                 return new Coordinate(0, 0);
         }
     }
+
     public Hexagon getNeighboringHexagon(Coordinate coordinate, HexagonNeighborDirection direction) {
         Coordinate neighborCoordinate = getNeighboringCoordinate(coordinate, direction);
         return getHexagon(neighborCoordinate);
@@ -182,8 +184,7 @@ public class Board {
 
     private void performFloodFill(Player player, Queue<Coordinate> expansion ) {
         while( !expansion.isEmpty() ) {
-            Hexagon hexagon = this.getHexagon( expansion.remove() );
-            player.placeMeepleOnHexagon(hexagon);
+            player.placeMeepleOnHexagon(expansion.remove(), this);
         }
     }
 

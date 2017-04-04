@@ -21,7 +21,8 @@ public class Meeple implements Piece {
         return hexagonYouWishToOccupy.getLevel();
     }
 
-    public boolean isPlacementValid(Hexagon hexagon) {
+    public boolean isPlacementValid(Coordinate coordinate, Board board) {
+        Hexagon hexagon = board.getHexagon(coordinate);
         return !hexagon.isVolcano()
                 && hexagon.getLevel() > 0
                 && (hexagon.isEmpty());

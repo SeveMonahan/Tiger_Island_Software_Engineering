@@ -21,7 +21,9 @@ public class Tiger implements Piece {
         return hexagonYouWishToOccupy.getLevel();
     }
 
-    public boolean isPlacementValid(Hexagon hexagon) {
+    public boolean isPlacementValid(Coordinate coordinate, Board board) {
+        Hexagon hexagon = board.getHexagon(coordinate);
+
         if (hexagon.isVolcano()) {
             return false;
         }
