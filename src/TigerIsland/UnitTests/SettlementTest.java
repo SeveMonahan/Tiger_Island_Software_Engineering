@@ -14,11 +14,11 @@ public class SettlementTest {
         TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASSLAND), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
         Board board = boardWithTile;
-        Coordinate coordinateOne = board.getNeighboringCoordinate(new Coordinate(100,100), HexagonNeighborDirection.LEFT);
+        Coordinate coordinateOne = new Coordinate(100,100).getNeighboringCoordinate(HexagonNeighborDirection.LEFT);
 
         player.placeMeepleOnHexagon(coordinateOne, board);
 
-        Coordinate coordinateTwo = board.getNeighboringCoordinate(new Coordinate(100,100), HexagonNeighborDirection.UPPERLEFT);
+        Coordinate coordinateTwo = new Coordinate(100,100).getNeighboringCoordinate(HexagonNeighborDirection.UPPERLEFT);
 
         playerTwo.placeMeepleOnHexagon(coordinateTwo, board);
 

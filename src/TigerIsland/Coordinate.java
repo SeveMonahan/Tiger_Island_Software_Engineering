@@ -38,12 +38,33 @@ public class Coordinate {
        return cubeCordinates;
     }
 
-    public int offset(int y){
+    private int offset(int y){
         if (y % 2 == 1) {
             return 1;
         }
         else{
             return 0;
+        }
+    }
+
+    public Coordinate getNeighboringCoordinate(HexagonNeighborDirection direction) {
+        int x = getX();
+        int y = getY();
+        switch(direction){
+            case LEFT:
+                return new Coordinate(x - 1, y);
+            case RIGHT:
+                return new Coordinate(x + 1, y);
+            case UPPERLEFT:
+                return new Coordinate(x - 1 + offset(y), y + 1);
+            case UPPERRIGHT:
+                return new Coordinate(x + offset(y), y + 1);
+            case LOWERLEFT:
+                return new Coordinate(x - 1 + offset(y), y - 1);
+            case LOWERRIGHT:
+                return new Coordinate(x + offset(y), y - 1);
+            default:
+                return new Coordinate(0, 0);
         }
     }
 }

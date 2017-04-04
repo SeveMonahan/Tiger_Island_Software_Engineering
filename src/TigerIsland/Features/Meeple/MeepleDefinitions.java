@@ -41,7 +41,7 @@ public class MeepleDefinitions
 
     @When("^I attempt to populate a Level 1 non-volcano hexagon $")
     public void populateLevelOneHex(){
-        Coordinate coordinate = board.getNeighboringCoordinate(new Coordinate(100,100), HexagonNeighborDirection.LEFT);
+        Coordinate coordinate = new Coordinate(100,100).getNeighboringCoordinate(HexagonNeighborDirection.LEFT);
         player.placeMeepleOnHexagon(coordinate, board);
     }
     @Then("^I place 1 meeple on Hexagon hexagon $")

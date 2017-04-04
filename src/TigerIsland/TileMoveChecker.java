@@ -102,8 +102,8 @@ public class TileMoveChecker {
         HexagonNeighborDirection neighborOneDirection = tileMove.getDirection();
         HexagonNeighborDirection neighborTwoDirection = tileMove.getDirection().getNextClockwise();
 
-        Coordinate neighborOneCoordinate = board.getNeighboringCoordinate(volcanoCoordinate, neighborOneDirection);
-        Coordinate neighborTwoCoordinate = board.getNeighboringCoordinate(volcanoCoordinate, neighborTwoDirection);
+        Coordinate neighborOneCoordinate = volcanoCoordinate.getNeighboringCoordinate(neighborOneDirection);
+        Coordinate neighborTwoCoordinate = volcanoCoordinate.getNeighboringCoordinate(neighborTwoDirection);
 
         Coordinate[] tileCoordinates = new Coordinate[3];
         tileCoordinates[0] = volcanoCoordinate;

@@ -12,29 +12,8 @@ public class Board {
         return hexagonArray[coordinate.getX()][coordinate.getY()];
     }
 
-    public Coordinate getNeighboringCoordinate(Coordinate coordinate, HexagonNeighborDirection direction) {
-        int x = coordinate.getX();
-        int y = coordinate.getY();
-        switch(direction){
-            case LEFT:
-                return new Coordinate(x - 1, y);
-            case RIGHT:
-                return new Coordinate(x + 1, y);
-            case UPPERLEFT:
-                return new Coordinate(x - 1 + coordinate.offset(y), y + 1);
-            case UPPERRIGHT:
-                return new Coordinate(x + coordinate.offset(y), y + 1);
-            case LOWERLEFT:
-                return new Coordinate(x - 1 + coordinate.offset(y), y - 1);
-            case LOWERRIGHT:
-                return new Coordinate(x + coordinate.offset(y), y - 1);
-            default:
-                return new Coordinate(0, 0);
-        }
-    }
-
     public Hexagon getNeighboringHexagon(Coordinate coordinate, HexagonNeighborDirection direction) {
-        Coordinate neighborCoordinate = getNeighboringCoordinate(coordinate, direction);
+        Coordinate neighborCoordinate = coordinate.getNeighboringCoordinate(direction);
         return getHexagon(neighborCoordinate);
     }
     public Hexagon[] getNeighboringHexagons(Coordinate coordinate) {
@@ -201,7 +180,7 @@ public class Board {
             map.put(currentCoordinate.hashCode(), true);
 
             for (HexagonNeighborDirection direction : HexagonNeighborDirection.values()) {
-                currentCoordinate = getNeighboringCoordinate(coordinate, direction);
+                currentCoordinate = coordinate.getNeighboringCoordinate(direction);
                 if(!map.containsKey(currentCoordinate.hashCode())) {
                     map.put(currentCoordinate.hashCode(), true);
                     Hexagon hexagon = this.getHexagon(currentCoordinate);
