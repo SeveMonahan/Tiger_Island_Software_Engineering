@@ -7,6 +7,10 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/*
+       The client is run after the server. It takes in the hostname and the chosen port for the arguments.
+       Google
+*/
 public class testClient {
     public static void main(String[] args) throws IOException {
 
@@ -32,7 +36,7 @@ public class testClient {
 
             while ((fromServer = in.readLine()) != null) {
                 System.out.println("Server: " + fromServer);
-                if (fromServer.equals("THANK YOU FOR PLAYING! GOODBYE"))
+                if (fromServer.equals("Bye."))
                     break;
 
                 fromUser = stdIn.readLine();
