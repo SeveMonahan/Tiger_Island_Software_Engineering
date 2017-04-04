@@ -178,7 +178,17 @@ public class BoardTest {
         assertEquals(101, testCoordinate6.getX());
         assertEquals(101, testCoordinate6.getY());
 
+        Coordinate testCoordinate7 = new Coordinate(-1,1,0);
+        assertEquals(100, testCoordinate7.getX());
+        assertEquals(101, testCoordinate7.getY());
 
+        Coordinate testCoordinate8 = new Coordinate(1,0,-1);
+        assertEquals(100, testCoordinate8.getX());
+        assertEquals(99, testCoordinate8.getY());
+
+        Coordinate testCoordinate9 = new Coordinate(1,-2,1);
+        assertEquals(98, testCoordinate9.getX());
+        assertEquals(99, testCoordinate9.getY());
     }
 
 
@@ -210,11 +220,6 @@ public class BoardTest {
         int testResult4[] = {1,-1,0};
         assertArrayEquals(testResult4, result4);
 
-        Coordinate testCoordinate5 = new Coordinate(99,100);
-        int result5[] = testCoordinate5.ConvertToCube();
-        int testResult5[] = {0,-1,1};
-        assertArrayEquals(testResult5, result5);
-
         Coordinate testCoordinate6 = new Coordinate(99,101);
         int result6[] = testCoordinate6.ConvertToCube();
         int testResult6[] = {-1,0,1};
@@ -224,6 +229,12 @@ public class BoardTest {
         int result7[] = testCoordinate7.ConvertToCube();
         int testResult7[] = {-1,2,-1};
         assertArrayEquals(testResult7, result7);
+
+        Coordinate testCoordinate9 = new Coordinate(101,99);
+        int result9[] = testCoordinate9.ConvertToCube();
+        int testResult9[] = {1,1,-2};
+        assertArrayEquals(testResult9, result9);
+
 
     }
 
