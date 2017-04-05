@@ -123,28 +123,27 @@ public class Board {
     public int getSettlementSize(Coordinate sourceCoordinate) {
         int size = 0;
         HashMap map = new HashMap();
-        Queue<Hexagon> hexagonQueue = new LinkedList<>();
-
+        Queue<Coordinate> coordinateQueue = new LinkedList<>();
         Coordinate currentCoordinate = sourceCoordinate;
         Hexagon currentHexagon = getHexagon(currentCoordinate);
-
         if (currentHexagon.isOccupied()) {
             Color playerColor = currentHexagon.getOccupationColor();
             if (currentHexagon.getOccupationColor() == playerColor) {
-                hexagonQueue.add(currentHexagon);
+                coordinateQueue.add(currentCoordinate);
             }
-            while (!hexagonQueue.isEmpty()) {
-                currentHexagon = hexagonQueue.remove();
-                map.put(currentHexagon.hashCode(),true);
+            while (!coordinateQueue.isEmpty()) {
+                currentCoordinate = coordinateQueue.remove();
+                currentHexagon = getHexagon(currentCoordinate);
+                map.put(currentCoordinate,true);
                 size++;
-                Hexagon[] neighbors = getNeighboringHexagons(sourceCoordinate);
-                for (Hexagon neighbor : neighbors) {
-                    currentHexagon = neighbor;
-                    if (!map.containsKey(currentHexagon.hashCode())) {
-                        map.put(currentHexagon.hashCode(), true);
+                Coordinate[] neighbors = currentCoordinate.getNeighboringCoordinates();
+                for (Coordinate neighbor : neighbors) {
+                    currentHexagon = getHexagon(neighbor);
+                    if (!map.containsKey(neighbor)) {
+                        map.put(neighbor, true);
                         if (currentHexagon.isOccupied()) {
                             if(currentHexagon.getOccupationColor() == playerColor) {
-                                hexagonQueue.add(currentHexagon);
+                                coordinateQueue.add(neighbor);
                             }
                         }
                     }

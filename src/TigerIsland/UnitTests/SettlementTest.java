@@ -14,13 +14,9 @@ public class SettlementTest {
         TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASSLAND), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         board.placeTile(startingTileMove);
         Coordinate coordinateOne = new Coordinate(100,100).getNeighboringCoordinate(HexagonNeighborDirection.LEFT);
-
         player.placeMeepleOnHexagon(coordinateOne, board);
-
         Coordinate coordinateTwo = new Coordinate(100,100).getNeighboringCoordinate(HexagonNeighborDirection.UPPERLEFT);
-
         playerTwo.placeMeepleOnHexagon(coordinateTwo, board);
-
         assertEquals(1,board.getSettlementSize(coordinateOne));
     }
     @Test
@@ -35,15 +31,10 @@ public class SettlementTest {
         Coordinate playerOneMeepleTwo = new Coordinate (99,101);
         Coordinate playerTwoMeepleOne = new Coordinate(98,100);
         Coordinate playerTwoMeepleTwo = new Coordinate (98,101);
-
         player.placeMeepleOnHexagon(playerOneMeepleOne, board);
-
         player.placeMeepleOnHexagon(playerOneMeepleTwo, board);
-
         playerTwo.placeMeepleOnHexagon(playerTwoMeepleOne, board);
-
         playerTwo.placeMeepleOnHexagon(playerTwoMeepleTwo, board);
-
         assertEquals(2,board.getSettlementSize(playerOneMeepleOne));
     }
 }
