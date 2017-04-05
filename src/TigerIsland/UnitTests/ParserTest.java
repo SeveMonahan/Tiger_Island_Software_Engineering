@@ -15,10 +15,10 @@ public class ParserTest {
     }
 
     @Test
-    public void getTileMoveFromGameMoveMade(){
-        String message = "GAME <gid> MOVE <#> PLAYER <pid> PLACED JUNGLE+LAKE AT 0 0 0 1 FOUNDED SETTLEMENT AT <x> <y> <z>";
+    public void getTileMoveFromGameMoveMadeString(){
+        String message = "GAME <gid> MOVE <#> PLAYER <pid> PLACED JUNGLE+LAKE AT 1 3 0 1 FOUNDED SETTLEMENT AT <x> <y> <z>";
         Tile expectedTile = new Tile(Terrain.JUNGLE, Terrain.LAKE);
-        Coordinate expectedCoordinate = new Coordinate(0, 0, 0);
+        Coordinate expectedCoordinate = new Coordinate(1, 3, 0);
         TileMove expectedTileMove = new TileMove(expectedTile, HexagonNeighborDirection.UPPERLEFT, expectedCoordinate);
 
         Parser parser = new Parser();

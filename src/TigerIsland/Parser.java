@@ -6,7 +6,9 @@ public class Parser {
     public Tile makeYourMoveStringToTile(String makeYourMoveString) {
         String[] moveStringSplitBySpaceArray = makeYourMoveString.split("\\s+");
 
-        String tileString = moveStringSplitBySpaceArray[12];
+        final int tileIndex = 12;
+
+        String tileString = moveStringSplitBySpaceArray[tileIndex];
         return tileStringToTile(tileString);
     }
 
@@ -15,15 +17,21 @@ public class Parser {
     public TileMove opponentMoveStringToTileMove(String opponentMoveString){
         String[] opponentMoveStringSplitBySpaceArray = opponentMoveString.split("\\s+");
 
-        String tileString = opponentMoveStringSplitBySpaceArray[7];
+        final int tileIndex = 7;
+        final int xIndex = 9;
+        final int yIndex = 10;
+        final int zIndex = 11;
+        final int orientationIndex = 12;
+
+        String tileString = opponentMoveStringSplitBySpaceArray[tileIndex];
         Tile tile = tileStringToTile(tileString);
 
-        int x = Integer.parseInt(opponentMoveStringSplitBySpaceArray[9]);
-        int y = Integer.parseInt(opponentMoveStringSplitBySpaceArray[10]);
-        int z = Integer.parseInt(opponentMoveStringSplitBySpaceArray[11]);
+        int x = Integer.parseInt(opponentMoveStringSplitBySpaceArray[xIndex]);
+        int y = Integer.parseInt(opponentMoveStringSplitBySpaceArray[yIndex]);
+        int z = Integer.parseInt(opponentMoveStringSplitBySpaceArray[zIndex]);
         Coordinate coordinate = new Coordinate(x, y, z);
 
-        int orientation = Integer.parseInt(opponentMoveStringSplitBySpaceArray[12]);
+        int orientation = Integer.parseInt(opponentMoveStringSplitBySpaceArray[orientationIndex]);
 
         //Assign UPPERLEFT direction as arbitrary only to be converted to its actual direction
         //This has to be done because you can not create a null instance of an enum
@@ -37,8 +45,12 @@ public class Parser {
     //Converts string such as "JUNGLE+LAKE" to a tile object
     private Tile tileStringToTile(String tileString){
         String [] tileStringSplitByPlusSign = tileString.split("\\+");
-        Terrain Aterrain = Terrain.valueOf(tileStringSplitByPlusSign[0]);
-        Terrain Bterrain = Terrain.valueOf(tileStringSplitByPlusSign[1]);
+
+        final int AterrainIndex = 0;
+        final int BterrainIndex = 1;
+
+        Terrain Aterrain = Terrain.valueOf(tileStringSplitByPlusSign[AterrainIndex]);
+        Terrain Bterrain = Terrain.valueOf(tileStringSplitByPlusSign[BterrainIndex]);
         return new Tile(Aterrain, Bterrain);
     }
 }
