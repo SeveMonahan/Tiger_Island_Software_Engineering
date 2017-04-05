@@ -95,4 +95,8 @@ public class GameState {
     public Board getBoard(){
         return board;
     }
+
+    public GameStateWTile getChildren(Tile tile){
+        return new GameStateWTile(this, tile);
+    }
 }
