@@ -11,9 +11,9 @@ public class GameStateWTile extends GameState {
     }
 
     public ArrayList<GameStateBeforeBuildAction> getChildren(){
-        ArrayList<GameStateBeforeBuildAction> result = new ArrayList<GameStateBeforeBuildAction>();
-       for(int i = 0; i <= 200; i++){
-           for(int j=0; j <= 200; j++){
+       ArrayList<GameStateBeforeBuildAction> result = new ArrayList<GameStateBeforeBuildAction>();
+       for(int i = 2; i < 198; i++){
+           for(int j= 2; j < 198; j++){
                for(HexagonNeighborDirection direction : HexagonNeighborDirection.values()){
                    TileMove possibleTileMove = new TileMove(tile, direction, new Coordinate(i, j));
                    GameStateBeforeBuildAction child = new GameStateBeforeBuildAction(this, possibleTileMove);
