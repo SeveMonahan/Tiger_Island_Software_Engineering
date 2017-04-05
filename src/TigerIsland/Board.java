@@ -152,6 +152,45 @@ public class Board {
         return size;
     }
 
+    public boolean getSettlementContainsTotoro(Coordinate sourceCoordinate) {
+        HashMap map = new HashMap();
+        Queue<Hexagon> hexagonQueue = new LinkedList<>();
+
+        Coordinate currentCoordinate = sourceCoordinate;
+        Hexagon currentHexagon = getHexagon(currentCoordinate);
+
+        if (currentHexagon.isOccupied()) {
+            Color playerColor = currentHexagon.getOccupationColor();
+
+            if (currentHexagon.getOccupationColor() == playerColor) {
+                hexagonQueue.add(currentHexagon);
+            }
+
+            while (!hexagonQueue.isEmpty()) {
+                currentHexagon = hexagonQueue.remove();
+                map.put(currentHexagon.hashCode(),true);
+
+                if(currentHexagon.getOccupationStatus() == HexagonOccupationStatus.TOTORO){
+                    return true;
+                };
+
+                Hexagon[] neighbors = getNeighboringHexagons(sourceCoordinate);
+                for (Hexagon neighbor : neighbors) {
+                    currentHexagon = neighbor;
+                    if (!map.containsKey(currentHexagon.hashCode())) {
+                        map.put(currentHexagon.hashCode(), true);
+                        if (currentHexagon.isOccupied()) {
+                            if(currentHexagon.getOccupationColor() == playerColor) {
+                                hexagonQueue.add(currentHexagon);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public boolean expandSettlementWithCheck(Player player, Coordinate coordinate, Terrain terrain) {
         Queue<Coordinate> settlement = expandSettlementFloodFill(coordinate, terrain);
         if(settlement.size() <= player.getMeeplesCount()) {

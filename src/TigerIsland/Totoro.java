@@ -34,7 +34,8 @@ public class Totoro implements Piece {
         Coordinate[] neighbors = coordinate.getNeighboringCoordinates();
 
         for(int i = 0; i < 6; i++){
-            if(board.getSettlementSize(neighbors[i]) == 5){
+            // XXX needs to handle the case where we don't own the adjacent settlement
+            if(board.getSettlementSize(neighbors[i]) >= 5 && !board.getSettlementContainsTotoro(neighbors[i])){
                 result = true;
             }
         }
