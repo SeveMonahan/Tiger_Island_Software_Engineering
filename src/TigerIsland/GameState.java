@@ -14,6 +14,9 @@ public class GameState {
         player_2 = new Player(Color.BLACK);
         playerWhoseTurn = player_1;
         gameIsOver = false;
+
+        board = new Board();
+        board.placeStartingTile();
     }
 
     private GameState(Player player_1, Player player_2) {

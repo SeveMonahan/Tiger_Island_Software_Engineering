@@ -1,10 +1,15 @@
 package TigerIsland;
 
 public class GameStateBeforeBuildAction extends GameState {
+    boolean success;
 
-    GameStateBeforeBuildAction(GameState original, TileMove tilemove) {
+    public GameStateBeforeBuildAction(GameState original, TileMove tilemove) {
         super(original);
-        board.placeTile(tilemove);
+        success = board.placeTile(tilemove);
+    }
+
+    public boolean getSuccess(){
+        return success;
     }
 
 }
