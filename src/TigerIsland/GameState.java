@@ -5,6 +5,7 @@ public class GameState {
     private Player player_2;
     private Player playerWhoseTurn;
     private boolean gameIsOver;
+    private Board board;
 
     public GameState() {
         player_1 = new Player(Color.WHITE);
@@ -22,6 +23,22 @@ public class GameState {
 
     public static GameState createGameStateWithInjectedPlayersForTesting(Player player_1, Player player_2) {
         return new GameState(player_1, player_2);
+    }
+
+    public GameState(GameState original) {
+        this.player_1 = new Player(original.player_1);
+        this.player_2 = new Player(original.player_2);
+
+        if(original.playerWhoseTurn == original.player_1){
+            this.playerWhoseTurn = player_1;
+        }else{
+            this.playerWhoseTurn = player_2;
+        }
+
+        this.board = new Board(original.board);
+
+        this.gameIsOver = original.gameIsOver;
+
     }
 
     public GameModel getPlayerOneModel(){
