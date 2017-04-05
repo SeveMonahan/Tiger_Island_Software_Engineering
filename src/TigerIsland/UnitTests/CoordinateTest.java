@@ -1,6 +1,6 @@
 package src.TigerIsland.UnitTests;
 
-import src.TigerIsland.Coordinate;
+import TigerIsland.Coordinate;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
