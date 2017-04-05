@@ -23,14 +23,14 @@ public class TotoroTest {
         Player player = new Player(Color.WHITE);
         Piece newTotoro = new Totoro(Color.WHITE);
 
-        assertEquals(true, player.attemptToPlacePiece(newTotoro, new Coordinate (101, 100), board));
+        Hexagon hexagon = board.getHexagon(new Coordinate(101, 100));
+        hexagon.setOccupationStatus(newTotoro);
 
         boolean isValidMove = board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.ROCK), HexagonNeighborDirection.LOWERRIGHT, new Coordinate(100, 101)));
 
         assertEquals(false, isValidMove);
     }
 
-    // TODO This will fail when we start checking for Totoro min settlement size
     @Test
     public void placeTotoroOnVolcano() throws Exception {
         Board boardWithTile = new Board();
@@ -40,6 +40,23 @@ public class TotoroTest {
         Coordinate coordinate = new Coordinate(101,100).getNeighboringCoordinate(HexagonNeighborDirection.LEFT);
         Player player = new Player(Color.WHITE);
 
+        player.placeTotoroOnHexagon(coordinate, board);
+
+        assertEquals(0, player.getScore());
+        assertEquals(3, player.getTotoroCount());
+        Hexagon hexagon = board.getHexagon(coordinate);
+        assertEquals(HexagonOccupationStatus.EMPTY, hexagon.getOccupationStatus());
+    }
+
+    @Test
+    public void placeTotoroFailsDueToNoAdjacentSettlements() throws Exception {
+        Board board = new Board();
+        board.placeStartingTile();
+
+
+        Player player = new Player(Color.WHITE);
+
+        Coordinate coordinate = new Coordinate(101,100);
         player.placeTotoroOnHexagon(coordinate, board);
 
         assertEquals(0, player.getScore());

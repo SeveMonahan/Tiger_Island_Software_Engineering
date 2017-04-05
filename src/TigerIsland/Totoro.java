@@ -22,11 +22,24 @@ public class Totoro implements Piece {
     }
 
     public boolean isPlacementValid(Coordinate coordinate, Board board) {
+
         Hexagon hexagon = board.getHexagon(coordinate);
-        if( !hexagon.isVolcano() && (hexagon.isEmpty()) ) {
-            return true;
-        } else {
+
+        if( hexagon.isVolcano() || (hexagon.isEmpty()) ) {
             return false;
         }
+
+        boolean result = false;
+
+        Coordinate[] neighbors = coordinate.getNeighboringCoordinates();
+
+        for(int i = 0; i < 6; i++){
+            if(board.getSettlementSize(neighbors[i]) == 5){
+                result = true;
+            }
+        }
+
+        return result;
+
     }
 }
