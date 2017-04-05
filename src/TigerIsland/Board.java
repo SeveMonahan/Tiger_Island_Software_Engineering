@@ -1,5 +1,7 @@
 package TigerIsland;
 
+import cucumber.api.java8.He;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -153,10 +155,16 @@ public class Board {
     }
 
     public boolean expandSettlementWithCheck(Player player, Coordinate coordinate, Terrain terrain) {
-        Queue<Coordinate> settlement = expandSettlementFloodFill(coordinate, terrain);
-        if(settlement.size() <= player.getMeeplesCount()) {
-            performFloodFill(player, settlement );
-            return true;
+        Color color = this.getHexagon(coordinate).getOccupationColor();
+        HexagonOccupationStatus occupationStatus = this.getHexagon(coordinate).getOccupationStatus();
+        if( player.getColor() == color
+                && occupationStatus == HexagonOccupationStatus.MEEPLES ){
+            Queue<Coordinate> settlement = expandSettlementFloodFill(coordinate, player, terrain);
+            if(settlement.size() <= player.getMeeplesCount()) {
+                performFloodFill(player, settlement );
+                return true;
+            }
+            return false;
         }
         return false;
     }
@@ -167,27 +175,31 @@ public class Board {
         }
     }
 
-    private Queue<Coordinate> expandSettlementFloodFill(Coordinate coordinate, Terrain terrain) {
-        HashMap map = new HashMap();
+    private Queue<Coordinate> expandSettlementFloodFill(Coordinate coordinate, Player player, Terrain terrain) {
+        HashMap searched = new HashMap();
         Queue<Coordinate> coordinateQueue = new LinkedList<>();
         Queue<Coordinate> expansion = new LinkedList<>();
 
-        Coordinate currentCoordinate = coordinate;
         coordinateQueue.add(coordinate);
+        searched.put(coordinate, true);
 
         while (!coordinateQueue.isEmpty()) {
-            currentCoordinate = coordinateQueue.remove();
-            map.put(currentCoordinate.hashCode(), true);
+            Coordinate currentCoordinate = coordinateQueue.remove();
+            Coordinate[] neighbors = currentCoordinate.getNeighboringCoordinates();
+            for(Coordinate neighbor : neighbors){
+                Hexagon hexagon = this.getHexagon(neighbor);
+                if( !searched.containsKey(neighbor) &&
+                        hexagon.getTerrain() ==  terrain &&
+                        hexagon.getOccupationStatus() == HexagonOccupationStatus.EMPTY){
+                    // expand to this hexagon
 
-            for (HexagonNeighborDirection direction : HexagonNeighborDirection.values()) {
-                currentCoordinate = coordinate.getNeighboringCoordinate(direction);
-                if(!map.containsKey(currentCoordinate.hashCode())) {
-                    map.put(currentCoordinate.hashCode(), true);
-                    Hexagon hexagon = this.getHexagon(currentCoordinate);
-                    if(hexagon.isEmpty() && hexagon.getTerrain() == terrain) {
-                        expansion.add(currentCoordinate);
-                    }
+                    coordinateQueue.add(neighbor);
+                    expansion.add(neighbor);
+                } else {
+                    // Hexagon can't be expanded to... mark it as searched
+                    // do nothing.
                 }
+                searched.put(neighbor, true);
             }
         }
         return expansion;
