@@ -17,6 +17,7 @@ public class BuildMove {
         this.terrain = null;
     }
 
+    //The constructor for when the move is an expansion and a terrain must be provided
     public BuildMove(BuildOption buildOption, Coordinate coordinate, Terrain terrain) {
         this.buildOption = buildOption;
         this.coordinate = coordinate;

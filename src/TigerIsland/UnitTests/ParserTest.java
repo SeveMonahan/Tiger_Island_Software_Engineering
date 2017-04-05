@@ -28,7 +28,21 @@ public class ParserTest {
         assertEquals(expectedTileMove.getDirection(), testTileMove.getDirection());
         assertEquals(expectedTileMove.getCoordinate().getX(), testTileMove.getCoordinate().getX());
         assertEquals(expectedTileMove.getCoordinate().getY(), testTileMove.getCoordinate().getY());
+    }
 
+    @Test
+    public void getBuildMoveFromGameMoveMadeStringForFoundedSettlement(){
+        String message = "GAME <gid> MOVE <#> PLAYER <pid> PLACED <tile> AT <x> <y> <z> <orientation> FOUNDED SETTLEMENT AT 1 3 0";
 
+        BuildOption expectedBuildOption = BuildOption.FOUNDSETTLEMENT;
+        Coordinate expectedCoordinate = new Coordinate(1, 3, 0);
+        BuildMove expectedBuildMove = new BuildMove(expectedBuildOption, expectedCoordinate);
+
+        Parser parser = new Parser();
+        BuildMove testBuildMove = parser.opponentMoveStringToBuildMove(message);
+
+        assertEquals(expectedBuildMove.getCoordinate().getX(), testBuildMove.getCoordinate().getX());
+        assertEquals(expectedBuildMove.getCoordinate().getY(), testBuildMove.getCoordinate().getY());
+        assertEquals(expectedBuildMove.getBuildOption(), testBuildMove.getBuildOption());
     }
 }

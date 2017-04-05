@@ -41,6 +41,22 @@ public class Parser {
         return new TileMove(tile, direction, coordinate);
     }
 
+    public BuildMove opponentMoveStringToBuildMove(String opponentMoveString){
+        String[] opponentMoveStringSplitBySpaceArray = opponentMoveString.split("\\s+");
+
+            final int xIndex = 16;
+            final int yIndex = 17;
+            final int zIndex = 18;
+
+            int x = Integer.parseInt(opponentMoveStringSplitBySpaceArray[xIndex]);
+            int y = Integer.parseInt(opponentMoveStringSplitBySpaceArray[yIndex]);
+            int z = Integer.parseInt(opponentMoveStringSplitBySpaceArray[zIndex]);
+            Coordinate coordinate = new Coordinate(x, y, z);
+
+            BuildOption buildOption = BuildOption.FOUNDSETTLEMENT;
+
+            return new BuildMove(buildOption, coordinate);
+    }
 
     //Converts string such as "JUNGLE+LAKE" to a tile object
     private Tile tileStringToTile(String tileString){
