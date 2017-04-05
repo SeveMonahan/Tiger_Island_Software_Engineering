@@ -10,39 +10,39 @@ public class CoordinateTest {
 
     @Test
     public void convertToSquare() throws Exception{
-        Coordinate testCoordinate = new Coordinate(0,1,-1);
+        Coordinate testCoordinate = new Coordinate(1,-1,0);
         assertEquals(101, testCoordinate.getX());
         assertEquals(100, testCoordinate.getY());
 
-        Coordinate testCoordinate2 = new Coordinate(0,2,-2);
+        Coordinate testCoordinate2 = new Coordinate(2,-2,0);
         assertEquals(102, testCoordinate2.getX());
         assertEquals(100, testCoordinate2.getY());
 
-        Coordinate testCoordinate3 = new Coordinate(1,-1,0);
+        Coordinate testCoordinate3 = new Coordinate(-1,0,1);
         assertEquals(99, testCoordinate3.getX());
         assertEquals(99, testCoordinate3.getY());
 
-        Coordinate testCoordinate4 = new Coordinate(0,-1,1);
+        Coordinate testCoordinate4 = new Coordinate(-1,1,0);
         assertEquals(99, testCoordinate4.getX());
         assertEquals(100, testCoordinate4.getY());
 
-        Coordinate testCoordinate5 = new Coordinate(-1,0,1);
+        Coordinate testCoordinate5 = new Coordinate(0,1,-1);
         assertEquals(99, testCoordinate5.getX());
         assertEquals(101, testCoordinate5.getY());
 
-        Coordinate testCoordinate6 = new Coordinate(-1,2,-1);
+        Coordinate testCoordinate6 = new Coordinate(2,-1,-1);
         assertEquals(101, testCoordinate6.getX());
         assertEquals(101, testCoordinate6.getY());
 
-        Coordinate testCoordinate7 = new Coordinate(-1,1,0);
+        Coordinate testCoordinate7 = new Coordinate(1,0,-1);
         assertEquals(100, testCoordinate7.getX());
         assertEquals(101, testCoordinate7.getY());
 
-        Coordinate testCoordinate8 = new Coordinate(1,0,-1);
+        Coordinate testCoordinate8 = new Coordinate(0,-1,1);
         assertEquals(100, testCoordinate8.getX());
         assertEquals(99, testCoordinate8.getY());
 
-        Coordinate testCoordinate9 = new Coordinate(1,-2,1);
+        Coordinate testCoordinate9 = new Coordinate(-2,1,1);
         assertEquals(98, testCoordinate9.getX());
         assertEquals(99, testCoordinate9.getY());
     }
