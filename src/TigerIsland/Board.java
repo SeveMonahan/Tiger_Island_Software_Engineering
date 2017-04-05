@@ -176,7 +176,7 @@ public class Board {
     }
 
     private Queue<Coordinate> expandSettlementFloodFill(Coordinate coordinate, Player player, Terrain terrain) {
-        HashMap searched = new HashMap();
+        HashMap<Coordinate, Boolean> searched = new HashMap<>();
         Queue<Coordinate> coordinateQueue = new LinkedList<>();
         Queue<Coordinate> expansion = new LinkedList<>();
 

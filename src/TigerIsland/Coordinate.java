@@ -77,4 +77,27 @@ public class Coordinate {
         }
         return neighbors;
     }
+
+    @Override
+    public boolean equals(Object other){
+        Coordinate coordinate = (Coordinate) other;
+        if( other == this){
+            return true;
+        }
+
+        if(coordinate.getX() == this.getX() && coordinate.getY() ==  this.getY()){
+            return true;
+        }
+
+        return false;
+    }
+
+
+    @Override
+    public int hashCode() {
+        int result = this.getX();
+        result = 31 * result + this.getY();
+        return result;
+    }
+
 }
