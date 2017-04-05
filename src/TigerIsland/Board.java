@@ -1,13 +1,15 @@
 package TigerIsland;
 
-import cucumber.api.java8.He;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class Board {
     private Hexagon[][] hexagonArray;
+
+    public static Board cloneBoard(Board board) {
+        return new Board(board);
+    }
 
     // Getters
     public Hexagon getHexagon(Coordinate coordinate){
@@ -38,9 +40,8 @@ public class Board {
         initializeHexagonArray();
     }
     // Coordinate (100, 100) is the center of the board.
-    // Note: you must use this initializer if you want to use placeTile() to place more tiles.
 
-    public Board(Board board){
+    private Board(Board board){
         Hexagon [][] OldHexagonArray = board.getHexagonArray();
 
         hexagonArray = new Hexagon[200][200];
@@ -48,7 +49,7 @@ public class Board {
         for(int i = 0; i < 200; i++) {
             for (int j = 0; j < 200; j++) {
                 Hexagon OldHexagon = OldHexagonArray[i][j];
-                Hexagon NewHexagon = new Hexagon(OldHexagon);
+                Hexagon NewHexagon = Hexagon.cloneHexagon(OldHexagon);
                 hexagonArray[i][j] = NewHexagon;
             }
         }

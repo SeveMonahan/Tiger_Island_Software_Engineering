@@ -26,8 +26,8 @@ public class GameState {
     }
 
     public GameState(GameState original) {
-        this.player_1 = new Player(original.player_1);
-        this.player_2 = new Player(original.player_2);
+        this.player_1 = Player.clonePlayer(original.player_1);
+        this.player_2 = Player.clonePlayer(original.player_2);
 
         if(original.playerWhoseTurn == original.player_1){
             this.playerWhoseTurn = player_1;
@@ -35,7 +35,7 @@ public class GameState {
             this.playerWhoseTurn = player_2;
         }
 
-        this.board = new Board(original.board);
+        this.board = Board.cloneBoard(original.board);
 
         this.gameIsOver = original.gameIsOver;
 

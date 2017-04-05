@@ -1,10 +1,7 @@
 package TigerIsland.UnitTests;
 
 import TigerIsland.Color;
-import TigerIsland.GameOutcome;
-import TigerIsland.GameState;
 import TigerIsland.Player;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -15,7 +12,7 @@ public class PlayerCopyTest {
         Player testplayer = new Player(Color.BLACK);
         testplayer.setScore(100);
 
-        Player cloneplayer = new Player(testplayer);
+        Player cloneplayer = Player.clonePlayer(testplayer);
 
         testplayer.setScore(200);
 

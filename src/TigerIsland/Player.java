@@ -15,12 +15,16 @@ public class Player {
         this.color = color;
     }
 
-    public Player(Player player) {
+    private Player(Player player) {
         this.score = player.score;
         this.meepleCount = player.meepleCount;
         this.totoroCount = player.totoroCount;
         this.tigerCount  = player.tigerCount;
         this.color = player.color;
+    }
+
+    public static Player clonePlayer(Player player) {
+        return new Player(player);
     }
 
     public int getScore() { return score; }

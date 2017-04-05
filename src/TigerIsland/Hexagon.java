@@ -8,6 +8,10 @@ public class Hexagon {
     private Color occupationColor;
     private boolean canBeNuked;
 
+    public static Hexagon cloneHexagon(Hexagon copied) {
+        return new Hexagon(copied);
+    }
+
     public int getLevel(){
         return level;
     }
@@ -40,7 +44,7 @@ public class Hexagon {
         occupationStatus = HexagonOccupationStatus.EMPTY;
     }
 
-    public Hexagon(Hexagon copied) {
+    private Hexagon(Hexagon copied) {
         canBeNuked = copied.getCanBeNuked();
         level = copied.getLevel();
         terrain = copied.getTerrain();
