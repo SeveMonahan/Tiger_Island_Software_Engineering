@@ -67,4 +67,14 @@ public class Coordinate {
                 return new Coordinate(0, 0);
         }
     }
+
+    public Coordinate[] getNeighboringCoordinates() {
+        int i = 0;
+        Coordinate[] neighbors = new Coordinate[6];
+        for(HexagonNeighborDirection direction : HexagonNeighborDirection.values()) {
+            neighbors[i] = this.getNeighboringCoordinate(direction);
+            i++;
+        }
+        return neighbors;
+    }
 }
