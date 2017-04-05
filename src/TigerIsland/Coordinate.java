@@ -1,4 +1,4 @@
-package TigerIsland;
+package src.TigerIsland;
 import java.lang.Math;
 
 public class Coordinate {
@@ -30,9 +30,9 @@ public class Coordinate {
         x = x - 100;
         y = 100 - y;
 
-        int yC = x - (y - (y&1))/2;
-        int xC = y;
-        int zC = -yC - xC;
+        int xC = x - (y - (y&1))/2;
+        int zC = y;
+        int yC = -xC - zC;
 
        int cubeCordinates[] = {xC,yC,zC};
        return cubeCordinates;
