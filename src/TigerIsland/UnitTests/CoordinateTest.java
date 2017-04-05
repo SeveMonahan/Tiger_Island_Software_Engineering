@@ -1,4 +1,4 @@
-package src.TigerIsland.UnitTests;
+package TigerIsland.UnitTests;
 
 import TigerIsland.Coordinate;
 import org.junit.Test;
