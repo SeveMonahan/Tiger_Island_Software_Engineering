@@ -96,7 +96,7 @@ public class Coordinate {
     @Override
     public int hashCode() {
         int result = this.getX();
-        result = 31 * result + this.getY();
+        result = 201 * result + this.getY();
         return result;
     }
 
