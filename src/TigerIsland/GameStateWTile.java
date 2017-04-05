@@ -16,9 +16,9 @@ public class GameStateWTile extends GameState {
            for(int j= 2; j < 198; j++){
                for(HexagonNeighborDirection direction : HexagonNeighborDirection.values()){
                    TileMove possibleTileMove = new TileMove(tile, direction, new Coordinate(i, j));
-                   GameStateBeforeBuildAction child = new GameStateBeforeBuildAction(this, possibleTileMove);
+                   GameStateBeforeBuildAction child = GameStateBeforeBuildAction.createGameStateBeforeBuildAction(this, possibleTileMove);
 
-                   if(child.getSuccess()){
+                   if(child != null){
                        result.add(child);
                    }
                }
