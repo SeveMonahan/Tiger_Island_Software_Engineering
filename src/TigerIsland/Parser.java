@@ -45,7 +45,8 @@ public class Parser {
         String[] opponentMoveStringSplitBySpaceArray = opponentMoveString.split("\\s+");
         final int buildKeyWord1Index = 13;
         String buildKeyword1 = opponentMoveStringSplitBySpaceArray[buildKeyWord1Index];
-        if(buildKeyword1 == "FOUNDED") {
+
+        if(buildKeyword1.equals("FOUNDED")) {
             final int xIndex = 16;
             final int yIndex = 17;
             final int zIndex = 18;
@@ -59,7 +60,7 @@ public class Parser {
 
             return new BuildMove(buildOption, coordinate);
         }
-        else {
+        else if(buildKeyword1.equals("EXPANDED")){
             final int xIndex = 16;
             final int yIndex = 17;
             final int zIndex = 18;
@@ -75,6 +76,20 @@ public class Parser {
             Terrain terrain = Terrain.valueOf(opponentMoveStringSplitBySpaceArray[terrainIndex]);
 
             return new BuildMove(buildOption, coordinate, terrain);
+        }
+        else {
+            final int xIndex = 17;
+            final int yIndex = 18;
+            final int zIndex = 19;
+
+            int x = Integer.parseInt(opponentMoveStringSplitBySpaceArray[xIndex]);
+            int y = Integer.parseInt(opponentMoveStringSplitBySpaceArray[yIndex]);
+            int z = Integer.parseInt(opponentMoveStringSplitBySpaceArray[zIndex]);
+            Coordinate coordinate = new Coordinate(x, y, z);
+
+            BuildOption buildOption = BuildOption.BUILDTOTORO;
+
+            return new BuildMove(buildOption, coordinate);
         }
     }
 
