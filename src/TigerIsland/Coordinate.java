@@ -17,8 +17,8 @@ public class Coordinate {
     }
 
     public Coordinate(int xC, int yC, int zC){
-        int col = yC + (xC-(xC&1))/2;
-        int row = -xC;
+        int col = xC + (zC-(zC&1))/2;
+        int row = -zC;
 
         this.x = col+100;
         this.y = row+100;
