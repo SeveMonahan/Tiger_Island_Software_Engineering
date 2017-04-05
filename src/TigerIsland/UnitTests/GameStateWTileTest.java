@@ -18,7 +18,7 @@ public class GameStateWTileTest {
 
         int num_children = final_children.toArray().length;
 
-        assertEquals(20, num_children);
+        assertEquals(90, num_children);
 
     }
 }
