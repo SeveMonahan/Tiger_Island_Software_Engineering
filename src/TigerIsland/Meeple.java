@@ -3,7 +3,7 @@ package TigerIsland;
 public class Meeple implements Piece {
     private Color color;
     public boolean canBeKilled() { return true; }
-    public HexagonOccupationStatus getOccupyStatus() { return HexagonOccupationStatus.MEEPLES; }
+    public HexagonOccupationStatus getOccupyStatus() { return HexagonOccupationStatus.MEEPLE; }
 
     public Meeple( Color color ) {
         this.color = color;

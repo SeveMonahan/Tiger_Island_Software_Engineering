@@ -148,11 +148,11 @@ public class BoardTest {
         Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(101, 100), Terrain.GRASSLAND);
 
         assertEquals(true, result);
-        assertEquals(HexagonOccupationStatus.MEEPLES, TestBoard.getHexagon(new Coordinate(100, 101)).getOccupationStatus() );
+        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagon(new Coordinate(100, 101)).getOccupationStatus() );
 
-        assertEquals(HexagonOccupationStatus.MEEPLES, TestBoard.getHexagon(new Coordinate(99, 100)).getOccupationStatus() );
+        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagon(new Coordinate(99, 100)).getOccupationStatus() );
 
-        assertEquals(HexagonOccupationStatus.MEEPLES, TestBoard.getHexagon(new Coordinate(99, 101)).getOccupationStatus() );
+        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagon(new Coordinate(99, 101)).getOccupationStatus() );
     }
 
     @Test
@@ -177,8 +177,35 @@ public class BoardTest {
         Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(99, 101), Terrain.GRASSLAND);
 
         assertEquals(true, result);
-        assertEquals(HexagonOccupationStatus.MEEPLES, TestBoard.getHexagon(new Coordinate(100, 101)).getOccupationStatus() );
+        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagon(new Coordinate(100, 101)).getOccupationStatus() );
 
-        assertEquals(HexagonOccupationStatus.MEEPLES, TestBoard.getHexagon(new Coordinate(99, 100)).getOccupationStatus() );
+        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagon(new Coordinate(99, 100)).getOccupationStatus() );
+    }
+
+    @Test
+    public void settlementExpansion3() throws Exception{
+        Board TestBoard = new Board();
+        Player player = new Player(Color.BLACK);
+
+        Tile tile_01 = new Tile(Terrain.GRASSLAND, Terrain.JUNGLE);
+        Tile tile_02 = new Tile(Terrain.GRASSLAND, Terrain.LAKE);
+        Tile tile_03 = new Tile(Terrain.GRASSLAND, Terrain.ROCK);
+
+        TileMove tileMove_03 = new TileMove(tile_03, HexagonNeighborDirection.UPPERRIGHT, new Coordinate(100, 100));
+        TileMove tileMove_02 = new TileMove(tile_02, HexagonNeighborDirection.LOWERLEFT, new Coordinate(100, 102));
+        TileMove tileMove_01 = new TileMove(tile_01, HexagonNeighborDirection.UPPERRIGHT, new Coordinate(98, 99));
+
+        TestBoard.placeTile(tileMove_01);
+        TestBoard.placeTile(tileMove_02);
+        TestBoard.placeTile(tileMove_03);
+
+        player.placeMeepleOnHexagon(new Coordinate(99, 101), TestBoard);
+        player.placeMeepleOnHexagon(new Coordinate(100, 101), TestBoard);
+
+        Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(100, 101), Terrain.GRASSLAND);
+
+        assertEquals(true, result);
+
+        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagon(new Coordinate(99, 100)).getOccupationStatus() );
     }
 }
