@@ -26,10 +26,7 @@ public class Parser {
         String tileString = opponentMoveStringSplitBySpaceArray[tileIndex];
         Tile tile = tileStringToTile(tileString);
 
-        int x = Integer.parseInt(opponentMoveStringSplitBySpaceArray[xIndex]);
-        int y = Integer.parseInt(opponentMoveStringSplitBySpaceArray[yIndex]);
-        int z = Integer.parseInt(opponentMoveStringSplitBySpaceArray[zIndex]);
-        Coordinate coordinate = new Coordinate(x, y, z);
+        Coordinate coordinate = extractCoordinateFromString(opponentMoveStringSplitBySpaceArray, xIndex, yIndex, zIndex);
 
         int orientation = Integer.parseInt(opponentMoveStringSplitBySpaceArray[orientationIndex]);
 
@@ -53,10 +50,7 @@ public class Parser {
             final int yIndex = 17;
             final int zIndex = 18;
 
-            int x = Integer.parseInt(opponentMoveStringSplitBySpaceArray[xIndex]);
-            int y = Integer.parseInt(opponentMoveStringSplitBySpaceArray[yIndex]);
-            int z = Integer.parseInt(opponentMoveStringSplitBySpaceArray[zIndex]);
-            Coordinate coordinate = new Coordinate(x, y, z);
+            Coordinate coordinate = extractCoordinateFromString(opponentMoveStringSplitBySpaceArray, xIndex, yIndex, zIndex);
 
             BuildOption buildOption = BuildOption.FOUNDSETTLEMENT;
 
@@ -68,10 +62,7 @@ public class Parser {
             final int zIndex = 18;
             final int terrainIndex = 19;
 
-            int x = Integer.parseInt(opponentMoveStringSplitBySpaceArray[xIndex]);
-            int y = Integer.parseInt(opponentMoveStringSplitBySpaceArray[yIndex]);
-            int z = Integer.parseInt(opponentMoveStringSplitBySpaceArray[zIndex]);
-            Coordinate coordinate = new Coordinate(x, y, z);
+            Coordinate coordinate = extractCoordinateFromString(opponentMoveStringSplitBySpaceArray, xIndex, yIndex, zIndex);
 
             BuildOption buildOption = BuildOption.EXPANDSETTLEMENT;
 
@@ -84,10 +75,7 @@ public class Parser {
             final int yIndex = 18;
             final int zIndex = 19;
 
-            int x = Integer.parseInt(opponentMoveStringSplitBySpaceArray[xIndex]);
-            int y = Integer.parseInt(opponentMoveStringSplitBySpaceArray[yIndex]);
-            int z = Integer.parseInt(opponentMoveStringSplitBySpaceArray[zIndex]);
-            Coordinate coordinate = new Coordinate(x, y, z);
+            Coordinate coordinate = extractCoordinateFromString(opponentMoveStringSplitBySpaceArray, xIndex, yIndex, zIndex);
 
             BuildOption buildOption = BuildOption.BUILDTOTORO;
 
@@ -98,10 +86,7 @@ public class Parser {
             final int yIndex = 18;
             final int zIndex = 19;
 
-            int x = Integer.parseInt(opponentMoveStringSplitBySpaceArray[xIndex]);
-            int y = Integer.parseInt(opponentMoveStringSplitBySpaceArray[yIndex]);
-            int z = Integer.parseInt(opponentMoveStringSplitBySpaceArray[zIndex]);
-            Coordinate coordinate = new Coordinate(x, y, z);
+            Coordinate coordinate = extractCoordinateFromString(opponentMoveStringSplitBySpaceArray, xIndex, yIndex, zIndex);
 
             BuildOption buildOption = BuildOption.BUILDTIGER;
 
@@ -120,5 +105,12 @@ public class Parser {
         Terrain Aterrain = Terrain.valueOf(tileStringSplitByPlusSign[AterrainIndex]);
         Terrain Bterrain = Terrain.valueOf(tileStringSplitByPlusSign[BterrainIndex]);
         return new Tile(Aterrain, Bterrain);
+    }
+
+    private Coordinate extractCoordinateFromString(String[] stringArrayContainingCoordinate, int xIndex, int yIndex, int zIndex){
+        int x = Integer.parseInt(stringArrayContainingCoordinate[xIndex]);
+        int y = Integer.parseInt(stringArrayContainingCoordinate[yIndex]);
+        int z = Integer.parseInt(stringArrayContainingCoordinate[zIndex]);
+        return new Coordinate(x, y, z);
     }
 }
