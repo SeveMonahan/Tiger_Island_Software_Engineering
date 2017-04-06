@@ -17,8 +17,8 @@ public class Coordinate {
     }
 
     public Coordinate(int xC, int yC, int zC){
-        int col = yC + (xC-(xC&1))/2;
-        int row = -xC;
+        int col = xC + (zC-(zC&1))/2;
+        int row = -zC;
 
         this.x = col+100;
         this.y = row+100;
@@ -30,9 +30,9 @@ public class Coordinate {
         x = x - 100;
         y = 100 - y;
 
-        int yC = x - (y - (y&1))/2;
-        int xC = y;
-        int zC = -yC - xC;
+        int xC = x - (y - (y&1))/2;
+        int zC = y;
+        int yC = -xC - zC;
 
        int cubeCordinates[] = {xC,yC,zC};
        return cubeCordinates;
@@ -77,4 +77,27 @@ public class Coordinate {
         }
         return neighbors;
     }
+
+    @Override
+    public boolean equals(Object other){
+        Coordinate coordinate = (Coordinate) other;
+        if( other == this){
+            return true;
+        }
+
+        if(coordinate.getX() == this.getX() && coordinate.getY() ==  this.getY()){
+            return true;
+        }
+
+        return false;
+    }
+
+
+    @Override
+    public int hashCode() {
+        int result = this.getX();
+        result = 201 * result + this.getY();
+        return result;
+    }
+
 }

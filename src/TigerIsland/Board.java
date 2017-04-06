@@ -7,6 +7,10 @@ import java.util.Queue;
 public class Board {
     private Hexagon[][] hexagonArray;
 
+    public static Board cloneBoard(Board board) {
+        return new Board(board);
+    }
+
     // Getters
     public Hexagon getHexagon(Coordinate coordinate){
         return hexagonArray[coordinate.getX()][coordinate.getY()];
@@ -36,9 +40,8 @@ public class Board {
         initializeHexagonArray();
     }
     // Coordinate (100, 100) is the center of the board.
-    // Note: you must use this initializer if you want to use placeTile() to place more tiles.
 
-    public Board(Board board){
+    private Board(Board board){
         Hexagon [][] OldHexagonArray = board.getHexagonArray();
 
         hexagonArray = new Hexagon[200][200];
@@ -46,7 +49,7 @@ public class Board {
         for(int i = 0; i < 200; i++) {
             for (int j = 0; j < 200; j++) {
                 Hexagon OldHexagon = OldHexagonArray[i][j];
-                Hexagon NewHexagon = new Hexagon(OldHexagon);
+                Hexagon NewHexagon = Hexagon.cloneHexagon(OldHexagon);
                 hexagonArray[i][j] = NewHexagon;
             }
         }
@@ -121,28 +124,27 @@ public class Board {
     public int getSettlementSize(Coordinate sourceCoordinate) {
         int size = 0;
         HashMap map = new HashMap();
-        Queue<Hexagon> hexagonQueue = new LinkedList<>();
-
+        Queue<Coordinate> coordinateQueue = new LinkedList<>();
         Coordinate currentCoordinate = sourceCoordinate;
         Hexagon currentHexagon = getHexagon(currentCoordinate);
-
         if (currentHexagon.isOccupied()) {
             Color playerColor = currentHexagon.getOccupationColor();
             if (currentHexagon.getOccupationColor() == playerColor) {
-                hexagonQueue.add(currentHexagon);
+                coordinateQueue.add(currentCoordinate);
             }
-            while (!hexagonQueue.isEmpty()) {
-                currentHexagon = hexagonQueue.remove();
-                map.put(currentHexagon.hashCode(),true);
+            while (!coordinateQueue.isEmpty()) {
+                currentCoordinate = coordinateQueue.remove();
+                currentHexagon = getHexagon(currentCoordinate);
+                map.put(currentCoordinate,true);
                 size++;
-                Hexagon[] neighbors = getNeighboringHexagons(sourceCoordinate);
-                for (Hexagon neighbor : neighbors) {
-                    currentHexagon = neighbor;
-                    if (!map.containsKey(currentHexagon.hashCode())) {
-                        map.put(currentHexagon.hashCode(), true);
+                Coordinate[] neighbors = currentCoordinate.getNeighboringCoordinates();
+                for (Coordinate neighbor : neighbors) {
+                    currentHexagon = getHexagon(neighbor);
+                    if (!map.containsKey(neighbor)) {
+                        map.put(neighbor, true);
                         if (currentHexagon.isOccupied()) {
                             if(currentHexagon.getOccupationColor() == playerColor) {
-                                hexagonQueue.add(currentHexagon);
+                                coordinateQueue.add(neighbor);
                             }
                         }
                     }
@@ -192,10 +194,16 @@ public class Board {
     }
 
     public boolean expandSettlementWithCheck(Player player, Coordinate coordinate, Terrain terrain) {
-        Queue<Coordinate> settlement = expandSettlementFloodFill(coordinate, terrain);
-        if(settlement.size() <= player.getMeeplesCount()) {
-            performFloodFill(player, settlement );
-            return true;
+        Color color = this.getHexagon(coordinate).getOccupationColor();
+        HexagonOccupationStatus occupationStatus = this.getHexagon(coordinate).getOccupationStatus();
+        if( player.getColor() == color
+                && occupationStatus == HexagonOccupationStatus.MEEPLES ){
+            Queue<Coordinate> settlement = expandSettlementFloodFill(coordinate, player, terrain);
+            if(settlement.size() <= player.getMeeplesCount()) {
+                performFloodFill(player, settlement );
+                return true;
+            }
+            return false;
         }
         return false;
     }
@@ -206,27 +214,31 @@ public class Board {
         }
     }
 
-    private Queue<Coordinate> expandSettlementFloodFill(Coordinate coordinate, Terrain terrain) {
-        HashMap map = new HashMap();
+    private Queue<Coordinate> expandSettlementFloodFill(Coordinate coordinate, Player player, Terrain terrain) {
+        HashMap<Coordinate, Boolean> searched = new HashMap<>();
         Queue<Coordinate> coordinateQueue = new LinkedList<>();
         Queue<Coordinate> expansion = new LinkedList<>();
 
-        Coordinate currentCoordinate = coordinate;
         coordinateQueue.add(coordinate);
+        searched.put(coordinate, true);
 
         while (!coordinateQueue.isEmpty()) {
-            currentCoordinate = coordinateQueue.remove();
-            map.put(currentCoordinate.hashCode(), true);
+            Coordinate currentCoordinate = coordinateQueue.remove();
+            Coordinate[] neighbors = currentCoordinate.getNeighboringCoordinates();
+            for(Coordinate neighbor : neighbors){
+                Hexagon hexagon = this.getHexagon(neighbor);
+                if( !searched.containsKey(neighbor) &&
+                        hexagon.getTerrain() ==  terrain &&
+                        hexagon.getOccupationStatus() == HexagonOccupationStatus.EMPTY){
+                    // expand to this hexagon
 
-            for (HexagonNeighborDirection direction : HexagonNeighborDirection.values()) {
-                currentCoordinate = coordinate.getNeighboringCoordinate(direction);
-                if(!map.containsKey(currentCoordinate.hashCode())) {
-                    map.put(currentCoordinate.hashCode(), true);
-                    Hexagon hexagon = this.getHexagon(currentCoordinate);
-                    if(hexagon.isEmpty() && hexagon.getTerrain() == terrain) {
-                        expansion.add(currentCoordinate);
-                    }
+                    coordinateQueue.add(neighbor);
+                    expansion.add(neighbor);
+                } else {
+                    // Hexagon can't be expanded to... mark it as searched
+                    // do nothing.
                 }
+                searched.put(neighbor, true);
             }
         }
         return expansion;
