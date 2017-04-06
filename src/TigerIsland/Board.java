@@ -192,11 +192,47 @@ public class Board {
         return false;
     }
 
+    public boolean getSettlementContainsTiger(Coordinate sourceCoordinate) {
+        HashMap map = new HashMap();
+        Queue<Coordinate> coordinateQueue = new LinkedList<>();
+        Coordinate currentCoordinate = sourceCoordinate;
+        Hexagon currentHexagon = getHexagon(currentCoordinate);
+        if (currentHexagon.isOccupied()) {
+            Color playerColor = currentHexagon.getOccupationColor();
+            if (currentHexagon.getOccupationColor() == playerColor) {
+                coordinateQueue.add(currentCoordinate);
+            }
+            while (!coordinateQueue.isEmpty()) {
+                currentCoordinate = coordinateQueue.remove();
+                currentHexagon = getHexagon(currentCoordinate);
+                map.put(currentCoordinate,true);
+
+                if(currentHexagon.getOccupationStatus() == HexagonOccupationStatus.TIGER){
+                    return true;
+                }
+
+                Coordinate[] neighbors = currentCoordinate.getNeighboringCoordinates();
+                for (Coordinate neighbor : neighbors) {
+                    currentHexagon = getHexagon(neighbor);
+                    if (!map.containsKey(neighbor)) {
+                        map.put(neighbor, true);
+                        if (currentHexagon.isOccupied()) {
+                            if(currentHexagon.getOccupationColor() == playerColor) {
+                                coordinateQueue.add(neighbor);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public boolean expandSettlementWithCheck(Player player, Coordinate coordinate, Terrain terrain) {
         Color color = this.getHexagon(coordinate).getOccupationColor();
         HexagonOccupationStatus occupationStatus = this.getHexagon(coordinate).getOccupationStatus();
         if( player.getColor() == color
-                && occupationStatus == HexagonOccupationStatus.MEEPLES ){
+                && occupationStatus == HexagonOccupationStatus.MEEPLE){
             Queue<Coordinate> settlement = expandSettlementFloodFill(coordinate, player, terrain);
             if(settlement.size() <= player.getMeeplesCount()) {
                 performFloodFill(player, settlement );
@@ -233,9 +269,10 @@ public class Board {
 
                     coordinateQueue.add(neighbor);
                     expansion.add(neighbor);
-                } else {
-                    // Hexagon can't be expanded to... mark it as searched
-                    // do nothing.
+                } else if( !searched.containsKey(neighbor) &&
+                        hexagon.getOccupationStatus() ==  HexagonOccupationStatus.MEEPLE) {
+                    coordinateQueue.add(neighbor);
+                    // Unsure if we need the above here... need additional tests for this...
                 }
                 searched.put(neighbor, true);
             }
