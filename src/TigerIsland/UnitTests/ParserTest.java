@@ -30,65 +30,11 @@ public class ParserTest {
         assertEquals(expectedTileMove.getCoordinate().getY(), testTileMove.getCoordinate().getY());
     }
 
-    //Founded
     @Test
     public void getBuildMoveFromGameMoveMadeStringForFoundedSettlement(){
         String message = "GAME <gid> MOVE <#> PLAYER <pid> PLACED <tile> AT <x> <y> <z> <orientation> FOUNDED SETTLEMENT AT 1 3 0";
 
         BuildOption expectedBuildOption = BuildOption.FOUNDSETTLEMENT;
-        Coordinate expectedCoordinate = new Coordinate(1, 3, 0);
-        BuildMove expectedBuildMove = new BuildMove(expectedBuildOption, expectedCoordinate);
-
-        Parser parser = new Parser();
-        BuildMove testBuildMove = parser.opponentMoveStringToBuildMove(message);
-
-        assertEquals(expectedBuildMove.getCoordinate().getX(), testBuildMove.getCoordinate().getX());
-        assertEquals(expectedBuildMove.getCoordinate().getY(), testBuildMove.getCoordinate().getY());
-        assertEquals(expectedBuildMove.getBuildOption(), testBuildMove.getBuildOption());
-    }
-
-    //Expanded
-    @Test
-    public void getBuildMoveFromGameMoveMadeStringForExpandedSettlement(){
-        String message = "GAME <gid> MOVE <#> PLAYER <pid> PLACED <tile> AT <x> <y> <z> <orientation> EXPANDED SETTLEMENT AT 1 3 0 JUNGLE";
-
-        BuildOption expectedBuildOption = BuildOption.EXPANDSETTLEMENT;
-        Coordinate expectedCoordinate = new Coordinate(1, 3, 0);
-        Terrain expectedTerrain = Terrain.JUNGLE;
-        BuildMove expectedBuildMove = new BuildMove(expectedBuildOption, expectedCoordinate, expectedTerrain);
-
-        Parser parser = new Parser();
-        BuildMove testBuildMove = parser.opponentMoveStringToBuildMove(message);
-
-        assertEquals(expectedBuildMove.getCoordinate().getX(), testBuildMove.getCoordinate().getX());
-        assertEquals(expectedBuildMove.getCoordinate().getY(), testBuildMove.getCoordinate().getY());
-        assertEquals(expectedBuildMove.getBuildOption(), testBuildMove.getBuildOption());
-        assertEquals(expectedBuildMove.getTerrain(), testBuildMove.getTerrain());
-    }
-
-    //Built Totoro Sanctuary
-    @Test
-    public void getBuildMoveFromGameMoveMadeStringForBuiltTotoroSanctuary(){
-        String message = "GAME <gid> MOVE <#> PLAYER <pid> PLACED <tile> AT <x> <y> <z> <orientation> BUILT TOTORO SANCTUARY AT 1 3 0";
-
-        BuildOption expectedBuildOption = BuildOption.BUILDTOTORO;
-        Coordinate expectedCoordinate = new Coordinate(1, 3, 0);
-        BuildMove expectedBuildMove = new BuildMove(expectedBuildOption, expectedCoordinate);
-
-        Parser parser = new Parser();
-        BuildMove testBuildMove = parser.opponentMoveStringToBuildMove(message);
-
-        assertEquals(expectedBuildMove.getCoordinate().getX(), testBuildMove.getCoordinate().getX());
-        assertEquals(expectedBuildMove.getCoordinate().getY(), testBuildMove.getCoordinate().getY());
-        assertEquals(expectedBuildMove.getBuildOption(), testBuildMove.getBuildOption());
-    }
-
-    //Built Tiger Playground
-    @Test
-    public void getBuildMoveFromGameMoveMadeStringForBuiltTigerPlayground(){
-        String message = "GAME <gid> MOVE <#> PLAYER <pid> PLACED <tile> AT <x> <y> <z> <orientation> BUILT TIGER PLAYGROUND AT 1 3 0";
-
-        BuildOption expectedBuildOption = BuildOption.BUILDTIGER;
         Coordinate expectedCoordinate = new Coordinate(1, 3, 0);
         BuildMove expectedBuildMove = new BuildMove(expectedBuildOption, expectedCoordinate);
 
