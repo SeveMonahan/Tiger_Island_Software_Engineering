@@ -33,7 +33,15 @@ public class Tiger implements Piece {
         if (hexagon.isEmpty()) {
             return false;
         }
-        // TODO: Check that there's an adjacent settlement of the same player color.
-        return true;
+        Coordinate[] neighbors = coordinate.getNeighboringCoordinates();
+        for (Coordinate neighbor: neighbors) {
+            Hexagon hexagonNeighbor = board.getHexagon(neighbor);
+            if( hexagonNeighbor.isOccupied() ) {
+                return true;
+            }
+        }
+
+        // TODO: Need a test to check the above functionality... if we aren't adjacent to a settlment
+        return false;
     }
 }

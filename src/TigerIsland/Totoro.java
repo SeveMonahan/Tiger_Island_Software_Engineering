@@ -25,7 +25,8 @@ public class Totoro implements Piece {
 
         Hexagon hexagon = board.getHexagon(coordinate);
 
-        if( hexagon.isVolcano() || !(hexagon.isEmpty()) ) {
+        // TODO test level placement... make sure not placing on 0 level
+        if( hexagon.isVolcano() || hexagon.isOccupied() || hexagon.getLevel() == 0 ) {
             return false;
         }
 
@@ -34,8 +35,9 @@ public class Totoro implements Piece {
         Coordinate[] neighbors = coordinate.getNeighboringCoordinates();
 
         for(int i = 0; i < 6; i++){
-            // XXX needs to handle the case where we don't own the adjacent settlement
-            if(board.getSettlementSize(neighbors[i]) >= 5 && !board.getSettlementContainsTotoro(neighbors[i])){
+            // TODO Need to test case where we place next to another players settlement...
+            if(board.getSettlementSize(neighbors[i]) >= 5 && !board.getSettlementContainsTotoro(neighbors[i]) &&
+                    this.color == board.getHexagon(neighbors[i]).getOccupationColor() ){
                 result = true;
             }
         }
