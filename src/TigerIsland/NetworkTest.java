@@ -19,7 +19,7 @@ import java.net.Socket;
        the next message from the server. This back and forth continues until server replies with "Bye."
 
 */
-public class testServer {
+public class NetworkTest {
     public static void main(String[] args) throws IOException {
         int gid = 0;
         int cid = 0;

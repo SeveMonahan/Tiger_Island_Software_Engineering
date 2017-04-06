@@ -11,7 +11,7 @@ import java.net.UnknownHostException;
        The client is run after the server. It takes in the hostname and the chosen port for the arguments.
        Google
 */
-public class testClient {
+public class Network {
     public static void main(String[] args) throws IOException {
 
         if (args.length != 2) {
@@ -35,6 +35,7 @@ public class testClient {
             String fromUser;
 
             while ((fromServer = in.readLine()) != null) {
+                // TODO send below to parser
                 System.out.println("Server: " + fromServer);
                 if (fromServer.equals("Bye."))
                     break;
