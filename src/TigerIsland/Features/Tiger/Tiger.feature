@@ -1,4 +1,4 @@
-Feature: Tiger
+#Feature: Tiger
 
 #Tiger scenario test
 #Scenario: A player performs a valid tiger placement
