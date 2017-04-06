@@ -3,7 +3,7 @@ package TigerIsland;
 public class Tiger implements Piece {
     private Color color;
     public boolean canBeKilled() { return true; }
-    public HexagonOccupationStatus getOccupyStatus() { return HexagonOccupationStatus.TIGERS; }
+    public HexagonOccupationStatus getOccupyStatus() { return HexagonOccupationStatus.TIGER; }
 
     public Tiger( Color color ) {
         this.color = color;
@@ -40,9 +40,8 @@ public class Tiger implements Piece {
                 return true;
             }
         }
-
-        // TODO: can multiple tigers exist in a settlement
-        // TODO: Need a test to check the above functionality... if we aren't adjacent to a settlment
+        // TODO: Multiple tigers can't exist in the same settlement
+        // TODO: Need a test to check the above functionality... if we aren't adjacent to a settlement
         return false;
     }
 }
