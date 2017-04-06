@@ -16,9 +16,9 @@ public class ParserTest {
 
     @Test
     public void getTileMoveFromGameMoveMadeString(){
-        String message = "GAME <gid> MOVE <#> PLAYER <pid> PLACED JUNGLE+LAKE AT 1 3 0 1 FOUNDED SETTLEMENT AT <x> <y> <z>";
+        String message = "GAME <gid> MOVE <#> PLAYER <pid> PLACED JUNGLE+LAKE AT 0 3 -3 1 FOUNDED SETTLEMENT AT <x> <y> <z>";
         Tile expectedTile = new Tile(Terrain.JUNGLE, Terrain.LAKE);
-        Coordinate expectedCoordinate = new Coordinate(1, 3, 0);
+        Coordinate expectedCoordinate = new Coordinate(0, 3, -3);
         TileMove expectedTileMove = new TileMove(expectedTile, HexagonNeighborDirection.UPPERLEFT, expectedCoordinate);
 
         Parser parser = new Parser();
@@ -50,10 +50,10 @@ public class ParserTest {
     //Expanded
     @Test
     public void getBuildMoveFromGameMoveMadeStringForExpandedSettlement(){
-        String message = "GAME <gid> MOVE <#> PLAYER <pid> PLACED <tile> AT <x> <y> <z> <orientation> EXPANDED SETTLEMENT AT 1 3 0 JUNGLE";
+        String message = "GAME <gid> MOVE <#> PLAYER <pid> PLACED <tile> AT <x> <y> <z> <orientation> EXPANDED SETTLEMENT AT 0 3 -3 JUNGLE";
 
         BuildOption expectedBuildOption = BuildOption.EXPANDSETTLEMENT;
-        Coordinate expectedCoordinate = new Coordinate(1, 3, 0);
+        Coordinate expectedCoordinate = new Coordinate(0, 3, -3);
         Terrain expectedTerrain = Terrain.JUNGLE;
         ExpandSettlementMoveTransmission expectedConstructionMoveTransmission = new ExpandSettlementMoveTransmission(expectedBuildOption, expectedCoordinate, expectedTerrain);
 
@@ -73,10 +73,10 @@ public class ParserTest {
     //Built Totoro Sanctuary
     @Test
     public void getBuildMoveFromGameMoveMadeStringForBuiltTotoroSanctuary(){
-        String message = "GAME <gid> MOVE <#> PLAYER <pid> PLACED <tile> AT <x> <y> <z> <orientation> BUILT TOTORO SANCTUARY AT 1 3 0";
+        String message = "GAME <gid> MOVE <#> PLAYER <pid> PLACED <tile> AT <x> <y> <z> <orientation> BUILT TOTORO SANCTUARY AT 0 3 -3";
 
         BuildOption expectedBuildOption = BuildOption.BUILDTOTORO;
-        Coordinate expectedCoordinate = new Coordinate(1, 3, 0);
+        Coordinate expectedCoordinate = new Coordinate(0, 3, -3);
         ConstructionMoveTransmission expectedConstructionMoveTransmission = new ConstructionMoveTransmission(expectedBuildOption, expectedCoordinate);
 
         Parser parser = new Parser();
@@ -90,10 +90,10 @@ public class ParserTest {
     //Built Tiger Playground
     @Test
     public void getBuildMoveFromGameMoveMadeStringForBuiltTigerPlayground(){
-        String message = "GAME <gid> MOVE <#> PLAYER <pid> PLACED <tile> AT <x> <y> <z> <orientation> BUILT TIGER PLAYGROUND AT 1 3 0";
+        String message = "GAME <gid> MOVE <#> PLAYER <pid> PLACED <tile> AT <x> <y> <z> <orientation> BUILT TIGER PLAYGROUND AT 0 3 -3";
 
         BuildOption expectedBuildOption = BuildOption.BUILDTIGER;
-        Coordinate expectedCoordinate = new Coordinate(1, 3, 0);
+        Coordinate expectedCoordinate = new Coordinate(0, 3, -3);
         ConstructionMoveTransmission expectedConstructionMoveTransmission = new ConstructionMoveTransmission(expectedBuildOption, expectedCoordinate);
 
         Parser parser = new Parser();
