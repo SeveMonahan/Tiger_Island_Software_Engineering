@@ -23,14 +23,14 @@ public class TotoroTest {
         Player player = new Player(Color.WHITE);
         Piece newTotoro = new Totoro(Color.WHITE);
 
-        assertEquals(true, player.attemptToPlacePiece(newTotoro, new Coordinate (101, 100), board));
+        Hexagon hexagon = board.getHexagon(new Coordinate(101, 100));
+        hexagon.setOccupationStatus(newTotoro);
 
         boolean isValidMove = board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.ROCK), HexagonNeighborDirection.LOWERRIGHT, new Coordinate(100, 101)));
 
         assertEquals(false, isValidMove);
     }
 
-    // TODO This will fail when we start checking for Totoro min settlement size
     @Test
     public void placeTotoroOnVolcano() throws Exception {
         Board boardWithTile = new Board();
@@ -47,4 +47,54 @@ public class TotoroTest {
         Hexagon hexagon = board.getHexagon(coordinate);
         assertEquals(HexagonOccupationStatus.EMPTY, hexagon.getOccupationStatus());
     }
+
+    @Test
+    public void placeTotoroFailsDueToNoAdjacentSettlements() throws Exception {
+        Board board = new Board();
+        board.placeStartingTile();
+
+        Player player = new Player(Color.WHITE);
+
+        Coordinate coordinate = new Coordinate(101,100);
+        player.placeTotoroOnHexagon(coordinate, board);
+
+        assertEquals(0, player.getScore());
+        assertEquals(3, player.getTotoroCount());
+        Hexagon hexagon = board.getHexagon(coordinate);
+        assertEquals(HexagonOccupationStatus.EMPTY, hexagon.getOccupationStatus());
+    }
+
+    private Board getBasicBoardWithHexagonAroundStartWithWhiteMeeples(){
+        Board board = new Board();
+        board.placeStartingTile();
+        board.placeTile(new TileMove(new Tile (Terrain.JUNGLE, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate (98,100)));
+        board.placeTile(new TileMove(new Tile (Terrain.JUNGLE, Terrain.JUNGLE), HexagonNeighborDirection.LEFT, new Coordinate (102,100)));
+
+        Player player = new Player(Color.WHITE);
+
+        for(HexagonNeighborDirection direction : HexagonNeighborDirection.values()) {
+            assertEquals(true, player.placeMeepleOnHexagon(new Coordinate(100, 100).getNeighboringCoordinate(direction), board));
+        }
+
+        return board;
+    }
+
+    @Test
+    public void boardTest() throws Exception{
+        Board board = getBasicBoardWithHexagonAroundStartWithWhiteMeeples();
+        assertEquals(false, board.getSettlementContainsTotoro(new Coordinate(100, 101)));
+        assertEquals(6, board.getSettlementSize(new Coordinate (100, 101)));
+    }
+
+    @Test
+    public void placeTotoroSuccess() throws Exception {
+        Player player = new Player(Color.WHITE);
+
+        Board board = getBasicBoardWithHexagonAroundStartWithWhiteMeeples();
+
+        boolean result = player.placeTotoroOnHexagon(new Coordinate(98, 99), board);
+
+        assertEquals(true, result);
+    }
+
 }

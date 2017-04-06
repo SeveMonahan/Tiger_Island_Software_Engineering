@@ -56,7 +56,9 @@ public class TotoroDefinitions {
     public void totoroAdjacentToBothVolcanos() {
         Player player = new Player(Color.WHITE);
         Piece newTotoro = new Totoro(Color.WHITE);
-        TestCase.assertEquals(true, player.attemptToPlacePiece(newTotoro, new Coordinate(101,100), board));
+
+        Hexagon hexagon = board.getHexagon(new Coordinate(100, 100));
+        hexagon.setOccupationStatus(newTotoro);
     }
 
     @When("^I attempt to place a tile on a volcano so it overlaps onto the other tile$")

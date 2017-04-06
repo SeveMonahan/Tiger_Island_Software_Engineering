@@ -154,6 +154,44 @@ public class Board {
         return size;
     }
 
+
+
+    public boolean getSettlementContainsTotoro(Coordinate sourceCoordinate) {
+        HashMap map = new HashMap();
+        Queue<Coordinate> coordinateQueue = new LinkedList<>();
+        Coordinate currentCoordinate = sourceCoordinate;
+        Hexagon currentHexagon = getHexagon(currentCoordinate);
+        if (currentHexagon.isOccupied()) {
+            Color playerColor = currentHexagon.getOccupationColor();
+            if (currentHexagon.getOccupationColor() == playerColor) {
+                coordinateQueue.add(currentCoordinate);
+            }
+            while (!coordinateQueue.isEmpty()) {
+                currentCoordinate = coordinateQueue.remove();
+                currentHexagon = getHexagon(currentCoordinate);
+                map.put(currentCoordinate,true);
+
+                if(currentHexagon.getOccupationStatus() == HexagonOccupationStatus.TOTORO){
+                    return true;
+                }
+
+                Coordinate[] neighbors = currentCoordinate.getNeighboringCoordinates();
+                for (Coordinate neighbor : neighbors) {
+                    currentHexagon = getHexagon(neighbor);
+                    if (!map.containsKey(neighbor)) {
+                        map.put(neighbor, true);
+                        if (currentHexagon.isOccupied()) {
+                            if(currentHexagon.getOccupationColor() == playerColor) {
+                                coordinateQueue.add(neighbor);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public boolean expandSettlementWithCheck(Player player, Coordinate coordinate, Terrain terrain) {
         Color color = this.getHexagon(coordinate).getOccupationColor();
         HexagonOccupationStatus occupationStatus = this.getHexagon(coordinate).getOccupationStatus();

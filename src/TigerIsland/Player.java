@@ -38,20 +38,20 @@ public class Player {
     public void setAutoLoseScore(){ this.score = -1; }
 
     // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
-    public void placeMeepleOnHexagon(Coordinate coordinate, Board board) {
+    public boolean placeMeepleOnHexagon(Coordinate coordinate, Board board) {
         Piece newPiece = new Meeple(this.color);
-        attemptToPlacePiece(newPiece, coordinate, board);
+        return attemptToPlacePiece(newPiece, coordinate, board);
     }
 
     // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
-    public void placeTotoroOnHexagon(Coordinate coordinate, Board board) {
+    public boolean placeTotoroOnHexagon(Coordinate coordinate, Board board) {
         Piece newPiece = new Totoro(this.color);
-        attemptToPlacePiece(newPiece, coordinate, board);
+        return attemptToPlacePiece(newPiece, coordinate, board);
     }
     // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
-    public void placeTigerOnHexagon(Coordinate coordinate, Board board) {
+    public boolean placeTigerOnHexagon(Coordinate coordinate, Board board) {
         Piece newPiece = new Tiger(this.color);
-        attemptToPlacePiece(newPiece, coordinate, board);
+        return attemptToPlacePiece(newPiece, coordinate, board);
     }
 
     public boolean attemptToPlacePiece(Piece piece, Coordinate coordinate, Board board) {
