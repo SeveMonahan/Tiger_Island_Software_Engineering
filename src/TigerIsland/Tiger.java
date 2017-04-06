@@ -41,6 +41,7 @@ public class Tiger implements Piece {
             }
         }
 
+        // TODO: can multiple tigers exist in a settlement
         // TODO: Need a test to check the above functionality... if we aren't adjacent to a settlment
         return false;
     }
