@@ -92,7 +92,9 @@ public class TotoroTest {
 
         Board board = getBasicBoardWithHexagonAroundStartWithWhiteMeeples();
 
-        assertEquals(true, player.placeTotoroOnHexagon(new Coordinate(98, 99), board));
+        boolean result = player.placeTotoroOnHexagon(new Coordinate(98, 99), board);
+
+        assertEquals(true, result);
     }
 
 }
