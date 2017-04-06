@@ -46,7 +46,7 @@ public class MeepleDefinitions
     }
     @Then("^I place 1 meeple on Hexagon hexagon $")
     public void oneMeepleIsPlaced(){
-        assertEquals(HexagonOccupationStatus.MEEPLES, hexagon.getOccupationStatus());
+        assertEquals(HexagonOccupationStatus.MEEPLE, hexagon.getOccupationStatus());
     }
     @Then("^the player now has 1 point $")
     public void playerHasAPoing(){

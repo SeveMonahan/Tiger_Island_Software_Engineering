@@ -2,7 +2,7 @@ package TigerIsland;
 
 public enum HexagonOccupationStatus {
     EMPTY,
-    MEEPLES,
+    MEEPLE,
     TOTORO,
-    TIGERS
+    TIGER
 }
