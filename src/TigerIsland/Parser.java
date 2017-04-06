@@ -43,8 +43,10 @@ public class Parser {
 
     public BuildMove opponentMoveStringToBuildMove(String opponentMoveString){
         String[] opponentMoveStringSplitBySpaceArray = opponentMoveString.split("\\s+");
-        final int buildKeyWord1Index = 13;
-        String buildKeyword1 = opponentMoveStringSplitBySpaceArray[buildKeyWord1Index];
+        final int buildKeyword1Index = 13;
+        final int buildKeyword2Index = 14;
+        String buildKeyword1 = opponentMoveStringSplitBySpaceArray[buildKeyword1Index];
+        String buildKeyword2 = opponentMoveStringSplitBySpaceArray[buildKeyword2Index];
 
         if(buildKeyword1.equals("FOUNDED")) {
             final int xIndex = 16;
@@ -77,7 +79,7 @@ public class Parser {
 
             return new BuildMove(buildOption, coordinate, terrain);
         }
-        else {
+        else if(buildKeyword1.equals("BUILT") && buildKeyword2.equals("TOTORO")){
             final int xIndex = 17;
             final int yIndex = 18;
             final int zIndex = 19;
@@ -91,6 +93,21 @@ public class Parser {
 
             return new BuildMove(buildOption, coordinate);
         }
+        else if(buildKeyword1.equals("BUILT") && buildKeyword2.equals("TIGER")){
+            final int xIndex = 17;
+            final int yIndex = 18;
+            final int zIndex = 19;
+
+            int x = Integer.parseInt(opponentMoveStringSplitBySpaceArray[xIndex]);
+            int y = Integer.parseInt(opponentMoveStringSplitBySpaceArray[yIndex]);
+            int z = Integer.parseInt(opponentMoveStringSplitBySpaceArray[zIndex]);
+            Coordinate coordinate = new Coordinate(x, y, z);
+
+            BuildOption buildOption = BuildOption.BUILDTIGER;
+
+            return new BuildMove(buildOption, coordinate);
+        }
+        else return null;
     }
 
     //Converts string such as "JUNGLE+LAKE" to a tile object
