@@ -80,7 +80,7 @@ public class Board {
         volcanoHex.changeTerrainTypeThoughExplosion(Terrain.VOLCANO);
         upperLeft.changeTerrainTypeThoughExplosion(Terrain.JUNGLE);
         upperRight.changeTerrainTypeThoughExplosion(Terrain.LAKE);
-        lowerRight.changeTerrainTypeThoughExplosion(Terrain.GRASSLAND);
+        lowerRight.changeTerrainTypeThoughExplosion(Terrain.GRASS);
         lowerLeft.changeTerrainTypeThoughExplosion(Terrain.ROCK);
     }
 

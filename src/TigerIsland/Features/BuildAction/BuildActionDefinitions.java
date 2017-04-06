@@ -62,7 +62,7 @@ public class BuildActionDefinitions {
     @Given("^A board with a tile placed on it, and all hexagons set to Level 2$")
     public void initBoardWithLevel2Tiles() {
         Board boardWithTile = new Board();
-        TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASSLAND), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
+        TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASS), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
         board = boardWithTile;
         board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(100, 101)));

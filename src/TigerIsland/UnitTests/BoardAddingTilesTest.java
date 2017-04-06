@@ -17,7 +17,7 @@ public class BoardAddingTilesTest {
     @Test
     public void placeTileNoRestrictions() {
         Board TestBoard = new Board();
-        TileMove testTileMove = new TileMove ( new Tile(Terrain.LAKE, Terrain.GRASSLAND),
+        TileMove testTileMove = new TileMove ( new Tile(Terrain.LAKE, Terrain.GRASS),
                                             HexagonNeighborDirection.LEFT, new Coordinate(100,100) );
 
         TestBoard.placeTile(testTileMove);
@@ -30,7 +30,7 @@ public class BoardAddingTilesTest {
 
         assertEquals(Terrain.LAKE, TestBoard.getHexagon( TestCoordinate2).getTerrain());
 
-        assertEquals(Terrain.GRASSLAND, TestBoard.getHexagon( TestCoordinate3).getTerrain());
+        assertEquals(Terrain.GRASS, TestBoard.getHexagon( TestCoordinate3).getTerrain());
 
         assertEquals(1, TestBoard.getHexagon( TestCoordinate1).getLevel());
 
@@ -42,7 +42,7 @@ public class BoardAddingTilesTest {
     @Test
     public void initBoardWithTile() {
         Board boardWithTile = new Board();
-        TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASSLAND), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
+        TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASS), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
         Board TestBoard = boardWithTile;
 
@@ -54,7 +54,7 @@ public class BoardAddingTilesTest {
 
         assertEquals(Terrain.LAKE, TestBoard.getHexagon( TestCoordinate2).getTerrain());
 
-        assertEquals(Terrain.GRASSLAND, TestBoard.getHexagon( TestCoordinate3).getTerrain());
+        assertEquals(Terrain.GRASS, TestBoard.getHexagon( TestCoordinate3).getTerrain());
 
         assertEquals(1, TestBoard.getHexagon(TestCoordinate1).getLevel());
 
@@ -66,7 +66,7 @@ public class BoardAddingTilesTest {
     @Test
     public void placeTileWithRestrictionsLevel0Success(){
         Board boardWithTile = new Board();
-        TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASSLAND), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
+        TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASS), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
         Board TestBoard = boardWithTile;
 
@@ -95,7 +95,7 @@ public class BoardAddingTilesTest {
     @Test
     public void placeTileWithRestrictionsLevel0Fail(){
         Board boardWithTile = new Board();
-        TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASSLAND), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
+        TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASS), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
         Board TestBoard = boardWithTile;
 
@@ -124,7 +124,7 @@ public class BoardAddingTilesTest {
     @Test
     public void overwriteLevel1Hex(){
         Board boardWithTile = new Board();
-        TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASSLAND), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
+        TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASS), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
         Board TestBoard = boardWithTile;
         TestBoard.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(100, 101)));
@@ -153,7 +153,7 @@ public class BoardAddingTilesTest {
     @Test
     public void overwriteLevel1HexFailDueToOverhang(){
         Board boardWithTile = new Board();
-        TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASSLAND), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
+        TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASS), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
         Board TestBoard = boardWithTile;
         TestBoard.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(100, 101)));
@@ -165,7 +165,7 @@ public class BoardAddingTilesTest {
     @Test
     public void overwriteLevel1HexFailDueToVolcanoMismatch(){
         Board boardWithTile = new Board();
-        TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASSLAND), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
+        TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASS), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
         Board TestBoard = boardWithTile;
         TestBoard.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(97, 101)));
@@ -177,7 +177,7 @@ public class BoardAddingTilesTest {
 
     @Test
     public void overwriteLevel1HexFailDueToExactTileOverlap(){
-        Tile testTile = new Tile(Terrain.LAKE, Terrain.GRASSLAND);
+        Tile testTile = new Tile(Terrain.LAKE, Terrain.GRASS);
         Board boardWithTile = new Board();
         TileMove startingTileMove = new TileMove(testTile, HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);

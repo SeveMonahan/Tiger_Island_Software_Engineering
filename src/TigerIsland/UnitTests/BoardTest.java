@@ -48,7 +48,7 @@ public class BoardTest {
         Hexagon lowerLeft = TestBoard.getNeighboringHexagon(centerCoord, HexagonNeighborDirection.LOWERLEFT);
         assertEquals(Terrain.JUNGLE, upperLeft.getTerrain());
         assertEquals(Terrain.LAKE, upperRight.getTerrain());
-        assertEquals(Terrain.GRASSLAND, lowerRight.getTerrain());
+        assertEquals(Terrain.GRASS, lowerRight.getTerrain());
         assertEquals(Terrain.ROCK, lowerLeft.getTerrain());
         assertEquals(Terrain.VOLCANO, center.getTerrain());
     }
@@ -131,9 +131,9 @@ public class BoardTest {
         Board TestBoard = new Board();
         Player player = new Player(Color.BLACK);
 
-        Tile tile_01 = new Tile(Terrain.GRASSLAND, Terrain.JUNGLE);
-        Tile tile_02 = new Tile(Terrain.GRASSLAND, Terrain.LAKE);
-        Tile tile_03 = new Tile(Terrain.GRASSLAND, Terrain.ROCK);
+        Tile tile_01 = new Tile(Terrain.GRASS, Terrain.JUNGLE);
+        Tile tile_02 = new Tile(Terrain.GRASS, Terrain.LAKE);
+        Tile tile_03 = new Tile(Terrain.GRASS, Terrain.ROCK);
 
         TileMove tileMove_03 = new TileMove(tile_03, HexagonNeighborDirection.UPPERRIGHT, new Coordinate(100, 100));
         TileMove tileMove_02 = new TileMove(tile_02, HexagonNeighborDirection.LOWERLEFT, new Coordinate(100, 102));
@@ -145,7 +145,7 @@ public class BoardTest {
 
         player.placeMeepleOnHexagon(new Coordinate(101, 100), TestBoard);
 
-        Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(101, 100), Terrain.GRASSLAND);
+        Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(101, 100), Terrain.GRASS);
 
         assertEquals(true, result);
         assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagon(new Coordinate(100, 101)).getOccupationStatus() );
@@ -160,9 +160,9 @@ public class BoardTest {
         Board TestBoard = new Board();
         Player player = new Player(Color.BLACK);
 
-        Tile tile_01 = new Tile(Terrain.GRASSLAND, Terrain.JUNGLE);
-        Tile tile_02 = new Tile(Terrain.GRASSLAND, Terrain.LAKE);
-        Tile tile_03 = new Tile(Terrain.GRASSLAND, Terrain.ROCK);
+        Tile tile_01 = new Tile(Terrain.GRASS, Terrain.JUNGLE);
+        Tile tile_02 = new Tile(Terrain.GRASS, Terrain.LAKE);
+        Tile tile_03 = new Tile(Terrain.GRASS, Terrain.ROCK);
 
         TileMove tileMove_03 = new TileMove(tile_03, HexagonNeighborDirection.UPPERRIGHT, new Coordinate(100, 100));
         TileMove tileMove_02 = new TileMove(tile_02, HexagonNeighborDirection.LOWERLEFT, new Coordinate(100, 102));
@@ -174,7 +174,7 @@ public class BoardTest {
 
         player.placeMeepleOnHexagon(new Coordinate(99, 101), TestBoard);
 
-        Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(99, 101), Terrain.GRASSLAND);
+        Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(99, 101), Terrain.GRASS);
 
         assertEquals(true, result);
         assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagon(new Coordinate(100, 101)).getOccupationStatus() );
@@ -187,9 +187,9 @@ public class BoardTest {
         Board TestBoard = new Board();
         Player player = new Player(Color.BLACK);
 
-        Tile tile_01 = new Tile(Terrain.GRASSLAND, Terrain.JUNGLE);
-        Tile tile_02 = new Tile(Terrain.GRASSLAND, Terrain.LAKE);
-        Tile tile_03 = new Tile(Terrain.GRASSLAND, Terrain.ROCK);
+        Tile tile_01 = new Tile(Terrain.GRASS, Terrain.JUNGLE);
+        Tile tile_02 = new Tile(Terrain.GRASS, Terrain.LAKE);
+        Tile tile_03 = new Tile(Terrain.GRASS, Terrain.ROCK);
 
         TileMove tileMove_03 = new TileMove(tile_03, HexagonNeighborDirection.UPPERRIGHT, new Coordinate(100, 100));
         TileMove tileMove_02 = new TileMove(tile_02, HexagonNeighborDirection.LOWERLEFT, new Coordinate(100, 102));
@@ -202,7 +202,7 @@ public class BoardTest {
         player.placeMeepleOnHexagon(new Coordinate(99, 101), TestBoard);
         player.placeMeepleOnHexagon(new Coordinate(100, 101), TestBoard);
 
-        Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(100, 101), Terrain.GRASSLAND);
+        Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(100, 101), Terrain.GRASS);
 
         assertEquals(true, result);
 

@@ -31,7 +31,7 @@ public class TotoroDefinitions {
 
     @Given("^I have initialized a board$")
     public void initBoardTotoro() {
-        Tile newTile = new Tile(Terrain.GRASSLAND, Terrain.JUNGLE);
+        Tile newTile = new Tile(Terrain.GRASS, Terrain.JUNGLE);
         Board boardWithTile = new Board();
         TileMove startingTileMove = new TileMove(newTile, HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
@@ -45,7 +45,7 @@ public class TotoroDefinitions {
 
     @Given("^the tiles have adjacent volcanoes$")
     public void tilesHaveAdjacentVolcano() {
-        Tile newTile = new Tile(Terrain.GRASSLAND, Terrain.JUNGLE);
+        Tile newTile = new Tile(Terrain.GRASS, Terrain.JUNGLE);
         Board boardWithTile = new Board();
         TileMove startingTileMove = new TileMove(newTile, HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
@@ -63,7 +63,7 @@ public class TotoroDefinitions {
 
     @When("^I attempt to place a tile on a volcano so it overlaps onto the other tile$")
     public void placeTileOverVolcano() {
-        Tile newTile = new Tile(Terrain.GRASSLAND, Terrain.JUNGLE);
+        Tile newTile = new Tile(Terrain.GRASS, Terrain.JUNGLE);
         Board boardWithTile = new Board();
         TileMove startingTileMove = new TileMove(newTile, HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);

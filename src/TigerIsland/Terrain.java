@@ -6,5 +6,5 @@ public enum Terrain {
     ROCK,
     JUNGLE,
     LAKE,
-    GRASSLAND
+    GRASS
 }
