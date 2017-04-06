@@ -37,7 +37,7 @@ public class BuildActionDefinitions {
 
     @Then("^A meeple is placed on that hexagon$")
     public void meeplePlacedOnHexagon() {
-        assertEquals(HexagonOccupationStatus.MEEPLES, targetHexagon.getOccupationStatus());
+        assertEquals(HexagonOccupationStatus.MEEPLE, targetHexagon.getOccupationStatus());
     }
 
     @When("^I attempt to build a settlement on a volcano tile$")
@@ -86,7 +86,7 @@ public class BuildActionDefinitions {
     public void tilePlaceFailsButMeepleInTargetHexagon() {
         assertEquals(20, player.getMeeplesCount());
         assertEquals(0, player.getScore());
-        assertEquals(HexagonOccupationStatus.MEEPLES, targetHexagon.getOccupationStatus());
+        assertEquals(HexagonOccupationStatus.MEEPLE, targetHexagon.getOccupationStatus());
     }
 
     @When("^I attempt to build a settlement on an occupied non-volcano tile$")
