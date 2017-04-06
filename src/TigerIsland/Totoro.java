@@ -25,7 +25,7 @@ public class Totoro implements Piece {
 
         Hexagon hexagon = board.getHexagon(coordinate);
 
-        if( hexagon.isVolcano() || (hexagon.isEmpty()) ) {
+        if( hexagon.isVolcano() || !(hexagon.isEmpty()) ) {
             return false;
         }
 
