@@ -37,14 +37,14 @@ public class ParserTest {
 
         BuildOption expectedBuildOption = BuildOption.FOUNDSETTLEMENT;
         Coordinate expectedCoordinate = new Coordinate(1, 3, 0);
-        BuildMove expectedBuildMove = new BuildMove(expectedBuildOption, expectedCoordinate);
+        ConstructionMoveTransmission expectedConstructionMoveTransmission = new ConstructionMoveTransmission(expectedBuildOption, expectedCoordinate);
 
         Parser parser = new Parser();
-        BuildMove testBuildMove = parser.opponentMoveStringToBuildMove(message);
+        ConstructionMoveTransmission testConstructionMoveTransmission = parser.opponentMoveStringToBuildMove(message);
 
-        assertEquals(expectedBuildMove.getCoordinate().getX(), testBuildMove.getCoordinate().getX());
-        assertEquals(expectedBuildMove.getCoordinate().getY(), testBuildMove.getCoordinate().getY());
-        assertEquals(expectedBuildMove.getBuildOption(), testBuildMove.getBuildOption());
+        assertEquals(expectedConstructionMoveTransmission.getCoordinate().getX(), testConstructionMoveTransmission.getCoordinate().getX());
+        assertEquals(expectedConstructionMoveTransmission.getCoordinate().getY(), testConstructionMoveTransmission.getCoordinate().getY());
+        assertEquals(expectedConstructionMoveTransmission.getBuildOption(), testConstructionMoveTransmission.getBuildOption());
     }
 
     //Expanded
@@ -55,15 +55,15 @@ public class ParserTest {
         BuildOption expectedBuildOption = BuildOption.EXPANDSETTLEMENT;
         Coordinate expectedCoordinate = new Coordinate(1, 3, 0);
         Terrain expectedTerrain = Terrain.JUNGLE;
-        BuildMove expectedBuildMove = new BuildMove(expectedBuildOption, expectedCoordinate, expectedTerrain);
+        ConstructionMoveTransmission expectedConstructionMoveTransmission = new ConstructionMoveTransmission(expectedBuildOption, expectedCoordinate, expectedTerrain);
 
         Parser parser = new Parser();
-        BuildMove testBuildMove = parser.opponentMoveStringToBuildMove(message);
+        ConstructionMoveTransmission testConstructionMoveTransmission = parser.opponentMoveStringToBuildMove(message);
 
-        assertEquals(expectedBuildMove.getCoordinate().getX(), testBuildMove.getCoordinate().getX());
-        assertEquals(expectedBuildMove.getCoordinate().getY(), testBuildMove.getCoordinate().getY());
-        assertEquals(expectedBuildMove.getBuildOption(), testBuildMove.getBuildOption());
-        assertEquals(expectedBuildMove.getTerrain(), testBuildMove.getTerrain());
+        assertEquals(expectedConstructionMoveTransmission.getCoordinate().getX(), testConstructionMoveTransmission.getCoordinate().getX());
+        assertEquals(expectedConstructionMoveTransmission.getCoordinate().getY(), testConstructionMoveTransmission.getCoordinate().getY());
+        assertEquals(expectedConstructionMoveTransmission.getBuildOption(), testConstructionMoveTransmission.getBuildOption());
+        assertEquals(expectedConstructionMoveTransmission.getTerrain(), testConstructionMoveTransmission.getTerrain());
     }
 
     //Built Totoro Sanctuary
@@ -73,14 +73,14 @@ public class ParserTest {
 
         BuildOption expectedBuildOption = BuildOption.BUILDTOTORO;
         Coordinate expectedCoordinate = new Coordinate(1, 3, 0);
-        BuildMove expectedBuildMove = new BuildMove(expectedBuildOption, expectedCoordinate);
+        ConstructionMoveTransmission expectedConstructionMoveTransmission = new ConstructionMoveTransmission(expectedBuildOption, expectedCoordinate);
 
         Parser parser = new Parser();
-        BuildMove testBuildMove = parser.opponentMoveStringToBuildMove(message);
+        ConstructionMoveTransmission testConstructionMoveTransmission = parser.opponentMoveStringToBuildMove(message);
 
-        assertEquals(expectedBuildMove.getCoordinate().getX(), testBuildMove.getCoordinate().getX());
-        assertEquals(expectedBuildMove.getCoordinate().getY(), testBuildMove.getCoordinate().getY());
-        assertEquals(expectedBuildMove.getBuildOption(), testBuildMove.getBuildOption());
+        assertEquals(expectedConstructionMoveTransmission.getCoordinate().getX(), testConstructionMoveTransmission.getCoordinate().getX());
+        assertEquals(expectedConstructionMoveTransmission.getCoordinate().getY(), testConstructionMoveTransmission.getCoordinate().getY());
+        assertEquals(expectedConstructionMoveTransmission.getBuildOption(), testConstructionMoveTransmission.getBuildOption());
     }
 
     //Built Tiger Playground
@@ -90,13 +90,13 @@ public class ParserTest {
 
         BuildOption expectedBuildOption = BuildOption.BUILDTIGER;
         Coordinate expectedCoordinate = new Coordinate(1, 3, 0);
-        BuildMove expectedBuildMove = new BuildMove(expectedBuildOption, expectedCoordinate);
+        ConstructionMoveTransmission expectedConstructionMoveTransmission = new ConstructionMoveTransmission(expectedBuildOption, expectedCoordinate);
 
         Parser parser = new Parser();
-        BuildMove testBuildMove = parser.opponentMoveStringToBuildMove(message);
+        ConstructionMoveTransmission testConstructionMoveTransmission = parser.opponentMoveStringToBuildMove(message);
 
-        assertEquals(expectedBuildMove.getCoordinate().getX(), testBuildMove.getCoordinate().getX());
-        assertEquals(expectedBuildMove.getCoordinate().getY(), testBuildMove.getCoordinate().getY());
-        assertEquals(expectedBuildMove.getBuildOption(), testBuildMove.getBuildOption());
+        assertEquals(expectedConstructionMoveTransmission.getCoordinate().getX(), testConstructionMoveTransmission.getCoordinate().getX());
+        assertEquals(expectedConstructionMoveTransmission.getCoordinate().getY(), testConstructionMoveTransmission.getCoordinate().getY());
+        assertEquals(expectedConstructionMoveTransmission.getBuildOption(), testConstructionMoveTransmission.getBuildOption());
     }
 }

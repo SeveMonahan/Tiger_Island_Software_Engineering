@@ -38,7 +38,7 @@ public class Parser {
         return new TileMove(tile, direction, coordinate);
     }
 
-    public BuildMove opponentMoveStringToBuildMove(String opponentMoveString){
+    public ConstructionMoveTransmission opponentMoveStringToBuildMove(String opponentMoveString){
         String[] opponentMoveStringSplitBySpaceArray = opponentMoveString.split("\\s+");
         final int buildKeyword1Index = 13;
         final int buildKeyword2Index = 14;
@@ -58,11 +58,11 @@ public class Parser {
             return opponentBuildTigerMoveStringToBuildMove(opponentMoveStringSplitBySpaceArray);
         }
         //Should never reach this if statement but I figured returning null and getting an error
-        //is better than returning the wrong BuildMove and not realizing it
+        //is better than returning the wrong ConstructionMoveTransmission and not realizing it
         else return null;
     }
 
-    private BuildMove opponentFoundedMoveStringToBuildMove(String[] opponentFoundedMoveStringSplitBySpace){
+    private ConstructionMoveTransmission opponentFoundedMoveStringToBuildMove(String[] opponentFoundedMoveStringSplitBySpace){
         final int xIndex = 16;
         final int yIndex = 17;
         final int zIndex = 18;
@@ -71,10 +71,10 @@ public class Parser {
 
         BuildOption buildOption = BuildOption.FOUNDSETTLEMENT;
 
-        return new BuildMove(buildOption, coordinate);
+        return new ConstructionMoveTransmission(buildOption, coordinate);
     }
 
-    private BuildMove opponentExpandedMoveStringToBuildMove(String[] opponentExpandedMoveStringSplitBySpace){
+    private ConstructionMoveTransmission opponentExpandedMoveStringToBuildMove(String[] opponentExpandedMoveStringSplitBySpace){
         final int xIndex = 16;
         final int yIndex = 17;
         final int zIndex = 18;
@@ -86,10 +86,10 @@ public class Parser {
 
         Terrain terrain = Terrain.valueOf(opponentExpandedMoveStringSplitBySpace[terrainIndex]);
 
-        return new BuildMove(buildOption, coordinate, terrain);
+        return new ConstructionMoveTransmission(buildOption, coordinate, terrain);
     }
 
-    private BuildMove opponentBuildTotoroMoveStringToBuildMove(String[] opponentBuildTotoroMoveStringSplitBySpace){
+    private ConstructionMoveTransmission opponentBuildTotoroMoveStringToBuildMove(String[] opponentBuildTotoroMoveStringSplitBySpace){
         final int xIndex = 17;
         final int yIndex = 18;
         final int zIndex = 19;
@@ -98,10 +98,10 @@ public class Parser {
 
         BuildOption buildOption = BuildOption.BUILDTOTORO;
 
-        return new BuildMove(buildOption, coordinate);
+        return new ConstructionMoveTransmission(buildOption, coordinate);
     }
 
-    private BuildMove opponentBuildTigerMoveStringToBuildMove(String[] opponentBuildTigerMoveStringSplitBySpace){
+    private ConstructionMoveTransmission opponentBuildTigerMoveStringToBuildMove(String[] opponentBuildTigerMoveStringSplitBySpace){
         final int xIndex = 17;
         final int yIndex = 18;
         final int zIndex = 19;
@@ -110,7 +110,7 @@ public class Parser {
 
         BuildOption buildOption = BuildOption.BUILDTIGER;
 
-        return new BuildMove(buildOption, coordinate);
+        return new ConstructionMoveTransmission(buildOption, coordinate);
     }
 
     //Converts string such as "JUNGLE+LAKE" to a tile object

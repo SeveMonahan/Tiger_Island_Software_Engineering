@@ -1,7 +1,7 @@
 package TigerIsland;
 
 
-public class BuildMove {
+public class ConstructionMoveTransmission {
 
     private final BuildOption buildOption;
     private final Coordinate coordinate;
@@ -11,14 +11,14 @@ public class BuildMove {
     public Coordinate getCoordinate() { return coordinate; }
     public Terrain getTerrain() {return terrain;}
 
-    public BuildMove(BuildOption buildOption, Coordinate coordinate) {
+    public ConstructionMoveTransmission(BuildOption buildOption, Coordinate coordinate) {
         this.buildOption = buildOption;
         this.coordinate = coordinate;
         this.terrain = null;
     }
 
     //The constructor for when the move is an expansion and a terrain must be provided
-    public BuildMove(BuildOption buildOption, Coordinate coordinate, Terrain terrain) {
+    public ConstructionMoveTransmission(BuildOption buildOption, Coordinate coordinate, Terrain terrain) {
         this.buildOption = buildOption;
         this.coordinate = coordinate;
         this.terrain = terrain;
