@@ -86,7 +86,7 @@ public class Parser {
 
         Terrain terrain = Terrain.valueOf(opponentExpandedMoveStringSplitBySpace[terrainIndex]);
 
-        return new ConstructionMoveTransmission(buildOption, coordinate, terrain);
+        return new ExpandSettlementMoveTransmission(buildOption, coordinate, terrain);
     }
 
     private ConstructionMoveTransmission opponentBuildTotoroMoveStringToBuildMove(String[] opponentBuildTotoroMoveStringSplitBySpace){

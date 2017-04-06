@@ -55,15 +55,19 @@ public class ParserTest {
         BuildOption expectedBuildOption = BuildOption.EXPANDSETTLEMENT;
         Coordinate expectedCoordinate = new Coordinate(1, 3, 0);
         Terrain expectedTerrain = Terrain.JUNGLE;
-        ConstructionMoveTransmission expectedConstructionMoveTransmission = new ConstructionMoveTransmission(expectedBuildOption, expectedCoordinate, expectedTerrain);
+        ExpandSettlementMoveTransmission expectedConstructionMoveTransmission = new ExpandSettlementMoveTransmission(expectedBuildOption, expectedCoordinate, expectedTerrain);
 
         Parser parser = new Parser();
         ConstructionMoveTransmission testConstructionMoveTransmission = parser.opponentMoveStringToBuildMove(message);
 
-        assertEquals(expectedConstructionMoveTransmission.getCoordinate().getX(), testConstructionMoveTransmission.getCoordinate().getX());
-        assertEquals(expectedConstructionMoveTransmission.getCoordinate().getY(), testConstructionMoveTransmission.getCoordinate().getY());
-        assertEquals(expectedConstructionMoveTransmission.getBuildOption(), testConstructionMoveTransmission.getBuildOption());
-        assertEquals(expectedConstructionMoveTransmission.getTerrain(), testConstructionMoveTransmission.getTerrain());
+        assertEquals(true, testConstructionMoveTransmission instanceof ExpandSettlementMoveTransmission);
+
+        ExpandSettlementMoveTransmission testResult = (ExpandSettlementMoveTransmission) testConstructionMoveTransmission;
+
+        assertEquals(expectedConstructionMoveTransmission.getCoordinate().getX(), testResult.getCoordinate().getX());
+        assertEquals(expectedConstructionMoveTransmission.getCoordinate().getY(), testResult.getCoordinate().getY());
+        assertEquals(expectedConstructionMoveTransmission.getBuildOption(), testResult.getBuildOption());
+        assertEquals(expectedConstructionMoveTransmission.getTerrain(), testResult.getTerrain());
     }
 
     //Built Totoro Sanctuary
