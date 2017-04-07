@@ -7,10 +7,11 @@ public class Controller {
     public static int oid = 0;
     public static int rid = 0;
     public static int rounds = 0;
-    public static int currentRound = 1;
+    public static int currentRound = 0;
     public static int state = 0;
     public static boolean gameOver = false;
     public static boolean readGameOneScore = false;
+    public static boolean roundsOver = false;
     /*
     States:
     0 = challenge
@@ -21,19 +22,44 @@ public class Controller {
     public static void decoder(String message) {
         String[] arr = stringSplitter(message);
         if (state == 0) { //challenge protocol
-            cid = parseInt(arr[2]);
-            rounds = parseInt(arr[6]);
-            System.out.println("grabbed cid: " + cid + " and rounds: " + rounds);
-            state++;
+            if (roundsOver) {
+                if (message.contains("END OF CHALLENGES")) {
+                    System.out.println("Challenges over!");
+                    System.exit(1);
+                }
+                else if (message.contains("WAIT FOR THE NEXT CHALLENGE TO BEGIN")) {
+                    System.out.println("waiting for next challenge...");
+                    cid = 0;
+                    oid = 0;
+                    rid = 0;
+                    rounds = 0;
+                    currentRound = 0;
+                }
+                else if (message.contains("NEW CHALLENGE")) {
+                    roundsOver = false;
+                }
+            }
+            if (!roundsOver){
+                System.out.println("--------Starting new challenge!--------");
+                cid = parseInt(arr[2]);
+                rounds = parseInt(arr[6]);
+                System.out.println("grabbed cid: " + cid + " and rounds: " + rounds);
+                state++;
+            }
         }
         else if (state == 1) { //round protocol
             if (gameOver) {
                 if (message.contains("END OF ROUND") && message.contains(" OF ")) {
-                    System.out.println("round " + currentRound + " finished!");
                     currentRound++;
-                    if (currentRound <= rounds) {
+                    System.out.println("round " + currentRound + " finished!");
+                    if (currentRound < rounds) {
                         System.out.println("Moving on to next game...");
                         gameOver = false;
+                    }
+                    else {
+                        gameOver = false;
+                        roundsOver = true;
+                        state--;
                     }
                 }
             } else {
@@ -64,6 +90,9 @@ public class Controller {
                 System.out.println("gg was called for both games!");
                 gameOver = true;
                 state--;
+            }
+            else {
+                System.out.println("game(s) in progress...");
             }
             //send to parser
             //if gameover or whatever then gameOver = true and state = state - 1
