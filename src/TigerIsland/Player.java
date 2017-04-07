@@ -84,4 +84,17 @@ public class Player {
 
         return false;
     }
+
+    boolean triggeredGameEnd() {
+        int piecesDepleted = 0;
+
+        if(totoroCount == 0)
+            piecesDepleted++;
+        if(tigerCount == 0)
+            piecesDepleted++;
+        if(meepleCount == 0)
+            piecesDepleted++;
+
+        return piecesDepleted > 2;
+    }
 }

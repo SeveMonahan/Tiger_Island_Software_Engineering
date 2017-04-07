@@ -22,10 +22,18 @@ public class Referee {
             gameEndOfTurn = controller_1.newGameState(gameStateWithTile);
             output.dispatchInformation(gameEndOfTurn);
 
+            if(gameEndOfTurn.checkForGameOver()){
+                break;
+            }
+
             tile = tileBag.drawTile();
             gameStateWithTile = gameEndOfTurn.getChild(tile);
             gameEndOfTurn = controller_2.newGameState(gameStateWithTile);
             output.dispatchInformation(gameEndOfTurn);
+
+            if(gameEndOfTurn.checkForGameOver()){
+                break;
+            }
         }
     }
 }

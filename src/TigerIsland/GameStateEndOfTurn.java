@@ -36,4 +36,9 @@ public class GameStateEndOfTurn extends GameState {
         return lastConstructionMove;
     }
 
+    public boolean checkForGameOver(){
+        return lastConstructionMove instanceof UnableToBuildConstructionMove
+                || playerWhoseTurn.triggeredGameEnd();
+    }
+
 }
