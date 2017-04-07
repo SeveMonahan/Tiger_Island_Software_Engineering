@@ -1,7 +1,5 @@
 package TigerIsland;
 
-import java.util.ArrayList;
-
 public class GameStateStartOfTurn extends GameState {
 
     private GameStateStartOfTurn() {
@@ -17,6 +15,7 @@ public class GameStateStartOfTurn extends GameState {
     }
 
     public static GameStateStartOfTurn createGameStateFromConstructionMove(GameStateBeforeBuildAction original, ConstructionMoveInternal move) {
+        move.canPreformMove(original.playerWhoseTurn, original.board);
         return null;
     }
 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class GameState {
     private Player player_1;
     private Player player_2;
-    private Player playerWhoseTurn;
+    protected Player playerWhoseTurn;
     private boolean gameIsOver;
     protected Board board;
 

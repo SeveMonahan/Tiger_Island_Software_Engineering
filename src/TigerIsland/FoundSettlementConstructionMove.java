@@ -12,15 +12,15 @@ public class FoundSettlementConstructionMove extends ConstructionMoveJustCoordin
     public boolean canBeKilled() { return true; }
 
     @Override
-    public int numberPiecesRequiredToPreformMove(Player player, Board board) {
+    public boolean canPreformMove(Player player, Board board) {
         Hexagon hexagon = board.getHexagonAt(coordinate);
         if(!hexagon.isVolcano()
                 && hexagon.getLevel() == 1
                 && (!hexagon.containsPieces())) {
-            return 1;
+            return player.getMeeplesCount() != 0;
         }
 
-        return 1000;
+        return false;
     }
 
     @Override

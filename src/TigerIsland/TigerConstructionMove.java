@@ -12,31 +12,31 @@ public class TigerConstructionMove extends ConstructionMoveJustCoordinate {
     public boolean canBeKilled() { return true; }
 
     @Override
-    public int numberPiecesRequiredToPreformMove(Player player, Board board) {
+    public boolean canPreformMove(Player player, Board board) {
         Hexagon hexagon = board.getHexagonAt(coordinate);
 
         if (hexagon.isVolcano()) {
-            return 1000;
+            return false;
         }
 
         if (hexagon.getLevel() < 3) {
-            return 1000;
+            return false;
         }
 
         if (hexagon.containsPieces()) {
-            return 1000;
+            return false;
         }
 
         Coordinate[] neighbors = coordinate.getNeighboringCoordinates();
         for (Coordinate neighbor: neighbors) {
             Hexagon hexagonNeighbor = board.getHexagonAt(neighbor);
             if( hexagonNeighbor.containsPieces() ) {
-                return 1;
+                return player.getTigerCount() != 0;
             }
         }
         // TODO: Multiple tigers can't exist in the same settlement
         // TODO: Need a test to check the above functionality... if we aren't adjacent to a settlement
-        return 1000;
+        return false;
     }
 
     @Override
