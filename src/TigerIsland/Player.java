@@ -33,8 +33,6 @@ public class Player {
     public int getTigerCount() { return tigerCount; }
     public Color getColor() { return color; }
 
-    public void setScoreAfterPiecePlacement(Piece piece, Hexagon hexagon) {score += piece.getPointsAfterPlacement(hexagon);}
-
     public void addScore(int points) {
         this.score += points;
     }

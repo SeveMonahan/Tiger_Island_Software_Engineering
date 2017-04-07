@@ -15,7 +15,7 @@ public class TotoroConstructionMove extends ConstructionMoveJustCoordinate {
     public int numberPiecesRequiredToPreformMove(Player player, Board board) {
         Color color = player.getColor();
 
-        Hexagon hexagon = board.getHexagon(coordinate);
+        Hexagon hexagon = board.getHexagonAt(coordinate);
 
         // TODO test level placement... make sure not placing on 0 level
         if( hexagon.isVolcano() || hexagon.containsPieces() || hexagon.getLevel() == 0 ) {
@@ -29,7 +29,7 @@ public class TotoroConstructionMove extends ConstructionMoveJustCoordinate {
             Settlement settlement = board.getSettlement(neighbors[i]);
             if(settlement.getSettlementSize() >= 5 && !settlement.getSettlementContainsTotoro(board) &&
             // if(board.getSettlementSize(neighbors[i]) >= 5 && !board.getSettlementContainsTotoro(neighbors[i]) &&
-                    color == board.getHexagon(neighbors[i]).getOccupationColor() ){
+                    color == board.getHexagonAt(neighbors[i]).getOccupationColor() ){
                 return 1;
             }
         }
@@ -41,7 +41,7 @@ public class TotoroConstructionMove extends ConstructionMoveJustCoordinate {
     public void makePreverifiedMove(Player player, Board board) {
         player.substractTotoro();
 
-        Hexagon hexagon = board.getHexagon(coordinate);
+        Hexagon hexagon = board.getHexagonAt(coordinate);
         hexagon.setOccupationStatus(player.getColor(), this);
 
         player.addScore(200);

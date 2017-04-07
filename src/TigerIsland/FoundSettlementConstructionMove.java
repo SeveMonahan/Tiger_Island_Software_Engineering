@@ -13,7 +13,7 @@ public class FoundSettlementConstructionMove extends ConstructionMoveJustCoordin
 
     @Override
     public int numberPiecesRequiredToPreformMove(Player player, Board board) {
-        Hexagon hexagon = board.getHexagon(coordinate);
+        Hexagon hexagon = board.getHexagonAt(coordinate);
         if(!hexagon.isVolcano()
                 && hexagon.getLevel() == 1
                 && (!hexagon.containsPieces())) {
@@ -27,7 +27,7 @@ public class FoundSettlementConstructionMove extends ConstructionMoveJustCoordin
     public void makePreverifiedMove(Player player, Board board) {
         player.subtractMeeples(1);
 
-        Hexagon hexagon = board.getHexagon(coordinate);
+        Hexagon hexagon = board.getHexagonAt(coordinate);
         hexagon.setOccupationStatus(player.getColor(), this);
 
         player.addScore(1);

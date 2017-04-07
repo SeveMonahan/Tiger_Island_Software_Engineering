@@ -19,7 +19,7 @@ public class TigersTest {
         board.placeStartingTile();
 
         Coordinate testCoordinate = new Coordinate(100, 101);
-        Hexagon hexagon = board.getHexagon(testCoordinate);
+        Hexagon hexagon = board.getHexagonAt(testCoordinate);
 
         Player player = new Player(Color.WHITE);
 
@@ -36,7 +36,7 @@ public class TigersTest {
         TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASS), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
         Board board = boardWithTile;
-        Coordinate coordinate = new Coordinate(100,100).getNeighboringCoordinate(HexagonNeighborDirection.LEFT);
+        Coordinate coordinate = new Coordinate(100,100).getNeighboringCoordinateAt(HexagonNeighborDirection.LEFT);
 
 
         Player player = new Player(Color.WHITE);
@@ -46,7 +46,7 @@ public class TigersTest {
         assertEquals(0, player.getScore());
         assertEquals(2, player.getTigerCount());
 
-        Hexagon hexagon = board.getHexagon(coordinate);
+        Hexagon hexagon = board.getHexagonAt(coordinate);
 
         assertEquals(HexagonOccupationStatus.EMPTY, hexagon.getOccupationStatus());
     }
@@ -56,8 +56,8 @@ public class TigersTest {
         TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASS), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
         Board board = boardWithTile;
-        Coordinate coordinate = new Coordinate(101,100).getNeighboringCoordinate(HexagonNeighborDirection.LEFT);
-        Hexagon hexagon = board.getHexagon(coordinate);
+        Coordinate coordinate = new Coordinate(101,100).getNeighboringCoordinateAt(HexagonNeighborDirection.LEFT);
+        Hexagon hexagon = board.getHexagonAt(coordinate);
         Player player = new Player(Color.WHITE);
 
         player.placeTigerOnHexagon(coordinate, board);

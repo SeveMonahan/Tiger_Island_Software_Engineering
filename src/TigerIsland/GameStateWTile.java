@@ -20,7 +20,7 @@ public class GameStateWTile extends GameState {
         for(int i = minX; i < maxX; i++){
             for(int j= minY; j < maxY; j++){
                 Coordinate current_coordinate = new Coordinate(i, j);
-                Terrain terrain = board.getHexagon(current_coordinate).getTerrain();
+                Terrain terrain = board.getHexagonAt(current_coordinate).getTerrain();
 
                 if(terrain != Terrain.EMPTY && terrain != Terrain.VOLCANO){
                     continue;

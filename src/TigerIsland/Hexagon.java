@@ -1,6 +1,7 @@
 package TigerIsland;
 
 public class Hexagon {
+    // Members
     private int level;
     private Terrain terrain;
     private int tileHashCode;
@@ -8,14 +9,7 @@ public class Hexagon {
     private Color occupationColor;
     private boolean canBeNuked;
 
-    public static Hexagon cloneHexagon(Hexagon copied) {
-        if(copied == null){
-            return null;
-        }
-        
-        return new Hexagon(copied);
-    }
-
+    // Getters
     public int getLevel(){
         return level;
     }
@@ -29,11 +23,11 @@ public class Hexagon {
     public Color getOccupationColor() { return occupationColor; }
     boolean getCanBeNuked() { return canBeNuked; }
 
-    // Setters
-    public void setOccupationStatusTakingPieceClass(Piece piece) {
-        occupationStatus = piece.getOccupyStatus();
-        occupationColor = piece.getPieceColor();
-        this.canBeNuked = piece.canBeKilled();
+    public static Hexagon cloneHexagon(Hexagon copiedHexagon) {
+        if (copiedHexagon == null){
+            return null;
+        }
+        return new Hexagon(copiedHexagon);
     }
 
     public void setOccupationStatus(Color color, ConstructionMoveInternal move) {

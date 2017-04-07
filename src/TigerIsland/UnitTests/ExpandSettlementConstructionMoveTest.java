@@ -16,7 +16,7 @@ public class ExpandSettlementConstructionMoveTest {
     public void basic_test(){
         Board board = startBoard();
 
-        Coordinate upperRight = new Coordinate(100, 100).getNeighboringCoordinate(HexagonNeighborDirection.UPPERRIGHT);
+        Coordinate upperRight = new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERRIGHT);
 
         Color Player_Color = Color.WHITE;
         Player player_1 = new Player(Player_Color);
@@ -35,10 +35,10 @@ public class ExpandSettlementConstructionMoveTest {
 
         move2.makePreverifiedMove(player_1, board);
 
-        Coordinate upperLeft = new Coordinate(100, 100).getNeighboringCoordinate(HexagonNeighborDirection.UPPERLEFT);
+        Coordinate upperLeft = new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERLEFT);
 
-        assertEquals(true, board.getHexagon(upperLeft).containsPieces());
-        assertEquals(HexagonOccupationStatus.MEEPLE , board.getHexagon(upperLeft).getOccupationStatus());
-        assertEquals(Player_Color, board.getHexagon(upperLeft).getOccupationColor());
+        assertEquals(true, board.getHexagonAt(upperLeft).containsPieces());
+        assertEquals(HexagonOccupationStatus.MEEPLE , board.getHexagonAt(upperLeft).getOccupationStatus());
+        assertEquals(Player_Color, board.getHexagonAt(upperLeft).getOccupationColor());
     }
 }

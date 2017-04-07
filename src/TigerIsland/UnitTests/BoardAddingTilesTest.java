@@ -26,17 +26,17 @@ public class BoardAddingTilesTest {
         Coordinate TestCoordinate2 = new Coordinate(99,100);
         Coordinate TestCoordinate3 = new Coordinate(99,101);
 
-        assertEquals(Terrain.VOLCANO, TestBoard.getHexagon( TestCoordinate1).getTerrain());
+        assertEquals(Terrain.VOLCANO, TestBoard.getHexagonAt( TestCoordinate1).getTerrain());
 
-        assertEquals(Terrain.LAKE, TestBoard.getHexagon( TestCoordinate2).getTerrain());
+        assertEquals(Terrain.LAKE, TestBoard.getHexagonAt( TestCoordinate2).getTerrain());
 
-        assertEquals(Terrain.GRASS, TestBoard.getHexagon( TestCoordinate3).getTerrain());
+        assertEquals(Terrain.GRASS, TestBoard.getHexagonAt( TestCoordinate3).getTerrain());
 
-        assertEquals(1, TestBoard.getHexagon( TestCoordinate1).getLevel());
+        assertEquals(1, TestBoard.getHexagonAt( TestCoordinate1).getLevel());
 
-        assertEquals(1, TestBoard.getHexagon( TestCoordinate2).getLevel());
+        assertEquals(1, TestBoard.getHexagonAt( TestCoordinate2).getLevel());
 
-        assertEquals(1, TestBoard.getHexagon( TestCoordinate3).getLevel());
+        assertEquals(1, TestBoard.getHexagonAt( TestCoordinate3).getLevel());
     }
 
     @Test
@@ -50,17 +50,17 @@ public class BoardAddingTilesTest {
         Coordinate TestCoordinate2 = new Coordinate(99,100);
         Coordinate TestCoordinate3 = new Coordinate(99,101);
 
-        assertEquals(Terrain.VOLCANO, TestBoard.getHexagon( TestCoordinate1).getTerrain());
+        assertEquals(Terrain.VOLCANO, TestBoard.getHexagonAt( TestCoordinate1).getTerrain());
 
-        assertEquals(Terrain.LAKE, TestBoard.getHexagon( TestCoordinate2).getTerrain());
+        assertEquals(Terrain.LAKE, TestBoard.getHexagonAt( TestCoordinate2).getTerrain());
 
-        assertEquals(Terrain.GRASS, TestBoard.getHexagon( TestCoordinate3).getTerrain());
+        assertEquals(Terrain.GRASS, TestBoard.getHexagonAt( TestCoordinate3).getTerrain());
 
-        assertEquals(1, TestBoard.getHexagon(TestCoordinate1).getLevel());
+        assertEquals(1, TestBoard.getHexagonAt(TestCoordinate1).getLevel());
 
-        assertEquals(1, TestBoard.getHexagon(TestCoordinate2).getLevel());
+        assertEquals(1, TestBoard.getHexagonAt(TestCoordinate2).getLevel());
 
-        assertEquals(1, TestBoard.getHexagon(TestCoordinate3).getLevel());
+        assertEquals(1, TestBoard.getHexagonAt(TestCoordinate3).getLevel());
     }
 
     @Test
@@ -77,17 +77,17 @@ public class BoardAddingTilesTest {
        boolean success = TestBoard.placeTile(
                new TileMove(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.LOWERLEFT, new Coordinate(98, 100)));
 
-        assertEquals(Terrain.VOLCANO, TestBoard.getHexagon(TestCoordinate1).getTerrain());
+        assertEquals(Terrain.VOLCANO, TestBoard.getHexagonAt(TestCoordinate1).getTerrain());
 
-        assertEquals(Terrain.ROCK, TestBoard.getHexagon(TestCoordinate2).getTerrain());
+        assertEquals(Terrain.ROCK, TestBoard.getHexagonAt(TestCoordinate2).getTerrain());
 
-        assertEquals(Terrain.JUNGLE, TestBoard.getHexagon(TestCoordinate3).getTerrain());
+        assertEquals(Terrain.JUNGLE, TestBoard.getHexagonAt(TestCoordinate3).getTerrain());
 
-        assertEquals(1, TestBoard.getHexagon(TestCoordinate1).getLevel());
+        assertEquals(1, TestBoard.getHexagonAt(TestCoordinate1).getLevel());
 
-        assertEquals(1, TestBoard.getHexagon(TestCoordinate2).getLevel());
+        assertEquals(1, TestBoard.getHexagonAt(TestCoordinate2).getLevel());
 
-        assertEquals(1, TestBoard.getHexagon(TestCoordinate3).getLevel());
+        assertEquals(1, TestBoard.getHexagonAt(TestCoordinate3).getLevel());
 
         assertEquals(true, success);
     }
@@ -106,17 +106,17 @@ public class BoardAddingTilesTest {
         boolean success = TestBoard.placeTile(
                 new TileMove(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.LOWERLEFT, new Coordinate(98, 50)));
 
-        assertEquals(Terrain.EMPTY, TestBoard.getHexagon(TestCoordinate1).getTerrain());
+        assertEquals(Terrain.EMPTY, TestBoard.getHexagonAt(TestCoordinate1).getTerrain());
 
-        assertEquals(Terrain.EMPTY, TestBoard.getHexagon(TestCoordinate2).getTerrain());
+        assertEquals(Terrain.EMPTY, TestBoard.getHexagonAt(TestCoordinate2).getTerrain());
 
-        assertEquals(Terrain.EMPTY, TestBoard.getHexagon(TestCoordinate3).getTerrain());
+        assertEquals(Terrain.EMPTY, TestBoard.getHexagonAt(TestCoordinate3).getTerrain());
 
-        assertEquals(0, TestBoard.getHexagon(TestCoordinate1).getLevel());
+        assertEquals(0, TestBoard.getHexagonAt(TestCoordinate1).getLevel());
 
-        assertEquals(0, TestBoard.getHexagon(TestCoordinate2).getLevel());
+        assertEquals(0, TestBoard.getHexagonAt(TestCoordinate2).getLevel());
 
-        assertEquals(0, TestBoard.getHexagon(TestCoordinate3).getLevel());
+        assertEquals(0, TestBoard.getHexagonAt(TestCoordinate3).getLevel());
 
         assertEquals(false, success);
     }
@@ -132,9 +132,9 @@ public class BoardAddingTilesTest {
         boolean isSuccess = TestBoard.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.LAKE), HexagonNeighborDirection.UPPERLEFT, new Coordinate(100, 100)));
         assertEquals(true, isSuccess);
 
-        Hexagon newVolcano = TestBoard.getHexagon(new Coordinate(100,100));
-        Hexagon newRock = TestBoard.getHexagon(new Coordinate(99,101));
-        Hexagon newBeach = TestBoard.getHexagon(new Coordinate(100,101));
+        Hexagon newVolcano = TestBoard.getHexagonAt(new Coordinate(100,100));
+        Hexagon newRock = TestBoard.getHexagonAt(new Coordinate(99,101));
+        Hexagon newBeach = TestBoard.getHexagonAt(new Coordinate(100,101));
 
         assertEquals(2, newVolcano.getLevel());
         assertEquals(2, newRock.getLevel());
@@ -144,9 +144,9 @@ public class BoardAddingTilesTest {
         assertEquals(Terrain.ROCK, newRock.getTerrain());
         assertEquals(Terrain.LAKE, newBeach.getTerrain());
 
-        assertEquals(Terrain.LAKE, TestBoard.getHexagon(new Coordinate(99,100)).getTerrain());
-        assertEquals(Terrain.ROCK, TestBoard.getHexagon(new Coordinate(101,101)).getTerrain());
-        assertEquals(Terrain.JUNGLE, TestBoard.getHexagon(new Coordinate(101,100)).getTerrain());
+        assertEquals(Terrain.LAKE, TestBoard.getHexagonAt(new Coordinate(99,100)).getTerrain());
+        assertEquals(Terrain.ROCK, TestBoard.getHexagonAt(new Coordinate(101,101)).getTerrain());
+        assertEquals(Terrain.JUNGLE, TestBoard.getHexagonAt(new Coordinate(101,100)).getTerrain());
 
     }
 

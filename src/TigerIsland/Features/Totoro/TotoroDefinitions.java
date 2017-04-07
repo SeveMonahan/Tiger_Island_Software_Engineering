@@ -57,7 +57,7 @@ public class TotoroDefinitions {
         Player player = new Player(Color.WHITE);
         TotoroConstructionMove newTotoro = new TotoroConstructionMove(new Coordinate(100, 100));
 
-        Hexagon hexagon = board.getHexagon(new Coordinate(100, 100));
+        Hexagon hexagon = board.getHexagonAt(new Coordinate(100, 100));
         hexagon.setOccupationStatus(Color.WHITE, newTotoro);
     }
 

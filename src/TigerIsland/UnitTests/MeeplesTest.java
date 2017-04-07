@@ -19,7 +19,7 @@ public class MeeplesTest {
 
         Coordinate coordinate = new Coordinate(101, 100);
 
-        Hexagon hexagon = board.getHexagon(coordinate);
+        Hexagon hexagon = board.getHexagonAt(coordinate);
 
         Player player = new Player(Color.WHITE);
 
@@ -36,8 +36,8 @@ public class MeeplesTest {
         TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASS), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
         Board board = boardWithTile;
-        Coordinate coordinate = new Coordinate(100,100).getNeighboringCoordinate(HexagonNeighborDirection.LEFT);
-        Hexagon hexagon = board.getHexagon(coordinate);
+        Coordinate coordinate = new Coordinate(100,100).getNeighboringCoordinateAt(HexagonNeighborDirection.LEFT);
+        Hexagon hexagon = board.getHexagonAt(coordinate);
         Player player = new Player(Color.WHITE);
 
         player.placeMeepleOnHexagon(coordinate, board);
@@ -53,8 +53,8 @@ public class MeeplesTest {
         TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASS), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
         Board board = boardWithTile;
-        Coordinate coordinate = new Coordinate(100,100).getNeighboringCoordinate(HexagonNeighborDirection.LEFT);
-        Hexagon hexagon = board.getHexagon(coordinate);
+        Coordinate coordinate = new Coordinate(100,100).getNeighboringCoordinateAt(HexagonNeighborDirection.LEFT);
+        Hexagon hexagon = board.getHexagonAt(coordinate);
         Player player = new Player(Color.WHITE);
 
         player.placeMeepleOnHexagon(coordinate, board);
@@ -70,8 +70,8 @@ public class MeeplesTest {
         TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASS), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
         Board board = boardWithTile;
-        Coordinate coordinate = new Coordinate(101,100).getNeighboringCoordinate(HexagonNeighborDirection.LEFT);
-        Hexagon hexagon = board.getHexagon(coordinate);
+        Coordinate coordinate = new Coordinate(101,100).getNeighboringCoordinateAt(HexagonNeighborDirection.LEFT);
+        Hexagon hexagon = board.getHexagonAt(coordinate);
         Player player = new Player(Color.WHITE);
 
         player.placeMeepleOnHexagon(coordinate, board);
@@ -92,7 +92,7 @@ public class MeeplesTest {
 
         Coordinate Level2Coordinate = new Coordinate(100, 100);
 
-        Hexagon hexagon = board.getHexagon(Level2Coordinate);
+        Hexagon hexagon = board.getHexagonAt(Level2Coordinate);
 
         Player player = new Player(Color.WHITE);
 
@@ -113,7 +113,7 @@ public class MeeplesTest {
         board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.ROCK), HexagonNeighborDirection.LOWERRIGHT, new Coordinate(100, 101)));
 
         Coordinate testCoordinate = new Coordinate (100, 100);
-        Hexagon hexagon = board.getHexagon(testCoordinate);
+        Hexagon hexagon = board.getHexagonAt(testCoordinate);
         Player player = new Player(Color.WHITE);
 
         boolean success = player.placeMeepleOnHexagon(testCoordinate, board);
@@ -134,7 +134,7 @@ public class MeeplesTest {
         board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.ROCK), HexagonNeighborDirection.LOWERRIGHT, new Coordinate(100, 101)));
 
         Coordinate testCoordinate = new Coordinate (100, 100);
-        Hexagon hexagon = board.getHexagon(testCoordinate);
+        Hexagon hexagon = board.getHexagonAt(testCoordinate);
 
         Player player = new Player(Color.WHITE);
 
@@ -159,7 +159,7 @@ public class MeeplesTest {
 
         Coordinate testCoordinate = new Coordinate (100, 100);
 
-        Hexagon hexagon = board.getHexagon(new Coordinate(100, 100));
+        Hexagon hexagon = board.getHexagonAt(new Coordinate(100, 100));
 
         Player player = new Player(Color.WHITE);
 
@@ -179,7 +179,7 @@ public class MeeplesTest {
 
         Coordinate testCoordinate = new Coordinate(100, 100);
 
-        Hexagon hexagon = board.getHexagon(testCoordinate);
+        Hexagon hexagon = board.getHexagonAt(testCoordinate);
 
         Player player = new Player(Color.WHITE);
 
@@ -201,8 +201,8 @@ public class MeeplesTest {
         Coordinate testCoordinateOne = new Coordinate(99, 101);
         Coordinate testCoordinateTwo = new Coordinate(99, 100);
 
-        Hexagon hexagonOne = board.getHexagon(testCoordinateOne);
-        Hexagon hexagonTwo = board.getHexagon(testCoordinateTwo);
+        Hexagon hexagonOne = board.getHexagonAt(testCoordinateOne);
+        Hexagon hexagonTwo = board.getHexagonAt(testCoordinateTwo);
 
         Player player = new Player(Color.WHITE);
 
