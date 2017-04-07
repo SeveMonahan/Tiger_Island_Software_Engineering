@@ -19,14 +19,14 @@ public class BoardDefinitions {
 
         TestHexagon.changeTerrainTypeThoughExplosion(Terrain.ROCK);
 
-        board.setHexagon(new Coordinate(102,101), TestHexagon);
-        board.setHexagon(new Coordinate(100,101), TestHexagon);
+        board.setHexagonAt(new Coordinate(102,101), TestHexagon);
+        board.setHexagonAt(new Coordinate(100,101), TestHexagon);
 
-        board.setHexagon(new Coordinate(101,100), TestHexagon);
-        board.setHexagon(new Coordinate(101,102), TestHexagon);
+        board.setHexagonAt(new Coordinate(101,100), TestHexagon);
+        board.setHexagonAt(new Coordinate(101,102), TestHexagon);
 
-        board.setHexagon(new Coordinate(102,100), TestHexagon);
-        board.setHexagon(new Coordinate(102,102), TestHexagon);
+        board.setHexagonAt(new Coordinate(102,100), TestHexagon);
+        board.setHexagonAt(new Coordinate(102,102), TestHexagon);
     }
 
     @When("^I query a Hexagon's neighbors$")

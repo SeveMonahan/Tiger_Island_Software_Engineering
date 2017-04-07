@@ -13,7 +13,7 @@ public class TigerConstructionMove extends ConstructionMoveJustCoordinate {
 
     @Override
     public int numberPiecesRequiredToPreformMove(Player player, Board board) {
-        Hexagon hexagon = board.getHexagon(coordinate);
+        Hexagon hexagon = board.getHexagonAt(coordinate);
 
         if (hexagon.isVolcano()) {
             return 1000;
@@ -29,7 +29,7 @@ public class TigerConstructionMove extends ConstructionMoveJustCoordinate {
 
         Coordinate[] neighbors = coordinate.getNeighboringCoordinates();
         for (Coordinate neighbor: neighbors) {
-            Hexagon hexagonNeighbor = board.getHexagon(neighbor);
+            Hexagon hexagonNeighbor = board.getHexagonAt(neighbor);
             if( hexagonNeighbor.containsPieces() ) {
                 return 1;
             }
@@ -43,7 +43,7 @@ public class TigerConstructionMove extends ConstructionMoveJustCoordinate {
     public void makePreverifiedMove(Player player, Board board) {
         player.substractTiger();
 
-        Hexagon hexagon = board.getHexagon(coordinate);
+        Hexagon hexagon = board.getHexagonAt(coordinate);
         hexagon.setOccupationStatus(player.getColor(), this);
 
         player.addScore(75);

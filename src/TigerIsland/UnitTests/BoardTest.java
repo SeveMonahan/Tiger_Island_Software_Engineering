@@ -3,8 +3,6 @@ package TigerIsland.UnitTests;
 import TigerIsland.*;
 import org.junit.Test;
 
-import java.util.Set;
-
 import static org.junit.Assert.assertEquals;
 
 public class BoardTest {
@@ -16,7 +14,7 @@ public class BoardTest {
     @Test
     public void getHexagon() throws Exception{
         Board TestBoard = new Board();
-        assert(TestBoard.getHexagon( new Coordinate(0,0))
+        assert(TestBoard.getHexagonAt( new Coordinate(0,0))
                 instanceof Hexagon);
     }
 
@@ -29,9 +27,9 @@ public class BoardTest {
         Coordinate TestCoordinate = new Coordinate(0, 0);
         TestHexagon.changeTerrainTypeThoughExplosion(Terrain.ROCK);
 
-        TestBoard.setHexagon(TestCoordinate,TestHexagon);
+        TestBoard.setHexagonAt(TestCoordinate,TestHexagon);
 
-        Hexagon ReturnedHexagon = TestBoard.getHexagon(TestCoordinate);
+        Hexagon ReturnedHexagon = TestBoard.getHexagonAt(TestCoordinate);
 
         assertEquals(1, ReturnedHexagon.getLevel());
 
@@ -42,7 +40,7 @@ public class BoardTest {
         Board TestBoard = new Board();
         TestBoard.placeStartingTile();
         Coordinate centerCoord = new Coordinate(100, 100);
-        Hexagon center = TestBoard.getHexagon(centerCoord);
+        Hexagon center = TestBoard.getHexagonAt(centerCoord);
         Hexagon upperLeft = TestBoard.getNeighboringHexagon(centerCoord, HexagonNeighborDirection.UPPERLEFT);
         Hexagon upperRight = TestBoard.getNeighboringHexagon(centerCoord, HexagonNeighborDirection.UPPERRIGHT);
         Hexagon lowerRight = TestBoard.getNeighboringHexagon(centerCoord, HexagonNeighborDirection.LOWERRIGHT);
@@ -62,14 +60,14 @@ public class BoardTest {
 
         TestHexagon.changeTerrainTypeThoughExplosion(Terrain.ROCK);
 
-        TestBoard.setHexagon(new Coordinate(102,101), TestHexagon);
-        TestBoard.setHexagon(new Coordinate(100,101), TestHexagon);
+        TestBoard.setHexagonAt(new Coordinate(102,101), TestHexagon);
+        TestBoard.setHexagonAt(new Coordinate(100,101), TestHexagon);
 
-        TestBoard.setHexagon(new Coordinate(101,100), TestHexagon);
-        TestBoard.setHexagon(new Coordinate(101,102), TestHexagon);
+        TestBoard.setHexagonAt(new Coordinate(101,100), TestHexagon);
+        TestBoard.setHexagonAt(new Coordinate(101,102), TestHexagon);
 
-        TestBoard.setHexagon(new Coordinate(102,100), TestHexagon);
-        TestBoard.setHexagon(new Coordinate(102,102), TestHexagon);
+        TestBoard.setHexagonAt(new Coordinate(102,100), TestHexagon);
+        TestBoard.setHexagonAt(new Coordinate(102,102), TestHexagon);
 
         Hexagon[] neighbors = TestBoard.getNeighboringHexagons(new Coordinate(101,101));
 
@@ -86,14 +84,14 @@ public class BoardTest {
 
         TestHexagon.changeTerrainTypeThoughExplosion(Terrain.ROCK);
 
-        TestBoard.setHexagon( new Coordinate(53,52), TestHexagon);
-        TestBoard.setHexagon( new Coordinate(51,52), TestHexagon);
+        TestBoard.setHexagonAt( new Coordinate(53,52), TestHexagon);
+        TestBoard.setHexagonAt( new Coordinate(51,52), TestHexagon);
 
-        TestBoard.setHexagon( new Coordinate(52,51), TestHexagon);
-        TestBoard.setHexagon( new Coordinate(52,53), TestHexagon);
+        TestBoard.setHexagonAt( new Coordinate(52,51), TestHexagon);
+        TestBoard.setHexagonAt( new Coordinate(52,53), TestHexagon);
 
-        TestBoard.setHexagon( new Coordinate(51,51), TestHexagon);
-        TestBoard.setHexagon( new Coordinate(51,53), TestHexagon);
+        TestBoard.setHexagonAt( new Coordinate(51,51), TestHexagon);
+        TestBoard.setHexagonAt( new Coordinate(51,53), TestHexagon);
 
         Hexagon[] neighbors = TestBoard.getNeighboringHexagons(new Coordinate(52,52));
 
@@ -111,14 +109,14 @@ public class BoardTest {
 
         TestHexagon.changeTerrainTypeThoughExplosion(Terrain.ROCK);
 
-        TestBoard.setHexagon( new Coordinate(70,70), TestHexagon);
-        TestBoard.setHexagon( new Coordinate(72,70), TestHexagon);
+        TestBoard.setHexagonAt( new Coordinate(70,70), TestHexagon);
+        TestBoard.setHexagonAt( new Coordinate(72,70), TestHexagon);
 
-        TestBoard.setHexagon( new Coordinate(70,71), TestHexagon);
-        TestBoard.setHexagon( new Coordinate(71,71), TestHexagon);
+        TestBoard.setHexagonAt( new Coordinate(70,71), TestHexagon);
+        TestBoard.setHexagonAt( new Coordinate(71,71), TestHexagon);
 
-        TestBoard.setHexagon( new Coordinate(70,69), TestHexagon);
-        TestBoard.setHexagon( new Coordinate(71,69), TestHexagon);
+        TestBoard.setHexagonAt( new Coordinate(70,69), TestHexagon);
+        TestBoard.setHexagonAt( new Coordinate(71,69), TestHexagon);
 
         Hexagon[] neighbors = TestBoard.getNeighboringHexagons(new Coordinate(71,70));
 
@@ -152,11 +150,11 @@ public class BoardTest {
         Boolean result = settlement.expandSettlementWithCheck(TestBoard, player, Terrain.GRASS);
 
         assertEquals(true, result);
-        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagon(new Coordinate(100, 101)).getOccupationStatus() );
+        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagonAt(new Coordinate(100, 101)).getOccupationStatus() );
 
-        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagon(new Coordinate(99, 100)).getOccupationStatus() );
+        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagonAt(new Coordinate(99, 100)).getOccupationStatus() );
 
-        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagon(new Coordinate(99, 101)).getOccupationStatus() );
+        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagonAt(new Coordinate(99, 101)).getOccupationStatus() );
     }
 
     @Test
@@ -183,9 +181,9 @@ public class BoardTest {
         // Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(99, 101), Terrain.GRASS);
 
         assertEquals(true, result);
-        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagon(new Coordinate(100, 101)).getOccupationStatus() );
+        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagonAt(new Coordinate(100, 101)).getOccupationStatus() );
 
-        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagon(new Coordinate(99, 100)).getOccupationStatus() );
+        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagonAt(new Coordinate(99, 100)).getOccupationStatus() );
     }
 
     @Test
@@ -214,6 +212,6 @@ public class BoardTest {
 
         assertEquals(true, result);
 
-        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagon(new Coordinate(99, 100)).getOccupationStatus() );
+        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagonAt(new Coordinate(99, 100)).getOccupationStatus() );
     }
 }

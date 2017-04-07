@@ -1,5 +1,4 @@
 package TigerIsland;
-import java.lang.Math;
 
 public class Coordinate {
     private int x;
@@ -47,7 +46,7 @@ public class Coordinate {
         }
     }
 
-    public Coordinate getNeighboringCoordinate(HexagonNeighborDirection direction) {
+    public Coordinate getNeighboringCoordinateAt(HexagonNeighborDirection direction) {
         int x = getX();
         int y = getY();
         switch(direction){
@@ -72,7 +71,7 @@ public class Coordinate {
         int i = 0;
         Coordinate[] neighbors = new Coordinate[6];
         for(HexagonNeighborDirection direction : HexagonNeighborDirection.values()) {
-            neighbors[i] = this.getNeighboringCoordinate(direction);
+            neighbors[i] = this.getNeighboringCoordinateAt(direction);
             i++;
         }
         return neighbors;

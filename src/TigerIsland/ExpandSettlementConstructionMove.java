@@ -38,7 +38,7 @@ public class ExpandSettlementConstructionMove implements ConstructionMoveInterna
 
         while(!expansion.isEmpty()){
             Coordinate expansionCoordinate = expansion.remove();
-            Hexagon hexagon = board.getHexagon(expansionCoordinate);
+            Hexagon hexagon = board.getHexagonAt(expansionCoordinate);
             hexagon.setOccupationStatus(player.getColor(), this);
             player.addScore(hexagon.getLevel() * hexagon.getLevel());
         }

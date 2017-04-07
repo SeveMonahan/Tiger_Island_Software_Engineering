@@ -1,7 +1,5 @@
 package TigerIsland;
 
-import java.util.Set;
-
 public class TileMoveChecker {
     // Members
     private Board board;
@@ -89,7 +87,7 @@ public class TileMoveChecker {
         HexagonNeighborDirection neighborOneDirection = tileMove.getDirection();
         HexagonNeighborDirection neighborTwoDirection = tileMove.getDirection().getNextClockwise();
 
-        Hexagon hexagonUnderVolcano = board.getHexagon(volcanoCoordinate);
+        Hexagon hexagonUnderVolcano = board.getHexagonAt(volcanoCoordinate);
         Hexagon hexagonUnderNeighborOne = board.getNeighboringHexagon(volcanoCoordinate, neighborOneDirection);
         Hexagon hexagonUnderNeighborTwo = board.getNeighboringHexagon(volcanoCoordinate, neighborTwoDirection);
 
@@ -104,8 +102,8 @@ public class TileMoveChecker {
         HexagonNeighborDirection neighborOneDirection = tileMove.getDirection();
         HexagonNeighborDirection neighborTwoDirection = tileMove.getDirection().getNextClockwise();
 
-        Coordinate neighborOneCoordinate = volcanoCoordinate.getNeighboringCoordinate(neighborOneDirection);
-        Coordinate neighborTwoCoordinate = volcanoCoordinate.getNeighboringCoordinate(neighborTwoDirection);
+        Coordinate neighborOneCoordinate = volcanoCoordinate.getNeighboringCoordinateAt(neighborOneDirection);
+        Coordinate neighborTwoCoordinate = volcanoCoordinate.getNeighboringCoordinateAt(neighborTwoDirection);
 
         Coordinate[] tileCoordinates = new Coordinate[3];
         tileCoordinates[0] = volcanoCoordinate;

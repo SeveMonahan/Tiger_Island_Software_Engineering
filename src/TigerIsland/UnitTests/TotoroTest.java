@@ -23,7 +23,7 @@ public class TotoroTest {
         Player player = new Player(Color.WHITE);
         TotoroConstructionMove newTotoro = new TotoroConstructionMove(new Coordinate(100, 100));
 
-        Hexagon hexagon = board.getHexagon(new Coordinate(100, 100));
+        Hexagon hexagon = board.getHexagonAt(new Coordinate(100, 100));
         hexagon.setOccupationStatus(Color.WHITE, newTotoro);
 
         boolean isValidMove = board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.ROCK), HexagonNeighborDirection.LOWERRIGHT, new Coordinate(100, 101)));
@@ -37,14 +37,14 @@ public class TotoroTest {
         TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASS), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
         Board board = boardWithTile;
-        Coordinate coordinate = new Coordinate(101,100).getNeighboringCoordinate(HexagonNeighborDirection.LEFT);
+        Coordinate coordinate = new Coordinate(101,100).getNeighboringCoordinateAt(HexagonNeighborDirection.LEFT);
         Player player = new Player(Color.WHITE);
 
         player.placeTotoroOnHexagon(coordinate, board);
 
         assertEquals(0, player.getScore());
         assertEquals(3, player.getTotoroCount());
-        Hexagon hexagon = board.getHexagon(coordinate);
+        Hexagon hexagon = board.getHexagonAt(coordinate);
         assertEquals(HexagonOccupationStatus.EMPTY, hexagon.getOccupationStatus());
     }
 
@@ -60,7 +60,7 @@ public class TotoroTest {
 
         assertEquals(0, player.getScore());
         assertEquals(3, player.getTotoroCount());
-        Hexagon hexagon = board.getHexagon(coordinate);
+        Hexagon hexagon = board.getHexagonAt(coordinate);
         assertEquals(HexagonOccupationStatus.EMPTY, hexagon.getOccupationStatus());
     }
 
@@ -73,7 +73,7 @@ public class TotoroTest {
         Player player = new Player(Color.WHITE);
 
         for(HexagonNeighborDirection direction : HexagonNeighborDirection.values()) {
-            assertEquals(true, player.placeMeepleOnHexagon(new Coordinate(100, 100).getNeighboringCoordinate(direction), board));
+            assertEquals(true, player.placeMeepleOnHexagon(new Coordinate(100, 100).getNeighboringCoordinateAt(direction), board));
         }
 
         return board;

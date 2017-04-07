@@ -5,25 +5,26 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Board {
+    // Members
     private Hexagon[][] hexagonArray;
-
     private int minX;
     private int maxX;
     private int minY;
     private int maxY;
 
+    // Getters
+    public Hexagon[][] getHexagonArray(){
+        return hexagonArray;
+    }
     public int getMinXRange(){
         return minX - 2;
     }
-
     public int getMaxXRange(){
         return maxX + 2;
     }
-
     public int getMinYRange(){
         return minY - 2;
     }
-
     public int getMaxYRange(){
         return maxY + 2;
     }
@@ -32,23 +33,18 @@ public class Board {
         return new Board(board);
     }
 
-    // Getters
-    public Hexagon getHexagon(Coordinate coordinate){
-
-        Hexagon hex = hexagonArray[coordinate.getX()][coordinate.getY()];
-
-        if(hex == null){
-            Hexagon new_hex = new Hexagon();
-            hexagonArray[coordinate.getX()][coordinate.getY()] = new_hex;
-            return new_hex;
+    public Hexagon getHexagonAt(Coordinate coordinate){
+        Hexagon hexagon = hexagonArray[coordinate.getX()][coordinate.getY()];
+        if(hexagon == null) {
+            Hexagon newHexagon = new Hexagon();
+            hexagonArray[coordinate.getX()][coordinate.getY()] = newHexagon;
+            return newHexagon;
         }
-
-        return hex;
+        return hexagon;
     }
-
     public Hexagon getNeighboringHexagon(Coordinate coordinate, HexagonNeighborDirection direction) {
-        Coordinate neighborCoordinate = coordinate.getNeighboringCoordinate(direction);
-        return getHexagon(neighborCoordinate);
+        Coordinate neighborCoordinate = coordinate.getNeighboringCoordinateAt(direction);
+        return getHexagonAt(neighborCoordinate);
     }
     public Hexagon[] getNeighboringHexagons(Coordinate coordinate) {
         int i = 0;
@@ -61,14 +57,14 @@ public class Board {
     }
 
     // Setters
-    public void setHexagon(Coordinate coordinate, Hexagon hexagon){
+    public void setHexagonAt(Coordinate coordinate, Hexagon hexagon){
         hexagonArray[coordinate.getX()][coordinate.getY()] = hexagon;
 
-        setMaxRange(coordinate);
+        updateCoordinateRange(coordinate);
     }
 
-    private void setMaxRange(Coordinate coordinate){
-        if(minX > coordinate.getX()){
+    private void updateCoordinateRange(Coordinate coordinate){
+        if(minX > coordinate.getX()) {
             minX = coordinate.getX();
         }
 
@@ -76,7 +72,7 @@ public class Board {
             maxX = coordinate.getX();
         }
 
-        if(minY > coordinate.getY()){
+        if(minY > coordinate.getY()) {
             minY = coordinate.getY();
         }
 
@@ -84,37 +80,33 @@ public class Board {
             maxY = coordinate.getY();
         }
     }
+
     // Constructors
+    // Coordinate (100, 100) is the center of the board.
     public Board(){
         initializeHexagonArray();
         minX = 98;
         maxX = 102;
         minY = 98;
         maxY = 102;
-
     }
-    // Coordinate (100, 100) is the center of the board.
 
-    Hexagon[][] getHexagonArray(){
-        return hexagonArray;
-    }
-    private Board(Board original){
-        Hexagon OldhexagonArray[][] = original.getHexagonArray();
+    private Board(Board originalBoard) {
+        Hexagon oldHexagonArray[][] = originalBoard.getHexagonArray();
         hexagonArray = new Hexagon[200][200];
 
-        minX = original.minX;
-        maxX = original.maxX;
-        minY = original.minY;
-        maxY = original.maxY;
+        minX = originalBoard.minX;
+        maxX = originalBoard.maxX;
+        minY = originalBoard.minY;
+        maxY = originalBoard.maxY;
 
         for(int i = minX; i < maxX; i++) {
             for (int j = minY; j < maxY; j++) {
-                Hexagon OldHexagon = OldhexagonArray[i][j];
-                Hexagon NewHexagon = Hexagon.cloneHexagon(OldHexagon);
-                hexagonArray[i][j] = NewHexagon;
+                Hexagon oldHexagon = oldHexagonArray[i][j];
+                Hexagon newHexagon = Hexagon.cloneHexagon(oldHexagon);
+                hexagonArray[i][j] = newHexagon;
             }
         }
-
     }
 
     // Methods
@@ -125,7 +117,7 @@ public class Board {
     public void placeStartingTile() {
         Coordinate coordCenter = new Coordinate(100,100);
 
-        Hexagon volcanoHex = this.getHexagon(coordCenter);
+        Hexagon volcanoHex = this.getHexagonAt(coordCenter);
         Hexagon upperLeft = this.getNeighboringHexagon(coordCenter, HexagonNeighborDirection.UPPERLEFT);
         Hexagon upperRight = this.getNeighboringHexagon(coordCenter, HexagonNeighborDirection.UPPERRIGHT);
         Hexagon lowerRight = this.getNeighboringHexagon(coordCenter, HexagonNeighborDirection.LOWERRIGHT);
@@ -166,7 +158,7 @@ public class Board {
     }
 
     public boolean isEmpty() {
-        Hexagon startingHexagon = this.getHexagon(new Coordinate(100,100));
+        Hexagon startingHexagon = this.getHexagonAt(new Coordinate(100,100));
         if (startingHexagon.getLevel() == 0) {
             return true;
         }
@@ -180,7 +172,7 @@ public class Board {
         HashMap map = new HashMap();
         Queue<Coordinate> coordinateQueue = new LinkedList<>();
         Coordinate currentCoordinate = coordinate;
-        Hexagon currentHexagon = getHexagon(currentCoordinate);
+        Hexagon currentHexagon = getHexagonAt(currentCoordinate);
         if (currentHexagon.containsPieces()) {
             Color playerColor = currentHexagon.getOccupationColor();
             if (currentHexagon.getOccupationColor() == playerColor) {
@@ -188,12 +180,12 @@ public class Board {
             }
             while (!coordinateQueue.isEmpty()) {
                 currentCoordinate = coordinateQueue.remove();
-                currentHexagon = getHexagon(currentCoordinate);
+                currentHexagon = getHexagonAt(currentCoordinate);
                 map.put(currentCoordinate,true);
                 settlementQueue.add(currentCoordinate);
                 Coordinate[] neighbors = currentCoordinate.getNeighboringCoordinates();
                 for (Coordinate neighbor : neighbors) {
-                    currentHexagon = getHexagon(neighbor);
+                    currentHexagon = getHexagonAt(neighbor);
                     if (!map.containsKey(neighbor)) {
                         map.put(neighbor, true);
                         if (currentHexagon.containsPieces()) {

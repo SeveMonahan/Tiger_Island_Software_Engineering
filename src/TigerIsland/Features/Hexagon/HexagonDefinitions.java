@@ -17,7 +17,7 @@ public class HexagonDefinitions {
         boardWithTile.placeTile(startingTileMove);
         Board TestBoard = boardWithTile;
         TestBoard.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(100, 101)));
-        testHex = TestBoard.getHexagon(new Coordinate(100,100));
+        testHex = TestBoard.getHexagonAt(new Coordinate(100,100));
     }
 
     @When("^I query the Hexagon's Level$")
