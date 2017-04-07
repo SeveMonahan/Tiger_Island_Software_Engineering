@@ -12,8 +12,7 @@ public class GameStateStartOfTurn extends GameState {
         return new GameStateStartOfTurn();
     }
 
-
-    public GameStateWTile getChildren(Tile tile){
+    public GameStateWTile getChild(Tile tile){
         return new GameStateWTile(this, tile);
     }
 

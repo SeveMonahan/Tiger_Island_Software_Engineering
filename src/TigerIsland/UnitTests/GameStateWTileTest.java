@@ -12,7 +12,7 @@ public class GameStateWTileTest {
     public void testChildrenStart(){
         GameStateStartOfTurn testGamestate = GameStateStartOfTurn.createInitalGameState();
 
-        GameStateWTile testGamestateTile = testGamestate.getChildren(new Tile(Terrain.JUNGLE, Terrain.JUNGLE));
+        GameStateWTile testGamestateTile = testGamestate.getChild(new Tile(Terrain.JUNGLE, Terrain.JUNGLE));
 
         ArrayList<GameStateBeforeBuildAction> final_children = testGamestateTile.getChildren();
 
