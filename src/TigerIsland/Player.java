@@ -67,12 +67,9 @@ public class Player {
         int neededTotoros = totoroMove.isValidPlace(this.color, board);
 
         if(neededTotoros < totoroCount){
-           totoroMove.makeValidPlaceIfAble(this.color, board);
            totoroCount -= neededTotoros;
-           Hexagon hexagon = board.getHexagon(coordinate);
-           hexagon.setOccupationStatus(this.color, totoroMove);
-           score += 200;
-
+           int scoreIncrease = totoroMove.makeValidMoveAndReturnPointsGained(this.color, board);
+           score += scoreIncrease;
            return true;
         }
 

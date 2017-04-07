@@ -11,10 +11,6 @@ public class TotoroConstructionMove extends ConstructionMoveJustCoordinate {
 
     public boolean canBeKilled() { return false; }
 
-    public int getPointsAfterPlacement(Hexagon occupiedHexagon) {
-        return 200;
-    }
-
     @Override
     public int isValidPlace(Color color, Board board) {
         Hexagon hexagon = board.getHexagon(coordinate);
@@ -38,8 +34,11 @@ public class TotoroConstructionMove extends ConstructionMoveJustCoordinate {
     }
 
     @Override
-    public void makeValidPlaceIfAble(Color color, Board board) {
+    public int makeValidMoveAndReturnPointsGained(Color color, Board board) {
+        Hexagon hexagon = board.getHexagon(coordinate);
+        hexagon.setOccupationStatus(color, this);
 
+        return 200;
     }
 
 
