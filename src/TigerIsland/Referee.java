@@ -12,4 +12,18 @@ public class Referee {
         this.output = output;
         this.tileBag = tileBag;
     }
+
+    public void Execute(){
+        GameStateEndOfTurn gameEndOfTurn = GameStateEndOfTurn.createInitalGameState();
+
+        while(true){
+            Tile tile = tileBag.drawTile();
+            GameStateWTile gameStateWithTile = gameEndOfTurn.getChild(tile);
+            gameEndOfTurn = controller_1.newGameState(gameStateWithTile);
+
+            tile = tileBag.drawTile();
+            gameStateWithTile = gameEndOfTurn.getChild(tile);
+            gameEndOfTurn = controller_2.newGameState(gameStateWithTile);
+        }
+    }
 }
