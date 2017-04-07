@@ -53,11 +53,6 @@ public class Player {
         meepleCount -= num;
     }
 
-    public boolean placeMeepleOnHexagon(Coordinate coordinate, Board board) {
-        Piece newPiece = new Meeple(this.color);
-        return attemptToPlacePiece(newPiece, coordinate, board);
-    }
-
     public boolean placeTotoroOnHexagon(Coordinate coordinate, Board board) {
         TotoroConstructionMove totoroMove = new TotoroConstructionMove(coordinate);
 
@@ -103,7 +98,7 @@ public class Player {
 
     }
 
-    public boolean placeSettlement(Coordinate coordinate, Board board) {
+    public boolean placeMeepleOnHexagon(Coordinate coordinate, Board board) {
         Piece meeple = new Meeple(this.color);
         Hexagon hexagon = board.getHexagon(coordinate);
         if (hexagon.getLevel() == 1) {

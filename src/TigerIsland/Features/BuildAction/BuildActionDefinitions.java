@@ -29,7 +29,7 @@ public class BuildActionDefinitions {
     @When("^I attempt to build a settlement on a non-volcano tile$")
     public void attemptToBuildSettlementNonVolcano() {
         Coordinate coordinate = new Coordinate(100,100).getNeighboringCoordinate(HexagonNeighborDirection.UPPERLEFT);
-        isValid = player.placeSettlement(coordinate, board);
+        isValid = player.placeMeepleOnHexagon(coordinate, board);
         Assert.assertEquals(true, isValid);
 
         targetHexagon = board.getHexagon(coordinate);
@@ -46,7 +46,7 @@ public class BuildActionDefinitions {
 
         player = new Player(Color.BLACK);
 
-        isValid = player.placeSettlement(coordinate, board);
+        isValid = player.placeMeepleOnHexagon(coordinate, board);
         Assert.assertEquals(false, isValid);
     }
 
@@ -54,9 +54,9 @@ public class BuildActionDefinitions {
     public void populateAllAvailableLocations() {
         Coordinate coordinate = new Coordinate(100,100).getNeighboringCoordinate(HexagonNeighborDirection.UPPERLEFT);
 
-        player.placeSettlement(coordinate, board);
+        player.placeMeepleOnHexagon(coordinate, board);
 
-        player.placeSettlement(new Coordinate(100, 100), board);
+        player.placeMeepleOnHexagon(new Coordinate(100, 100), board);
     }
 
     @Given("^A board with a tile placed on it, and all hexagons set to Level 2$")
@@ -73,7 +73,7 @@ public class BuildActionDefinitions {
     public void attemptToStartLevel2Settlement() {
         player = new Player(Color.WHITE);
 
-        player.placeSettlement(new Coordinate(100, 100), board);
+        player.placeMeepleOnHexagon(new Coordinate(100, 100), board);
     }
 
     @Then("^The tile place fails$")
@@ -92,7 +92,7 @@ public class BuildActionDefinitions {
     @When("^I attempt to build a settlement on an occupied non-volcano tile$")
     public void attemptToPlaceOnOccupiedHex() {
         player = new Player(Color.WHITE);
-        player.placeSettlement(new Coordinate(100,100), board);
+        player.placeMeepleOnHexagon(new Coordinate(100,100), board);
     }
 
 /*

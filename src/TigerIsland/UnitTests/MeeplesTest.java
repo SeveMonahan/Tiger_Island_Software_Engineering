@@ -57,7 +57,7 @@ public class MeeplesTest {
         Hexagon hexagon = board.getHexagon(coordinate);
         Player player = new Player(Color.WHITE);
 
-        player.placeSettlement(coordinate, board);
+        player.placeMeepleOnHexagon(coordinate, board);
 
         assertEquals(1, player.getScore());
         assertEquals(19, player.getMeeplesCount());
@@ -74,7 +74,7 @@ public class MeeplesTest {
         Hexagon hexagon = board.getHexagon(coordinate);
         Player player = new Player(Color.WHITE);
 
-        player.placeSettlement(coordinate, board);
+        player.placeMeepleOnHexagon(coordinate, board);
 
         assertEquals(0, player.getScore());
         assertEquals(20, player.getMeeplesCount());
@@ -96,7 +96,7 @@ public class MeeplesTest {
 
         Player player = new Player(Color.WHITE);
 
-        player.placeSettlement(Level2Coordinate, board);
+        player.placeMeepleOnHexagon(Level2Coordinate, board);
 
         assertEquals(20, player.getMeeplesCount());
         assertEquals(0, player.getScore());
@@ -116,7 +116,7 @@ public class MeeplesTest {
         Hexagon hexagon = board.getHexagon(testCoordinate);
         Player player = new Player(Color.WHITE);
 
-        boolean success = player.placeSettlement(testCoordinate, board);
+        boolean success = player.placeMeepleOnHexagon(testCoordinate, board);
 
         assertEquals(false, success);
         assertEquals(20, player.getMeeplesCount());
@@ -138,11 +138,11 @@ public class MeeplesTest {
 
         Player player = new Player(Color.WHITE);
 
-        player.placeSettlement(testCoordinate, board);
+        player.placeMeepleOnHexagon(testCoordinate, board);
 
         Player player2 = new Player(Color.BLACK);
 
-        assertEquals(false, player2.placeSettlement(testCoordinate, board));
+        assertEquals(false, player2.placeMeepleOnHexagon(testCoordinate, board));
         assertEquals(20, player.getMeeplesCount());
         assertEquals(0, player.getScore());
         assertEquals(HexagonOccupationStatus.EMPTY, hexagon.getOccupationStatus());
@@ -163,7 +163,7 @@ public class MeeplesTest {
 
         Player player = new Player(Color.WHITE);
 
-        player.placeSettlement(testCoordinate, board);
+        player.placeMeepleOnHexagon(testCoordinate, board);
 
         assertEquals(20, player.getMeeplesCount());
         assertEquals(0, player.getScore());
