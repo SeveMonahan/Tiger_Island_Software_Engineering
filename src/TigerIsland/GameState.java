@@ -104,6 +104,7 @@ public class GameState {
     }
 
     public static GameState createGameStateFromConstructionMove(GameStateBeforeBuildAction original, ConstructionMoveTransmission move) {
+
         return null;
     }
 }
