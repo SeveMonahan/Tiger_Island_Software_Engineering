@@ -15,7 +15,7 @@ public class FoundSettlementConstructionMove extends ConstructionMoveJustCoordin
     public int isValidPlace(Player player, Board board) {
         Hexagon hexagon = board.getHexagon(coordinate);
         if(!hexagon.isVolcano()
-                && hexagon.getLevel() > 0
+                && hexagon.getLevel() == 1
                 && (!hexagon.containsPieces())) {
             return 1;
         }
@@ -25,7 +25,7 @@ public class FoundSettlementConstructionMove extends ConstructionMoveJustCoordin
 
     @Override
     public void makeValidMoveAndReturnPointsGained(Player player, Board board) {
-        player.substractMeeples(1);
+        player.subtractMeeples(1);
 
         Hexagon hexagon = board.getHexagon(coordinate);
         hexagon.setOccupationStatus(player.getColor(), this);

@@ -49,8 +49,8 @@ public class Player {
         tigerCount--;
     }
 
-    public void substractMeeples(int num){
-        meepleCount -= num;
+    public void subtractMeeples(int num){
+        meepleCount = meepleCount - num;
     }
 
     public boolean placeTotoroOnHexagon(Coordinate coordinate, Board board) {
@@ -80,32 +80,16 @@ public class Player {
         return false;
     }
 
-    public boolean attemptToPlacePiece(Piece piece, Coordinate coordinate, Board board) {
-        boolean placementValid = piece.isPlacementValid(coordinate, board);
-        Hexagon hexagon = board.getHexagon(coordinate);
-        if(placementValid) {
-            hexagon.setOccupationStatusTakingPieceClass(piece);
-            deductPlacedPieces(piece, hexagon);
-            setScoreAfterPiecePlacement(piece, hexagon);
-        }
-        return placementValid;
-    }
-
-    public void deductPlacedPieces(Piece piece, Hexagon hexagon) {
-        int piecesPlaced = piece.populationRequirements(hexagon);
-        if(piece instanceof Meeple)
-            meepleCount -= piecesPlaced;
-
-    }
-
     public boolean placeMeepleOnHexagon(Coordinate coordinate, Board board) {
-        Piece meeple = new Meeple(this.color);
-        Hexagon hexagon = board.getHexagon(coordinate);
-        if (hexagon.getLevel() == 1) {
-            if (attemptToPlacePiece(meeple, coordinate, board)) {
-                return true;
-            }
+        FoundSettlementConstructionMove foundMove = new FoundSettlementConstructionMove(coordinate);
+
+        int neededMeeples = foundMove.isValidPlace(this, board);
+
+        if(neededMeeples < meepleCount){
+            foundMove.makeValidMoveAndReturnPointsGained(this, board);
+            return true;
         }
+
         return false;
     }
 }
