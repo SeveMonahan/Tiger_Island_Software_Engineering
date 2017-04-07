@@ -21,10 +21,10 @@ public class TotoroTest {
         assertEquals(true, board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.JUNGLE), HexagonNeighborDirection.RIGHT, new Coordinate(100, 101))));
 
         Player player = new Player(Color.WHITE);
-        Piece newTotoro = new Totoro(Color.WHITE);
+        TotoroConstructionMove newTotoro = new TotoroConstructionMove(new Coordinate(100, 100));
 
-        Hexagon hexagon = board.getHexagon(new Coordinate(101, 100));
-        hexagon.setOccupationStatus(newTotoro);
+        Hexagon hexagon = board.getHexagon(new Coordinate(100, 100));
+        hexagon.setOccupationStatus(Color.WHITE, newTotoro);
 
         boolean isValidMove = board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.ROCK), HexagonNeighborDirection.LOWERRIGHT, new Coordinate(100, 101)));
 

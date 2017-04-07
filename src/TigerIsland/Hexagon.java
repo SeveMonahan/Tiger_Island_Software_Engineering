@@ -26,12 +26,17 @@ public class Hexagon {
     boolean getCanBeNuked() { return canBeNuked; }
 
     // Setters
-    public void setOccupationStatus(Piece piece) {
+    public void setOccupationStatusTakingPieceClass(Piece piece) {
         occupationStatus = piece.getOccupyStatus();
         occupationColor = piece.getPieceColor();
         this.canBeNuked = piece.canBeKilled();
     }
 
+    public void setOccupationStatus(Color color, ConstructionMoveInternal move) {
+        occupationStatus = move.getOccupyStatus();
+        occupationColor = color;
+        this.canBeNuked = move.canBeKilled();
+    }
     public void setTileHashCode(int tileHashCode) {
         this.tileHashCode = tileHashCode;
     }
