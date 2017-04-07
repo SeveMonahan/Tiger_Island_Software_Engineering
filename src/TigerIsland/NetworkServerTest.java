@@ -19,7 +19,7 @@ import java.net.Socket;
        the next message from the server. This back and forth continues until server replies with "Bye."
 
 */
-public class NetworkTest {
+public class NetworkServerTest {
     public static void main(String[] args) throws IOException {
         int gid = 0;
         int cid = 0;
@@ -56,8 +56,7 @@ public class NetworkTest {
                     break;
             }
         } catch (IOException e) {
-            System.out.println("Exception caught when trying to listen on port "
-                    + portNumber + " or listening for a connection");
+            System.out.println("Problem with the connection!");
             System.out.println(e.getMessage());
         }
     }

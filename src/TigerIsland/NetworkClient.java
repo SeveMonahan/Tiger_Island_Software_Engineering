@@ -11,23 +11,23 @@ import java.net.UnknownHostException;
        The client is run after the server. It takes in the hostname and the chosen port for the arguments.
        Google
 */
-public class Network {
+public class NetworkClient {
     public static void main(String[] args) throws IOException {
 
         if (args.length != 2) {
             System.err.println(
-                    "Usage: java EchoClient <host name> <port number>");
+                    "There's a problem with the arguments!");
             System.exit(1);
         }
 
-        String hostName = args[0];
-        int portNumber = Integer.parseInt(args[1]);
+        String host = args[0];
+        int port = Integer.parseInt(args[1]);
 
         try (
-                Socket kkSocket = new Socket(hostName, portNumber);
-                PrintWriter out = new PrintWriter(kkSocket.getOutputStream(), true);
+                Socket netSocket = new Socket(host, port);
+                PrintWriter out = new PrintWriter(netSocket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(
-                        new InputStreamReader(kkSocket.getInputStream()));
+                        new InputStreamReader(netSocket.getInputStream()));
         ) {
             BufferedReader stdIn =
                     new BufferedReader(new InputStreamReader(System.in));
@@ -47,11 +47,10 @@ public class Network {
                 }
             }
         } catch (UnknownHostException e) {
-            System.err.println("Don't know about host " + hostName);
+            System.err.println("Can't find the host!");
             System.exit(1);
         } catch (IOException e) {
-            System.err.println("Couldn't get I/O for the connection to " +
-                    hostName);
+            System.err.println("Can't connect to the host!");
             System.exit(1);
         }
     }
