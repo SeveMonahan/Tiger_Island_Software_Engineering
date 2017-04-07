@@ -5,12 +5,6 @@ public class TigerConstructionMove extends ConstructionMoveJustCoordinate {
         super(coordinate);
     }
 
-    public PieceStatusHexagon getOccupyStatus(){
-        return PieceStatusHexagon.TIGER;
-    }
-
-    public boolean canBeKilled() { return true; }
-
     @Override
     public boolean canPreformMove(Player player, Board board) {
         Hexagon hexagon = board.getHexagonAt(coordinate);
@@ -39,7 +33,7 @@ public class TigerConstructionMove extends ConstructionMoveJustCoordinate {
         player.substractTiger();
 
         Hexagon hexagon = board.getHexagonAt(coordinate);
-        hexagon.setOccupationStatus(player.getColor(), this);
+        hexagon.setOccupationStatus(player.getColor(), PieceStatusHexagon.TIGER);
 
         player.addScore(75);
 

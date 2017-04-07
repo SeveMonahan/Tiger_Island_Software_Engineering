@@ -13,10 +13,6 @@ public class ExpandSettlementConstructionMove implements ConstructionMoveInterna
         this.totalMeeplesNeeded = 1000;
     }
 
-    public PieceStatusHexagon getOccupyStatus(){
-        return PieceStatusHexagon.MEEPLE;
-    }
-
     public boolean canBeKilled() { return true; }
 
     @Override
@@ -39,7 +35,7 @@ public class ExpandSettlementConstructionMove implements ConstructionMoveInterna
         while(!expansion.isEmpty()){
             Coordinate expansionCoordinate = expansion.remove();
             Hexagon hexagon = board.getHexagonAt(expansionCoordinate);
-            hexagon.setOccupationStatus(player.getColor(), this);
+            hexagon.setOccupationStatus(player.getColor(), PieceStatusHexagon.MEEPLE);
             player.addScore(hexagon.getLevel() * hexagon.getLevel());
         }
 

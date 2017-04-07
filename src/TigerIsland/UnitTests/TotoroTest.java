@@ -22,7 +22,7 @@ public class TotoroTest {
         TotoroConstructionMove newTotoro = new TotoroConstructionMove(new Coordinate(100, 100));
 
         Hexagon hexagon = board.getHexagonAt(new Coordinate(100, 100));
-        hexagon.setOccupationStatus(Color.WHITE, newTotoro);
+        hexagon.setOccupationStatus(Color.WHITE, PieceStatusHexagon.TOTORO);
 
         boolean isValidMove = board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.ROCK), HexagonNeighborDirection.LOWERRIGHT, new Coordinate(100, 101)));
 

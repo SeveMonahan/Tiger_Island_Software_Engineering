@@ -5,12 +5,6 @@ public class TotoroConstructionMove extends ConstructionMoveJustCoordinate {
         super(coordinate);
     }
 
-    public PieceStatusHexagon getOccupyStatus(){
-        return PieceStatusHexagon.TOTORO;
-    }
-
-    public boolean canBeKilled() { return false; }
-
     @Override
     public boolean canPreformMove(Player player, Board board) {
         Color color = player.getColor();
@@ -41,7 +35,7 @@ public class TotoroConstructionMove extends ConstructionMoveJustCoordinate {
         player.substractTotoro();
 
         Hexagon hexagon = board.getHexagonAt(coordinate);
-        hexagon.setOccupationStatus(player.getColor(), this);
+        hexagon.setOccupationStatus(player.getColor(), PieceStatusHexagon.TOTORO);
 
         player.addScore(200);
 

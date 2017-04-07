@@ -29,10 +29,11 @@ public class Hexagon {
     }
 
     // Setters
-    public void setOccupationStatus(Color color, ConstructionMoveInternal move) {
-        piecesStatus = move.getOccupyStatus();
+    public void setOccupationStatus(Color color, PieceStatusHexagon pieceStatus) {
+        this.piecesStatus = pieceStatus;
         occupationColor = color;
     }
+
     public void setTileHashCode(int tileHashCode) {
         this.tileHashCode = tileHashCode;
     }
