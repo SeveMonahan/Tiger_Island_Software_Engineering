@@ -12,7 +12,7 @@ public class TotoroConstructionMove extends ConstructionMoveJustCoordinate {
     public boolean canBeKilled() { return false; }
 
     @Override
-    public int isValidPlace(Player player, Board board) {
+    public int numberPiecesRequiredToPreformMove(Player player, Board board) {
         Color color = player.getColor();
 
         Hexagon hexagon = board.getHexagon(coordinate);

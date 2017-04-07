@@ -12,7 +12,7 @@ public class FoundSettlementConstructionMove extends ConstructionMoveJustCoordin
     public boolean canBeKilled() { return true; }
 
     @Override
-    public int isValidPlace(Player player, Board board) {
+    public int numberPiecesRequiredToPreformMove(Player player, Board board) {
         Hexagon hexagon = board.getHexagon(coordinate);
         if(!hexagon.isVolcano()
                 && hexagon.getLevel() == 1

@@ -56,7 +56,7 @@ public class Player {
     public boolean placeTotoroOnHexagon(Coordinate coordinate, Board board) {
         TotoroConstructionMove totoroMove = new TotoroConstructionMove(coordinate);
 
-        int neededTotoros = totoroMove.isValidPlace(this, board);
+        int neededTotoros = totoroMove.numberPiecesRequiredToPreformMove(this, board);
 
         if(neededTotoros < totoroCount){
            totoroMove.makeValidMoveAndReturnPointsGained(this, board);
@@ -70,7 +70,7 @@ public class Player {
     public boolean placeTigerOnHexagon(Coordinate coordinate, Board board) {
         TigerConstructionMove tigerMove = new TigerConstructionMove(coordinate);
 
-        int neededTigers = tigerMove.isValidPlace(this, board);
+        int neededTigers = tigerMove.numberPiecesRequiredToPreformMove(this, board);
 
         if(neededTigers < tigerCount){
             tigerMove.makeValidMoveAndReturnPointsGained(this, board);
@@ -83,7 +83,7 @@ public class Player {
     public boolean placeMeepleOnHexagon(Coordinate coordinate, Board board) {
         FoundSettlementConstructionMove foundMove = new FoundSettlementConstructionMove(coordinate);
 
-        int neededMeeples = foundMove.isValidPlace(this, board);
+        int neededMeeples = foundMove.numberPiecesRequiredToPreformMove(this, board);
 
         if(neededMeeples < meepleCount){
             foundMove.makeValidMoveAndReturnPointsGained(this, board);
