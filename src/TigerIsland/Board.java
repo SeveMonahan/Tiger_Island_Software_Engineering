@@ -102,28 +102,24 @@ public class Board {
         Hexagon OldhexagonArray[][] = original.getHexagonArray();
         hexagonArray = new Hexagon[200][200];
 
-        for(int i = 0; i < 200; i++) {
-            for (int j = 0; j < 200; j++) {
+        minX = original.minX;
+        maxX = original.maxX;
+        minY = original.minY;
+        maxY = original.maxY;
+
+        for(int i = minX; i < maxX; i++) {
+            for (int j = minY; j < maxY; j++) {
                 Hexagon OldHexagon = OldhexagonArray[i][j];
                 Hexagon NewHexagon = Hexagon.cloneHexagon(OldHexagon);
                 hexagonArray[i][j] = NewHexagon;
             }
         }
 
-        minX = original.minX;
-        maxX = original.maxX;
-        minY = original.minY;
-        maxY = original.maxY;
     }
 
     // Methods
     private void initializeHexagonArray() {
         hexagonArray = new Hexagon[200][200];
-        for(int i = 0; i < 200; i++) {
-            for(int j = 0; j < 200; j++) {
-                hexagonArray[i][j] = null;
-            }
-        }
     }
 
     public void placeStartingTile() {
