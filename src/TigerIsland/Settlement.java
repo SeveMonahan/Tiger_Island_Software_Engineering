@@ -113,28 +113,7 @@ public class Settlement {
         return false;
     }
 
-    public boolean expandSettlementWithCheck(Board board, Player player, Coordinate coordinate, Terrain terrain) {
-        Color color = board.getHexagon(coordinate).getOccupationColor();
-        HexagonOccupationStatus occupationStatus = board.getHexagon(coordinate).getOccupationStatus();
-        if( player.getColor() == color
-                && occupationStatus == HexagonOccupationStatus.MEEPLE){
-            Queue<Coordinate> settlement = expandSettlementFloodFill(board, coordinate, player, terrain);
-            if(settlement.size() <= player.getMeeplesCount()) {
-                performFloodFill(board, player, settlement );
-                return true;
-            }
-            return false;
-        }
-        return false;
-    }
-
-    private void performFloodFill(Board board, Player player, Queue<Coordinate> expansion ) {
-        while( !expansion.isEmpty() ) {
-            player.placeMeepleOnHexagon(expansion.remove(), board);
-        }
-    }
-
-    private Queue<Coordinate> expandSettlementFloodFill(Board board, Coordinate coordinate, Player player, Terrain terrain) {
+    public static Queue<Coordinate> expandSettlementFloodFill(Board board, Coordinate coordinate, Player player, Terrain terrain) {
         HashMap<Coordinate, Boolean> searched = new HashMap<>();
         Queue<Coordinate> coordinateQueue = new LinkedList<>();
         Queue<Coordinate> expansion = new LinkedList<>();
