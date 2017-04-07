@@ -59,7 +59,7 @@ public class Player {
         int neededTotoros = totoroMove.numberPiecesRequiredToPreformMove(this, board);
 
         if(neededTotoros < totoroCount){
-           totoroMove.makeValidMoveAndReturnPointsGained(this, board);
+           totoroMove.makePreverifiedMove(this, board);
            return true;
         }
 
@@ -73,7 +73,7 @@ public class Player {
         int neededTigers = tigerMove.numberPiecesRequiredToPreformMove(this, board);
 
         if(neededTigers < tigerCount){
-            tigerMove.makeValidMoveAndReturnPointsGained(this, board);
+            tigerMove.makePreverifiedMove(this, board);
             return true;
         }
 
@@ -86,7 +86,7 @@ public class Player {
         int neededMeeples = foundMove.numberPiecesRequiredToPreformMove(this, board);
 
         if(neededMeeples < meepleCount){
-            foundMove.makeValidMoveAndReturnPointsGained(this, board);
+            foundMove.makePreverifiedMove(this, board);
             return true;
         }
 

@@ -24,7 +24,7 @@ public class FoundSettlementConstructionMove extends ConstructionMoveJustCoordin
     }
 
     @Override
-    public void makeValidMoveAndReturnPointsGained(Player player, Board board) {
+    public void makePreverifiedMove(Player player, Board board) {
         player.subtractMeeples(1);
 
         Hexagon hexagon = board.getHexagon(coordinate);

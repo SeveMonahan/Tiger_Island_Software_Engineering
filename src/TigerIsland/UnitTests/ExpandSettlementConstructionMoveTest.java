@@ -26,14 +26,14 @@ public class ExpandSettlementConstructionMoveTest {
 
         assertEquals(1, move1.numberPiecesRequiredToPreformMove(player_1, board));
 
-        move1.makeValidMoveAndReturnPointsGained(player_1, board);
+        move1.makePreverifiedMove(player_1, board);
 
         /// Expand a settlement to the adjacent Jungle hexagon
         ExpandSettlementConstructionMove move2 = new ExpandSettlementConstructionMove(upperRight, Terrain.JUNGLE);
 
         assertEquals(1, move2.numberPiecesRequiredToPreformMove(player_1, board));
 
-        move2.makeValidMoveAndReturnPointsGained(player_1, board);
+        move2.makePreverifiedMove(player_1, board);
 
         Coordinate upperLeft = new Coordinate(100, 100).getNeighboringCoordinate(HexagonNeighborDirection.UPPERLEFT);
 

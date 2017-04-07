@@ -28,7 +28,7 @@ public class ExpandSettlementConstructionMove implements ConstructionMoveInterna
     }
 
     @Override
-    public void makeValidMoveAndReturnPointsGained(Player player, Board board) {
+    public void makePreverifiedMove(Player player, Board board) {
         Queue<Coordinate> expansion = Settlement.expandSettlementFloodFill(board, coordinate, player, terrain);
 
         assert(totalMeeplesNeeded != 1000);

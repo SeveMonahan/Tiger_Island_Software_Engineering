@@ -1,7 +1,7 @@
 package TigerIsland;
 
 public interface ConstructionMoveInternal{
-    void makeValidMoveAndReturnPointsGained(Player player, Board board);
+    void makePreverifiedMove(Player player, Board board);
     boolean canBeKilled();
     HexagonOccupationStatus getOccupyStatus();
 

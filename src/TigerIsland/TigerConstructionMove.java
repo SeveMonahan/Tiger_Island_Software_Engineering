@@ -40,7 +40,7 @@ public class TigerConstructionMove extends ConstructionMoveJustCoordinate {
     }
 
     @Override
-    public void makeValidMoveAndReturnPointsGained(Player player, Board board) {
+    public void makePreverifiedMove(Player player, Board board) {
         player.substractTiger();
 
         Hexagon hexagon = board.getHexagon(coordinate);
