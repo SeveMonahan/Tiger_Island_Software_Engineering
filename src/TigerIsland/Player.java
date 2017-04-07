@@ -41,23 +41,6 @@ public class Player {
     public void setScore(int newScore) { this.score = newScore; }
     public void setAutoLoseScore(){ this.score = -1; }
 
-    public boolean attemptPieceMove(ConstructionMoveTransmission constructionMove, Board board){
-        switch(constructionMove.getBuildOption()){
-            case BUILDTIGER:
-                return placeTotoroOnHexagon(constructionMove.getCoordinate(), board);
-            case BUILDTOTORO:
-                return placeTotoroOnHexagon(constructionMove.getCoordinate(), board);
-            case EXPANDSETTLEMENT:
-                // TODO impliment this.
-                return false;
-            case FOUNDSETTLEMENT:
-                return placeMeepleOnHexagon(constructionMove.getCoordinate(), board);
-            case UNABLETOBUILD:
-                return true;
-        }
-        return false;
-    }
-
     // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
     public boolean placeMeepleOnHexagon(Coordinate coordinate, Board board) {
         Piece newPiece = new Meeple(this.color);
