@@ -22,7 +22,7 @@ public class Hexagon {
     public HexagonOccupationStatus getOccupationStatus() {
         return occupationStatus;
     }
-    Color getOccupationColor() { return occupationColor; }
+    public Color getOccupationColor() { return occupationColor; }
     boolean getCanBeNuked() { return canBeNuked; }
 
     // Setters
