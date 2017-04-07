@@ -1,4 +1,4 @@
-package TigerIsland.UnitTests;
+package TigerIsland;
 
 import TigerIsland.*;
 
