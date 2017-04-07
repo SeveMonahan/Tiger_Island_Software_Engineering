@@ -7,40 +7,36 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-/*
-       The client is run after the server. It takes in the hostname and the chosen port for the arguments.
-       Google
-*/
-public class NetworkClient {
-    public static void main(String[] args) throws IOException {
+import static java.lang.Integer.parseInt;
 
-        if (args.length != 2) {
+/*
+       Arguments:
+       <hostname> <port> <tournamentPass> <username> <password>
+       Client handles authentication automatically
+*/
+
+public class NetworkClient {
+    public static int pid = 0;
+    public static void main(String[] args) throws IOException {
+        if (args.length != 5) {
             System.err.println(
-                    "There's a problem with the arguments!");
+                    "Arguments should be in this order:\n<hostname> <port> <tournamentPass> <username> <password>");
             System.exit(1);
         }
-
         String host = args[0];
-        int port = Integer.parseInt(args[1]);
-
+        int port = parseInt(args[1]);
+        String tournamentPass = args[2];
+        String username = args[3];
+        String password = args[4];
         try (
                 Socket netSocket = new Socket(host, port);
                 PrintWriter out = new PrintWriter(netSocket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(netSocket.getInputStream()))
         ) {
-            BufferedReader stdIn =
-                    new BufferedReader(new InputStreamReader(System.in));
-            String fromServer;
-            String fromUser;
-
-            while ((fromServer = in.readLine()) != null) {
-                // TODO send below to parser
-                System.out.println("Server: " + fromServer);
-                if (fromServer.equals("Bye."))
-                    break;
-                sendMessage(out, stdIn);
-            }
+            authenticationProtocol(tournamentPass, username, password, out, in);
+            System.out.println(pid);
+            challengeProtocol(out, in);
         } catch (UnknownHostException e) {
             System.err.println("Can't find the host!");
             System.exit(1);
@@ -50,12 +46,51 @@ public class NetworkClient {
         }
     }
 
-    private static void sendMessage(PrintWriter out, BufferedReader stdIn) throws IOException {
+    public static void challengeProtocol(PrintWriter out, BufferedReader in) throws IOException {
+        System.out.println("Now executing the challenge protocol...");
+        BufferedReader stdIn =
+                new BufferedReader(new InputStreamReader(System.in));
+        String stringFromServer;
         String stringToServer;
-        stringToServer = stdIn.readLine();
-        if (stringToServer != null) {
-            //System.out.println("Client: " + fromUser);
-            out.println(stringToServer);
+        while ((stringFromServer = in.readLine()) != null) {
+            // TODO send below to parser
+            System.out.println("Server: " + stringFromServer);
+            if (stringFromServer.equals("Bye.")) {
+                break;
+            }
+            stringToServer = stdIn.readLine();
+            if (stringToServer != null) {
+                System.out.println("Client: " + stringToServer);
+                sendMessage(out, stringToServer);
+            }
         }
+    }
+
+    public static void authenticationProtocol(String tournamentPass, String username, String password, PrintWriter out, BufferedReader in) throws IOException {
+        String stringFromServer;
+        String stringToServer;
+        System.out.println("Executing authentication protocol...");
+        while ((stringFromServer = in.readLine()) != null) {
+            System.out.println("Server: " + stringFromServer);
+            if (stringFromServer.equals("WELCOME TO ANOTHER EDITION OF THUNDERDOME!")) {
+                stringToServer = "ENTER THUNDERDOME " + tournamentPass;
+                System.out.println("Sending tournament password: " + tournamentPass);
+                sendMessage(out, stringToServer);
+            }
+            else if (stringFromServer.equals("TWO SHALL ENTER, ONE SHALL LEAVE")){
+                stringToServer = "I AM " + username + " " + password;
+                System.out.println("Sending username: " + username + "\nSending password: " + password);
+                sendMessage(out, stringToServer);
+            }
+            else {
+                stringFromServer = stringFromServer.replace("WAIT FOR THE TOURNAMENT TO BEGIN ", "");
+                pid = parseInt(stringFromServer);
+                break;
+            }
+        }
+    }
+
+    public static void sendMessage(PrintWriter out, String stringToServer) {
+        out.println(stringToServer);
     }
 }
