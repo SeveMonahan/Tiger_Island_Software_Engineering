@@ -102,4 +102,8 @@ public class GameState {
     public GameStateWTile getChildren(Tile tile){
         return new GameStateWTile(this, tile);
     }
+
+    public static GameState createGameStateFromConstructionMove(GameStateBeforeBuildAction original, ConstructionMoveTransmission move) {
+        return null;
+    }
 }
