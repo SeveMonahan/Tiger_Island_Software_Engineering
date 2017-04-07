@@ -12,7 +12,9 @@ public class TotoroConstructionMove extends ConstructionMoveJustCoordinate {
     public boolean canBeKilled() { return false; }
 
     @Override
-    public int isValidPlace(Color color, Board board) {
+    public int isValidPlace(Player player, Board board) {
+        Color color = player.getColor();
+
         Hexagon hexagon = board.getHexagon(coordinate);
 
         // TODO test level placement... make sure not placing on 0 level
@@ -34,11 +36,12 @@ public class TotoroConstructionMove extends ConstructionMoveJustCoordinate {
     }
 
     @Override
-    public int makeValidMoveAndReturnPointsGained(Color color, Board board) {
+    public void makeValidMoveAndReturnPointsGained(Player player, Board board) {
         Hexagon hexagon = board.getHexagon(coordinate);
-        hexagon.setOccupationStatus(color, this);
+        hexagon.setOccupationStatus(player.getColor(), this);
 
-        return 200;
+        player.addScore(200);
+
     }
 
 

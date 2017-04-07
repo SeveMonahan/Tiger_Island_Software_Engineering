@@ -34,6 +34,10 @@ public class Player {
     public Color getColor() { return color; }
 
     public void setScoreAfterPiecePlacement(Piece piece, Hexagon hexagon) {score += piece.getPointsAfterPlacement(hexagon);}
+
+    public void addScore(int points) {
+        this.score += points;
+    }
     public void setScore(int newScore) { this.score = newScore; }
     public void setAutoLoseScore(){ this.score = -1; }
 
@@ -64,12 +68,11 @@ public class Player {
     public boolean placeTotoroOnHexagon(Coordinate coordinate, Board board) {
         TotoroConstructionMove totoroMove = new TotoroConstructionMove(coordinate);
 
-        int neededTotoros = totoroMove.isValidPlace(this.color, board);
+        int neededTotoros = totoroMove.isValidPlace(this, board);
 
         if(neededTotoros < totoroCount){
            totoroCount -= neededTotoros;
-           int scoreIncrease = totoroMove.makeValidMoveAndReturnPointsGained(this.color, board);
-           score += scoreIncrease;
+           totoroMove.makeValidMoveAndReturnPointsGained(this, board);
            return true;
         }
 
