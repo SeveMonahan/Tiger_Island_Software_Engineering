@@ -173,7 +173,7 @@ public class Board {
         Queue<Coordinate> coordinateQueue = new LinkedList<>();
         Coordinate currentCoordinate = coordinate;
         Hexagon currentHexagon = getHexagonAt(currentCoordinate);
-        if (currentHexagon.containsPieces()) {
+        if (currentHexagon.isOccupied()) {
             Color playerColor = currentHexagon.getOccupationColor();
             if (currentHexagon.getOccupationColor() == playerColor) {
                 coordinateQueue.add(currentCoordinate);
@@ -188,7 +188,7 @@ public class Board {
                     currentHexagon = getHexagonAt(neighbor);
                     if (!map.containsKey(neighbor)) {
                         map.put(neighbor, true);
-                        if (currentHexagon.containsPieces()) {
+                        if (currentHexagon.isOccupied()) {
                             if(currentHexagon.getOccupationColor() == playerColor) {
                                 coordinateQueue.add(neighbor);
                             }

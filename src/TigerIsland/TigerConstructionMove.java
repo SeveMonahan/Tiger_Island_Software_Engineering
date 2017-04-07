@@ -23,14 +23,14 @@ public class TigerConstructionMove extends ConstructionMoveJustCoordinate {
             return 1000;
         }
 
-        if (hexagon.containsPieces()) {
+        if (hexagon.isOccupied()) {
             return 1000;
         }
 
         Coordinate[] neighbors = coordinate.getNeighboringCoordinates();
         for (Coordinate neighbor: neighbors) {
             Hexagon hexagonNeighbor = board.getHexagonAt(neighbor);
-            if( hexagonNeighbor.containsPieces() ) {
+            if( hexagonNeighbor.isOccupied() ) {
                 return 1;
             }
         }

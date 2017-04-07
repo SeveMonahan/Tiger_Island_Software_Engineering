@@ -30,6 +30,7 @@ public class Hexagon {
         return new Hexagon(copiedHexagon);
     }
 
+    // Setters
     public void setOccupationStatus(Color color, ConstructionMoveInternal move) {
         occupationStatus = move.getOccupyStatus();
         occupationColor = color;
@@ -46,27 +47,21 @@ public class Hexagon {
         terrain = Terrain.EMPTY;
         occupationStatus = HexagonOccupationStatus.EMPTY;
     }
-
-    private Hexagon(Hexagon copied) {
-        canBeNuked = copied.getCanBeNuked();
-        level = copied.getLevel();
-        terrain = copied.getTerrain();
-        occupationStatus = copied.getOccupationStatus();
-        tileHashCode = copied.getTileHashCode();
-        occupationColor = copied.getOccupationColor();
+    private Hexagon(Hexagon copiedHexagon) {
+        canBeNuked = copiedHexagon.getCanBeNuked();
+        level = copiedHexagon.getLevel();
+        terrain = copiedHexagon.getTerrain();
+        occupationStatus = copiedHexagon.getOccupationStatus();
+        tileHashCode = copiedHexagon.getTileHashCode();
+        occupationColor = copiedHexagon.getOccupationColor();
     }
 
     // Methods
     public boolean isVolcano() {
         return terrain == Terrain.VOLCANO;
     }
-
-    public boolean containsPieces() {
+    public boolean isOccupied() {
         return occupationStatus != HexagonOccupationStatus.EMPTY;
-    }
-
-    private void incrementLevel(){
-        level++;
     }
 
     public void changeTerrainTypeThoughExplosion(Terrain new_terrain){
@@ -74,7 +69,9 @@ public class Hexagon {
         incrementLevel();
         eliminatePieces();
     }
-
+    private void incrementLevel(){
+        level++;
+    }
     private void eliminatePieces() {
         occupationStatus = HexagonOccupationStatus.EMPTY;
         occupationColor = null;

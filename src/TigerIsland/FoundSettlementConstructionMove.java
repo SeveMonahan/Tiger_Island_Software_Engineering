@@ -16,7 +16,7 @@ public class FoundSettlementConstructionMove extends ConstructionMoveJustCoordin
         Hexagon hexagon = board.getHexagonAt(coordinate);
         if(!hexagon.isVolcano()
                 && hexagon.getLevel() == 1
-                && (!hexagon.containsPieces())) {
+                && (!hexagon.isOccupied())) {
             return 1;
         }
 

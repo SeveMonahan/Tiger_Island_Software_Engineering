@@ -18,7 +18,7 @@ public class TotoroConstructionMove extends ConstructionMoveJustCoordinate {
         Hexagon hexagon = board.getHexagonAt(coordinate);
 
         // TODO test level placement... make sure not placing on 0 level
-        if( hexagon.isVolcano() || hexagon.containsPieces() || hexagon.getLevel() == 0 ) {
+        if( hexagon.isVolcano() || hexagon.isOccupied() || hexagon.getLevel() == 0 ) {
             return 1000;
         }
 
