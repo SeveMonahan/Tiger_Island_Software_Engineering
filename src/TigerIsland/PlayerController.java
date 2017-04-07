@@ -1,5 +1,5 @@
 package TigerIsland;
 
 public interface PlayerController {
-    public GameStateStartOfTurn newGameState(GameStateWTile gameStateWTile);
+    public GameStateEndOfTurn newGameState(GameStateWTile gameStateWTile);
 }

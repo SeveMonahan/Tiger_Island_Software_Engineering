@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
-public class GameStateStartOfTurnTest {
+public class GameStateEndOfTurnTest {
     @Test
     public void testChildrenStart(){
-        GameStateStartOfTurn testGamestate = GameStateStartOfTurn.createInitalGameState();
+        GameStateEndOfTurn testGamestate = GameStateEndOfTurn.createInitalGameState();
 
         GameStateWTile testGamestateTile = testGamestate.getChild(new Tile(Terrain.JUNGLE, Terrain.JUNGLE));
 
@@ -18,7 +18,7 @@ public class GameStateStartOfTurnTest {
 
         GameStateBeforeBuildAction beforeBuildAction = tile_children.get(0);
 
-        ArrayList<GameStateStartOfTurn> final_children = beforeBuildAction.getChildren();
+        ArrayList<GameStateEndOfTurn> final_children = beforeBuildAction.getChildren();
 
         int num_children = final_children.size();
 

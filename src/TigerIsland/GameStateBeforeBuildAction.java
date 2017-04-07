@@ -20,8 +20,8 @@ public class GameStateBeforeBuildAction extends GameState {
         return null;
     }
 
-    public ArrayList<GameStateStartOfTurn> getChildren(){
-        ArrayList<GameStateStartOfTurn> result = new ArrayList<>();
+    public ArrayList<GameStateEndOfTurn> getChildren(){
+        ArrayList<GameStateEndOfTurn> result = new ArrayList<>();
         int minX = board.getMinXRange();
         int maxX = board.getMaxXRange();
         int minY = board.getMinYRange();
@@ -32,7 +32,7 @@ public class GameStateBeforeBuildAction extends GameState {
                 Queue<ConstructionMoveInternal> ConstructionMovePossibilities = getConstructionMovePossibilities(new Coordinate(i, j));
 
                 while(!ConstructionMovePossibilities.isEmpty()) {
-                    GameStateStartOfTurn currentGameState = GameStateStartOfTurn.createGameStateFromConstructionMove(this, ConstructionMovePossibilities.remove());
+                    GameStateEndOfTurn currentGameState = GameStateEndOfTurn.createGameStateFromConstructionMove(this, ConstructionMovePossibilities.remove());
                     if(currentGameState != null){
                         result.add(currentGameState);
                     }
