@@ -47,14 +47,6 @@ public class GameState {
 
     }
 
-    public GameModel getPlayerOneModel() {
-        return new GameModel(this, player_1);
-    }
-
-    public GameModel getPlayerTwoModel() {
-        return new GameModel(this, player_2);
-    }
-
     public boolean isMyTurn(Color myColor) {
         return myColor == playerWhoseTurn.getColor();
     }
