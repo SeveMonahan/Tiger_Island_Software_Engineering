@@ -34,7 +34,16 @@ public class Board {
 
     // Getters
     public Hexagon getHexagon(Coordinate coordinate){
-        return hexagonArray[coordinate.getX()][coordinate.getY()];
+
+        Hexagon hex = hexagonArray[coordinate.getX()][coordinate.getY()];
+
+        if(hex == null){
+            Hexagon new_hex = new Hexagon();
+            hexagonArray[coordinate.getX()][coordinate.getY()] = new_hex;
+            return new_hex;
+        }
+
+        return hex;
     }
 
     public Hexagon getNeighboringHexagon(Coordinate coordinate, HexagonNeighborDirection direction) {
@@ -86,12 +95,16 @@ public class Board {
     }
     // Coordinate (100, 100) is the center of the board.
 
+    Hexagon[][] getHexagonArray(){
+        return hexagonArray;
+    }
     private Board(Board original){
+        Hexagon OldhexagonArray[][] = original.getHexagonArray();
         hexagonArray = new Hexagon[200][200];
 
         for(int i = 0; i < 200; i++) {
             for (int j = 0; j < 200; j++) {
-                Hexagon OldHexagon = original.hexagonArray[i][j];
+                Hexagon OldHexagon = OldhexagonArray[i][j];
                 Hexagon NewHexagon = Hexagon.cloneHexagon(OldHexagon);
                 hexagonArray[i][j] = NewHexagon;
             }
@@ -108,7 +121,7 @@ public class Board {
         hexagonArray = new Hexagon[200][200];
         for(int i = 0; i < 200; i++) {
             for(int j = 0; j < 200; j++) {
-                hexagonArray[i][j] = new Hexagon();
+                hexagonArray[i][j] = null;
             }
         }
     }

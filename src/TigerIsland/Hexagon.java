@@ -9,6 +9,10 @@ public class Hexagon {
     private boolean canBeNuked;
 
     public static Hexagon cloneHexagon(Hexagon copied) {
+        if(copied == null){
+            return null;
+        }
+        
         return new Hexagon(copied);
     }
 
