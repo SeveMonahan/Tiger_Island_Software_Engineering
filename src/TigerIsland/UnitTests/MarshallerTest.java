@@ -70,4 +70,26 @@ public class MarshallerTest {
 
         assertEquals(expectedString, testString);
     }
+
+    @Test
+    public void convertGameMoveTransmissionToStringForBuildTiger(){
+        String expectedString = "GAME A MOVE 3 PLACE JUNGLE+LAKE AT 1 -1 0 1 BUILD TIGER PLAYGROUND AT -2 -1 3";
+
+        Tile testTile = new Tile(Terrain.JUNGLE, Terrain.LAKE);
+        Coordinate testTileCoordinate = new Coordinate(1, -1, 0);
+        TileMove testTileMove = new TileMove(testTile, HexagonNeighborDirection.UPPERLEFT, testTileCoordinate);
+
+        BuildOption testBuildOption = BuildOption.BUILDTIGER;
+        Coordinate testConstructionCoordinate = new Coordinate(-2, -1, 3);
+        ConstructionMoveTransmission testConstructionMoveTransmission = new ConstructionMoveTransmission(testBuildOption, testConstructionCoordinate);
+
+        final String testGID = "A";
+        final int testMoveNumber = 3;
+        GameMoveTransmission testGameMoveTransmission = new GameMoveTransmission(testGID, testMoveNumber, testTileMove, testConstructionMoveTransmission);
+
+        Marshaller marshaller = new Marshaller();
+        String testString = marshaller.convertTileMoveAndConstructionMoveToString(testGameMoveTransmission);
+
+        assertEquals(expectedString, testString);
+    }
 }

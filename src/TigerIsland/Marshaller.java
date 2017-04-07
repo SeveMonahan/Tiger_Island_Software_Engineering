@@ -29,6 +29,9 @@ public class Marshaller {
         else if(gameMoveTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.BUILDTOTORO) {
             return "GAME " + gameMoveTransmission.getGid() + " MOVE " + gameMoveTransmission.getMoveNumber() + " PLACE " + tileString + " AT " + tileX + " " + tileY + " " + tileZ + " " + tileOrientation + " BUILD TOTORO SANCTUARY AT " + constructionX + " " + constructionY + " " + constructionZ;
         }
+        else if(gameMoveTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.BUILDTIGER) {
+            return "GAME " + gameMoveTransmission.getGid() + " MOVE " + gameMoveTransmission.getMoveNumber() + " PLACE " + tileString + " AT " + tileX + " " + tileY + " " + tileZ + " " + tileOrientation + " BUILD TIGER PLAYGROUND AT " + constructionX + " " + constructionY + " " + constructionZ;
+        }
         else return null;
     }
 }
