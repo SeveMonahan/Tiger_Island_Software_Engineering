@@ -72,7 +72,7 @@ public class Player {
 
         int neededTigers = tigerMove.isValidPlace(this, board);
 
-        if(neededTigers < totoroCount){
+        if(neededTigers < tigerCount){
             tigerMove.makeValidMoveAndReturnPointsGained(this, board);
             return true;
         }

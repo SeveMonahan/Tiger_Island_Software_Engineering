@@ -68,5 +68,5 @@ public class TigersTest {
     }
 
     // TODO: Need to write success case, case where a Tile tries to nuke a Tiger and is successful, and case were being added to a settlement which already has a Tiger
-    // stops the Tiger
+    // stops the Tiger, TigerMoves not working once the plaer is out of Tigers.
 }
