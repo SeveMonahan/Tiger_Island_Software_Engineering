@@ -42,14 +42,14 @@ public class NetworkServerTest {
                 PrintWriter out =
                         new PrintWriter(clientSocket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(
-                        new InputStreamReader(clientSocket.getInputStream()));
+                        new InputStreamReader(clientSocket.getInputStream()))
         ) {
             System.out.println("Client connected!");
             String inputLine, outputLine;
             BufferedReader stdIn =
                     new BufferedReader(new InputStreamReader(System.in));
             // Initiate conversation with client
-            while (1 == 1) {
+            while (true) {
                 outputLine = stdIn.readLine();
                 out.println(outputLine);
                 if (outputLine.equals("Bye."))

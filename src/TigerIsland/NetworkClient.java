@@ -39,12 +39,7 @@ public class NetworkClient {
                 System.out.println("Server: " + fromServer);
                 if (fromServer.equals("Bye."))
                     break;
-
-                fromUser = stdIn.readLine();
-                if (fromUser != null) {
-                    //System.out.println("Client: " + fromUser);
-                    out.println(fromUser);
-                }
+                sendMessage(out, stdIn);
             }
         } catch (UnknownHostException e) {
             System.err.println("Can't find the host!");
@@ -52,6 +47,15 @@ public class NetworkClient {
         } catch (IOException e) {
             System.err.println("Can't connect to the host!");
             System.exit(1);
+        }
+    }
+
+    public static void sendMessage(PrintWriter out, BufferedReader stdIn) throws IOException {
+        String stringToServer;
+        stringToServer = stdIn.readLine();
+        if (stringToServer != null) {
+            //System.out.println("Client: " + fromUser);
+            out.println(stringToServer);
         }
     }
 }
