@@ -63,11 +63,8 @@ public class Hexagon {
         return terrain == Terrain.VOLCANO;
     }
 
-    public boolean isOccupied() {
+    public boolean containsPieces() {
         return occupationStatus != HexagonOccupationStatus.EMPTY;
-    }
-    public boolean isEmpty() {
-        return !isOccupied();
     }
 
     private void incrementLevel(){

@@ -135,7 +135,7 @@ public class TileMoveChecker {
         int settlementHexOne = board.getSettlementSize(tileCoordinates[1]);
         int settlementHexTwo = board.getSettlementSize(tileCoordinates[2]);
         // If both hexagons are occupied...
-        if (hexagonUnderNeighborOne.isOccupied() && hexagonUnderNeighborTwo.isOccupied()) {
+        if (hexagonUnderNeighborOne.containsPieces() && hexagonUnderNeighborTwo.containsPieces()) {
             // If both hexagons are occupied by the same player...
             if (hexagonUnderNeighborOne.getOccupationColor() == hexagonUnderNeighborTwo.getOccupationColor()) {
                 if (settlementHexOne > 2) {
@@ -155,7 +155,7 @@ public class TileMoveChecker {
         }
         else {
             // If both hexagons are empty...
-            if (hexagonUnderNeighborOne.isEmpty() && hexagonUnderNeighborTwo.isEmpty()) {
+            if (!hexagonUnderNeighborOne.containsPieces() && !hexagonUnderNeighborTwo.containsPieces()) {
                 return true;
             }
             // If 1 hexagon is empty and the other is occupied...

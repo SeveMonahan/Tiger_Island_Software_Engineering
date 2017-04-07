@@ -25,6 +25,6 @@ public class Meeple implements Piece {
         Hexagon hexagon = board.getHexagon(coordinate);
         return !hexagon.isVolcano()
                 && hexagon.getLevel() > 0
-                && (hexagon.isEmpty());
+                && (!hexagon.containsPieces());
     }
 }
