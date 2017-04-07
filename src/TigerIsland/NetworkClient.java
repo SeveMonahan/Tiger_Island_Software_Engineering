@@ -27,7 +27,7 @@ public class NetworkClient {
                 Socket netSocket = new Socket(host, port);
                 PrintWriter out = new PrintWriter(netSocket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(
-                        new InputStreamReader(netSocket.getInputStream()));
+                        new InputStreamReader(netSocket.getInputStream()))
         ) {
             BufferedReader stdIn =
                     new BufferedReader(new InputStreamReader(System.in));
@@ -50,7 +50,7 @@ public class NetworkClient {
         }
     }
 
-    public static void sendMessage(PrintWriter out, BufferedReader stdIn) throws IOException {
+    private static void sendMessage(PrintWriter out, BufferedReader stdIn) throws IOException {
         String stringToServer;
         stringToServer = stdIn.readLine();
         if (stringToServer != null) {
