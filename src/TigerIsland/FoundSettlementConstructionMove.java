@@ -1,0 +1,37 @@
+package TigerIsland;
+
+public class FoundSettlementConstructionMove extends ConstructionMoveJustCoordinate {
+    public FoundSettlementConstructionMove(Coordinate coordinate) {
+        super(coordinate);
+    }
+
+    public HexagonOccupationStatus getOccupyStatus(){
+        return HexagonOccupationStatus.MEEPLE;
+    }
+
+    public boolean canBeKilled() { return true; }
+
+    @Override
+    public int isValidPlace(Player player, Board board) {
+        Hexagon hexagon = board.getHexagon(coordinate);
+        if(!hexagon.isVolcano()
+                && hexagon.getLevel() > 0
+                && (!hexagon.containsPieces())) {
+            return 1;
+        }
+
+        return 1000;
+    }
+
+    @Override
+    public void makeValidMoveAndReturnPointsGained(Player player, Board board) {
+        player.substractMeeples(1);
+
+        Hexagon hexagon = board.getHexagon(coordinate);
+        hexagon.setOccupationStatus(player.getColor(), this);
+
+        player.addScore(1);
+
+    }
+
+}
