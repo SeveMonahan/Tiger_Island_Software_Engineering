@@ -9,7 +9,7 @@ public class TigerConstructionMove extends ConstructionMoveJustCoordinate {
         return HexagonOccupationStatus.TIGER;
     }
 
-    public boolean canBeKilled() { return false; }
+    public boolean canBeKilled() { return true; }
 
     @Override
     public int isValidPlace(Player player, Board board) {
