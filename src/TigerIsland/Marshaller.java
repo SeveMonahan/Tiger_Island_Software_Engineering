@@ -13,19 +13,21 @@ public class Marshaller {
         HexagonNeighborDirection tileDirection = gameMoveTransmission.getTileMove().getDirection();
         int tileOrientation = tileDirection.directionToInt(tileDirection);
 
+        int constructionX = gameMoveTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[0];
+        int constructionY = gameMoveTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[1];
+        int constructionZ = gameMoveTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[2];
+
         if (gameMoveTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.FOUNDSETTLEMENT) {
-            int constructionX = gameMoveTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[0];
-            int constructionY = gameMoveTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[1];
-            int constructionZ = gameMoveTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[2];
             return "GAME " + gameMoveTransmission.getGid() + " MOVE " + gameMoveTransmission.getMoveNumber() + " PLACE " + tileString + " AT " + tileX + " " + tileY + " " + tileZ + " " + tileOrientation + " FOUND SETTLEMENT AT " + constructionX + " " + constructionY + " " + constructionZ;
         }
         else if(gameMoveTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.EXPANDSETTLEMENT){
-            int constructionX = gameMoveTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[0];
-            int constructionY = gameMoveTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[1];
-            int constructionZ = gameMoveTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[2];
             ExpandSettlementMoveTransmission expandSettlementMoveTransmission = (ExpandSettlementMoveTransmission) gameMoveTransmission.getConstructionMoveTransmission();
             String terrainToExpand =  expandSettlementMoveTransmission.getTerrain().toString();
+
             return "GAME " + gameMoveTransmission.getGid() + " MOVE " + gameMoveTransmission.getMoveNumber() + " PLACE " + tileString + " AT " + tileX + " " + tileY + " " + tileZ + " " + tileOrientation + " EXPAND SETTLEMENT AT " + constructionX + " " + constructionY + " " + constructionZ + " " + terrainToExpand;
+        }
+        else if(gameMoveTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.BUILDTOTORO) {
+            return "GAME " + gameMoveTransmission.getGid() + " MOVE " + gameMoveTransmission.getMoveNumber() + " PLACE " + tileString + " AT " + tileX + " " + tileY + " " + tileZ + " " + tileOrientation + " BUILD TOTORO SANCTUARY AT " + constructionX + " " + constructionY + " " + constructionZ;
         }
         else return null;
     }
