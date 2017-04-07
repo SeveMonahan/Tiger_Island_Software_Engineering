@@ -2,6 +2,7 @@ package TigerIsland;
 
 import java.util.ArrayList;
 
+// Effectively abstract, don't make instances of this except for testing
 public class GameState {
     private Player player_1;
     private Player player_2;
@@ -99,12 +100,7 @@ public class GameState {
         return board;
     }
 
-    public GameStateWTile getChildren(Tile tile){
-        return new GameStateWTile(this, tile);
-    }
-
     public static GameState createGameStateFromConstructionMove(GameStateBeforeBuildAction original, ConstructionMoveTransmission move) {
-
         return null;
     }
 }

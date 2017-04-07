@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 public class GameStateWTileTest {
     @Test
     public void testChildrenStart(){
-        GameState testGamestate = new GameState();
+        GameStateStartOfTurn testGamestate = GameStateStartOfTurn.createInitalGameState();
 
         GameStateWTile testGamestateTile = testGamestate.getChildren(new Tile(Terrain.JUNGLE, Terrain.JUNGLE));
 

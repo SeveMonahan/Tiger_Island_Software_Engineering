@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class GameStateWTile extends GameState {
     private Tile tile;
 
-    GameStateWTile(GameState original, Tile tile) {
+    GameStateWTile(GameStateStartOfTurn original, Tile tile) {
         super(original);
         this.tile = tile;
     }
