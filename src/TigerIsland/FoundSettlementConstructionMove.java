@@ -5,8 +5,8 @@ public class FoundSettlementConstructionMove extends ConstructionMoveJustCoordin
         super(coordinate);
     }
 
-    public HexagonOccupationStatus getOccupyStatus(){
-        return HexagonOccupationStatus.MEEPLE;
+    public PieceStatusHexagon getOccupyStatus(){
+        return PieceStatusHexagon.MEEPLE;
     }
 
     public boolean canBeKilled() { return true; }
@@ -16,7 +16,7 @@ public class FoundSettlementConstructionMove extends ConstructionMoveJustCoordin
         Hexagon hexagon = board.getHexagonAt(coordinate);
         if(!hexagon.isVolcano()
                 && hexagon.getLevel() == 1
-                && (!hexagon.isOccupied())) {
+                && (!hexagon.containsPieces())) {
             return 1;
         }
 

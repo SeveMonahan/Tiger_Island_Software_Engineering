@@ -45,7 +45,7 @@ public class TotoroTest {
         assertEquals(0, player.getScore());
         assertEquals(3, player.getTotoroCount());
         Hexagon hexagon = board.getHexagonAt(coordinate);
-        assertEquals(HexagonOccupationStatus.EMPTY, hexagon.getOccupationStatus());
+        assertEquals(PieceStatusHexagon.EMPTY, hexagon.getPiecesStatus());
     }
 
     @Test
@@ -61,7 +61,7 @@ public class TotoroTest {
         assertEquals(0, player.getScore());
         assertEquals(3, player.getTotoroCount());
         Hexagon hexagon = board.getHexagonAt(coordinate);
-        assertEquals(HexagonOccupationStatus.EMPTY, hexagon.getOccupationStatus());
+        assertEquals(PieceStatusHexagon.EMPTY, hexagon.getPiecesStatus());
     }
 
     private Board getBasicBoardWithHexagonAroundStartWithWhiteMeeples(){

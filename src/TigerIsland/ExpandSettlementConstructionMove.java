@@ -13,8 +13,8 @@ public class ExpandSettlementConstructionMove implements ConstructionMoveInterna
         this.totalMeeplesNeeded = 1000;
     }
 
-    public HexagonOccupationStatus getOccupyStatus(){
-        return HexagonOccupationStatus.MEEPLE;
+    public PieceStatusHexagon getOccupyStatus(){
+        return PieceStatusHexagon.MEEPLE;
     }
 
     public boolean canBeKilled() { return true; }

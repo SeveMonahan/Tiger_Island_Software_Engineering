@@ -150,11 +150,11 @@ public class BoardTest {
         Boolean result = settlement.expandSettlementWithCheck(TestBoard, player, Terrain.GRASS);
 
         assertEquals(true, result);
-        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagonAt(new Coordinate(100, 101)).getOccupationStatus() );
+        assertEquals(PieceStatusHexagon.MEEPLE, TestBoard.getHexagonAt(new Coordinate(100, 101)).getPiecesStatus() );
 
-        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagonAt(new Coordinate(99, 100)).getOccupationStatus() );
+        assertEquals(PieceStatusHexagon.MEEPLE, TestBoard.getHexagonAt(new Coordinate(99, 100)).getPiecesStatus() );
 
-        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagonAt(new Coordinate(99, 101)).getOccupationStatus() );
+        assertEquals(PieceStatusHexagon.MEEPLE, TestBoard.getHexagonAt(new Coordinate(99, 101)).getPiecesStatus() );
     }
 
     @Test
@@ -181,9 +181,9 @@ public class BoardTest {
         // Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(99, 101), Terrain.GRASS);
 
         assertEquals(true, result);
-        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagonAt(new Coordinate(100, 101)).getOccupationStatus() );
+        assertEquals(PieceStatusHexagon.MEEPLE, TestBoard.getHexagonAt(new Coordinate(100, 101)).getPiecesStatus() );
 
-        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagonAt(new Coordinate(99, 100)).getOccupationStatus() );
+        assertEquals(PieceStatusHexagon.MEEPLE, TestBoard.getHexagonAt(new Coordinate(99, 100)).getPiecesStatus() );
     }
 
     @Test
@@ -212,6 +212,6 @@ public class BoardTest {
 
         assertEquals(true, result);
 
-        assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagonAt(new Coordinate(99, 100)).getOccupationStatus() );
+        assertEquals(PieceStatusHexagon.MEEPLE, TestBoard.getHexagonAt(new Coordinate(99, 100)).getPiecesStatus() );
     }
 }

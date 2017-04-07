@@ -5,7 +5,7 @@ public class Hexagon {
     private int level;
     private Terrain terrain;
     private int tileHashCode;
-    private HexagonOccupationStatus occupationStatus;
+    private PieceStatusHexagon piecesStatus;
     private Color occupationColor;
     private boolean canBeNuked;
 
@@ -17,8 +17,8 @@ public class Hexagon {
         return terrain;
     }
     int getTileHashCode() { return tileHashCode; }
-    public HexagonOccupationStatus getOccupationStatus() {
-        return occupationStatus;
+    public PieceStatusHexagon getPiecesStatus() {
+        return piecesStatus;
     }
     public Color getOccupationColor() { return occupationColor; }
     boolean getCanBeNuked() { return canBeNuked; }
@@ -32,7 +32,7 @@ public class Hexagon {
 
     // Setters
     public void setOccupationStatus(Color color, ConstructionMoveInternal move) {
-        occupationStatus = move.getOccupyStatus();
+        piecesStatus = move.getOccupyStatus();
         occupationColor = color;
         this.canBeNuked = move.canBeKilled();
     }
@@ -45,13 +45,13 @@ public class Hexagon {
         canBeNuked = true;
         level = 0;
         terrain = Terrain.EMPTY;
-        occupationStatus = HexagonOccupationStatus.EMPTY;
+        piecesStatus = PieceStatusHexagon.EMPTY;
     }
     private Hexagon(Hexagon copiedHexagon) {
         canBeNuked = copiedHexagon.getCanBeNuked();
         level = copiedHexagon.getLevel();
         terrain = copiedHexagon.getTerrain();
-        occupationStatus = copiedHexagon.getOccupationStatus();
+        piecesStatus = copiedHexagon.getPiecesStatus();
         tileHashCode = copiedHexagon.getTileHashCode();
         occupationColor = copiedHexagon.getOccupationColor();
     }
@@ -60,8 +60,8 @@ public class Hexagon {
     public boolean isVolcano() {
         return terrain == Terrain.VOLCANO;
     }
-    public boolean isOccupied() {
-        return occupationStatus != HexagonOccupationStatus.EMPTY;
+    public boolean containsPieces() {
+        return piecesStatus != PieceStatusHexagon.EMPTY;
     }
 
     public void changeTerrainTypeThoughExplosion(Terrain new_terrain){
@@ -73,7 +73,7 @@ public class Hexagon {
         level++;
     }
     private void eliminatePieces() {
-        occupationStatus = HexagonOccupationStatus.EMPTY;
+        piecesStatus = PieceStatusHexagon.EMPTY;
         occupationColor = null;
     }
 }

@@ -3,7 +3,7 @@ package TigerIsland;
 public interface ConstructionMoveInternal{
     void makePreverifiedMove(Player player, Board board);
     boolean canBeKilled();
-    HexagonOccupationStatus getOccupyStatus();
+    PieceStatusHexagon getOccupyStatus();
 
     // This returns the number of pieces necessary to preform the move,
     // but can be placed at a large sentinal value (1000) to indicate the

@@ -37,8 +37,8 @@ public class ExpandSettlementConstructionMoveTest {
 
         Coordinate upperLeft = new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERLEFT);
 
-        assertEquals(true, board.getHexagonAt(upperLeft).isOccupied());
-        assertEquals(HexagonOccupationStatus.MEEPLE , board.getHexagonAt(upperLeft).getOccupationStatus());
+        assertEquals(true, board.getHexagonAt(upperLeft).containsPieces());
+        assertEquals(PieceStatusHexagon.MEEPLE , board.getHexagonAt(upperLeft).getPiecesStatus());
         assertEquals(Player_Color, board.getHexagonAt(upperLeft).getOccupationColor());
     }
 }
