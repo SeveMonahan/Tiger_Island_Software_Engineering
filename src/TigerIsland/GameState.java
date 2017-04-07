@@ -55,8 +55,8 @@ public class GameState {
         return new GameModel(this, player_2);
     }
 
-    public boolean isMyTurn(Player me) {
-        return me == playerWhoseTurn;
+    public boolean isMyTurn(Color myColor) {
+        return myColor == playerWhoseTurn.getColor();
     }
 
     public void changeTurn() {
