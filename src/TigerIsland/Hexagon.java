@@ -30,13 +30,6 @@ public class Hexagon {
         return new Hexagon(copiedHexagon);
     }
 
-    // Setters
-    public void setOccupationStatusTakingPieceClass(Piece piece) {
-        occupationStatus = piece.getOccupyStatus();
-        occupationColor = piece.getPieceColor();
-        this.canBeNuked = piece.canBeKilled();
-    }
-
     public void setOccupationStatus(Color color, ConstructionMoveInternal move) {
         occupationStatus = move.getOccupyStatus();
         occupationColor = color;
