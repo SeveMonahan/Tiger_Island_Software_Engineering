@@ -1,4 +1,4 @@
-package TigerIsland;
+package src.TigerIsland;
 
 public enum Color {
     BLACK,

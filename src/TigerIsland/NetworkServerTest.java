@@ -1,4 +1,4 @@
-package TigerIsland;
+package src.TigerIsland;
 
 import java.io.BufferedReader;
 import java.io.IOException;

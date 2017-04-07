@@ -1,4 +1,4 @@
-package TigerIsland;
+package src.TigerIsland;
 
 import java.util.HashMap;
 import java.util.LinkedList;

@@ -1,4 +1,4 @@
-package TigerIsland;
+package src.TigerIsland;
 
 public class Tile {
     private Terrain terrain_1;
