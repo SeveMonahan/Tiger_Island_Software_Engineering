@@ -6,11 +6,11 @@ import java.util.ArrayList;
 public class GameState {
     private Player player_1;
     private Player player_2;
-    protected Player playerWhoseTurn;
+    Player playerWhoseTurn;
     private boolean gameIsOver;
     protected Board board;
 
-    public GameState() {
+    GameState() {
         player_1 = new Player(Color.WHITE);
         player_2 = new Player(Color.BLACK);
         playerWhoseTurn = player_1;
@@ -31,7 +31,7 @@ public class GameState {
         return new GameState(player_1, player_2);
     }
 
-    protected GameState(GameState original) {
+    GameState(GameState original) {
         this.player_1 = Player.clonePlayer(original.player_1);
         this.player_2 = Player.clonePlayer(original.player_2);
 
@@ -51,7 +51,7 @@ public class GameState {
         return myColor == playerWhoseTurn.getColor();
     }
 
-    public void changeTurn() {
+    void changeTurn() {
         if (playerWhoseTurn == player_1)
             playerWhoseTurn = player_2;
         else
