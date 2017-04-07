@@ -45,6 +45,14 @@ public class Player {
         totoroCount--;
     }
 
+    public void substractTiger(){
+        tigerCount--;
+    }
+
+    public void substractMeeples(int num){
+        meepleCount -= num;
+    }
+
     public boolean placeMeepleOnHexagon(Coordinate coordinate, Board board) {
         Piece newPiece = new Meeple(this.color);
         return attemptToPlacePiece(newPiece, coordinate, board);
@@ -65,8 +73,16 @@ public class Player {
     }
 
     public boolean placeTigerOnHexagon(Coordinate coordinate, Board board) {
-        Piece newPiece = new Tiger(this.color);
-        return attemptToPlacePiece(newPiece, coordinate, board);
+        TigerConstructionMove tigerMove = new TigerConstructionMove(coordinate);
+
+        int neededTigers = tigerMove.isValidPlace(this, board);
+
+        if(neededTigers < totoroCount){
+            tigerMove.makeValidMoveAndReturnPointsGained(this, board);
+            return true;
+        }
+
+        return false;
     }
 
     public boolean attemptToPlacePiece(Piece piece, Coordinate coordinate, Board board) {
@@ -82,11 +98,8 @@ public class Player {
 
     public void deductPlacedPieces(Piece piece, Hexagon hexagon) {
         int piecesPlaced = piece.populationRequirements(hexagon);
-        if(piece instanceof Meeple) {
+        if(piece instanceof Meeple)
             meepleCount -= piecesPlaced;
-        } else if (piece instanceof Tiger ){
-            tigerCount -= piecesPlaced;
-        }
 
     }
 
