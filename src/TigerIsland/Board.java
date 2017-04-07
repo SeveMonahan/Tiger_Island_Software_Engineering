@@ -7,6 +7,27 @@ import java.util.Queue;
 public class Board {
     private Hexagon[][] hexagonArray;
 
+    private int minX;
+    private int maxX;
+    private int minY;
+    private int maxY;
+
+    public int getMinXRange(){
+        return minX - 2;
+    }
+
+    public int getMaxXRange(){
+        return maxX + 2;
+    }
+
+    public int getMinYRange(){
+        return minY - 2;
+    }
+
+    public int getMaxYRange(){
+        return maxY + 2;
+    }
+
     public static Board cloneBoard(Board board) {
         return new Board(board);
     }
@@ -33,30 +54,53 @@ public class Board {
     // Setters
     public void setHexagon(Coordinate coordinate, Hexagon hexagon){
         hexagonArray[coordinate.getX()][coordinate.getY()] = hexagon;
+
+        setMaxRange(coordinate);
     }
 
+    private void setMaxRange(Coordinate coordinate){
+        if(minX > coordinate.getX()){
+            minX = coordinate.getX();
+        }
+
+        if (maxX < coordinate.getX()) {
+            maxX = coordinate.getX();
+        }
+
+        if(minY > coordinate.getY()){
+            minY = coordinate.getY();
+        }
+
+        if (maxY < coordinate.getY()) {
+            maxY = coordinate.getY();
+        }
+    }
     // Constructors
     public Board(){
         initializeHexagonArray();
+        minX = 100;
+        maxX = 100;
+        minY = 100;
+        maxY = 100;
+
     }
     // Coordinate (100, 100) is the center of the board.
 
-    private Board(Board board){
-        Hexagon [][] OldHexagonArray = board.getHexagonArray();
-
+    private Board(Board original){
         hexagonArray = new Hexagon[200][200];
 
         for(int i = 0; i < 200; i++) {
             for (int j = 0; j < 200; j++) {
-                Hexagon OldHexagon = OldHexagonArray[i][j];
+                Hexagon OldHexagon = original.hexagonArray[i][j];
                 Hexagon NewHexagon = Hexagon.cloneHexagon(OldHexagon);
                 hexagonArray[i][j] = NewHexagon;
             }
         }
-    }
 
-    private Hexagon[][] getHexagonArray(){
-            return hexagonArray;
+        minX = original.minX;
+        maxX = original.maxX;
+        minY = original.minY;
+        maxY = original.maxY;
     }
 
     // Methods

@@ -6,6 +6,7 @@ public class GameStateBeforeBuildAction extends GameState {
 
     private GameStateBeforeBuildAction(GameState original, TileMove tilemove) {
         super(original);
+        board.placeTile(tilemove);
     }
 
     public static GameStateBeforeBuildAction createGameStateBeforeBuildAction(GameState original, TileMove tilemove) {
@@ -19,8 +20,8 @@ public class GameStateBeforeBuildAction extends GameState {
 
     public ArrayList<GameState> getChildren(){
         ArrayList<GameState> result = new ArrayList<GameState>();
-        for(int i = 2; i < 198; i++){
-            for(int j= 2; j < 198; j++){
+        for(int i = board.getMinXRange(); i < board.getMaxXRange(); i++){
+            for(int j= board.getMinYRange(); j < board.getMaxYRange(); j++){
                 for(BuildOption option : new BuildOption[]{BuildOption.BUILDTIGER, BuildOption.BUILDTOTORO, BuildOption.FOUNDSETTLEMENT}){
                     ConstructionMoveTransmission possibleConstructionMove = new ConstructionMoveTransmission(option, new Coordinate(i, j));
                     GameState child = GameState.createGameStateFromConstructionMove(this, possibleConstructionMove);
