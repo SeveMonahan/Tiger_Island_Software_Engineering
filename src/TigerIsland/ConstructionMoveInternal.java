@@ -1,11 +1,6 @@
 package TigerIsland;
 
-public class ConstructionMoveInternal{
-    private ConstructionMoveTransmission raw;
-    private Player player;
-
-    public ConstructionMoveInternal(ConstructionMoveTransmission raw, Player player) {
-        this.raw = raw;
-        this.player = player;
-    }
+public interface ConstructionMoveInternal{
+    public boolean isValidPlace(Color color, Board board);
+    public boolean makeValidPlaceIfAble(Color color, Board board);
 }
