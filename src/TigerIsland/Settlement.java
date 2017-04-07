@@ -118,7 +118,7 @@ public class Settlement {
         HexagonOccupationStatus occupationStatus = board.getHexagon(coordinate).getOccupationStatus();
         if( player.getColor() == color
                 && occupationStatus == HexagonOccupationStatus.MEEPLE){
-            Queue<Coordinate> settlement = expandSettlementFloodFill(coordinate, player, terrain);
+            Queue<Coordinate> settlement = expandSettlementFloodFill(board, coordinate, player, terrain);
             if(settlement.size() <= player.getMeeplesCount()) {
                 performFloodFill(board, player, settlement );
                 return true;
