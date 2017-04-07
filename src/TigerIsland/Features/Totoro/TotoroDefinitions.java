@@ -55,10 +55,10 @@ public class TotoroDefinitions {
     @Given("^There is a Totoro on a non-volcano hexagon which is adjacent to both volcanos$")
     public void totoroAdjacentToBothVolcanos() {
         Player player = new Player(Color.WHITE);
-        Piece newTotoro = new Totoro(Color.WHITE);
+        TotoroConstructionMove newTotoro = new TotoroConstructionMove(new Coordinate(100, 100));
 
         Hexagon hexagon = board.getHexagon(new Coordinate(100, 100));
-        hexagon.setOccupationStatus(newTotoro);
+        hexagon.setOccupationStatus(Color.WHITE, newTotoro);
     }
 
     @When("^I attempt to place a tile on a volcano so it overlaps onto the other tile$")

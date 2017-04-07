@@ -70,7 +70,7 @@ public class Player {
            totoroMove.makeValidPlaceIfAble(this.color, board);
            totoroCount -= neededTotoros;
            Hexagon hexagon = board.getHexagon(coordinate);
-           hexagon.setOccupationStatus(new Totoro(this.color));
+           hexagon.setOccupationStatus(this.color, totoroMove);
            score += 200;
 
            return true;
@@ -90,7 +90,7 @@ public class Player {
         boolean placementValid = piece.isPlacementValid(coordinate, board);
         Hexagon hexagon = board.getHexagon(coordinate);
         if(placementValid) {
-            hexagon.setOccupationStatus(piece);
+            hexagon.setOccupationStatusTakingPieceClass(piece);
             deductPlacedPieces(piece, hexagon);
             setScoreAfterPiecePlacement(piece, hexagon);
         }
@@ -102,8 +102,6 @@ public class Player {
         int piecesPlaced = piece.populationRequirements(hexagon);
         if(piece instanceof Meeple) {
             meepleCount -= piecesPlaced;
-        } else if (piece instanceof Totoro) {
-            totoroCount -= piecesPlaced;
         } else if (piece instanceof Tiger ){
             tigerCount -= piecesPlaced;
         }
