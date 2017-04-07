@@ -7,7 +7,6 @@ public class Hexagon {
     private int tileHashCode;
     private PieceStatusHexagon piecesStatus;
     private Color occupationColor;
-    private boolean canBeNuked;
 
     // Getters
     public int getLevel(){
@@ -21,7 +20,6 @@ public class Hexagon {
         return piecesStatus;
     }
     public Color getOccupationColor() { return occupationColor; }
-    boolean getCanBeNuked() { return canBeNuked; }
 
     public static Hexagon cloneHexagon(Hexagon copiedHexagon) {
         if (copiedHexagon == null){
@@ -34,7 +32,6 @@ public class Hexagon {
     public void setOccupationStatus(Color color, ConstructionMoveInternal move) {
         piecesStatus = move.getOccupyStatus();
         occupationColor = color;
-        this.canBeNuked = move.canBeKilled();
     }
     public void setTileHashCode(int tileHashCode) {
         this.tileHashCode = tileHashCode;
@@ -42,13 +39,11 @@ public class Hexagon {
 
     // Constructors
     public Hexagon() {
-        canBeNuked = true;
         level = 0;
         terrain = Terrain.EMPTY;
         piecesStatus = PieceStatusHexagon.EMPTY;
     }
     private Hexagon(Hexagon copiedHexagon) {
-        canBeNuked = copiedHexagon.getCanBeNuked();
         level = copiedHexagon.getLevel();
         terrain = copiedHexagon.getTerrain();
         piecesStatus = copiedHexagon.getPiecesStatus();
@@ -63,6 +58,8 @@ public class Hexagon {
     public boolean containsPieces() {
         return piecesStatus != PieceStatusHexagon.EMPTY;
     }
+
+    boolean getCanBeNuked() { return piecesStatus != PieceStatusHexagon.TOTORO; }
 
     public void changeTerrainTypeThoughExplosion(Terrain new_terrain){
         terrain = new_terrain;
