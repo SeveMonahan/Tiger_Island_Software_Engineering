@@ -17,6 +17,10 @@ import static java.lang.Integer.parseInt;
 
 public class NetworkClient {
     public static int pid = 0;
+    public static int cid = 0;
+    public static int rounds = 0;
+    public static int rid = 0;
+    public static int gid = 0;
     public static void main(String[] args) throws IOException {
         if (args.length != 5) {
             System.err.println(
