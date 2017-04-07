@@ -78,10 +78,10 @@ public class Board {
     // Constructors
     public Board(){
         initializeHexagonArray();
-        minX = 100;
-        maxX = 100;
-        minY = 100;
-        maxY = 100;
+        minX = 98;
+        maxX = 102;
+        minY = 98;
+        maxY = 102;
 
     }
     // Coordinate (100, 100) is the center of the board.
@@ -112,6 +112,7 @@ public class Board {
             }
         }
     }
+
     public void placeStartingTile() {
         Coordinate coordCenter = new Coordinate(100,100);
 

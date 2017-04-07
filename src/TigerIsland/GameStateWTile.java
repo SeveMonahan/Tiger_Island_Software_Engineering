@@ -12,8 +12,13 @@ public class GameStateWTile extends GameState {
 
     public ArrayList<GameStateBeforeBuildAction> getChildren(){
        ArrayList<GameStateBeforeBuildAction> result = new ArrayList<GameStateBeforeBuildAction>();
-       for(int i = 2; i < 198; i++){
-           for(int j= 2; j < 198; j++){
+        int minX = board.getMinXRange();
+        int maxX = board.getMaxXRange();
+        int minY = board.getMinYRange();
+        int maxY = board.getMaxYRange();
+
+        for(int i = minX; i < maxX; i++){
+            for(int j= minY; j < maxY; j++){
                for(HexagonNeighborDirection direction : HexagonNeighborDirection.values()){
                    TileMove possibleTileMove = new TileMove(tile, direction, new Coordinate(i, j));
                    GameStateBeforeBuildAction child = GameStateBeforeBuildAction.createGameStateBeforeBuildAction(this, possibleTileMove);
