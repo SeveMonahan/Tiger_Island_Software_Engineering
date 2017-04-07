@@ -16,4 +16,8 @@ public class GameStateStartOfTurn extends GameState {
         return new GameStateWTile(this, tile);
     }
 
+    public static GameStateStartOfTurn createGameStateFromConstructionMove(GameStateBeforeBuildAction original, ConstructionMoveInternal move) {
+        return null;
+    }
+
 }

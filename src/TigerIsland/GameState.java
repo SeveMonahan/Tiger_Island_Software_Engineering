@@ -100,7 +100,4 @@ public class GameState {
         return board;
     }
 
-    public static GameState createGameStateFromConstructionMove(GameStateBeforeBuildAction original, ConstructionMoveTransmission move) {
-        return null;
-    }
 }
