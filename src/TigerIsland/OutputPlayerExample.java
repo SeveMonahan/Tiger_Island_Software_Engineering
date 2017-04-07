@@ -9,14 +9,8 @@ public class OutputPlayerExample implements  OutputPlayerActions{
         this.color = color;
     }
 
-    // XXX Should jut move ConstructionMoveInternal all the way down the stack.
-    // Obviously an example for testing purposes.
-    private ConstructionMoveTransmission convertConstructionMove(ConstructionMoveInternal constructMove){
-        return new ConstructionMoveTransmission(BuildOption.FOUNDSETTLEMENT, new Coordinate(100, 100));
-    }
-
-    public void produceOutput(Color color, int moveNumber, TileMove tileMove, ConstructionMoveInternal constructMove){
-        new GameMoveTransmission(gid, moveNumber, tileMove, convertConstructionMove(constructMove));
+    public void dispatchInformation(GameStateEndOfTurn gameStateEndOfTurn){
+        //new GameMoveTransmission(gid, moveNumber, tileMove, convertConstructionMove(constructMove));
     }
 
 }

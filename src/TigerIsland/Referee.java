@@ -20,10 +20,12 @@ public class Referee {
             Tile tile = tileBag.drawTile();
             GameStateWTile gameStateWithTile = gameEndOfTurn.getChild(tile);
             gameEndOfTurn = controller_1.newGameState(gameStateWithTile);
+            output.dispatchInformation(gameEndOfTurn);
 
             tile = tileBag.drawTile();
             gameStateWithTile = gameEndOfTurn.getChild(tile);
             gameEndOfTurn = controller_2.newGameState(gameStateWithTile);
+            output.dispatchInformation(gameEndOfTurn);
         }
     }
 }
