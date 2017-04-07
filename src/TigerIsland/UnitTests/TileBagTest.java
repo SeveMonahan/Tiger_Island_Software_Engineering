@@ -1,5 +1,3 @@
-package TigerIsland.UnitTests;
-
 import TigerIsland.Tile;
 import TigerIsland.TileBag;
 import org.junit.Test;

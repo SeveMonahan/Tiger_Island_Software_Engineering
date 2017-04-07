@@ -3,15 +3,15 @@ package TigerIsland;
 import static java.lang.Integer.parseInt;
 
 public class Controller {
-    public static int cid = 0;
-    public static int oid = 0;
-    public static int rid = 0;
-    public static int rounds = 0;
-    public static int currentRound = 0;
-    public static int state = 0;
-    public static boolean gameOver = false;
-    public static boolean readGameOneScore = false;
-    public static boolean roundsOver = false;
+    private static int cid = 0;
+    private static int oid = 0;
+    private static int rid = 0;
+    private static int rounds = 0;
+    private static int currentRound = 0;
+    private static int state = 0;
+    private static boolean gameOver = false;
+    private static boolean readGameOneScore = false;
+    private static boolean roundsOver = false;
     /*
     States:
     0 = challenge
@@ -93,9 +93,9 @@ public class Controller {
             }
             else {
                 System.out.println("game(s) in progress...");
+                //TODO
+                //send to parser
             }
-            //send to parser
-            //if gameover or whatever then gameOver = true and state = state - 1
         }
     }
     private static void stringArrayPrinter(String[] arr) {
