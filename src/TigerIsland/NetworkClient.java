@@ -59,7 +59,7 @@ public class NetworkClient {
         while ((stringFromServer = in.readLine()) != null) {
             // TODO send below to parser
             System.out.println("Server: " + stringFromServer);
-            if (stringFromServer.equals("Bye.")) {
+            if (stringFromServer.equals("THANK YOU FOR PLAYING! GOODBYE")) {
                 break;
             }
             stringToServer = stdIn.readLine();
