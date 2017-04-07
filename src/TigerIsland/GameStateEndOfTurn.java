@@ -10,6 +10,7 @@ public class GameStateEndOfTurn extends GameState {
         super(original);
         move.makePreverifiedMove(playerWhoseTurn, board);
         this.changeTurn();
+        lastConstructionMove = move;
     }
 
     public static GameStateEndOfTurn createInitalGameState() {
@@ -25,6 +26,14 @@ public class GameStateEndOfTurn extends GameState {
             return new GameStateEndOfTurn(original, move);
         }
         return null;
+    }
+
+    public TileMove getLastTileMove(){
+        return lastTileMove;
+    }
+
+    public ConstructionMoveInternal getLastConstructionMove(){
+        return lastConstructionMove;
     }
 
 }

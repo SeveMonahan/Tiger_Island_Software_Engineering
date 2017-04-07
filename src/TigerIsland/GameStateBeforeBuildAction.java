@@ -9,6 +9,7 @@ public class GameStateBeforeBuildAction extends GameState {
     private GameStateBeforeBuildAction(GameState original, TileMove tilemove) {
         super(original);
         board.placeTile(tilemove);
+        lastTileMove = tilemove;
     }
 
     public static GameStateBeforeBuildAction createGameStateBeforeBuildAction(GameState original, TileMove tilemove) {

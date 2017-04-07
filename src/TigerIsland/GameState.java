@@ -10,6 +10,9 @@ public class GameState {
     private boolean gameIsOver;
     protected Board board;
 
+    protected TileMove lastTileMove;
+    protected ConstructionMoveInternal lastConstructionMove;
+
     GameState() {
         player_1 = new Player(Color.WHITE);
         player_2 = new Player(Color.BLACK);
