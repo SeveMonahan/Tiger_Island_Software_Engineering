@@ -37,6 +37,8 @@ public class TotoroConstructionMove extends ConstructionMoveJustCoordinate {
 
     @Override
     public void makeValidMoveAndReturnPointsGained(Player player, Board board) {
+        player.substractTotoro();
+
         Hexagon hexagon = board.getHexagon(coordinate);
         hexagon.setOccupationStatus(player.getColor(), this);
 

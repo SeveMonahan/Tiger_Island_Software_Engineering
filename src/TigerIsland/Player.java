@@ -41,20 +41,21 @@ public class Player {
     public void setScore(int newScore) { this.score = newScore; }
     public void setAutoLoseScore(){ this.score = -1; }
 
-    // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
+    public void substractTotoro(){
+        totoroCount--;
+    }
+
     public boolean placeMeepleOnHexagon(Coordinate coordinate, Board board) {
         Piece newPiece = new Meeple(this.color);
         return attemptToPlacePiece(newPiece, coordinate, board);
     }
 
-    // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
     public boolean placeTotoroOnHexagon(Coordinate coordinate, Board board) {
         TotoroConstructionMove totoroMove = new TotoroConstructionMove(coordinate);
 
         int neededTotoros = totoroMove.isValidPlace(this, board);
 
         if(neededTotoros < totoroCount){
-           totoroCount -= neededTotoros;
            totoroMove.makeValidMoveAndReturnPointsGained(this, board);
            return true;
         }
@@ -63,7 +64,6 @@ public class Player {
 
     }
 
-    // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
     public boolean placeTigerOnHexagon(Coordinate coordinate, Board board) {
         Piece newPiece = new Tiger(this.color);
         return attemptToPlacePiece(newPiece, coordinate, board);
@@ -80,7 +80,6 @@ public class Player {
         return placementValid;
     }
 
-    // TODO Make this properly polymorphic
     public void deductPlacedPieces(Piece piece, Hexagon hexagon) {
         int piecesPlaced = piece.populationRequirements(hexagon);
         if(piece instanceof Meeple) {
