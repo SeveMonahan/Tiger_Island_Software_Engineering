@@ -65,7 +65,10 @@ public class SettlementDefinitions {
         else {
             ChosenOne = playerTwo;
         }
-        assertEquals(arg2, SettlementBoard.getSettlementSize(coordinateOne));
+
+        Settlement settlement = SettlementBoard.getSettlement(coordinateOne);
+
+        assertEquals(arg2, settlement.getSettlementSize());
     }
 
 

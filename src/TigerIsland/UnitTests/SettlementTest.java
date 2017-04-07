@@ -17,7 +17,10 @@ public class SettlementTest {
         player.placeMeepleOnHexagon(coordinateOne, board);
         Coordinate coordinateTwo = new Coordinate(100,100).getNeighboringCoordinate(HexagonNeighborDirection.UPPERLEFT);
         playerTwo.placeMeepleOnHexagon(coordinateTwo, board);
-        assertEquals(1,board.getSettlementSize(coordinateOne));
+
+        Settlement settlement = board.getSettlement(coordinateOne);
+
+        assertEquals(1,settlement.getSettlementSize());
     }
     @Test
     public void settlementOfSizeTwo() {
@@ -35,6 +38,9 @@ public class SettlementTest {
         player.placeMeepleOnHexagon(playerOneMeepleTwo, board);
         playerTwo.placeMeepleOnHexagon(playerTwoMeepleOne, board);
         playerTwo.placeMeepleOnHexagon(playerTwoMeepleTwo, board);
-        assertEquals(2,board.getSettlementSize(playerOneMeepleOne));
+
+        Settlement settlement = board.getSettlement(playerOneMeepleOne);
+
+        assertEquals(2,settlement.getSettlementSize());
     }
 }

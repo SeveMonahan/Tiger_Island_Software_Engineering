@@ -82,8 +82,10 @@ public class TotoroTest {
     @Test
     public void boardTest() throws Exception{
         Board board = getBasicBoardWithHexagonAroundStartWithWhiteMeeples();
-        assertEquals(false, board.getSettlementContainsTotoro(new Coordinate(100, 101)));
-        assertEquals(6, board.getSettlementSize(new Coordinate (100, 101)));
+        Settlement settlement = board.getSettlement(new Coordinate(100, 101) );
+
+        assertEquals(false, settlement.getSettlementContainsTotoro(board));
+        assertEquals(6, settlement.getSettlementSize());
     }
 
     @Test

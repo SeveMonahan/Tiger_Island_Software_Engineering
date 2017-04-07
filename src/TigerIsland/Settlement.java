@@ -6,114 +6,44 @@ import java.util.Queue;
 
 public class Settlement {
 
-    public int getSettlementSize(Board board, Coordinate sourceCoordinate) {
-        int size = 0;
-        HashMap map = new HashMap();
-        Queue<Coordinate> coordinateQueue = new LinkedList<>();
-        Coordinate currentCoordinate = sourceCoordinate;
-        Hexagon currentHexagon = board.getHexagon(currentCoordinate);
-        if (currentHexagon.containsPieces()) {
-            Color playerColor = currentHexagon.getOccupationColor();
-            if (currentHexagon.getOccupationColor() == playerColor) {
-                coordinateQueue.add(currentCoordinate);
-            }
-            while (!coordinateQueue.isEmpty()) {
-                currentCoordinate = coordinateQueue.remove();
-                currentHexagon = board.getHexagon(currentCoordinate);
-                map.put(currentCoordinate,true);
-                size++;
-                Coordinate[] neighbors = currentCoordinate.getNeighboringCoordinates();
-                for (Coordinate neighbor : neighbors) {
-                    currentHexagon = board.getHexagon(neighbor);
-                    if (!map.containsKey(neighbor)) {
-                        map.put(neighbor, true);
-                        if (currentHexagon.containsPieces()) {
-                            if(currentHexagon.getOccupationColor() == playerColor) {
-                                coordinateQueue.add(neighbor);
-                            }
-                        }
-                    }
-                }
-            }
+    Coordinate[] settlement;
+
+    Settlement(Queue<Coordinate> coordinates) {
+        settlement = new Coordinate[coordinates.size()];
+        int i = 0;
+        while(!coordinates.isEmpty()) {
+            settlement[i] = coordinates.remove();
+            i++;
         }
-        return size;
     }
 
+    public int getSettlementSize() {
+        return settlement.length;
+    }
 
-
-    public boolean getSettlementContainsTotoro(Board board, Coordinate sourceCoordinate) {
-        HashMap map = new HashMap();
-        Queue<Coordinate> coordinateQueue = new LinkedList<>();
-        Coordinate currentCoordinate = sourceCoordinate;
-        Hexagon currentHexagon = board.getHexagon(currentCoordinate);
-        if (currentHexagon.containsPieces()) {
-            Color playerColor = currentHexagon.getOccupationColor();
-            if (currentHexagon.getOccupationColor() == playerColor) {
-                coordinateQueue.add(currentCoordinate);
-            }
-            while (!coordinateQueue.isEmpty()) {
-                currentCoordinate = coordinateQueue.remove();
-                currentHexagon = board.getHexagon(currentCoordinate);
-                map.put(currentCoordinate,true);
-
-                if(currentHexagon.getOccupationStatus() == HexagonOccupationStatus.TOTORO){
-                    return true;
-                }
-
-                Coordinate[] neighbors = currentCoordinate.getNeighboringCoordinates();
-                for (Coordinate neighbor : neighbors) {
-                    currentHexagon = board.getHexagon(neighbor);
-                    if (!map.containsKey(neighbor)) {
-                        map.put(neighbor, true);
-                        if (currentHexagon.containsPieces()) {
-                            if(currentHexagon.getOccupationColor() == playerColor) {
-                                coordinateQueue.add(neighbor);
-                            }
-                        }
-                    }
-                }
+    public boolean getSettlementContainsTotoro(Board board) {
+        for(Coordinate currentLocation : settlement) {
+            Hexagon hexagon = board.getHexagon(currentLocation);
+            if(hexagon.getOccupationStatus() == HexagonOccupationStatus.TOTORO){
+                return true;
             }
         }
         return false;
     }
 
-    public boolean getSettlementContainsTiger(Board board, Coordinate sourceCoordinate) {
-        HashMap map = new HashMap();
-        Queue<Coordinate> coordinateQueue = new LinkedList<>();
-        Coordinate currentCoordinate = sourceCoordinate;
-        Hexagon currentHexagon = board.getHexagon(currentCoordinate);
-        if (currentHexagon.containsPieces()) {
-            Color playerColor = currentHexagon.getOccupationColor();
-            if (currentHexagon.getOccupationColor() == playerColor) {
-                coordinateQueue.add(currentCoordinate);
-            }
-            while (!coordinateQueue.isEmpty()) {
-                currentCoordinate = coordinateQueue.remove();
-                currentHexagon = board.getHexagon(currentCoordinate);
-                map.put(currentCoordinate,true);
-
-                if(currentHexagon.getOccupationStatus() == HexagonOccupationStatus.TIGER){
-                    return true;
-                }
-
-                Coordinate[] neighbors = currentCoordinate.getNeighboringCoordinates();
-                for (Coordinate neighbor : neighbors) {
-                    currentHexagon = board.getHexagon(neighbor);
-                    if (!map.containsKey(neighbor)) {
-                        map.put(neighbor, true);
-                        if (currentHexagon.containsPieces()) {
-                            if(currentHexagon.getOccupationColor() == playerColor) {
-                                coordinateQueue.add(neighbor);
-                            }
-                        }
-                    }
-                }
+    public boolean getSettlementContainsTiger(Board board) {
+        for(Coordinate currentLocation : settlement) {
+            Hexagon hexagon = board.getHexagon(currentLocation);
+            if(hexagon.getOccupationStatus() == HexagonOccupationStatus.TIGER){
+                return true;
             }
         }
         return false;
     }
 
-    public static Queue<Coordinate> expandSettlementFloodFill(Board board, Coordinate coordinate, Player player, Terrain terrain) {
+    public Queue<Coordinate> expandSettlementFloodFill(Board board, Player player, Terrain terrain) {
+        Coordinate coordinate = this.settlement[0];
+
         HashMap<Coordinate, Boolean> searched = new HashMap<>();
         Queue<Coordinate> coordinateQueue = new LinkedList<>();
         Queue<Coordinate> expansion = new LinkedList<>();
@@ -134,7 +64,8 @@ public class Settlement {
                     coordinateQueue.add(neighbor);
                     expansion.add(neighbor);
                 } else if( !searched.containsKey(neighbor) &&
-                        hexagon.getOccupationStatus() ==  HexagonOccupationStatus.MEEPLE) {
+                        hexagon.getOccupationStatus() ==  HexagonOccupationStatus.MEEPLE &&
+                        hexagon.getOccupationColor() == player.getColor() ) {
                     coordinateQueue.add(neighbor);
                     // Unsure if we need the above here... need additional tests for this...
                 }
@@ -142,5 +73,28 @@ public class Settlement {
             }
         }
         return expansion;
+    }
+
+    public boolean expandSettlementWithCheck(Board board, Player player, Terrain terrain) {
+        Coordinate coordinate = settlement[0];
+
+        Color color = board.getHexagon(coordinate).getOccupationColor();
+        HexagonOccupationStatus occupationStatus = board.getHexagon(coordinate).getOccupationStatus();
+        if( player.getColor() == color
+                && occupationStatus == HexagonOccupationStatus.MEEPLE){
+            Queue<Coordinate> settlement = expandSettlementFloodFill(board, player, terrain);
+            if(settlement.size() <= player.getMeeplesCount()) {
+                performFloodFill(board, player, settlement );
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
+    private void performFloodFill(Board board, Player player, Queue<Coordinate> expansion ) {
+        while( !expansion.isEmpty() ) {
+            player.placeMeepleOnHexagon(expansion.remove(), board);
+        }
     }
 }

@@ -175,11 +175,11 @@ public class Board {
         }
     }
 
-    public int getSettlementSize(Coordinate sourceCoordinate) {
-        int size = 0;
+    public Settlement getSettlement(Coordinate coordinate) {
+        Queue<Coordinate> settlementQueue = new LinkedList<>();
         HashMap map = new HashMap();
         Queue<Coordinate> coordinateQueue = new LinkedList<>();
-        Coordinate currentCoordinate = sourceCoordinate;
+        Coordinate currentCoordinate = coordinate;
         Hexagon currentHexagon = getHexagon(currentCoordinate);
         if (currentHexagon.containsPieces()) {
             Color playerColor = currentHexagon.getOccupationColor();
@@ -190,7 +190,7 @@ public class Board {
                 currentCoordinate = coordinateQueue.remove();
                 currentHexagon = getHexagon(currentCoordinate);
                 map.put(currentCoordinate,true);
-                size++;
+                settlementQueue.add(currentCoordinate);
                 Coordinate[] neighbors = currentCoordinate.getNeighboringCoordinates();
                 for (Coordinate neighbor : neighbors) {
                     currentHexagon = getHexagon(neighbor);
@@ -205,132 +205,9 @@ public class Board {
                 }
             }
         }
-        return size;
-    }
 
+        Settlement settlement = new Settlement(settlementQueue);
 
-
-    public boolean getSettlementContainsTotoro(Coordinate sourceCoordinate) {
-        HashMap map = new HashMap();
-        Queue<Coordinate> coordinateQueue = new LinkedList<>();
-        Coordinate currentCoordinate = sourceCoordinate;
-        Hexagon currentHexagon = getHexagon(currentCoordinate);
-        if (currentHexagon.containsPieces()) {
-            Color playerColor = currentHexagon.getOccupationColor();
-            if (currentHexagon.getOccupationColor() == playerColor) {
-                coordinateQueue.add(currentCoordinate);
-            }
-            while (!coordinateQueue.isEmpty()) {
-                currentCoordinate = coordinateQueue.remove();
-                currentHexagon = getHexagon(currentCoordinate);
-                map.put(currentCoordinate,true);
-
-                if(currentHexagon.getOccupationStatus() == HexagonOccupationStatus.TOTORO){
-                    return true;
-                }
-
-                Coordinate[] neighbors = currentCoordinate.getNeighboringCoordinates();
-                for (Coordinate neighbor : neighbors) {
-                    currentHexagon = getHexagon(neighbor);
-                    if (!map.containsKey(neighbor)) {
-                        map.put(neighbor, true);
-                        if (currentHexagon.containsPieces()) {
-                            if(currentHexagon.getOccupationColor() == playerColor) {
-                                coordinateQueue.add(neighbor);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean getSettlementContainsTiger(Coordinate sourceCoordinate) {
-        HashMap map = new HashMap();
-        Queue<Coordinate> coordinateQueue = new LinkedList<>();
-        Coordinate currentCoordinate = sourceCoordinate;
-        Hexagon currentHexagon = getHexagon(currentCoordinate);
-        if (currentHexagon.containsPieces()) {
-            Color playerColor = currentHexagon.getOccupationColor();
-            if (currentHexagon.getOccupationColor() == playerColor) {
-                coordinateQueue.add(currentCoordinate);
-            }
-            while (!coordinateQueue.isEmpty()) {
-                currentCoordinate = coordinateQueue.remove();
-                currentHexagon = getHexagon(currentCoordinate);
-                map.put(currentCoordinate,true);
-
-                if(currentHexagon.getOccupationStatus() == HexagonOccupationStatus.TIGER){
-                    return true;
-                }
-
-                Coordinate[] neighbors = currentCoordinate.getNeighboringCoordinates();
-                for (Coordinate neighbor : neighbors) {
-                    currentHexagon = getHexagon(neighbor);
-                    if (!map.containsKey(neighbor)) {
-                        map.put(neighbor, true);
-                        if (currentHexagon.containsPieces()) {
-                            if(currentHexagon.getOccupationColor() == playerColor) {
-                                coordinateQueue.add(neighbor);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean expandSettlementWithCheck(Player player, Coordinate coordinate, Terrain terrain) {
-        Color color = this.getHexagon(coordinate).getOccupationColor();
-        HexagonOccupationStatus occupationStatus = this.getHexagon(coordinate).getOccupationStatus();
-        if( player.getColor() == color
-                && occupationStatus == HexagonOccupationStatus.MEEPLE){
-            Queue<Coordinate> settlement = expandSettlementFloodFill(coordinate, player, terrain);
-            if(settlement.size() <= player.getMeeplesCount()) {
-                performFloodFill(player, settlement );
-                return true;
-            }
-            return false;
-        }
-        return false;
-    }
-
-    private void performFloodFill(Player player, Queue<Coordinate> expansion ) {
-        while( !expansion.isEmpty() ) {
-            player.placeMeepleOnHexagon(expansion.remove(), this);
-        }
-    }
-
-    private Queue<Coordinate> expandSettlementFloodFill(Coordinate coordinate, Player player, Terrain terrain) {
-        HashMap<Coordinate, Boolean> searched = new HashMap<>();
-        Queue<Coordinate> coordinateQueue = new LinkedList<>();
-        Queue<Coordinate> expansion = new LinkedList<>();
-
-        coordinateQueue.add(coordinate);
-        searched.put(coordinate, true);
-
-        while (!coordinateQueue.isEmpty()) {
-            Coordinate currentCoordinate = coordinateQueue.remove();
-            Coordinate[] neighbors = currentCoordinate.getNeighboringCoordinates();
-            for(Coordinate neighbor : neighbors){
-                Hexagon hexagon = this.getHexagon(neighbor);
-                if( !searched.containsKey(neighbor) &&
-                        hexagon.getTerrain() ==  terrain &&
-                        hexagon.getOccupationStatus() == HexagonOccupationStatus.EMPTY){
-                    // expand to this hexagon
-
-                    coordinateQueue.add(neighbor);
-                    expansion.add(neighbor);
-                } else if( !searched.containsKey(neighbor) &&
-                        hexagon.getOccupationStatus() ==  HexagonOccupationStatus.MEEPLE) {
-                    coordinateQueue.add(neighbor);
-                    // Unsure if we need the above here... need additional tests for this...
-                }
-                searched.put(neighbor, true);
-            }
-        }
-        return expansion;
+        return settlement;
     }
 }

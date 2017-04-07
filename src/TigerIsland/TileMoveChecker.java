@@ -1,5 +1,7 @@
 package TigerIsland;
 
+import java.util.Set;
+
 public class TileMoveChecker {
     // Members
     private Board board;
@@ -132,8 +134,11 @@ public class TileMoveChecker {
     private boolean noEntireSettlementsUnderneath() {
         Hexagon hexagonUnderNeighborOne = underneathHexagons[1];
         Hexagon hexagonUnderNeighborTwo = underneathHexagons[2];
-        int settlementHexOne = board.getSettlementSize(tileCoordinates[1]);
-        int settlementHexTwo = board.getSettlementSize(tileCoordinates[2]);
+        Settlement settlement1 = board.getSettlement(tileCoordinates[1]);
+        Settlement settlement2 = board.getSettlement(tileCoordinates[2]);
+
+        int settlementHexOne = settlement1.getSettlementSize();
+        int settlementHexTwo = settlement2.getSettlementSize();
         // If both hexagons are occupied...
         if (hexagonUnderNeighborOne.containsPieces() && hexagonUnderNeighborTwo.containsPieces()) {
             // If both hexagons are occupied by the same player...

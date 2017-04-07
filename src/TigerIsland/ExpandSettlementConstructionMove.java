@@ -21,15 +21,16 @@ public class ExpandSettlementConstructionMove implements ConstructionMoveInterna
 
     @Override
     public int numberPiecesRequiredToPreformMove(Player player, Board board) {
-
-        totalMeeplesNeeded = Settlement.expandSettlementFloodFill(board, coordinate, player, terrain).size();
+        Settlement settlement = board.getSettlement(coordinate);
+        totalMeeplesNeeded = settlement.expandSettlementFloodFill(board, player, terrain).size();
 
         return totalMeeplesNeeded;
     }
 
     @Override
     public void makePreverifiedMove(Player player, Board board) {
-        Queue<Coordinate> expansion = Settlement.expandSettlementFloodFill(board, coordinate, player, terrain);
+        Settlement settlement = board.getSettlement(coordinate);
+        Queue<Coordinate> expansion = settlement.expandSettlementFloodFill(board, player, terrain);
 
         assert(totalMeeplesNeeded != 1000);
 

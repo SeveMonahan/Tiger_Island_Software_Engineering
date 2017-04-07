@@ -3,7 +3,8 @@ package TigerIsland.UnitTests;
 import TigerIsland.*;
 import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
+import java.util.Set;
+
 import static org.junit.Assert.assertEquals;
 
 public class BoardTest {
@@ -145,7 +146,10 @@ public class BoardTest {
 
         player.placeMeepleOnHexagon(new Coordinate(101, 100), TestBoard);
 
-        Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(101, 100), Terrain.GRASS);
+        Settlement settlement = TestBoard.getSettlement(new Coordinate(101, 100));
+
+        // Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(101, 100), Terrain.GRASS);
+        Boolean result = settlement.expandSettlementWithCheck(TestBoard, player, Terrain.GRASS);
 
         assertEquals(true, result);
         assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagon(new Coordinate(100, 101)).getOccupationStatus() );
@@ -174,7 +178,9 @@ public class BoardTest {
 
         player.placeMeepleOnHexagon(new Coordinate(99, 101), TestBoard);
 
-        Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(99, 101), Terrain.GRASS);
+        Settlement settlement = TestBoard.getSettlement(new Coordinate(99, 101));
+        Boolean result = settlement.expandSettlementWithCheck(TestBoard, player, Terrain.GRASS);
+        // Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(99, 101), Terrain.GRASS);
 
         assertEquals(true, result);
         assertEquals(HexagonOccupationStatus.MEEPLE, TestBoard.getHexagon(new Coordinate(100, 101)).getOccupationStatus() );
@@ -202,7 +208,9 @@ public class BoardTest {
         player.placeMeepleOnHexagon(new Coordinate(99, 101), TestBoard);
         player.placeMeepleOnHexagon(new Coordinate(100, 101), TestBoard);
 
-        Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(100, 101), Terrain.GRASS);
+        Settlement settlement = TestBoard.getSettlement(new Coordinate(100, 101));
+        Boolean result = settlement.expandSettlementWithCheck(TestBoard, player, Terrain.GRASS);
+        // Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(100, 101), Terrain.GRASS);
 
         assertEquals(true, result);
 
