@@ -13,6 +13,10 @@ public class Marshaller {
         HexagonNeighborDirection tileDirection = gameMoveTransmission.getTileMove().getDirection();
         int tileOrientation = tileDirection.directionToInt(tileDirection);
 
+        if(gameMoveTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.UNABLETOBUILD) {
+            return "GAME " + gameMoveTransmission.getGid() + " MOVE " + gameMoveTransmission.getMoveNumber() + " PLACE " + tileString + " AT " + tileX + " " + tileY + " " + tileZ + " " + tileOrientation + " UNABLE TO BUILD";
+        }
+
         int constructionX = gameMoveTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[0];
         int constructionY = gameMoveTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[1];
         int constructionZ = gameMoveTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[2];
