@@ -62,9 +62,24 @@ public class Player {
 
     // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
     public boolean placeTotoroOnHexagon(Coordinate coordinate, Board board) {
-        Piece newPiece = new Totoro(this.color);
-        return attemptToPlacePiece(newPiece, coordinate, board);
+        TotoroConstructionMove totoroMove = new TotoroConstructionMove(coordinate);
+
+        int neededTotoros = totoroMove.isValidPlace(this.color, board);
+
+        if(neededTotoros < totoroCount){
+           totoroMove.makeValidPlaceIfAble(this.color, board);
+           totoroCount -= neededTotoros;
+           Hexagon hexagon = board.getHexagon(coordinate);
+           hexagon.setOccupationStatus(new Totoro(this.color));
+           score += 200;
+
+           return true;
+        }
+
+        return false;
+
     }
+
     // TODO rewrite this to return a boolean from attemptToPlacePiece so we know if it actually happened
     public boolean placeTigerOnHexagon(Coordinate coordinate, Board board) {
         Piece newPiece = new Tiger(this.color);

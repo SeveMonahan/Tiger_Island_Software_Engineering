@@ -6,14 +6,17 @@ class TotoroConstructionMove extends ConstructionMoveJustCoordinate {
     }
 
     @Override
-    public boolean isValidPlace(Color color, Board board) {
+    public int isValidPlace(Color color, Board board) {
         Totoro totoro = new Totoro(color);
-        return totoro.isPlacementValid(coordinate, board);
+        if(totoro.isPlacementValid(coordinate, board)){
+            return 1;
+        }
+
+        return 1000;
     }
 
     @Override
-    public boolean makeValidPlaceIfAble(Color color, Board board) {
+    public void makeValidPlaceIfAble(Color color, Board board) {
 
-        return false;
     }
 }
