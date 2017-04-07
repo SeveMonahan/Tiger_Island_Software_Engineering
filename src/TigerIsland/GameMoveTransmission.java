@@ -14,7 +14,6 @@ public class GameMoveTransmission {
 
     public ConstructionMoveTransmission getConstructionMoveTransmission() { return constructionMoveTransmission;}
 
-
     public GameMoveTransmission(String gid, int moveNumber, TileMove tileMove, ConstructionMoveTransmission constructionMoveTransmission){
         this.gid = gid;
         this.moveNumber = moveNumber;
