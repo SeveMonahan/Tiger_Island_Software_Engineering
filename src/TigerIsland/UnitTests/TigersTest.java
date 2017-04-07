@@ -66,4 +66,7 @@ public class TigersTest {
         assertEquals(2, player.getTigerCount());
         assertEquals(HexagonOccupationStatus.EMPTY, hexagon.getOccupationStatus());
     }
+
+    // TODO: Need to write success case, case where a Tile tries to nuke a Tiger and is successful, and case were being added to a settlement which already has a Tiger
+    // stops the Tiger
 }
