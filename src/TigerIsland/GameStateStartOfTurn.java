@@ -6,6 +6,11 @@ public class GameStateStartOfTurn extends GameState {
        super();
     }
 
+    private GameStateStartOfTurn(GameStateBeforeBuildAction original, ConstructionMoveInternal move) {
+        super(original);
+        move.makePreverifiedMove(playerWhoseTurn, board);
+    }
+
     public static GameStateStartOfTurn createInitalGameState() {
         return new GameStateStartOfTurn();
     }
@@ -15,7 +20,9 @@ public class GameStateStartOfTurn extends GameState {
     }
 
     public static GameStateStartOfTurn createGameStateFromConstructionMove(GameStateBeforeBuildAction original, ConstructionMoveInternal move) {
-        move.canPreformMove(original.playerWhoseTurn, original.board);
+        if(move.canPreformMove(original.playerWhoseTurn, original.board)){
+            return new GameStateStartOfTurn(original, move);
+        }
         return null;
     }
 
