@@ -48,6 +48,8 @@ public class GameState {
 
         this.gameIsOver = original.gameIsOver;
 
+        lastTileMove = original.lastTileMove;
+        lastConstructionMove = original.lastConstructionMove;
     }
 
     public boolean isMyTurn(Color myColor) {
