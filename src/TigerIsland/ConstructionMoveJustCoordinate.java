@@ -6,4 +6,9 @@ abstract class ConstructionMoveJustCoordinate implements ConstructionMoveInterna
     ConstructionMoveJustCoordinate(Coordinate coordinate){
         this.coordinate = coordinate;
     }
+
+    @Override
+    public String marshallMove() {
+        return "NULL";
+    }
 }

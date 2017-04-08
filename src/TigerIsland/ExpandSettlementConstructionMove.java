@@ -12,6 +12,11 @@ public class ExpandSettlementConstructionMove implements ConstructionMoveInterna
         return this.coordinate;
     }
 
+    @Override
+    public String marshallMove() {
+        return "NULL";
+    }
+
     public ExpandSettlementConstructionMove(Coordinate coordinate, Terrain terrain) {
         this.coordinate = coordinate;
         this.terrain = terrain;
