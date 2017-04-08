@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 public class MarshallerTest {
-    /*
+
     @Test
     public void convertGameMoveTransmissionToStringForFoundSettlement(){
         String expectedString = "GAME A MOVE 3 PLACE JUNGLE+LAKE AT 1 -1 0 1 FOUND SETTLEMENT AT -2 -1 3";
@@ -14,9 +14,8 @@ public class MarshallerTest {
         Coordinate testTileCoordinate = new Coordinate(1, -1, 0);
         TileMove testTileMove = new TileMove(testTile, HexagonNeighborDirection.UPPERLEFT, testTileCoordinate);
 
-        BuildOption testBuildOption = BuildOption.FOUNDSETTLEMENT;
         Coordinate testConstructionCoordinate = new Coordinate(-2, -1, 3);
-        ConstructionMoveTransmission testConstructionMoveTransmission = new ConstructionMoveTransmission(testBuildOption, testConstructionCoordinate);
+        ConstructionMoveInternal testConstructionMoveTransmission = new FoundSettlementConstructionMove(testConstructionCoordinate);
 
         final String testGID = "A";
         final int testMoveNumber = 3;
@@ -36,9 +35,8 @@ public class MarshallerTest {
         Coordinate testTileCoordinate = new Coordinate(1, -1, 0);
         TileMove testTileMove = new TileMove(testTile, HexagonNeighborDirection.UPPERLEFT, testTileCoordinate);
 
-        BuildOption testBuildOption = BuildOption.EXPANDSETTLEMENT;
         Coordinate testConstructionCoordinate = new Coordinate(-2, -1, 3);
-        ExpandSettlementMoveTransmission testExpandSettlementMoveTransmission = new ExpandSettlementMoveTransmission(testBuildOption, testConstructionCoordinate, Terrain.GRASS);
+        ExpandSettlementConstructionMove testExpandSettlementMoveTransmission = new ExpandSettlementConstructionMove(testConstructionCoordinate, Terrain.GRASS);
 
         final String testGID = "A";
         final int testMoveNumber = 3;
@@ -58,9 +56,8 @@ public class MarshallerTest {
         Coordinate testTileCoordinate = new Coordinate(1, -1, 0);
         TileMove testTileMove = new TileMove(testTile, HexagonNeighborDirection.UPPERLEFT, testTileCoordinate);
 
-        BuildOption testBuildOption = BuildOption.BUILDTOTORO;
         Coordinate testConstructionCoordinate = new Coordinate(-2, -1, 3);
-        ConstructionMoveTransmission testConstructionMoveTransmission = new ConstructionMoveTransmission(testBuildOption, testConstructionCoordinate);
+        TotoroConstructionMove testConstructionMoveTransmission = new TotoroConstructionMove(testConstructionCoordinate);
 
         final String testGID = "A";
         final int testMoveNumber = 3;
@@ -80,9 +77,8 @@ public class MarshallerTest {
         Coordinate testTileCoordinate = new Coordinate(1, -1, 0);
         TileMove testTileMove = new TileMove(testTile, HexagonNeighborDirection.UPPERLEFT, testTileCoordinate);
 
-        BuildOption testBuildOption = BuildOption.BUILDTIGER;
         Coordinate testConstructionCoordinate = new Coordinate(-2, -1, 3);
-        ConstructionMoveTransmission testConstructionMoveTransmission = new ConstructionMoveTransmission(testBuildOption, testConstructionCoordinate);
+        TigerConstructionMove testConstructionMoveTransmission = new TigerConstructionMove(testConstructionCoordinate);
 
         final String testGID = "A";
         final int testMoveNumber = 3;
@@ -102,9 +98,8 @@ public class MarshallerTest {
         Coordinate testTileCoordinate = new Coordinate(1, -1, 0);
         TileMove testTileMove = new TileMove(testTile, HexagonNeighborDirection.UPPERLEFT, testTileCoordinate);
 
-        BuildOption testBuildOption = BuildOption.UNABLETOBUILD;
         Coordinate testConstructionCoordinate = null;
-        ConstructionMoveTransmission testConstructionMoveTransmission = new ConstructionMoveTransmission(testBuildOption, testConstructionCoordinate);
+        UnableToBuildConstructionMove testConstructionMoveTransmission = new UnableToBuildConstructionMove();
 
         final String testGID = "A";
         final int testMoveNumber = 3;
@@ -115,5 +110,4 @@ public class MarshallerTest {
 
         assertEquals(expectedString, testString);
     }
-    */
 }
