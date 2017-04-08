@@ -59,4 +59,27 @@ public class TigerConstructionMoveTest {
         assertEquals(1, player_1.getTigerCount());
         assertEquals(76, player_1.getScore());
     }
+    @Test
+    public void tigerPlacedOnVolcano() {
+        Board board = new Board();
+        board.placeStartingTile();
+        Coordinate upperRight = new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERRIGHT);
+        Color Player_Color = Color.WHITE;
+        Player player_1 = new Player(Player_Color);
+        Coordinate right = new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.RIGHT);
+        FoundSettlementConstructionMove move1 = new FoundSettlementConstructionMove(right);
+        move1.makePreverifiedMove(player_1, board);
+        assertEquals(1, player_1.getScore());
+
+        TigerConstructionMove move2 = new TigerConstructionMove(upperRight);
+        assertEquals(false, move2.canPerformMove(player_1, board));
+        Hexagon levelTwoHexagon = new Hexagon();
+        levelTwoHexagon.changeTerrainTypeThoughExplosion(Terrain.GRASS);
+        levelTwoHexagon.changeTerrainTypeThoughExplosion(Terrain.JUNGLE);
+        levelTwoHexagon.changeTerrainTypeThoughExplosion(Terrain.VOLCANO);
+        assertEquals(3, levelTwoHexagon.getLevel());
+        board.setHexagonAt(upperRight, levelTwoHexagon);
+        assertEquals(2, player_1.getTigerCount());
+        assertEquals(false, move2.canPerformMove(player_1, board));
+    }
 }
