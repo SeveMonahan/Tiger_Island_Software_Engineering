@@ -18,7 +18,7 @@ public class TigerConstructionMoveTest {
         move1.makePreverifiedMove(player_1, board);
 
         TigerConstructionMove move2= new TigerConstructionMove(upperRight);
-
+        assertEquals(upperRight, move2.getCoordinate());
         assertEquals(false, move2.canPerformMove(player_1, board));
 
         Hexagon levelTwoHexagon = new Hexagon();
