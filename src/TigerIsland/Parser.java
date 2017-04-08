@@ -12,8 +12,23 @@ public class Parser {
     }
 
 
+    public GameMoveTransmission opponentMoveStringToGameMove(String opponentMoveString){
+        String[] opponentMoveStringSplitBySpaceArray = opponentMoveString.split("\\s+");
+
+        final int gidIndex = 1;
+        final int moveNumberIndex = 3;
+
+        String gid = opponentMoveStringSplitBySpaceArray[gidIndex];
+        int moveNumber = Integer.parseInt(opponentMoveStringSplitBySpaceArray[moveNumberIndex]);
+
+        TileMove tileMove = opponentMoveStringToTileMove(opponentMoveString);
+        ConstructionMoveTransmission constructionMoveTransmission = opponentMoveStringToBuildMove(opponentMoveString);
+
+        return new GameMoveTransmission(gid, moveNumber, tileMove, constructionMoveTransmission);
+    }
+
     //Takes in "GAME <gid> MOVE <#> PLAYER <pid> <place> <build>" and outputs a TileMove object
-    public TileMove opponentMoveStringToTileMove(String opponentMoveString){
+    private TileMove opponentMoveStringToTileMove(String opponentMoveString){
         String[] opponentMoveStringSplitBySpaceArray = opponentMoveString.split("\\s+");
 
         final int tileIndex = 7;
@@ -37,7 +52,7 @@ public class Parser {
         return new TileMove(tile, direction, coordinate);
     }
 
-    public ConstructionMoveTransmission opponentMoveStringToBuildMove(String opponentMoveString){
+    private ConstructionMoveTransmission opponentMoveStringToBuildMove(String opponentMoveString){
         String[] opponentMoveStringSplitBySpaceArray = opponentMoveString.split("\\s+");
         final int buildKeyword1Index = 13;
         final int buildKeyword2Index = 14;
