@@ -148,6 +148,10 @@ public class Board {
 
             hexagonArray[coordinate.getX()][coordinate.getY()].changeTerrainTypeThoughExplosion(Terrain.VOLCANO);
 
+            updateCoordinateRange(coordinate);
+            updateCoordinateRange(coordinate.getNeighboringCoordinateAt(direction));
+            updateCoordinateRange(coordinate.getNeighboringCoordinateAt(direction.getNextClockwise()));
+
             Hexagon overwritten_2 = getNeighboringHexagon(coordinate, direction);
             Hexagon overwritten_3 = getNeighboringHexagon(coordinate, direction.getNextClockwise());
 
