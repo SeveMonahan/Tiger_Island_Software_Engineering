@@ -112,14 +112,14 @@ public class TigerConstructionMoveTest {
         assertEquals(1, player_1.getTigerCount());
         assertEquals(76, player_1.getScore());
 
-        Coordinate testCordinate = upperRight.getNeighboringCoordinateAt(HexagonNeighborDirection.RIGHT);
+        Coordinate testCoordinate = upperRight.getNeighboringCoordinateAt(HexagonNeighborDirection.RIGHT);
         Hexagon levelThreeHexagon2 = new Hexagon();
         levelThreeHexagon2.changeTerrainTypeThoughExplosion(Terrain.GRASS);
         levelThreeHexagon2.changeTerrainTypeThoughExplosion(Terrain.JUNGLE);
         levelThreeHexagon2.changeTerrainTypeThoughExplosion(Terrain.ROCK);
-        TigerConstructionMove move4 = new TigerConstructionMove(testCordinate);
+        TigerConstructionMove move4 = new TigerConstructionMove(testCoordinate);
         assertEquals(3, levelThreeHexagon2.getLevel());
-        board.setHexagonAt(testCordinate, levelThreeHexagon2);
+        board.setHexagonAt(testCoordinate, levelThreeHexagon2);
         assertEquals(1, player_1.getTigerCount());
         assertEquals(false, move4.canPerformMove(player_1, board));
 
