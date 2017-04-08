@@ -1,8 +1,11 @@
 package TigerIsland;
 
+import java.util.HashMap;
+import java.util.Queue;
+
 import static java.lang.Integer.parseInt;
 
-public class Controller {
+public class PostMan {
     private static int cid = 0;
     private static int oid = 0;
     private static int rid = 0;
@@ -12,6 +15,27 @@ public class Controller {
     private static boolean gameOver = false;
     private static boolean readGameOneScore = false;
     private static boolean roundsOver = false;
+    private Referee game_01;
+    private Referee game_02;
+
+    private HashMap<String, GameMoveIncomingTransmission> mailBox;
+
+    public static void StartChallenge() {
+        // spin up threads in here...
+    }
+
+    // TODO mailbox assumes we will never have multiple messages for a thread...
+    // is this dangerous? Maybe we shouldn't use a HashMap
+    public synchronized GameMoveIncomingTransmission accessMailBox(String gid) {
+        GameMoveIncomingTransmission gameMoveIncomingTransmission = null;
+        if(mailBox.containsKey(gid)) {
+            gameMoveIncomingTransmission = mailBox.get(gid);
+            mailBox.remove(gid);
+            return gameMoveIncomingTransmission;
+        }
+        return gameMoveIncomingTransmission;
+    }
+
     /*
     States:
     0 = challenge

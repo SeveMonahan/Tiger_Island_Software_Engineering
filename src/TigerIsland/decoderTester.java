@@ -1,7 +1,5 @@
 package TigerIsland;
 
-import TigerIsland.Controller;
-
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -48,7 +46,7 @@ public class decoderTester {
             if (s.equals("NEW CHALLENGE 888 YOU WILL PLAY 1 MATCH")) {
                 TimeUnit.SECONDS.sleep(5);
             }
-            Controller.decoder(s);
+            PostMan.decoder(s);
             TimeUnit.SECONDS.sleep(1);
         }
 
