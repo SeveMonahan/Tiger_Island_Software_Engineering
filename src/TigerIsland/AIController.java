@@ -5,7 +5,7 @@ import TigerIsland.*;
 public class AIController implements PlayerController {
     Color color;
 
-    AIController(Color color){
+    public AIController(Color color){
         this.color = color;
     }
 
