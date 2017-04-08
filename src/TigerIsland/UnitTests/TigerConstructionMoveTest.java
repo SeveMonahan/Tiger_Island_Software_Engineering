@@ -119,7 +119,7 @@ public class TigerConstructionMoveTest {
         levelThreeHexagon2.changeTerrainTypeThoughExplosion(Terrain.ROCK);
         TigerConstructionMove move4 = new TigerConstructionMove(testCordinate);
         assertEquals(3, levelThreeHexagon2.getLevel());
-        board.setHexagonAt(upperRight, levelThreeHexagon2);
+        board.setHexagonAt(testCordinate, levelThreeHexagon2);
         assertEquals(1, player_1.getTigerCount());
         assertEquals(false, move4.canPerformMove(player_1, board));
 
