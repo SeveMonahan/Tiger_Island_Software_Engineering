@@ -13,25 +13,26 @@ public class Referee {
         this.tileBag = tileBag;
     }
 
+    private void ControllerTakesTurn(GameStateEndOfTurn gameEndOfTurn, PlayerController controller){
+        Tile tile = tileBag.drawTile();
+        GameStateWTile gameStateWithTile = gameEndOfTurn.getChild(tile);
+        gameEndOfTurn = controller.newGameState(gameStateWithTile);
+        output.dispatchInformation(gameEndOfTurn);
+    }
+
     public void Execute(){
         GameStateEndOfTurn gameEndOfTurn = GameStateEndOfTurn.createInitalGameState();
 
         while(true){
-            Tile tile = tileBag.drawTile();
-            GameStateWTile gameStateWithTile = gameEndOfTurn.getChild(tile);
-            gameEndOfTurn = controller_1.newGameState(gameStateWithTile);
-            output.dispatchInformation(gameEndOfTurn);
 
-            if(gameEndOfTurn.checkForGameOver()){
+            ControllerTakesTurn(gameEndOfTurn, controller_1);
+
+            if(gameEndOfTurn.checkForGameOver() || tileBag.getNumberOfTilesInBag() == 0){
                 break;
             }
 
-            tile = tileBag.drawTile();
-            gameStateWithTile = gameEndOfTurn.getChild(tile);
-            gameEndOfTurn = controller_2.newGameState(gameStateWithTile);
-            output.dispatchInformation(gameEndOfTurn);
-
-            if(gameEndOfTurn.checkForGameOver()){
+            ControllerTakesTurn(gameEndOfTurn, controller_2);
+            if(gameEndOfTurn.checkForGameOver() || tileBag.getNumberOfTilesInBag() == 0){
                 break;
             }
         }
