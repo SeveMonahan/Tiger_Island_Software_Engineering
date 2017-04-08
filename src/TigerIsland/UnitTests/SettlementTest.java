@@ -31,11 +31,11 @@ public class SettlementTest {
         Board board = new Board();
         board.placeStartingTile();
 
-        Coordinate playerOneTargetOne = new Coordinate(99,100);
-        Coordinate playerOneTargetTwo = new Coordinate (99,101);
+        Coordinate playerOneTargetOne = new Coordinate(99,101);
+        Coordinate playerOneTargetTwo = new Coordinate (100,101);
 
-        Coordinate playerTwoTargetOne = new Coordinate(98,100);
-        Coordinate playerTwoTargetTwo = new Coordinate (98,101);
+        Coordinate playerTwoTargetOne = new Coordinate(99,99);
+        Coordinate playerTwoTargetTwo = new Coordinate (100,99);
 
         playerOne.placeMeepleOnHexagon(playerOneTargetOne, board);
         playerOne.placeMeepleOnHexagon(playerOneTargetTwo, board);
@@ -44,7 +44,7 @@ public class SettlementTest {
         playerTwo.placeMeepleOnHexagon(playerTwoTargetTwo, board);
 
         Settlement settlement = board.getSettlement(playerOneTargetOne);
-        assertEquals(2,settlement.getSettlementSize());
+        assertEquals(2, settlement.getSettlementSize());
     }
 
     @Test
