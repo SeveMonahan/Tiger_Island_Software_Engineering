@@ -33,7 +33,7 @@ public class ExpandSettlementConstructionMove extends ConstructionMoveJustCoordi
         Settlement settlement = board.getSettlement(coordinate);
         totalMeeplesNeeded = settlement.expandSettlementFloodFill(board, player, terrain).size();
 
-        return totalMeeplesNeeded <= player.getMeeplesCount();
+        return totalMeeplesNeeded != 0 && totalMeeplesNeeded <= player.getMeeplesCount();
     }
 
     @Override
