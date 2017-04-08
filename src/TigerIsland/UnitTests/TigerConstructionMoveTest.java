@@ -1,6 +1,5 @@
-package src.TigerIsland.UnitTests;
-import org.junit.Test;
-import src.TigerIsland.*;
+package TigerIsland.UnitTests;
+import TigerIsland.*;
 
 
 import static org.junit.Assert.assertEquals;
