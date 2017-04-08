@@ -5,18 +5,82 @@ import static org.junit.Assert.assertEquals;
 
 public class BoardAddingTilesTest {
     @Test
-    public void ConstructorUsingTile(){
-        Board boardWithTile = new Board();
-        TileMove startingTileMove = new TileMove(new Tile(Terrain.JUNGLE, Terrain.ROCK), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
-        boardWithTile.placeTile(startingTileMove);
-        Board TestBoard = boardWithTile;
+    public void initializedBoardWithStartingTileTerrainTypeTest() {
+        Board board = new Board();
+        board.placeStartingTile();
+
+        Coordinate center = new Coordinate(100,100);
+        Coordinate upperLeft = center.getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERLEFT);
+        Coordinate upperRight = center.getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERRIGHT);
+        Coordinate lowerRight = center.getNeighboringCoordinateAt(HexagonNeighborDirection.LOWERRIGHT);
+        Coordinate lowerLeft = center.getNeighboringCoordinateAt(HexagonNeighborDirection.LOWERLEFT);
+
+        Hexagon centerHexagon = board.getHexagonAt(center);
+        Hexagon upperLeftHexagon = board.getHexagonAt(upperLeft);
+        Hexagon upperRightHexagon = board.getHexagonAt(upperRight);
+        Hexagon lowerRightHexagon = board.getHexagonAt(lowerRight);
+        Hexagon lowerLeftHexagon = board.getHexagonAt(lowerLeft);
+
+        assertEquals(Terrain.VOLCANO, centerHexagon.getTerrain());
+        assertEquals(Terrain.JUNGLE, upperLeftHexagon.getTerrain());
+        assertEquals(Terrain.LAKE, upperRightHexagon.getTerrain());
+        assertEquals(Terrain.GRASS, lowerRightHexagon.getTerrain());
+        assertEquals(Terrain.ROCK, lowerLeftHexagon.getTerrain());
+    }
+
+    @Test
+    public void initializedBoardWithStartingTileShouldLevelOneTest() {
+        Board board = new Board();
+        board.placeStartingTile();
+
+        Coordinate center = new Coordinate(100,100);
+        Coordinate upperLeft = center.getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERLEFT);
+        Coordinate upperRight = center.getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERRIGHT);
+        Coordinate lowerRight = center.getNeighboringCoordinateAt(HexagonNeighborDirection.LOWERRIGHT);
+        Coordinate lowerLeft = center.getNeighboringCoordinateAt(HexagonNeighborDirection.LOWERLEFT);
+
+        Hexagon centerHexagon = board.getHexagonAt(center);
+        Hexagon upperLeftHexagon = board.getHexagonAt(upperLeft);
+        Hexagon upperRightHexagon = board.getHexagonAt(upperRight);
+        Hexagon lowerRightHexagon = board.getHexagonAt(lowerRight);
+        Hexagon lowerLeftHexagon = board.getHexagonAt(lowerLeft);
+
+        assertEquals(1, centerHexagon.getLevel());
+        assertEquals(1, upperLeftHexagon.getLevel());
+        assertEquals(1, upperRightHexagon.getLevel());
+        assertEquals(1, lowerRightHexagon.getLevel());
+        assertEquals(1, lowerLeftHexagon.getLevel());
+    }
+
+    @Test
+    public void initializedBoardWithStartingTileHashCodeTest() {
+        Board board = new Board();
+        board.placeStartingTile();
+
+        Coordinate center = new Coordinate(100,100);
+        Coordinate upperLeft = center.getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERLEFT);
+        Coordinate upperRight = center.getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERRIGHT);
+        Coordinate lowerRight = center.getNeighboringCoordinateAt(HexagonNeighborDirection.LOWERRIGHT);
+        Coordinate lowerLeft = center.getNeighboringCoordinateAt(HexagonNeighborDirection.LOWERLEFT);
+
+        Hexagon centerHexagon = board.getHexagonAt(center);
+        Hexagon upperLeftHexagon = board.getHexagonAt(upperLeft);
+        Hexagon upperRightHexagon = board.getHexagonAt(upperRight);
+        Hexagon lowerRightHexagon = board.getHexagonAt(lowerRight);
+        Hexagon lowerLeftHexagon = board.getHexagonAt(lowerLeft);
+
+        assertEquals(0, centerHexagon.getTileHashCode());
+        assertEquals(0, upperLeftHexagon.getTileHashCode());
+        assertEquals(0, upperRightHexagon.getTileHashCode());
+        assertEquals(0, lowerRightHexagon.getTileHashCode());
+        assertEquals(0, lowerLeftHexagon.getTileHashCode());
     }
 
     @Test
     public void placeTileNoRestrictions() {
         Board TestBoard = new Board();
-        TileMove testTileMove = new TileMove ( new Tile(Terrain.LAKE, Terrain.GRASS),
-                                            HexagonNeighborDirection.LEFT, new Coordinate(100,100) );
+        Tile tile = new Tile(Terrain.LAKE, Terrain.GRASS);
+        TileMove testTileMove = new TileMove (tile, HexagonNeighborDirection.LEFT, new Coordinate(100,100));
 
         TestBoard.placeTile(testTileMove);
 
@@ -25,40 +89,12 @@ public class BoardAddingTilesTest {
         Coordinate TestCoordinate3 = new Coordinate(99,101);
 
         assertEquals(Terrain.VOLCANO, TestBoard.getHexagonAt( TestCoordinate1).getTerrain());
-
         assertEquals(Terrain.LAKE, TestBoard.getHexagonAt( TestCoordinate2).getTerrain());
-
         assertEquals(Terrain.GRASS, TestBoard.getHexagonAt( TestCoordinate3).getTerrain());
 
         assertEquals(1, TestBoard.getHexagonAt( TestCoordinate1).getLevel());
-
         assertEquals(1, TestBoard.getHexagonAt( TestCoordinate2).getLevel());
-
         assertEquals(1, TestBoard.getHexagonAt( TestCoordinate3).getLevel());
-    }
-
-    @Test
-    public void initBoardWithTile() {
-        Board boardWithTile = new Board();
-        TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASS), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
-        boardWithTile.placeTile(startingTileMove);
-        Board TestBoard = boardWithTile;
-
-        Coordinate TestCoordinate1 = new Coordinate(100,100);
-        Coordinate TestCoordinate2 = new Coordinate(99,100);
-        Coordinate TestCoordinate3 = new Coordinate(99,101);
-
-        assertEquals(Terrain.VOLCANO, TestBoard.getHexagonAt( TestCoordinate1).getTerrain());
-
-        assertEquals(Terrain.LAKE, TestBoard.getHexagonAt( TestCoordinate2).getTerrain());
-
-        assertEquals(Terrain.GRASS, TestBoard.getHexagonAt( TestCoordinate3).getTerrain());
-
-        assertEquals(1, TestBoard.getHexagonAt(TestCoordinate1).getLevel());
-
-        assertEquals(1, TestBoard.getHexagonAt(TestCoordinate2).getLevel());
-
-        assertEquals(1, TestBoard.getHexagonAt(TestCoordinate3).getLevel());
     }
 
     @Test

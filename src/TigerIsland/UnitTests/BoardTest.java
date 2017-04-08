@@ -51,19 +51,16 @@ public class BoardTest {
     }
 
     @Test
-    public void getNeighborsOddX() throws Exception{
+    public void getNeighborsOddX() throws Exception {
         Board TestBoard = new Board();
-
         Hexagon TestHexagon = new Hexagon();
 
         TestHexagon.changeTerrainTypeThoughExplosion(Terrain.ROCK);
 
         TestBoard.setHexagonAt(new Coordinate(102,101), TestHexagon);
         TestBoard.setHexagonAt(new Coordinate(100,101), TestHexagon);
-
         TestBoard.setHexagonAt(new Coordinate(101,100), TestHexagon);
         TestBoard.setHexagonAt(new Coordinate(101,102), TestHexagon);
-
         TestBoard.setHexagonAt(new Coordinate(102,100), TestHexagon);
         TestBoard.setHexagonAt(new Coordinate(102,102), TestHexagon);
 
@@ -75,19 +72,16 @@ public class BoardTest {
     }
 
     @Test
-    public void getNeighborsEvenX() throws Exception{
+    public void getNeighborsEvenX() throws Exception {
         Board TestBoard = new Board();
-
         Hexagon TestHexagon = new Hexagon();
 
         TestHexagon.changeTerrainTypeThoughExplosion(Terrain.ROCK);
 
         TestBoard.setHexagonAt( new Coordinate(53,52), TestHexagon);
         TestBoard.setHexagonAt( new Coordinate(51,52), TestHexagon);
-
         TestBoard.setHexagonAt( new Coordinate(52,51), TestHexagon);
         TestBoard.setHexagonAt( new Coordinate(52,53), TestHexagon);
-
         TestBoard.setHexagonAt( new Coordinate(51,51), TestHexagon);
         TestBoard.setHexagonAt( new Coordinate(51,53), TestHexagon);
 
@@ -99,20 +93,16 @@ public class BoardTest {
     }
 
     @Test
-    public void getNeighborsOddXEvenY() throws Exception{
-
+    public void getNeighborsOddXEvenY() throws Exception {
         Board TestBoard = new Board();
-
         Hexagon TestHexagon = new Hexagon();
 
         TestHexagon.changeTerrainTypeThoughExplosion(Terrain.ROCK);
 
         TestBoard.setHexagonAt( new Coordinate(70,70), TestHexagon);
         TestBoard.setHexagonAt( new Coordinate(72,70), TestHexagon);
-
         TestBoard.setHexagonAt( new Coordinate(70,71), TestHexagon);
         TestBoard.setHexagonAt( new Coordinate(71,71), TestHexagon);
-
         TestBoard.setHexagonAt( new Coordinate(70,69), TestHexagon);
         TestBoard.setHexagonAt( new Coordinate(71,69), TestHexagon);
 

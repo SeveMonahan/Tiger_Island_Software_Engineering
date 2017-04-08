@@ -15,14 +15,14 @@ public class Hexagon {
     public Terrain getTerrain(){
         return terrain;
     }
-    int getTileHashCode() { return tileHashCode; }
+    public int getTileHashCode() { return tileHashCode; }
     public PieceStatusHexagon getPiecesStatus() {
         return piecesStatus;
     }
     public Color getOccupationColor() { return occupationColor; }
 
     public static Hexagon cloneHexagon(Hexagon copiedHexagon) {
-        if (copiedHexagon == null){
+        if (copiedHexagon == null) {
             return null;
         }
         return new Hexagon(copiedHexagon);
@@ -33,7 +33,6 @@ public class Hexagon {
         this.piecesStatus = pieceStatus;
         occupationColor = color;
     }
-
     public void setTileHashCode(int tileHashCode) {
         this.tileHashCode = tileHashCode;
     }
@@ -62,7 +61,7 @@ public class Hexagon {
 
     boolean getCanBeNuked() { return piecesStatus != PieceStatusHexagon.TOTORO; }
 
-    public void changeTerrainTypeThoughExplosion(Terrain new_terrain){
+    public void changeTerrainTypeThoughExplosion(Terrain new_terrain) {
         terrain = new_terrain;
         incrementLevel();
         eliminatePieces();

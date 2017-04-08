@@ -128,6 +128,14 @@ public class Board {
         upperRight.changeTerrainTypeThoughExplosion(Terrain.LAKE);
         lowerRight.changeTerrainTypeThoughExplosion(Terrain.GRASS);
         lowerLeft.changeTerrainTypeThoughExplosion(Terrain.ROCK);
+
+        int startingTileHashCode = 0;
+
+        volcanoHex.setTileHashCode(startingTileHashCode);
+        upperLeft.setTileHashCode(startingTileHashCode);
+        upperRight.setTileHashCode(startingTileHashCode);
+        lowerRight.setTileHashCode(startingTileHashCode);
+        lowerLeft.setTileHashCode(startingTileHashCode);
     }
 
     public boolean placeTile(TileMove tileMove) {

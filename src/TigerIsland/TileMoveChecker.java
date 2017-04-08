@@ -76,7 +76,7 @@ public class TileMoveChecker {
             return true;
         }
     }
-    private boolean allThreeAreEqual(int hexagonLevel1, int hexagonLevel2, int hexagonLevel3) {
+    private boolean allThreeAreEqual(double hexagonLevel1, double hexagonLevel2, double hexagonLevel3) {
         return hexagonLevel1 == hexagonLevel2 && hexagonLevel2 == hexagonLevel3;
     }
     private boolean volcanoesLineUp() {

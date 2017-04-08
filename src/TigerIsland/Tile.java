@@ -10,12 +10,12 @@ public class Tile {
     }
 
     public Terrain[] getTerrainsClockwiseFromVolcano(){
-        Terrain[] result = new Terrain[3];
+        Terrain[] terrains = new Terrain[3];
 
-        result[0] = Terrain.VOLCANO;
-        result[1] = terrain_1;
-        result[2] = terrain_2;
+        terrains[0] = Terrain.VOLCANO;
+        terrains[1] = terrain_1;
+        terrains[2] = terrain_2;
 
-        return result;
+        return terrains;
     }
 }
