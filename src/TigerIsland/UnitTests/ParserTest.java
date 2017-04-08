@@ -17,8 +17,8 @@ public class ParserTest {
 
     //Founded
     @Test
-    public void getGameMoveTransmissionFromGameMoveMadeStringForFoundedSettlement(){
-        String message = "GAME A MOVE 3 PLAYER pid PLACED JUNGLE+LAKE AT 0 3 -3 1 FOUNDED SETTLEMENT AT 1 -1 0";
+    public void getGameMoveIncomingTransmissionFromGameMoveMadeStringForFoundedSettlement(){
+        String message = "GAME A MOVE 3 PLAYER myPlayerId PLACED JUNGLE+LAKE AT 0 3 -3 1 FOUNDED SETTLEMENT AT 1 -1 0";
 
         Tile expectedTile = new Tile(Terrain.JUNGLE, Terrain.LAKE);
         Coordinate expectedTileCoordinate = new Coordinate(0, 3, -3);
@@ -30,28 +30,29 @@ public class ParserTest {
 
         final String testGID = "A";
         final int testMoveNumber = 3;
-        GameMoveTransmission expectedGameMoveTransmission = new GameMoveTransmission(testGID, testMoveNumber, expectedTileMove, expectedConstructionMoveTransmission);
+        final String testPid = "myPlayerId";
+        GameMoveIncomingTransmission expectedGameMoveIncomingTransmission = new GameMoveIncomingTransmission(testGID, testMoveNumber, testPid, expectedTileMove, expectedConstructionMoveTransmission);
 
         Parser parser = new Parser();
-        GameMoveTransmission testGameMoveTransmission = parser.opponentMoveStringToGameMove(message);
+        GameMoveIncomingTransmission testGameMoveIncomingTransmission = parser.opponentMoveStringToGameMove(message);
 
-        assertEquals(expectedGameMoveTransmission.getTileMove().getCoordinate().getX(), testGameMoveTransmission.getTileMove().getCoordinate().getX());
-        assertEquals(expectedGameMoveTransmission.getTileMove().getCoordinate().getY(), testGameMoveTransmission.getTileMove().getCoordinate().getY());
-        assertEquals(expectedGameMoveTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano(), testGameMoveTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano());
-        assertEquals(expectedGameMoveTransmission.getTileMove().getDirection(), testGameMoveTransmission.getTileMove().getDirection());
+        assertEquals(expectedGameMoveIncomingTransmission.getTileMove().getCoordinate().getX(), testGameMoveIncomingTransmission.getTileMove().getCoordinate().getX());
+        assertEquals(expectedGameMoveIncomingTransmission.getTileMove().getCoordinate().getY(), testGameMoveIncomingTransmission.getTileMove().getCoordinate().getY());
+        assertEquals(expectedGameMoveIncomingTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano(), testGameMoveIncomingTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano());
+        assertEquals(expectedGameMoveIncomingTransmission.getTileMove().getDirection(), testGameMoveIncomingTransmission.getTileMove().getDirection());
 
-        assertEquals(expectedGameMoveTransmission.getConstructionMoveTransmission().getCoordinate().getX(), testGameMoveTransmission.getConstructionMoveTransmission().getCoordinate().getX());
-        assertEquals(expectedGameMoveTransmission.getConstructionMoveTransmission().getCoordinate().getY(), testGameMoveTransmission.getConstructionMoveTransmission().getCoordinate().getY());
-        assertEquals(expectedGameMoveTransmission.getConstructionMoveTransmission().getBuildOption(), testGameMoveTransmission.getConstructionMoveTransmission().getBuildOption());
-        assertEquals(expectedGameMoveTransmission.getGid(), testGameMoveTransmission.getGid());
-        assertEquals(expectedGameMoveTransmission.getMoveNumber(), testGameMoveTransmission.getMoveNumber());
+        assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getX(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getX());
+        assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getY(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getY());
+        assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption());
+        assertEquals(expectedGameMoveIncomingTransmission.getGid(), testGameMoveIncomingTransmission.getGid());
+        assertEquals(expectedGameMoveIncomingTransmission.getMoveNumber(), testGameMoveIncomingTransmission.getMoveNumber());
 
     }
 
     //Expanded
     @Test
-    public void getGameMoveTransmissionFromGameMoveMadeStringForExpandedSettlement(){
-        String message = "GAME A MOVE 3 PLAYER pid PLACED JUNGLE+LAKE AT 0 3 -3 1 EXPANDED SETTLEMENT AT 1 -1 0 JUNGLE";
+    public void getGameMoveIncomingTransmissionFromGameMoveMadeStringForExpandedSettlement(){
+        String message = "GAME A MOVE 3 PLAYER myPlayerId PLACED JUNGLE+LAKE AT 0 3 -3 1 EXPANDED SETTLEMENT AT 1 -1 0 JUNGLE";
 
         Tile expectedTile = new Tile(Terrain.JUNGLE, Terrain.LAKE);
         Coordinate expectedTileCoordinate = new Coordinate(0, 3, -3);
@@ -63,32 +64,33 @@ public class ParserTest {
 
         final String testGID = "A";
         final int testMoveNumber = 3;
-        GameMoveTransmission expectedGameMoveTransmission = new GameMoveTransmission(testGID, testMoveNumber, expectedTileMove, expectedExpandSettlementMoveTransmission);
+        final String testPid = "myPlayerId";
+        GameMoveIncomingTransmission expectedGameMoveIncomingTransmission = new GameMoveIncomingTransmission(testGID, testMoveNumber, testPid, expectedTileMove, expectedExpandSettlementMoveTransmission);
 
         Parser parser = new Parser();
-        GameMoveTransmission testGameMoveTransmission = parser.opponentMoveStringToGameMove(message);
+        GameMoveIncomingTransmission testGameMoveIncomingTransmission = parser.opponentMoveStringToGameMove(message);
 
-        assertEquals(expectedGameMoveTransmission.getTileMove().getCoordinate().getX(), testGameMoveTransmission.getTileMove().getCoordinate().getX());
-        assertEquals(expectedGameMoveTransmission.getTileMove().getCoordinate().getY(), testGameMoveTransmission.getTileMove().getCoordinate().getY());
-        assertEquals(expectedGameMoveTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano(), testGameMoveTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano());
-        assertEquals(expectedGameMoveTransmission.getTileMove().getDirection(), testGameMoveTransmission.getTileMove().getDirection());
+        assertEquals(expectedGameMoveIncomingTransmission.getTileMove().getCoordinate().getX(), testGameMoveIncomingTransmission.getTileMove().getCoordinate().getX());
+        assertEquals(expectedGameMoveIncomingTransmission.getTileMove().getCoordinate().getY(), testGameMoveIncomingTransmission.getTileMove().getCoordinate().getY());
+        assertEquals(expectedGameMoveIncomingTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano(), testGameMoveIncomingTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano());
+        assertEquals(expectedGameMoveIncomingTransmission.getTileMove().getDirection(), testGameMoveIncomingTransmission.getTileMove().getDirection());
 
-        assertEquals(expectedGameMoveTransmission.getConstructionMoveTransmission().getCoordinate().getX(), testGameMoveTransmission.getConstructionMoveTransmission().getCoordinate().getX());
-        assertEquals(expectedGameMoveTransmission.getConstructionMoveTransmission().getCoordinate().getY(), testGameMoveTransmission.getConstructionMoveTransmission().getCoordinate().getY());
-        assertEquals(expectedGameMoveTransmission.getConstructionMoveTransmission().getBuildOption(), testGameMoveTransmission.getConstructionMoveTransmission().getBuildOption());
-        assertEquals(expectedGameMoveTransmission.getGid(), testGameMoveTransmission.getGid());
-        assertEquals(expectedGameMoveTransmission.getMoveNumber(), testGameMoveTransmission.getMoveNumber());
+        assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getX(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getX());
+        assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getY(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getY());
+        assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption());
+        assertEquals(expectedGameMoveIncomingTransmission.getGid(), testGameMoveIncomingTransmission.getGid());
+        assertEquals(expectedGameMoveIncomingTransmission.getMoveNumber(), testGameMoveIncomingTransmission.getMoveNumber());
 
-        expectedExpandSettlementMoveTransmission = (ExpandSettlementMoveTransmission) expectedGameMoveTransmission.getConstructionMoveTransmission();
-        ExpandSettlementMoveTransmission testExpandSettlementMoveTransmission = (ExpandSettlementMoveTransmission) testGameMoveTransmission.getConstructionMoveTransmission();
+        expectedExpandSettlementMoveTransmission = (ExpandSettlementMoveTransmission) expectedGameMoveIncomingTransmission.getConstructionMoveTransmission();
+        ExpandSettlementMoveTransmission testExpandSettlementMoveTransmission = (ExpandSettlementMoveTransmission) testGameMoveIncomingTransmission.getConstructionMoveTransmission();
         assertEquals(expectedExpandSettlementMoveTransmission.getTerrain(), testExpandSettlementMoveTransmission.getTerrain());
     }
 
 
     //Built Totoro
     @Test
-    public void getGameMoveTransmissionFromGameMoveMadeStringForBuiltTotoro(){
-        String message = "GAME A MOVE 3 PLAYER pid PLACED JUNGLE+LAKE AT 0 3 -3 1 BUILT TOTORO SANCTUARY AT 1 -1 0";
+    public void getGameMoveIncomingTransmissionFromGameMoveMadeStringForBuiltTotoro(){
+        String message = "GAME A MOVE 3 PLAYER myPlayerId PLACED JUNGLE+LAKE AT 0 3 -3 1 BUILT TOTORO SANCTUARY AT 1 -1 0";
 
         Tile expectedTile = new Tile(Terrain.JUNGLE, Terrain.LAKE);
         Coordinate expectedTileCoordinate = new Coordinate(0, 3, -3);
@@ -100,29 +102,30 @@ public class ParserTest {
 
         final String testGID = "A";
         final int testMoveNumber = 3;
-        GameMoveTransmission expectedGameMoveTransmission = new GameMoveTransmission(testGID, testMoveNumber, expectedTileMove, expectedConstructionMoveTransmission);
+        final String testPid = "myPlayerId";
+        GameMoveIncomingTransmission expectedGameMoveIncomingTransmission = new GameMoveIncomingTransmission(testGID, testMoveNumber, testPid, expectedTileMove, expectedConstructionMoveTransmission);
 
         Parser parser = new Parser();
-        GameMoveTransmission testGameMoveTransmission = parser.opponentMoveStringToGameMove(message);
+        GameMoveIncomingTransmission testGameMoveIncomingTransmission = parser.opponentMoveStringToGameMove(message);
 
-        assertEquals(expectedGameMoveTransmission.getTileMove().getCoordinate().getX(), testGameMoveTransmission.getTileMove().getCoordinate().getX());
-        assertEquals(expectedGameMoveTransmission.getTileMove().getCoordinate().getY(), testGameMoveTransmission.getTileMove().getCoordinate().getY());
-        assertEquals(expectedGameMoveTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano(), testGameMoveTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano());
-        assertEquals(expectedGameMoveTransmission.getTileMove().getDirection(), testGameMoveTransmission.getTileMove().getDirection());
+        assertEquals(expectedGameMoveIncomingTransmission.getTileMove().getCoordinate().getX(), testGameMoveIncomingTransmission.getTileMove().getCoordinate().getX());
+        assertEquals(expectedGameMoveIncomingTransmission.getTileMove().getCoordinate().getY(), testGameMoveIncomingTransmission.getTileMove().getCoordinate().getY());
+        assertEquals(expectedGameMoveIncomingTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano(), testGameMoveIncomingTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano());
+        assertEquals(expectedGameMoveIncomingTransmission.getTileMove().getDirection(), testGameMoveIncomingTransmission.getTileMove().getDirection());
 
-        assertEquals(expectedGameMoveTransmission.getConstructionMoveTransmission().getCoordinate().getX(), testGameMoveTransmission.getConstructionMoveTransmission().getCoordinate().getX());
-        assertEquals(expectedGameMoveTransmission.getConstructionMoveTransmission().getCoordinate().getY(), testGameMoveTransmission.getConstructionMoveTransmission().getCoordinate().getY());
-        assertEquals(expectedGameMoveTransmission.getConstructionMoveTransmission().getBuildOption(), testGameMoveTransmission.getConstructionMoveTransmission().getBuildOption());
-        assertEquals(expectedGameMoveTransmission.getGid(), testGameMoveTransmission.getGid());
-        assertEquals(expectedGameMoveTransmission.getMoveNumber(), testGameMoveTransmission.getMoveNumber());
+        assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getX(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getX());
+        assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getY(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getY());
+        assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption());
+        assertEquals(expectedGameMoveIncomingTransmission.getGid(), testGameMoveIncomingTransmission.getGid());
+        assertEquals(expectedGameMoveIncomingTransmission.getMoveNumber(), testGameMoveIncomingTransmission.getMoveNumber());
 
     }
 
 
     //Built Tiger
     @Test
-    public void getGameMoveTransmissionFromGameMoveMadeStringForBuiltTiger(){
-        String message = "GAME A MOVE 3 PLAYER pid PLACED JUNGLE+LAKE AT 0 3 -3 1 BUILT TIGER PLAYGROUND AT 1 -1 0";
+    public void getGameMoveIncomingTransmissionFromGameMoveMadeStringForBuiltTiger(){
+        String message = "GAME A MOVE 3 PLAYER myPlayerId PLACED JUNGLE+LAKE AT 0 3 -3 1 BUILT TIGER PLAYGROUND AT 1 -1 0";
 
         Tile expectedTile = new Tile(Terrain.JUNGLE, Terrain.LAKE);
         Coordinate expectedTileCoordinate = new Coordinate(0, 3, -3);
@@ -134,21 +137,22 @@ public class ParserTest {
 
         final String testGID = "A";
         final int testMoveNumber = 3;
-        GameMoveTransmission expectedGameMoveTransmission = new GameMoveTransmission(testGID, testMoveNumber, expectedTileMove, expectedConstructionMoveTransmission);
+        final String testPid = "myPlayerId";
+        GameMoveIncomingTransmission expectedGameMoveIncomingTransmission = new GameMoveIncomingTransmission(testGID, testMoveNumber, testPid, expectedTileMove, expectedConstructionMoveTransmission);
 
         Parser parser = new Parser();
-        GameMoveTransmission testGameMoveTransmission = parser.opponentMoveStringToGameMove(message);
+        GameMoveIncomingTransmission testGameMoveIncomingTransmission = parser.opponentMoveStringToGameMove(message);
 
-        assertEquals(expectedGameMoveTransmission.getTileMove().getCoordinate().getX(), testGameMoveTransmission.getTileMove().getCoordinate().getX());
-        assertEquals(expectedGameMoveTransmission.getTileMove().getCoordinate().getY(), testGameMoveTransmission.getTileMove().getCoordinate().getY());
-        assertEquals(expectedGameMoveTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano(), testGameMoveTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano());
-        assertEquals(expectedGameMoveTransmission.getTileMove().getDirection(), testGameMoveTransmission.getTileMove().getDirection());
+        assertEquals(expectedGameMoveIncomingTransmission.getTileMove().getCoordinate().getX(), testGameMoveIncomingTransmission.getTileMove().getCoordinate().getX());
+        assertEquals(expectedGameMoveIncomingTransmission.getTileMove().getCoordinate().getY(), testGameMoveIncomingTransmission.getTileMove().getCoordinate().getY());
+        assertEquals(expectedGameMoveIncomingTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano(), testGameMoveIncomingTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano());
+        assertEquals(expectedGameMoveIncomingTransmission.getTileMove().getDirection(), testGameMoveIncomingTransmission.getTileMove().getDirection());
 
-        assertEquals(expectedGameMoveTransmission.getConstructionMoveTransmission().getCoordinate().getX(), testGameMoveTransmission.getConstructionMoveTransmission().getCoordinate().getX());
-        assertEquals(expectedGameMoveTransmission.getConstructionMoveTransmission().getCoordinate().getY(), testGameMoveTransmission.getConstructionMoveTransmission().getCoordinate().getY());
-        assertEquals(expectedGameMoveTransmission.getConstructionMoveTransmission().getBuildOption(), testGameMoveTransmission.getConstructionMoveTransmission().getBuildOption());
-        assertEquals(expectedGameMoveTransmission.getGid(), testGameMoveTransmission.getGid());
-        assertEquals(expectedGameMoveTransmission.getMoveNumber(), testGameMoveTransmission.getMoveNumber());
+        assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getX(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getX());
+        assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getY(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getY());
+        assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption());
+        assertEquals(expectedGameMoveIncomingTransmission.getGid(), testGameMoveIncomingTransmission.getGid());
+        assertEquals(expectedGameMoveIncomingTransmission.getMoveNumber(), testGameMoveIncomingTransmission.getMoveNumber());
 
     }
 }

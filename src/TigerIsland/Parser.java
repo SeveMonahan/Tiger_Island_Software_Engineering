@@ -5,19 +5,21 @@ public class Parser {
 
     //Takes in "MAKE YOUR MOVE IN GAME <gid> WITHIN <timemove> SECOND: MOVE <#> PLACE <tile>" and outputs Tile object
 
-    public GameMoveTransmission opponentMoveStringToGameMove(String opponentMoveString){
+    public GameMoveIncomingTransmission opponentMoveStringToGameMove(String opponentMoveString){
         String[] opponentMoveStringSplitBySpaceArray = opponentMoveString.split("\\s+");
 
         final int gidIndex = 1;
         final int moveNumberIndex = 3;
+        final int pidIndex = 5;
 
         String gid = opponentMoveStringSplitBySpaceArray[gidIndex];
         int moveNumber = Integer.parseInt(opponentMoveStringSplitBySpaceArray[moveNumberIndex]);
+        String pid = opponentMoveStringSplitBySpaceArray[pidIndex];
 
         TileMove tileMove = opponentMoveStringToTileMove(opponentMoveString);
         ConstructionMoveTransmission constructionMoveTransmission = opponentMoveStringToBuildMove(opponentMoveString);
 
-            return new GameMoveTransmission(gid, moveNumber, tileMove, constructionMoveTransmission);
+        return new GameMoveIncomingTransmission(gid, moveNumber, pid, tileMove, constructionMoveTransmission);
     }
 
     public Tile makeYourMoveStringToTile(String makeYourMoveString) {
