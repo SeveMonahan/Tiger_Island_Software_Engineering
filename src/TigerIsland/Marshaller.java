@@ -2,9 +2,8 @@ package TigerIsland;
 
 public class Marshaller {
     public String convertTileMoveAndConstructionMoveToString(GameMoveTransmission gameMoveTransmission) {
-        Terrain terrainA = gameMoveTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano()[1];
-        Terrain terrainB = gameMoveTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano()[2];
-        String tileString = terrainA.toString() + "+" + terrainB.toString();
+
+        String tileString = extractTileStringFromGameMove(gameMoveTransmission);
 
         int tileX = gameMoveTransmission.getTileMove().getCoordinate().ConvertToCube()[0];
         int tileY = gameMoveTransmission.getTileMove().getCoordinate().ConvertToCube()[1];
@@ -37,5 +36,11 @@ public class Marshaller {
             return "GAME " + gameMoveTransmission.getGid() + " MOVE " + gameMoveTransmission.getMoveNumber() + " PLACE " + tileString + " AT " + tileX + " " + tileY + " " + tileZ + " " + tileOrientation + " BUILD TIGER PLAYGROUND AT " + constructionX + " " + constructionY + " " + constructionZ;
         }
         else return null;
+    }
+
+    private String extractTileStringFromGameMove(GameMoveTransmission gameMoveTransmission){
+        Terrain terrainA = gameMoveTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano()[1];
+        Terrain terrainB = gameMoveTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano()[2];
+        return terrainA.toString() + "+" + terrainB.toString();
     }
 }
