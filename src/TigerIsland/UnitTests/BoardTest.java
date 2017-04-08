@@ -7,49 +7,30 @@ import static org.junit.Assert.assertEquals;
 
 public class BoardTest {
     @Test
-    public void createBoard() throws Exception{
+    public void initializeBoard() throws Exception {
         Board TestBoard = new Board();
     }
 
     @Test
-    public void getHexagon() throws Exception{
+    public void getHexagon() throws Exception {
         Board TestBoard = new Board();
-        assert(TestBoard.getHexagonAt( new Coordinate(0,0))
-                instanceof Hexagon);
+        Hexagon TestHexagon = TestBoard.getHexagonAt(new Coordinate(0, 0));
+        assert(TestHexagon instanceof Hexagon);
     }
 
     @Test
-    public void setHexagon() throws Exception{
+    public void setHexagon() throws Exception {
         Board TestBoard = new Board();
-
-        Hexagon TestHexagon = new Hexagon();
 
         Coordinate TestCoordinate = new Coordinate(0, 0);
+        Hexagon TestHexagon = new Hexagon();
         TestHexagon.changeTerrainTypeThoughExplosion(Terrain.ROCK);
 
-        TestBoard.setHexagonAt(TestCoordinate,TestHexagon);
+        TestBoard.setHexagonAt(TestCoordinate, TestHexagon);
 
         Hexagon ReturnedHexagon = TestBoard.getHexagonAt(TestCoordinate);
-
+        assertEquals(Terrain.ROCK, ReturnedHexagon.getTerrain());
         assertEquals(1, ReturnedHexagon.getLevel());
-
-    }
-
-    @Test
-    public void startTile() throws Exception {
-        Board TestBoard = new Board();
-        TestBoard.placeStartingTile();
-        Coordinate centerCoord = new Coordinate(100, 100);
-        Hexagon center = TestBoard.getHexagonAt(centerCoord);
-        Hexagon upperLeft = TestBoard.getNeighboringHexagon(centerCoord, HexagonNeighborDirection.UPPERLEFT);
-        Hexagon upperRight = TestBoard.getNeighboringHexagon(centerCoord, HexagonNeighborDirection.UPPERRIGHT);
-        Hexagon lowerRight = TestBoard.getNeighboringHexagon(centerCoord, HexagonNeighborDirection.LOWERRIGHT);
-        Hexagon lowerLeft = TestBoard.getNeighboringHexagon(centerCoord, HexagonNeighborDirection.LOWERLEFT);
-        assertEquals(Terrain.JUNGLE, upperLeft.getTerrain());
-        assertEquals(Terrain.LAKE, upperRight.getTerrain());
-        assertEquals(Terrain.GRASS, lowerRight.getTerrain());
-        assertEquals(Terrain.ROCK, lowerLeft.getTerrain());
-        assertEquals(Terrain.VOLCANO, center.getTerrain());
     }
 
     @Test
@@ -113,95 +94,5 @@ public class BoardTest {
         for(int i=0; i<6; i++){
             assertEquals(1, neighbors[i].getLevel());
         }
-    }
-
-    @Test
-    public void settlementExpansion() throws Exception{
-        Board TestBoard = new Board();
-        Player player = new Player(Color.BLACK);
-
-        Tile tile_01 = new Tile(Terrain.GRASS, Terrain.JUNGLE);
-        Tile tile_02 = new Tile(Terrain.GRASS, Terrain.LAKE);
-        Tile tile_03 = new Tile(Terrain.GRASS, Terrain.ROCK);
-
-        TileMove tileMove_03 = new TileMove(tile_03, HexagonNeighborDirection.UPPERRIGHT, new Coordinate(100, 100));
-        TileMove tileMove_02 = new TileMove(tile_02, HexagonNeighborDirection.LOWERLEFT, new Coordinate(100, 102));
-        TileMove tileMove_01 = new TileMove(tile_01, HexagonNeighborDirection.UPPERRIGHT, new Coordinate(98, 99));
-
-        TestBoard.placeTile(tileMove_01);
-        TestBoard.placeTile(tileMove_02);
-        TestBoard.placeTile(tileMove_03);
-
-        player.placeMeepleOnHexagon(new Coordinate(101, 100), TestBoard);
-
-        Settlement settlement = TestBoard.getSettlement(new Coordinate(101, 100));
-
-        // Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(101, 100), Terrain.GRASS);
-        Boolean result = settlement.expandSettlementWithCheck(TestBoard, player, Terrain.GRASS);
-
-        assertEquals(true, result);
-        assertEquals(PieceStatusHexagon.MEEPLE, TestBoard.getHexagonAt(new Coordinate(100, 101)).getPiecesStatus() );
-
-        assertEquals(PieceStatusHexagon.MEEPLE, TestBoard.getHexagonAt(new Coordinate(99, 100)).getPiecesStatus() );
-
-        assertEquals(PieceStatusHexagon.MEEPLE, TestBoard.getHexagonAt(new Coordinate(99, 101)).getPiecesStatus() );
-    }
-
-    @Test
-    public void settlementExpansion2() throws Exception{
-        Board TestBoard = new Board();
-        Player player = new Player(Color.BLACK);
-
-        Tile tile_01 = new Tile(Terrain.GRASS, Terrain.JUNGLE);
-        Tile tile_02 = new Tile(Terrain.GRASS, Terrain.LAKE);
-        Tile tile_03 = new Tile(Terrain.GRASS, Terrain.ROCK);
-
-        TileMove tileMove_03 = new TileMove(tile_03, HexagonNeighborDirection.UPPERRIGHT, new Coordinate(100, 100));
-        TileMove tileMove_02 = new TileMove(tile_02, HexagonNeighborDirection.LOWERLEFT, new Coordinate(100, 102));
-        TileMove tileMove_01 = new TileMove(tile_01, HexagonNeighborDirection.UPPERRIGHT, new Coordinate(98, 99));
-
-        TestBoard.placeTile(tileMove_01);
-        TestBoard.placeTile(tileMove_02);
-        TestBoard.placeTile(tileMove_03);
-
-        player.placeMeepleOnHexagon(new Coordinate(99, 101), TestBoard);
-
-        Settlement settlement = TestBoard.getSettlement(new Coordinate(99, 101));
-        Boolean result = settlement.expandSettlementWithCheck(TestBoard, player, Terrain.GRASS);
-        // Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(99, 101), Terrain.GRASS);
-
-        assertEquals(true, result);
-        assertEquals(PieceStatusHexagon.MEEPLE, TestBoard.getHexagonAt(new Coordinate(100, 101)).getPiecesStatus() );
-
-        assertEquals(PieceStatusHexagon.MEEPLE, TestBoard.getHexagonAt(new Coordinate(99, 100)).getPiecesStatus() );
-    }
-
-    @Test
-    public void settlementExpansion3() throws Exception{
-        Board TestBoard = new Board();
-        Player player = new Player(Color.BLACK);
-
-        Tile tile_01 = new Tile(Terrain.GRASS, Terrain.JUNGLE);
-        Tile tile_02 = new Tile(Terrain.GRASS, Terrain.LAKE);
-        Tile tile_03 = new Tile(Terrain.GRASS, Terrain.ROCK);
-
-        TileMove tileMove_03 = new TileMove(tile_03, HexagonNeighborDirection.UPPERRIGHT, new Coordinate(100, 100));
-        TileMove tileMove_02 = new TileMove(tile_02, HexagonNeighborDirection.LOWERLEFT, new Coordinate(100, 102));
-        TileMove tileMove_01 = new TileMove(tile_01, HexagonNeighborDirection.UPPERRIGHT, new Coordinate(98, 99));
-
-        TestBoard.placeTile(tileMove_01);
-        TestBoard.placeTile(tileMove_02);
-        TestBoard.placeTile(tileMove_03);
-
-        player.placeMeepleOnHexagon(new Coordinate(99, 101), TestBoard);
-        player.placeMeepleOnHexagon(new Coordinate(100, 101), TestBoard);
-
-        Settlement settlement = TestBoard.getSettlement(new Coordinate(100, 101));
-        Boolean result = settlement.expandSettlementWithCheck(TestBoard, player, Terrain.GRASS);
-        // Boolean result = TestBoard.expandSettlementWithCheck(player, new Coordinate(100, 101), Terrain.GRASS);
-
-        assertEquals(true, result);
-
-        assertEquals(PieceStatusHexagon.MEEPLE, TestBoard.getHexagonAt(new Coordinate(99, 100)).getPiecesStatus() );
     }
 }
