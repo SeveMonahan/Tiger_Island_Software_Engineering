@@ -1,3 +1,5 @@
+package TigerIsland.UnitTests;
+
 import TigerIsland.*;
 import org.junit.Test;
 
@@ -11,9 +13,9 @@ public class SettlementTest {
         Board board = new Board();
         TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASS), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         board.placeTile(startingTileMove);
-        Coordinate coordinateOne = new Coordinate(100,100).getNeighboringCoordinateAt(HexagonNeighborDirection.LEFT);
+        Coordinate coordinateOne = new Coordinate(100,100).getNeighboringCoordinate(HexagonNeighborDirection.LEFT);
         player.placeMeepleOnHexagon(coordinateOne, board);
-        Coordinate coordinateTwo = new Coordinate(100,100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERLEFT);
+        Coordinate coordinateTwo = new Coordinate(100,100).getNeighboringCoordinate(HexagonNeighborDirection.UPPERLEFT);
         playerTwo.placeMeepleOnHexagon(coordinateTwo, board);
 
         Settlement settlement = board.getSettlement(coordinateOne);

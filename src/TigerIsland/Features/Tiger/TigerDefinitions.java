@@ -1,4 +1,4 @@
-package Tiger;
+package TigerIsland.Features.Tiger;
 
 import TigerIsland.*;
 import cucumber.api.java.en.Given;

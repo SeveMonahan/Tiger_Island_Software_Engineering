@@ -1,6 +1,6 @@
-package src.TigerIsland.UnitTests;
+package TigerIsland.UnitTests;
 
-import src.TigerIsland.*;
+import TigerIsland.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,8 +22,8 @@ public class GameStateTest {
 
         TestGameState = GameState.createGameStateWithInjectedPlayersForTesting(player_1, player_2);
 
-        player_1_model = TestGameState.getPlayerOneModel();
-        player_2_model = TestGameState.getPlayerTwoModel();
+        //player_1_model = TestGameState.getPlayerOneModel();
+        //player_2_model = TestGameState.getPlayerTwoModel();
 
     }
 

@@ -1,4 +1,4 @@
-package src.TigerIsland;
+package TigerIsland;
 import java.lang.Math;
 
 public class Coordinate {

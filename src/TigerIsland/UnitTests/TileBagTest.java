@@ -1,3 +1,5 @@
+package TigerIsland.UnitTests;
+
 import TigerIsland.RandomTileBag;
 import TigerIsland.Tile;
 import TigerIsland.TileBag;

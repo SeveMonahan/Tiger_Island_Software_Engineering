@@ -1,4 +1,4 @@
-package src.TigerIsland;
+package TigerIsland;
 
 import java.util.ArrayList;
 
@@ -94,5 +94,6 @@ public class GameState {
     public Board getBoard(){
         return board;
     }
+
 
 }

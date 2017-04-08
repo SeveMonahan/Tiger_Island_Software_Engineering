@@ -1,4 +1,4 @@
-package src.TigerIsland;
+package TigerIsland;
 
 // The interface between the AI / network player and the GameState
 public class GameModel {

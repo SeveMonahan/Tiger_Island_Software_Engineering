@@ -1,6 +1,6 @@
-package src.TigerIsland;
+package TigerIsland;
 
-import src.TigerIsland.*;
+import TigerIsland.*;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

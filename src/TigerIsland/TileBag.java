@@ -1,4 +1,4 @@
-package src.TigerIsland;
+package TigerIsland;
 
 public interface TileBag {
     Tile drawTile();

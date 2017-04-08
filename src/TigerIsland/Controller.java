@@ -95,7 +95,9 @@ public class Controller {
             }
             else {
                 System.out.println("game(s) in progress...");
+                if (message.contains("MAKE YOUR MOVE IN GAME")) {
 
+                }
             }
         }
     }

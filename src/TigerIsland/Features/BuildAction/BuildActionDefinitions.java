@@ -1,6 +1,6 @@
-package BuildAction;
+package TigerIsland.Features.BuildAction;
 
-import src.TigerIsland.*;
+import TigerIsland.*;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -28,7 +28,7 @@ public class BuildActionDefinitions {
 
     @When("^I attempt to build a settlement on a non-volcano tile$")
     public void attemptToBuildSettlementNonVolcano() {
-        Coordinate coordinate = new Coordinate(100,100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERLEFT);
+        Coordinate coordinate = new Coordinate(100,100).getNeighboringCoordinate(HexagonNeighborDirection.UPPERLEFT);
         isValid = player.placeMeepleOnHexagon(coordinate, board);
         Assert.assertEquals(true, isValid);
 
@@ -42,7 +42,7 @@ public class BuildActionDefinitions {
 
     @When("^I attempt to build a settlement on a volcano tile$")
     public void attemptToBuildSettlementVolcano() {
-        Coordinate coordinate = new Coordinate(101, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.LEFT);
+        Coordinate coordinate = new Coordinate(101, 100).getNeighboringCoordinate(HexagonNeighborDirection.LEFT);
 
         player = new Player(Color.BLACK);
 
@@ -52,7 +52,7 @@ public class BuildActionDefinitions {
 
     @Given("^each non-volcano tile has a meeple on it$")
     public void populateAllAvailableLocations() {
-        Coordinate coordinate = new Coordinate(100,100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERLEFT);
+        Coordinate coordinate = new Coordinate(100,100).getNeighboringCoordinate(HexagonNeighborDirection.UPPERLEFT);
 
         player.placeMeepleOnHexagon(coordinate, board);
 

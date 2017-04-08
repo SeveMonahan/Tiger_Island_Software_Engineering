@@ -1,4 +1,4 @@
-package src.TigerIsland;
+package TigerIsland;
 
 public class Hexagon {
     // Members
@@ -55,6 +55,14 @@ public class Hexagon {
     // Methods
     public boolean isVolcano() {
         return terrain == Terrain.VOLCANO;
+    }
+    public boolean isEmpty() {
+        if (this.getPiecesStatus() == PieceStatusHexagon.EMPTY) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     public boolean containsPieces() {
         return piecesStatus != PieceStatusHexagon.EMPTY;

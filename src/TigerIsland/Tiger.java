@@ -1,4 +1,4 @@
-package src.TigerIsland;
+package TigerIsland;
 
 public class Tiger implements Piece {
     private Color color;
@@ -22,7 +22,7 @@ public class Tiger implements Piece {
     }
 
     public boolean isPlacementValid(Coordinate coordinate, Board board) {
-        Hexagon hexagon = board.getHexagon(coordinate);
+        Hexagon hexagon = board.getHexagonAt(coordinate);
 
         if (hexagon.isVolcano()) {
             return false;

@@ -1,4 +1,4 @@
-package src.TigerIsland;
+package TigerIsland;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -43,7 +43,7 @@ public class Board {
         return hexagon;
     }
     public Hexagon getNeighboringHexagon(Coordinate coordinate, HexagonNeighborDirection direction) {
-        Coordinate neighborCoordinate = coordinate.getNeighboringCoordinateAt(direction);
+        Coordinate neighborCoordinate = coordinate.getNeighboringCoordinate(direction);
         return getHexagonAt(neighborCoordinate);
     }
     public Hexagon[] getNeighboringHexagons(Coordinate coordinate) {

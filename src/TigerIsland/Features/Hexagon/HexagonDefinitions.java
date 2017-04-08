@@ -1,6 +1,5 @@
-package Hexagon;
-
-import src.TigerIsland.*;
+package TigerIsland.Features.Hexagon;
+import TigerIsland.*;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
