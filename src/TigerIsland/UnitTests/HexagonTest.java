@@ -1,7 +1,6 @@
 package TigerIsland.UnitTests;
 
-import TigerIsland.Hexagon;
-import TigerIsland.Terrain;
+import TigerIsland.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -27,5 +26,56 @@ public class HexagonTest {
         Hexagon TestHexagon = new Hexagon();
         TestHexagon.changeTerrainTypeThoughExplosion(Terrain.VOLCANO);
         assertEquals(true, TestHexagon.isVolcano());
+    }
+
+    @Test
+    public void cloneHexagonMeeple() throws Exception {
+        Hexagon TestHexagon = new Hexagon();
+        TestHexagon.setOccupationStatus(Color.WHITE, PieceStatusHexagon.MEEPLE);
+
+        assertEquals(Color.WHITE, TestHexagon.getOccupationColor());
+        assertEquals(PieceStatusHexagon.MEEPLE, TestHexagon.getPiecesStatus());
+
+        Hexagon CloneHexagon = Hexagon.cloneHexagon(TestHexagon);
+
+        assertEquals(Color.WHITE, CloneHexagon.getOccupationColor());
+        assertEquals(PieceStatusHexagon.MEEPLE, CloneHexagon.getPiecesStatus());
+
+        CloneHexagon.setOccupationStatus(Color.BLACK, PieceStatusHexagon.TIGER);
+
+        assertEquals(Color.BLACK, CloneHexagon.getOccupationColor());
+        assertEquals(PieceStatusHexagon.TIGER, CloneHexagon.getPiecesStatus());
+
+        assertEquals(Color.WHITE, TestHexagon.getOccupationColor());
+        assertEquals(PieceStatusHexagon.MEEPLE, TestHexagon.getPiecesStatus());
+    }
+
+    @Test
+    public void cloneHexagonMeepleInBoard() throws Exception {
+        Board board = new Board();
+        board.placeStartingTile();
+
+        Coordinate chosenCoordinate = new Coordinate(101, 101);
+        Hexagon TestHexagon = board.getHexagonAt(chosenCoordinate);
+
+        TestHexagon.setOccupationStatus(Color.WHITE, PieceStatusHexagon.MEEPLE);
+
+        assertEquals(Color.WHITE, TestHexagon.getOccupationColor());
+        assertEquals(PieceStatusHexagon.MEEPLE, TestHexagon.getPiecesStatus());
+
+        Board cloneBoard = Board.cloneBoard(board);
+
+        Hexagon CloneHexagon = cloneBoard.getHexagonAt(chosenCoordinate);
+
+        assertEquals(Color.WHITE, CloneHexagon.getOccupationColor());
+        assertEquals(PieceStatusHexagon.MEEPLE, CloneHexagon.getPiecesStatus());
+
+        CloneHexagon.setOccupationStatus(Color.BLACK, PieceStatusHexagon.TIGER);
+
+        assertEquals(Color.BLACK, CloneHexagon.getOccupationColor());
+        assertEquals(PieceStatusHexagon.TIGER, CloneHexagon.getPiecesStatus());
+
+        assertEquals(Color.WHITE, TestHexagon.getOccupationColor());
+        assertEquals(PieceStatusHexagon.MEEPLE, TestHexagon.getPiecesStatus());
     }
 }
