@@ -4,13 +4,6 @@ public class Parser {
 
 
     //Takes in "MAKE YOUR MOVE IN GAME <gid> WITHIN <timemove> SECOND: MOVE <#> PLACE <tile>" and outputs Tile object
-    public Tile makeYourMoveStringToTile(String makeYourMoveString) {
-        String[] moveStringSplitBySpaceArray = makeYourMoveString.split("\\s+");
-        final int tileIndex = 12;
-        String tileString = moveStringSplitBySpaceArray[tileIndex];
-        return tileStringToTile(tileString);
-    }
-
 
     public GameMoveTransmission opponentMoveStringToGameMove(String opponentMoveString){
         String[] opponentMoveStringSplitBySpaceArray = opponentMoveString.split("\\s+");
@@ -24,10 +17,16 @@ public class Parser {
         TileMove tileMove = opponentMoveStringToTileMove(opponentMoveString);
         ConstructionMoveTransmission constructionMoveTransmission = opponentMoveStringToBuildMove(opponentMoveString);
 
-        return new GameMoveTransmission(gid, moveNumber, tileMove, constructionMoveTransmission);
+            return new GameMoveTransmission(gid, moveNumber, tileMove, constructionMoveTransmission);
     }
 
-    //Takes in "GAME <gid> MOVE <#> PLAYER <pid> <place> <build>" and outputs a TileMove object
+    public Tile makeYourMoveStringToTile(String makeYourMoveString) {
+        String[] moveStringSplitBySpaceArray = makeYourMoveString.split("\\s+");
+        final int tileIndex = 12;
+        String tileString = moveStringSplitBySpaceArray[tileIndex];
+        return tileStringToTile(tileString);
+    }
+
     private TileMove opponentMoveStringToTileMove(String opponentMoveString){
         String[] opponentMoveStringSplitBySpaceArray = opponentMoveString.split("\\s+");
 

@@ -1,3 +1,5 @@
+package TigerIsland.UnitTests;
+
 import TigerIsland.*;
 import org.junit.Test;
 
