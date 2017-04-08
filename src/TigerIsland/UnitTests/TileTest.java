@@ -29,5 +29,14 @@ public class TileTest {
 
     }
 
+    @Test
+    public void tileAttemptHashCollision(){
+        Tile tile_1 = new Tile(Terrain.JUNGLE, Terrain.JUNGLE);
+        Tile tile_2 = new Tile(Terrain.JUNGLE, Terrain.JUNGLE);
+
+        assertEquals(false, tile_1.hashCode() == tile_2.hashCode());
+
+    }
+
 
 }
