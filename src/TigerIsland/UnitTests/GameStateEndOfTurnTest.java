@@ -22,7 +22,7 @@ public class GameStateEndOfTurnTest {
 
         int num_children = final_children.size();
 
-        assertEquals(6, num_children);
+        assertEquals(7, num_children);
         assertEquals(false, final_children.get(0).isMyTurn(Color.WHITE));
         assertEquals(true, final_children.get(0).isMyTurn(Color.BLACK));
 

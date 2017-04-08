@@ -41,6 +41,10 @@ public class GameStateBeforeBuildAction extends GameState {
             }
         }
 
+        GameStateEndOfTurn currentGameState = GameStateEndOfTurn.createGameStateFromConstructionMove(this, new UnableToBuildConstructionMove());
+
+        result.add(currentGameState);
+
         return result;
     }
 
