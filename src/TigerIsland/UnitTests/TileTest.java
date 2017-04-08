@@ -6,37 +6,31 @@ import static junit.framework.TestCase.assertEquals;
 
 public class TileTest {
     @Test
-    public void getTerrainsClockwiseFromVolcano(){
+    public void getTerrainsClockwiseFromVolcanoTestOne() {
         Tile TestTile = new Tile(Terrain.JUNGLE, Terrain.ROCK);
 
-        Terrain[] result = TestTile.getTerrainsClockwiseFromVolcano();
+        Terrain[] terrains = TestTile.getTerrainsClockwiseFromVolcano();
 
-        assertEquals(Terrain.VOLCANO, result[0]);
-        assertEquals(Terrain.JUNGLE, result[1]);
-        assertEquals(Terrain.ROCK, result[2]);
+        assertEquals(Terrain.VOLCANO, terrains[0]);
+        assertEquals(Terrain.JUNGLE, terrains[1]);
+        assertEquals(Terrain.ROCK, terrains[2]);
     }
 
     @Test
-    public void getTerrainsClockwiseFromVolcanoReverse(){
+    public void getTerrainsClockwiseFromVolcanoTestTwo() {
         Tile TestTile = new Tile(Terrain.ROCK, Terrain.JUNGLE);
 
-        Terrain[] result = TestTile.getTerrainsClockwiseFromVolcano();
+        Terrain[] terrains = TestTile.getTerrainsClockwiseFromVolcano();
 
-        assertEquals(Terrain.VOLCANO, result[0]);
-        assertEquals(Terrain.ROCK, result[1]);
-        assertEquals(Terrain.JUNGLE, result[2]);
-
-
+        assertEquals(Terrain.VOLCANO, terrains[0]);
+        assertEquals(Terrain.ROCK, terrains[1]);
+        assertEquals(Terrain.JUNGLE, terrains[2]);
     }
 
     @Test
-    public void tileAttemptHashCollision(){
-        Tile tile_1 = new Tile(Terrain.JUNGLE, Terrain.JUNGLE);
-        Tile tile_2 = new Tile(Terrain.JUNGLE, Terrain.JUNGLE);
-
-        assertEquals(false, tile_1.hashCode() == tile_2.hashCode());
-
+    public void tileHashCodeTest() {
+        Tile tileOne = new Tile(Terrain.ROCK, Terrain.JUNGLE);
+        Tile tileTwo = new Tile(Terrain.ROCK, Terrain.JUNGLE);
+        assertEquals(true, tileOne.hashCode() != tileTwo.hashCode());
     }
-
-
 }
