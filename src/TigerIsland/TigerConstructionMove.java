@@ -29,7 +29,6 @@ public class TigerConstructionMove extends ConstructionMoveJustCoordinate {
                 return player.getTigerCount() != 0;
             }
         }
-        // TODO: Need a test to check the we can't add a Tiger to a settlement already containing one... if we aren't adjacent to a settlement
         return false;
     }
 
