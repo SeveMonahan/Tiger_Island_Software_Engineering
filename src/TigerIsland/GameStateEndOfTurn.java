@@ -22,7 +22,7 @@ public class GameStateEndOfTurn extends GameState {
     }
 
     public static GameStateEndOfTurn createGameStateFromConstructionMove(GameStateBeforeBuildAction original, ConstructionMoveInternal move) {
-        if(move.canPreformMove(original.playerWhoseTurn, original.board)){
+        if(move.canPerformMove(original.playerWhoseTurn, original.board)){
             return new GameStateEndOfTurn(original, move);
         }
         return null;

@@ -22,14 +22,14 @@ public class ExpandSettlementConstructionMoveTest {
         // Place a meeple down on upperright
         FoundSettlementConstructionMove move1 = new FoundSettlementConstructionMove(upperRight);
 
-        assertEquals(true, move1.canPreformMove(player_1, board));
+        assertEquals(true, move1.canPerformMove(player_1, board));
 
         move1.makePreverifiedMove(player_1, board);
 
         /// Expand a settlement to the adjacent Jungle hexagon
         ExpandSettlementConstructionMove move2 = new ExpandSettlementConstructionMove(upperRight, Terrain.JUNGLE);
 
-        assertEquals(true, move2.canPreformMove(player_1, board));
+        assertEquals(true, move2.canPerformMove(player_1, board));
 
         move2.makePreverifiedMove(player_1, board);
 

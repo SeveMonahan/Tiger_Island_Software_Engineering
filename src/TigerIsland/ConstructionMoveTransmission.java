@@ -1,8 +1,6 @@
 package TigerIsland;
 
-
 public class ConstructionMoveTransmission {
-
     private final BuildOption buildOption;
     private final Coordinate coordinate;
 
@@ -13,5 +11,4 @@ public class ConstructionMoveTransmission {
         this.buildOption = buildOption;
         this.coordinate = coordinate;
     }
-
 }

@@ -3,7 +3,7 @@ package TigerIsland;
 public class UnableToBuildConstructionMove implements ConstructionMoveInternal {
 
     @Override
-    public boolean canPreformMove(Player player, Board board) {
+    public boolean canPerformMove(Player player, Board board) {
         return true;
     }
 

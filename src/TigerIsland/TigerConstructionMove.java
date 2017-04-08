@@ -6,7 +6,7 @@ public class TigerConstructionMove extends ConstructionMoveJustCoordinate {
     }
 
     @Override
-    public boolean canPreformMove(Player player, Board board) {
+    public boolean canPerformMove(Player player, Board board) {
         Hexagon hexagon = board.getHexagonAt(coordinate);
 
         if (hexagon.isVolcano()
@@ -30,7 +30,7 @@ public class TigerConstructionMove extends ConstructionMoveJustCoordinate {
 
     @Override
     public void makePreverifiedMove(Player player, Board board) {
-        player.substractTiger();
+        player.subtractTiger();
 
         Hexagon hexagon = board.getHexagonAt(coordinate);
         hexagon.setOccupationStatus(player.getColor(), PieceStatusHexagon.TIGER);

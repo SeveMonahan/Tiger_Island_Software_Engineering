@@ -1,23 +1,22 @@
 package TigerIsland;
 
 public class TotoroConstructionMove extends ConstructionMoveJustCoordinate {
+    // Constructor
     public TotoroConstructionMove(Coordinate coordinate) {
         super(coordinate);
     }
 
+    // Methods
     @Override
-    public boolean canPreformMove(Player player, Board board) {
+    public boolean canPerformMove(Player player, Board board) {
         Color color = player.getColor();
-
         Hexagon hexagon = board.getHexagonAt(coordinate);
 
-        // TODO test level placement... make sure not placing on 0 level
         if( hexagon.isVolcano() || hexagon.containsPieces() || hexagon.getLevel() == 0 ) {
             return false;
         }
 
         Coordinate[] neighbors = coordinate.getNeighboringCoordinates();
-
         for(int i = 0; i < 6; i++){
             // TODO Need to test case where we place next to another players settlement...
             Settlement settlement = board.getSettlement(neighbors[i]);
@@ -32,14 +31,9 @@ public class TotoroConstructionMove extends ConstructionMoveJustCoordinate {
 
     @Override
     public void makePreverifiedMove(Player player, Board board) {
-        player.substractTotoro();
-
+        player.subtractTotoro();
         Hexagon hexagon = board.getHexagonAt(coordinate);
         hexagon.setOccupationStatus(player.getColor(), PieceStatusHexagon.TOTORO);
-
         player.addScore(200);
-
     }
-
-
 }

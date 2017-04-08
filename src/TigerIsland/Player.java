@@ -1,12 +1,28 @@
 package TigerIsland;
 
 public class Player {
+    // Members
     private int score;
     private int meepleCount;
     private int totoroCount;
     private int tigerCount;
     private Color color;
 
+    // Getters
+    public int getScore() { return score; }
+    public int getMeeplesCount() { return meepleCount; }
+    public int getTotoroCount() { return totoroCount; }
+    public int getTigerCount() { return tigerCount; }
+    public Color getColor() { return color; }
+
+    public static Player clonePlayer(Player player) {
+        return new Player(player);
+    }
+
+    // Setters
+    public void setScore(int newScore) { this.score = newScore; }
+
+    // Constructors
     public Player(Color color) {
         score = 0;
         meepleCount = 20;
@@ -14,7 +30,6 @@ public class Player {
         tigerCount = 2;
         this.color = color;
     }
-
     private Player(Player player) {
         this.score = player.score;
         this.meepleCount = player.meepleCount;
@@ -23,65 +38,47 @@ public class Player {
         this.color = player.color;
     }
 
-    public static Player clonePlayer(Player player) {
-        return new Player(player);
-    }
-
-    public int getScore() { return score; }
-    public int getMeeplesCount() { return meepleCount; }
-    public int getTotoroCount() { return totoroCount; }
-    public int getTigerCount() { return tigerCount; }
-    public Color getColor() { return color; }
-
+    // Methods
     public void addScore(int points) {
         this.score += points;
     }
-    public void setScore(int newScore) { this.score = newScore; }
-    public void setAutoLoseScore(){ this.score = -1; }
+    public void setAutoLoseScore() { this.score = -1; }
 
-    public void substractTotoro(){
+    public void subtractTotoro() {
         totoroCount--;
     }
-
-    public void substractTiger(){
+    public void subtractTiger() {
         tigerCount--;
     }
-
-    public void subtractMeeples(int num){
-        meepleCount = meepleCount - num;
+    public void subtractMeeples(int num) {
+        meepleCount -= num;
     }
 
     public boolean placeTotoroOnHexagon(Coordinate coordinate, Board board) {
         TotoroConstructionMove totoroMove = new TotoroConstructionMove(coordinate);
 
-        if(totoroMove.canPreformMove(this, board)){
+        if(totoroMove.canPerformMove(this, board)){
            totoroMove.makePreverifiedMove(this, board);
            return true;
         }
-
         return false;
-
     }
-
     public boolean placeTigerOnHexagon(Coordinate coordinate, Board board) {
         TigerConstructionMove tigerMove = new TigerConstructionMove(coordinate);
 
-        if(tigerMove.canPreformMove(this, board)){
+        if(tigerMove.canPerformMove(this, board)){
             tigerMove.makePreverifiedMove(this, board);
             return true;
         }
-
         return false;
     }
-
     public boolean placeMeepleOnHexagon(Coordinate coordinate, Board board) {
         FoundSettlementConstructionMove foundMove = new FoundSettlementConstructionMove(coordinate);
 
-        if(foundMove.canPreformMove(this, board)){
+        if(foundMove.canPerformMove(this, board)){
             foundMove.makePreverifiedMove(this, board);
             return true;
         }
-
         return false;
     }
 

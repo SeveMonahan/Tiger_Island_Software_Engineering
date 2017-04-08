@@ -16,7 +16,7 @@ public class ExpandSettlementConstructionMove implements ConstructionMoveInterna
     public boolean canBeKilled() { return true; }
 
     @Override
-    public boolean canPreformMove(Player player, Board board) {
+    public boolean canPerformMove(Player player, Board board) {
         Settlement settlement = board.getSettlement(coordinate);
         totalMeeplesNeeded = settlement.expandSettlementFloodFill(board, player, terrain).size();
 
