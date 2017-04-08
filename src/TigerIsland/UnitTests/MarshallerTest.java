@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 public class MarshallerTest {
+    /*
     @Test
     public void convertGameMoveTransmissionToStringForFoundSettlement(){
         String expectedString = "GAME A MOVE 3 PLACE JUNGLE+LAKE AT 1 -1 0 1 FOUND SETTLEMENT AT -2 -1 3";
@@ -114,4 +115,5 @@ public class MarshallerTest {
 
         assertEquals(expectedString, testString);
     }
+    */
 }

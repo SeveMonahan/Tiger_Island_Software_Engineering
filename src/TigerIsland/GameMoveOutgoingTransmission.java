@@ -4,7 +4,7 @@ public class GameMoveOutgoingTransmission {
     private String gid;
     private int moveNumber;
     private TileMove tileMove;
-    private ConstructionMoveTransmission constructionMoveTransmission;
+    private ConstructionMoveInternal constructionMoveTransmission;
 
     public String getGid() {return gid;}
 
@@ -12,9 +12,9 @@ public class GameMoveOutgoingTransmission {
 
     public TileMove getTileMove() {return tileMove;}
 
-    public ConstructionMoveTransmission getConstructionMoveTransmission() { return constructionMoveTransmission;}
+    public ConstructionMoveInternal getConstructionMoveInternal() { return constructionMoveTransmission;}
 
-    public GameMoveOutgoingTransmission(String gid, int moveNumber, TileMove tileMove, ConstructionMoveTransmission constructionMoveTransmission){
+    public GameMoveOutgoingTransmission(String gid, int moveNumber, TileMove tileMove, ConstructionMoveInternal constructionMoveTransmission){
         this.gid = gid;
         this.moveNumber = moveNumber;
         this.tileMove = tileMove;

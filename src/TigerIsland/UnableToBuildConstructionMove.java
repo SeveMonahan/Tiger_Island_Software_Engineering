@@ -16,4 +16,9 @@ public class UnableToBuildConstructionMove implements ConstructionMoveInternal {
     public Coordinate getCoordinate() {
         return new Coordinate(1000,1000);
     }
+
+    @Override
+    public String marshallMove() {
+        return "UNABLE TO BUILD";
+    }
 }

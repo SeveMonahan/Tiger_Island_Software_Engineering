@@ -6,6 +6,11 @@ public class TigerConstructionMove extends ConstructionMoveJustCoordinate {
     }
 
     @Override
+    protected String getMoveTypeName() {
+        return "BUILD TIGER PLAYGROUND AT";
+    }
+
+    @Override
     public Coordinate getCoordinate() {
         return this.coordinate;
     }

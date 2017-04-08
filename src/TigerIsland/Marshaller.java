@@ -16,30 +16,8 @@ public class Marshaller {
                                         + gameMoveOutgoingTransmission.getMoveNumber() + " PLACE "
                                         + tileString + " AT " + tileX + " " + tileY + " " + tileZ + " "
                                         + tileOrientation + " ";
-        if(gameMoveOutgoingTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.UNABLETOBUILD) {
-            return start_of_move_string + "UNABLE TO BUILD";
-        }
 
-        int constructionX = gameMoveOutgoingTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[0];
-        int constructionY = gameMoveOutgoingTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[1];
-        int constructionZ = gameMoveOutgoingTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[2];
-
-        if (gameMoveOutgoingTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.FOUNDSETTLEMENT) {
-            return start_of_move_string + "FOUND SETTLEMENT AT " + constructionX + " " + constructionY + " " + constructionZ;
-        }
-        else if(gameMoveOutgoingTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.EXPANDSETTLEMENT){
-            ExpandSettlementMoveTransmission expandSettlementMoveTransmission = (ExpandSettlementMoveTransmission) gameMoveOutgoingTransmission.getConstructionMoveTransmission();
-            String terrainToExpand =  expandSettlementMoveTransmission.getTerrain().toString();
-
-            return start_of_move_string + "EXPAND SETTLEMENT AT " + constructionX + " " + constructionY + " " + constructionZ + " " + terrainToExpand;
-        }
-        else if(gameMoveOutgoingTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.BUILDTOTORO) {
-            return start_of_move_string + "BUILD TOTORO SANCTUARY AT " + constructionX + " " + constructionY + " " + constructionZ;
-        }
-        else if(gameMoveOutgoingTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.BUILDTIGER) {
-            return start_of_move_string + "BUILD TIGER PLAYGROUND AT " + constructionX + " " + constructionY + " " + constructionZ;
-        }
-        else return null;
+        return start_of_move_string + gameMoveOutgoingTransmission.getConstructionMoveInternal().marshallMove();
     }
 
     private String extractTileStringFromGameMove(GameMoveOutgoingTransmission gameMoveOutgoingTransmission){
