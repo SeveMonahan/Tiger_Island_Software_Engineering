@@ -1,4 +1,4 @@
-package TigerIsland.Features.TileMove;
+package TileMove;
 
 import TigerIsland.*;
 import cucumber.api.java.en.Given;

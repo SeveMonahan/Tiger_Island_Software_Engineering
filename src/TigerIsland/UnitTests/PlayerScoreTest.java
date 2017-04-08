@@ -1,5 +1,3 @@
-package TigerIsland.UnitTests;
-
 import TigerIsland.Color;
 import TigerIsland.Player;
 import org.junit.Test;

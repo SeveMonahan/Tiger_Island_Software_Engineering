@@ -8,10 +8,10 @@ public class TigerConstructionMoveTest {
     public void canPerformMoveTest() {
         Board board = new Board();
         board.placeStartingTile();
-        Coordinate upperRight = new Coordinate(100, 100).getNeighboringCoordinate(HexagonNeighborDirection.UPPERRIGHT);
+        Coordinate upperRight = new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERRIGHT);
         Color Player_Color = Color.WHITE;
         Player player_1 = new Player(Player_Color);
-        Coordinate right = new Coordinate(100, 100).getNeighboringCoordinate(HexagonNeighborDirection.RIGHT);
+        Coordinate right = new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.RIGHT);
         FoundSettlementConstructionMove move1 = new FoundSettlementConstructionMove(right);
         move1.makePreverifiedMove(player_1, board);
 
@@ -34,10 +34,10 @@ public class TigerConstructionMoveTest {
     public void makePreverifiedMoveTest() {
         Board board = new Board();
         board.placeStartingTile();
-        Coordinate upperRight = new Coordinate(100, 100).getNeighboringCoordinate(HexagonNeighborDirection.UPPERRIGHT);
+        Coordinate upperRight = new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERRIGHT);
         Color Player_Color = Color.WHITE;
         Player player_1 = new Player(Player_Color);
-        Coordinate right = new Coordinate(100, 100).getNeighboringCoordinate(HexagonNeighborDirection.RIGHT);
+        Coordinate right = new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.RIGHT);
         FoundSettlementConstructionMove move1 = new FoundSettlementConstructionMove(right);
         move1.makePreverifiedMove(player_1, board);
         assertEquals(1,player_1.getScore());

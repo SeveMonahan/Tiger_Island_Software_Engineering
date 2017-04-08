@@ -1,4 +1,5 @@
-package TigerIsland.Features.Hexagon;
+package Hexagon;
+
 import TigerIsland.*;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

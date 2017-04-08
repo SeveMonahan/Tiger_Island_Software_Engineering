@@ -95,5 +95,4 @@ public class GameState {
         return board;
     }
 
-
 }

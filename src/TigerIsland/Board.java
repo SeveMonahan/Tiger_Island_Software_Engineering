@@ -43,7 +43,7 @@ public class Board {
         return hexagon;
     }
     public Hexagon getNeighboringHexagon(Coordinate coordinate, HexagonNeighborDirection direction) {
-        Coordinate neighborCoordinate = coordinate.getNeighboringCoordinate(direction);
+        Coordinate neighborCoordinate = coordinate.getNeighboringCoordinateAt(direction);
         return getHexagonAt(neighborCoordinate);
     }
     public Hexagon[] getNeighboringHexagons(Coordinate coordinate) {

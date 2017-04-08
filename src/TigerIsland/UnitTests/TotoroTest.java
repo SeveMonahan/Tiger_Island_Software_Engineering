@@ -1,5 +1,3 @@
-package TigerIsland.UnitTests;
-
 import TigerIsland.*;
 import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
@@ -37,7 +35,7 @@ public class TotoroTest {
         TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASS), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
         Board board = boardWithTile;
-        Coordinate coordinate = new Coordinate(101,100).getNeighboringCoordinate(HexagonNeighborDirection.LEFT);
+        Coordinate coordinate = new Coordinate(101,100).getNeighboringCoordinateAt(HexagonNeighborDirection.LEFT);
         Player player = new Player(Color.WHITE);
 
         player.placeTotoroOnHexagon(coordinate, board);
@@ -73,7 +71,7 @@ public class TotoroTest {
         Player player = new Player(Color.WHITE);
 
         for(HexagonNeighborDirection direction : HexagonNeighborDirection.values()) {
-            assertEquals(true, player.placeMeepleOnHexagon(new Coordinate(100, 100).getNeighboringCoordinate(direction), board));
+            assertEquals(true, player.placeMeepleOnHexagon(new Coordinate(100, 100).getNeighboringCoordinateAt(direction), board));
         }
 
         return board;

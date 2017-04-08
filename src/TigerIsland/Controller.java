@@ -12,7 +12,6 @@ public class Controller {
     private static boolean gameOver = false;
     private static boolean readGameOneScore = false;
     private static boolean roundsOver = false;
-
     /*
     States:
     0 = challenge
@@ -20,7 +19,6 @@ public class Controller {
     2 = match
     3 = move
     */
-
     public static void decoder(String message) {
         String[] arr = stringSplitter(message);
         if (state == 0) { //challenge protocol
@@ -95,9 +93,8 @@ public class Controller {
             }
             else {
                 System.out.println("game(s) in progress...");
-                if (message.contains("MAKE YOUR MOVE IN GAME")) {
-
-                }
+                //TODO
+                //send to parser
             }
         }
     }
@@ -109,9 +106,5 @@ public class Controller {
 
     private static String[] stringSplitter(String message) {
         return message.split(" ");
-    }
-
-    private static void moveFunctionPicker (String message) {
-
     }
 }

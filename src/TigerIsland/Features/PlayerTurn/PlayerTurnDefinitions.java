@@ -1,4 +1,4 @@
-package TigerIsland.Features.PlayerTurn;
+package PlayerTurn;
 
 import TigerIsland.*;
 import cucumber.api.java.en.Given;

@@ -6,10 +6,12 @@ import org.junit.Test;
 public class FullGameTests {
     @Test
     public void FullGameTest_01() {
-         Board board = new Board();			
-		 board.placeStartingTile();			
-			
-	     Player player_01 = new Player(Color.BLACK);					
-		 Player player_02 = new Player(Color.WHITE);		
+        String gid = "bullshit";
+        AIController ai_01 = new AIController(Color.BLACK);
+        AIController ai_02 = new AIController(Color.WHITE);
+        OutputPlayerActions logger = new OutputPlayerLogger(gid, Color.BLACK );
+        TileBag tileBag = new RandomTileBag();
+
+        Referee referee = new Referee(ai_01, ai_02, logger, tileBag);
     }
 }

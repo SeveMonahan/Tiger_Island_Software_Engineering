@@ -1,4 +1,4 @@
-package TigerIsland.Features.Totoro;
+package Totoro;
 
 import TigerIsland.*;
 import cucumber.api.java.en.Given;

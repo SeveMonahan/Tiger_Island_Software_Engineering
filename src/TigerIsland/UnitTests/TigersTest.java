@@ -1,5 +1,3 @@
-package TigerIsland.UnitTests;
-
 import TigerIsland.*;
 import org.junit.Assert;
 import org.junit.Test;
@@ -36,7 +34,7 @@ public class TigersTest {
         TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASS), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
         Board board = boardWithTile;
-        Coordinate coordinate = new Coordinate(100,100).getNeighboringCoordinate(HexagonNeighborDirection.LEFT);
+        Coordinate coordinate = new Coordinate(100,100).getNeighboringCoordinateAt(HexagonNeighborDirection.LEFT);
 
 
         Player player = new Player(Color.WHITE);
@@ -56,17 +54,17 @@ public class TigersTest {
         Board board = new Board();
         board.placeStartingTile();
 
-        Hexagon upperleft = board.getHexagonAt(new Coordinate(100, 100).getNeighboringCoordinate(HexagonNeighborDirection.UPPERLEFT));
+        Hexagon upperleft = board.getHexagonAt(new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERLEFT));
 
         upperleft.changeTerrainTypeThoughExplosion(Terrain.JUNGLE);
         upperleft.changeTerrainTypeThoughExplosion(Terrain.JUNGLE);
 
         Player player = new Player(Color.BLACK);
-        TigerConstructionMove move = new TigerConstructionMove(new Coordinate(100, 100).getNeighboringCoordinate(HexagonNeighborDirection.UPPERLEFT));
+        TigerConstructionMove move = new TigerConstructionMove(new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERLEFT));
 
         assertEquals(false, move.canPerformMove(player, board));
 
-        player.placeMeepleOnHexagon(new Coordinate(100, 100).getNeighboringCoordinate(HexagonNeighborDirection.UPPERRIGHT), board);
+        player.placeMeepleOnHexagon(new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERRIGHT), board);
 
         assertEquals(true, move.canPerformMove(player, board));
 
@@ -78,7 +76,7 @@ public class TigersTest {
         TileMove startingTileMove = new TileMove(new Tile(Terrain.LAKE, Terrain.GRASS), HexagonNeighborDirection.LEFT, new Coordinate (100, 100));
         boardWithTile.placeTile(startingTileMove);
         Board board = boardWithTile;
-        Coordinate coordinate = new Coordinate(101,100).getNeighboringCoordinate(HexagonNeighborDirection.LEFT);
+        Coordinate coordinate = new Coordinate(101,100).getNeighboringCoordinateAt(HexagonNeighborDirection.LEFT);
         Hexagon hexagon = board.getHexagonAt(coordinate);
         Player player = new Player(Color.WHITE);
 

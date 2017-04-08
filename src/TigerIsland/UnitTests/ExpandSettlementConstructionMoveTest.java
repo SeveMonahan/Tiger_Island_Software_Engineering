@@ -1,5 +1,3 @@
-package TigerIsland.UnitTests;
-
 import TigerIsland.*;
 import org.junit.Test;
 
@@ -15,7 +13,8 @@ public class ExpandSettlementConstructionMoveTest {
     @Test
     public void basic_test(){
         Board board = startBoard();
-        Coordinate upperRight = new Coordinate(100, 100).getNeighboringCoordinate(HexagonNeighborDirection.UPPERRIGHT);
+
+        Coordinate upperRight = new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERRIGHT);
 
         Color Player_Color = Color.WHITE;
         Player player_1 = new Player(Player_Color);
@@ -34,7 +33,7 @@ public class ExpandSettlementConstructionMoveTest {
 
         move2.makePreverifiedMove(player_1, board);
 
-        Coordinate upperLeft = new Coordinate(100, 100).getNeighboringCoordinate(HexagonNeighborDirection.UPPERLEFT);
+        Coordinate upperLeft = new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERLEFT);
 
         assertEquals(true, board.getHexagonAt(upperLeft).containsPieces());
         assertEquals(PieceStatusHexagon.MEEPLE , board.getHexagonAt(upperLeft).getPiecesStatus());

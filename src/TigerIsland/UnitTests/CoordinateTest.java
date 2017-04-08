@@ -1,5 +1,3 @@
-package TigerIsland.UnitTests;
-
 import TigerIsland.Coordinate;
 import org.junit.Test;
 

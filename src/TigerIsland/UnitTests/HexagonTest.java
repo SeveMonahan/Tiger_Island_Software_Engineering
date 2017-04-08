@@ -1,5 +1,3 @@
-package TigerIsland.UnitTests;
-
 import TigerIsland.Hexagon;
 import TigerIsland.Terrain;
 import org.junit.Test;
