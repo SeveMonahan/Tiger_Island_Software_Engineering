@@ -4,10 +4,10 @@ import TigerIsland.*;
 
 import java.util.ArrayList;
 
-public class AIController implements PlayerController {
+public class DumbController implements PlayerController {
     Color color;
 
-    public AIController(Color color){
+    public DumbController(Color color){
         this.color = color;
     }
 

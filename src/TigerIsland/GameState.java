@@ -71,6 +71,10 @@ public class GameState {
         gameIsOver = true;
     }
 
+    public int activePlayerScore(){
+        return playerWhoseTurn.getScore();
+    }
+
     public GameOutcome getGameOutcome(Player me) {
         Player winner;
 
