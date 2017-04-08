@@ -19,10 +19,10 @@ public class MarshallerTest {
 
         final String testGID = "A";
         final int testMoveNumber = 3;
-        GameMoveTransmission testGameMoveTransmission = new GameMoveTransmission(testGID, testMoveNumber, testTileMove, testConstructionMoveTransmission);
+        GameMoveOutgoingTransmission testGameMoveOutgoingTransmission = new GameMoveOutgoingTransmission(testGID, testMoveNumber, testTileMove, testConstructionMoveTransmission);
 
         Marshaller marshaller = new Marshaller();
-        String testString = marshaller.convertTileMoveAndConstructionMoveToString(testGameMoveTransmission);
+        String testString = marshaller.convertTileMoveAndConstructionMoveToString(testGameMoveOutgoingTransmission);
 
         assertEquals(expectedString, testString);
     }
@@ -41,10 +41,10 @@ public class MarshallerTest {
 
         final String testGID = "A";
         final int testMoveNumber = 3;
-        GameMoveTransmission testGameMoveTransmission = new GameMoveTransmission(testGID, testMoveNumber, testTileMove, testExpandSettlementMoveTransmission);
+        GameMoveOutgoingTransmission testGameMoveOutgoingTransmission = new GameMoveOutgoingTransmission(testGID, testMoveNumber, testTileMove, testExpandSettlementMoveTransmission);
 
         Marshaller marshaller = new Marshaller();
-        String testString = marshaller.convertTileMoveAndConstructionMoveToString(testGameMoveTransmission);
+        String testString = marshaller.convertTileMoveAndConstructionMoveToString(testGameMoveOutgoingTransmission);
 
         assertEquals(expectedString, testString);
     }
@@ -63,10 +63,10 @@ public class MarshallerTest {
 
         final String testGID = "A";
         final int testMoveNumber = 3;
-        GameMoveTransmission testGameMoveTransmission = new GameMoveTransmission(testGID, testMoveNumber, testTileMove, testConstructionMoveTransmission);
+        GameMoveOutgoingTransmission testGameMoveOutgoingTransmission = new GameMoveOutgoingTransmission(testGID, testMoveNumber, testTileMove, testConstructionMoveTransmission);
 
         Marshaller marshaller = new Marshaller();
-        String testString = marshaller.convertTileMoveAndConstructionMoveToString(testGameMoveTransmission);
+        String testString = marshaller.convertTileMoveAndConstructionMoveToString(testGameMoveOutgoingTransmission);
 
         assertEquals(expectedString, testString);
     }
@@ -85,10 +85,10 @@ public class MarshallerTest {
 
         final String testGID = "A";
         final int testMoveNumber = 3;
-        GameMoveTransmission testGameMoveTransmission = new GameMoveTransmission(testGID, testMoveNumber, testTileMove, testConstructionMoveTransmission);
+        GameMoveOutgoingTransmission testGameMoveOutgoingTransmission = new GameMoveOutgoingTransmission(testGID, testMoveNumber, testTileMove, testConstructionMoveTransmission);
 
         Marshaller marshaller = new Marshaller();
-        String testString = marshaller.convertTileMoveAndConstructionMoveToString(testGameMoveTransmission);
+        String testString = marshaller.convertTileMoveAndConstructionMoveToString(testGameMoveOutgoingTransmission);
 
         assertEquals(expectedString, testString);
     }
@@ -107,10 +107,10 @@ public class MarshallerTest {
 
         final String testGID = "A";
         final int testMoveNumber = 3;
-        GameMoveTransmission testGameMoveTransmission = new GameMoveTransmission(testGID, testMoveNumber, testTileMove, testConstructionMoveTransmission);
+        GameMoveOutgoingTransmission testGameMoveOutgoingTransmission = new GameMoveOutgoingTransmission(testGID, testMoveNumber, testTileMove, testConstructionMoveTransmission);
 
         Marshaller marshaller = new Marshaller();
-        String testString = marshaller.convertTileMoveAndConstructionMoveToString(testGameMoveTransmission);
+        String testString = marshaller.convertTileMoveAndConstructionMoveToString(testGameMoveOutgoingTransmission);
 
         assertEquals(expectedString, testString);
     }

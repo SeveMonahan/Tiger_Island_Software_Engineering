@@ -1,46 +1,46 @@
 package TigerIsland;
 
 public class Marshaller {
-    public String convertTileMoveAndConstructionMoveToString(GameMoveTransmission gameMoveTransmission) {
+    public String convertTileMoveAndConstructionMoveToString(GameMoveOutgoingTransmission gameMoveOutgoingTransmission) {
 
-        String tileString = extractTileStringFromGameMove(gameMoveTransmission);
+        String tileString = extractTileStringFromGameMove(gameMoveOutgoingTransmission);
 
-        int tileX = gameMoveTransmission.getTileMove().getCoordinate().ConvertToCube()[0];
-        int tileY = gameMoveTransmission.getTileMove().getCoordinate().ConvertToCube()[1];
-        int tileZ = gameMoveTransmission.getTileMove().getCoordinate().ConvertToCube()[2];
+        int tileX = gameMoveOutgoingTransmission.getTileMove().getCoordinate().ConvertToCube()[0];
+        int tileY = gameMoveOutgoingTransmission.getTileMove().getCoordinate().ConvertToCube()[1];
+        int tileZ = gameMoveOutgoingTransmission.getTileMove().getCoordinate().ConvertToCube()[2];
 
-        HexagonNeighborDirection tileDirection = gameMoveTransmission.getTileMove().getDirection();
+        HexagonNeighborDirection tileDirection = gameMoveOutgoingTransmission.getTileMove().getDirection();
         int tileOrientation = tileDirection.directionToInt(tileDirection);
 
-        if(gameMoveTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.UNABLETOBUILD) {
-            return "GAME " + gameMoveTransmission.getGid() + " MOVE " + gameMoveTransmission.getMoveNumber() + " PLACE " + tileString + " AT " + tileX + " " + tileY + " " + tileZ + " " + tileOrientation + " UNABLE TO BUILD";
+        if(gameMoveOutgoingTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.UNABLETOBUILD) {
+            return "GAME " + gameMoveOutgoingTransmission.getGid() + " MOVE " + gameMoveOutgoingTransmission.getMoveNumber() + " PLACE " + tileString + " AT " + tileX + " " + tileY + " " + tileZ + " " + tileOrientation + " UNABLE TO BUILD";
         }
 
-        int constructionX = gameMoveTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[0];
-        int constructionY = gameMoveTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[1];
-        int constructionZ = gameMoveTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[2];
+        int constructionX = gameMoveOutgoingTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[0];
+        int constructionY = gameMoveOutgoingTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[1];
+        int constructionZ = gameMoveOutgoingTransmission.getConstructionMoveTransmission().getCoordinate().ConvertToCube()[2];
 
-        if (gameMoveTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.FOUNDSETTLEMENT) {
-            return "GAME " + gameMoveTransmission.getGid() + " MOVE " + gameMoveTransmission.getMoveNumber() + " PLACE " + tileString + " AT " + tileX + " " + tileY + " " + tileZ + " " + tileOrientation + " FOUND SETTLEMENT AT " + constructionX + " " + constructionY + " " + constructionZ;
+        if (gameMoveOutgoingTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.FOUNDSETTLEMENT) {
+            return "GAME " + gameMoveOutgoingTransmission.getGid() + " MOVE " + gameMoveOutgoingTransmission.getMoveNumber() + " PLACE " + tileString + " AT " + tileX + " " + tileY + " " + tileZ + " " + tileOrientation + " FOUND SETTLEMENT AT " + constructionX + " " + constructionY + " " + constructionZ;
         }
-        else if(gameMoveTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.EXPANDSETTLEMENT){
-            ExpandSettlementMoveTransmission expandSettlementMoveTransmission = (ExpandSettlementMoveTransmission) gameMoveTransmission.getConstructionMoveTransmission();
+        else if(gameMoveOutgoingTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.EXPANDSETTLEMENT){
+            ExpandSettlementMoveTransmission expandSettlementMoveTransmission = (ExpandSettlementMoveTransmission) gameMoveOutgoingTransmission.getConstructionMoveTransmission();
             String terrainToExpand =  expandSettlementMoveTransmission.getTerrain().toString();
 
-            return "GAME " + gameMoveTransmission.getGid() + " MOVE " + gameMoveTransmission.getMoveNumber() + " PLACE " + tileString + " AT " + tileX + " " + tileY + " " + tileZ + " " + tileOrientation + " EXPAND SETTLEMENT AT " + constructionX + " " + constructionY + " " + constructionZ + " " + terrainToExpand;
+            return "GAME " + gameMoveOutgoingTransmission.getGid() + " MOVE " + gameMoveOutgoingTransmission.getMoveNumber() + " PLACE " + tileString + " AT " + tileX + " " + tileY + " " + tileZ + " " + tileOrientation + " EXPAND SETTLEMENT AT " + constructionX + " " + constructionY + " " + constructionZ + " " + terrainToExpand;
         }
-        else if(gameMoveTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.BUILDTOTORO) {
-            return "GAME " + gameMoveTransmission.getGid() + " MOVE " + gameMoveTransmission.getMoveNumber() + " PLACE " + tileString + " AT " + tileX + " " + tileY + " " + tileZ + " " + tileOrientation + " BUILD TOTORO SANCTUARY AT " + constructionX + " " + constructionY + " " + constructionZ;
+        else if(gameMoveOutgoingTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.BUILDTOTORO) {
+            return "GAME " + gameMoveOutgoingTransmission.getGid() + " MOVE " + gameMoveOutgoingTransmission.getMoveNumber() + " PLACE " + tileString + " AT " + tileX + " " + tileY + " " + tileZ + " " + tileOrientation + " BUILD TOTORO SANCTUARY AT " + constructionX + " " + constructionY + " " + constructionZ;
         }
-        else if(gameMoveTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.BUILDTIGER) {
-            return "GAME " + gameMoveTransmission.getGid() + " MOVE " + gameMoveTransmission.getMoveNumber() + " PLACE " + tileString + " AT " + tileX + " " + tileY + " " + tileZ + " " + tileOrientation + " BUILD TIGER PLAYGROUND AT " + constructionX + " " + constructionY + " " + constructionZ;
+        else if(gameMoveOutgoingTransmission.getConstructionMoveTransmission().getBuildOption() == BuildOption.BUILDTIGER) {
+            return "GAME " + gameMoveOutgoingTransmission.getGid() + " MOVE " + gameMoveOutgoingTransmission.getMoveNumber() + " PLACE " + tileString + " AT " + tileX + " " + tileY + " " + tileZ + " " + tileOrientation + " BUILD TIGER PLAYGROUND AT " + constructionX + " " + constructionY + " " + constructionZ;
         }
         else return null;
     }
 
-    private String extractTileStringFromGameMove(GameMoveTransmission gameMoveTransmission){
-        Terrain terrainA = gameMoveTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano()[1];
-        Terrain terrainB = gameMoveTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano()[2];
+    private String extractTileStringFromGameMove(GameMoveOutgoingTransmission gameMoveOutgoingTransmission){
+        Terrain terrainA = gameMoveOutgoingTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano()[1];
+        Terrain terrainB = gameMoveOutgoingTransmission.getTileMove().getTile().getTerrainsClockwiseFromVolcano()[2];
         return terrainA.toString() + "+" + terrainB.toString();
     }
 }

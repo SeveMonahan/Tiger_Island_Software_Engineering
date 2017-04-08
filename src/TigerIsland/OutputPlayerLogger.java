@@ -32,7 +32,7 @@ public class OutputPlayerLogger implements  OutputPlayerActions{
 
         ConstructionMoveTransmission constructionMoveTransmission = new ConstructionMoveTransmission(buildOption, buildCoordinate);
 
-        GameMoveTransmission gmt = new GameMoveTransmission(gid, moveNumber, tileMove, constructionMoveTransmission);
+        GameMoveOutgoingTransmission gmt = new GameMoveOutgoingTransmission(gid, moveNumber, tileMove, constructionMoveTransmission);
 
         Color turnColor;
         if( gameStateEndOfTurn.isMyTurn(Color.BLACK) ) {
