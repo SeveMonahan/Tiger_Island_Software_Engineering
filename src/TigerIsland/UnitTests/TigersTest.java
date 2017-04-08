@@ -48,6 +48,28 @@ public class TigersTest {
 
         assertEquals(PieceStatusHexagon.EMPTY, hexagon.getPiecesStatus());
     }
+
+    @Test
+    public void placeTigerOnLevelThree() throws Exception {
+        Board board = new Board();
+        board.placeStartingTile();
+
+        Hexagon upperleft = board.getHexagonAt(new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERLEFT));
+
+        upperleft.changeTerrainTypeThoughExplosion(Terrain.JUNGLE);
+        upperleft.changeTerrainTypeThoughExplosion(Terrain.JUNGLE);
+
+        Player player = new Player(Color.BLACK);
+        TigerConstructionMove move = new TigerConstructionMove(new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERLEFT));
+
+        assertEquals(false, move.canPerformMove(player, board));
+
+        player.placeMeepleOnHexagon(new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERRIGHT), board);
+
+        assertEquals(true, move.canPerformMove(player, board));
+
+    }
+
     @Test
     public void placeTigerOnVolcano() throws Exception {
         Board boardWithTile = new Board();
