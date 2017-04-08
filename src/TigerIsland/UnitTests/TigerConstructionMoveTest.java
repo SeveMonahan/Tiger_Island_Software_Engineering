@@ -1,13 +1,12 @@
 package TigerIsland.UnitTests;
 import TigerIsland.*;
-
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-
 public class TigerConstructionMoveTest {
 
     @Test
-    public void canPerformMovetest() {
+    public void canPerformMoveTest() {
         Board board = new Board();
         board.placeStartingTile();
         Coordinate upperRight = new Coordinate(100, 100).getNeighboringCoordinate(HexagonNeighborDirection.UPPERRIGHT);
@@ -19,7 +18,7 @@ public class TigerConstructionMoveTest {
 
         TigerConstructionMove move2= new TigerConstructionMove(upperRight);
 
-        assertEquals(false, move2.canPreformMove(player_1, board));
+        assertEquals(false, move2.canPerformMove(player_1, board));
 
         Hexagon levelTwoHexagon = new Hexagon();
         levelTwoHexagon.changeTerrainTypeThoughExplosion(Terrain.GRASS);
@@ -30,8 +29,7 @@ public class TigerConstructionMoveTest {
         board.setHexagonAt(upperRight, levelTwoHexagon);
 
         assertEquals(2, player_1.getTigerCount());
-        assertEquals(true, move2.canPreformMove(player_1, board));
-        assertEquals(1, player_1.getTigerCount());
+        assertEquals(true, move2.canPerformMove(player_1, board));
     }
 
 }
