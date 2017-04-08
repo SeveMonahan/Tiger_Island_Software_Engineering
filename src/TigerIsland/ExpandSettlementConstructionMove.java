@@ -7,6 +7,11 @@ public class ExpandSettlementConstructionMove implements ConstructionMoveInterna
     private Terrain terrain;
     private int totalMeeplesNeeded;
 
+    @Override
+    public Coordinate getCoordinate() {
+        return this.coordinate;
+    }
+
     public ExpandSettlementConstructionMove(Coordinate coordinate, Terrain terrain) {
         this.coordinate = coordinate;
         this.terrain = terrain;

@@ -11,4 +11,9 @@ public class UnableToBuildConstructionMove implements ConstructionMoveInternal {
     public void makePreverifiedMove(Player player, Board board) {
         player.setAutoLoseScore();
     }
+
+    @Override
+    public Coordinate getCoordinate() {
+        return new Coordinate(1000,1000);
+    }
 }

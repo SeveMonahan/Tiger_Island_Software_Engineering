@@ -6,6 +6,11 @@ public class TotoroConstructionMove extends ConstructionMoveJustCoordinate {
         super(coordinate);
     }
 
+    @Override
+    public Coordinate getCoordinate() {
+        return this.coordinate;
+    }
+
     // Methods
     @Override
     public boolean canPerformMove(Player player, Board board) {

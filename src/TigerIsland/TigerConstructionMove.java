@@ -6,6 +6,11 @@ public class TigerConstructionMove extends ConstructionMoveJustCoordinate {
     }
 
     @Override
+    public Coordinate getCoordinate() {
+        return this.coordinate;
+    }
+
+    @Override
     public boolean canPerformMove(Player player, Board board) {
         Hexagon hexagon = board.getHexagonAt(coordinate);
 

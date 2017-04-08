@@ -14,17 +14,34 @@ public class OutputPlayerLogger implements  OutputPlayerActions{
 
     public void dispatchInformation(GameStateEndOfTurn gameStateEndOfTurn){
         int moveNumber = 1;
-        // GameMoveTransmission gmt = new GameMoveTransmission(gid, moveNumber, tileMove, convertConstructionMove(constructMove));
+        TileMove tileMove = gameStateEndOfTurn.getLastTileMove();
+        ConstructionMoveInternal constructMove = gameStateEndOfTurn.getLastConstructionMove();
+        BuildOption buildOption = BuildOption.UNABLETOBUILD;
+        if(constructMove instanceof ExpandSettlementConstructionMove) { //expand
+            buildOption = BuildOption.EXPANDSETTLEMENT;
+        } else if(constructMove instanceof FoundSettlementConstructionMove ) { // found
+            buildOption = BuildOption.FOUNDSETTLEMENT;
+        } else if(constructMove instanceof TigerConstructionMove ) { // tiger
+            buildOption = BuildOption.BUILDTIGER;
+        } else if(constructMove instanceof TotoroConstructionMove) { // totoro
+            buildOption = BuildOption.BUILDTOTORO;
+        }
 
-        // String message = new Marshaller(gmt);
+        Coordinate buildCoordinate = constructMove.getCoordinate(); //
+
+        ConstructionMoveTransmission constructionMoveTransmission = new ConstructionMoveTransmission(buildOption, buildCoordinate);
+
+        GameMoveTransmission gmt = new GameMoveTransmission(gid, moveNumber, tileMove, constructionMoveTransmission);
+
+        Marshaller marshaller = new Marshaller();
+        String message = marshaller.convertTileMoveAndConstructionMoveToString(gmt);
 
         try {
             FileWriter writer = new FileWriter("log.txt", true);
+            writer.write( message );
             writer.write("\r\n");   // write new line
-            // writer.write( );
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 }

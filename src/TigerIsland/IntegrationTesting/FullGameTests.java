@@ -13,5 +13,7 @@ public class FullGameTests {
         TileBag tileBag = new RandomTileBag();
 
         Referee referee = new Referee(ai_01, ai_02, logger, tileBag);
+
+        referee.Execute();
     }
 }

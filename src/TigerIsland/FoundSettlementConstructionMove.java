@@ -7,6 +7,10 @@ public class FoundSettlementConstructionMove extends ConstructionMoveJustCoordin
 
     public boolean canBeKilled() { return true; }
 
+    public Coordinate getCoordinate() {
+        return this.coordinate;
+    }
+
     @Override
     public boolean canPerformMove(Player player, Board board) {
         Hexagon hexagon = board.getHexagonAt(coordinate);
