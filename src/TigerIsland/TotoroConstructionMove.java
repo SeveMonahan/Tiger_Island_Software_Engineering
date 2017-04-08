@@ -7,6 +7,11 @@ public class TotoroConstructionMove extends ConstructionMoveJustCoordinate {
     }
 
     @Override
+    protected String getMoveTypeName() {
+        return "BUILD TOTORO SANCTUARY AT";
+    }
+
+    @Override
     public Coordinate getCoordinate() {
         return this.coordinate;
     }

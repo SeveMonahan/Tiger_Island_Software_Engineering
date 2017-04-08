@@ -5,6 +5,11 @@ public class FoundSettlementConstructionMove extends ConstructionMoveJustCoordin
         super(coordinate);
     }
 
+    @Override
+    protected String getMoveTypeName() {
+        return "FOUND SETTLEMENT AT";
+    }
+
     public boolean canBeKilled() { return true; }
 
     public Coordinate getCoordinate() {

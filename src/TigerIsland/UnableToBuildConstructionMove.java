@@ -19,6 +19,6 @@ public class UnableToBuildConstructionMove implements ConstructionMoveInternal {
 
     @Override
     public String marshallMove() {
-        return "NULL";
+        return "UNABLE TO BUILD";
     }
 }

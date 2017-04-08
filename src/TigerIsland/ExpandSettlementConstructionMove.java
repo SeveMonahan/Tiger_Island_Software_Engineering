@@ -2,8 +2,7 @@ package TigerIsland;
 
 import java.util.Queue;
 
-public class ExpandSettlementConstructionMove implements ConstructionMoveInternal {
-    private Coordinate coordinate;
+public class ExpandSettlementConstructionMove extends ConstructionMoveJustCoordinate{
     private Terrain terrain;
     private int totalMeeplesNeeded;
 
@@ -13,17 +12,21 @@ public class ExpandSettlementConstructionMove implements ConstructionMoveInterna
     }
 
     @Override
+    protected String getMoveTypeName() {
+        return "EXPAND SETTLEMENT AT";
+    }
+
+    @Override
     public String marshallMove() {
-        return "NULL";
+        return getMoveTypeName() + get_coordinate_marshalling()
+                + " " + terrain.toString();
     }
 
     public ExpandSettlementConstructionMove(Coordinate coordinate, Terrain terrain) {
-        this.coordinate = coordinate;
+        super(coordinate);
         this.terrain = terrain;
         this.totalMeeplesNeeded = 1000;
     }
-
-    public boolean canBeKilled() { return true; }
 
     @Override
     public boolean canPerformMove(Player player, Board board) {
