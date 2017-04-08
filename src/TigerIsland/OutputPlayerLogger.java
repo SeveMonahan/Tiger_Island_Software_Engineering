@@ -9,7 +9,7 @@ public class OutputPlayerLogger implements  OutputPlayerActions{
 
     public OutputPlayerLogger(String gid, Color colors){
         this.gid = gid;
-        this.color = color;
+        this.color = colors;
     }
 
     public void dispatchInformation(GameStateEndOfTurn gameStateEndOfTurn){
@@ -38,8 +38,8 @@ public class OutputPlayerLogger implements  OutputPlayerActions{
 
         try {
             FileWriter writer = new FileWriter("log.txt", true);
-            writer.write( message );
             writer.write("\r\n");   // write new line
+            writer.write( message );
         } catch (IOException e) {
             e.printStackTrace();
         }
