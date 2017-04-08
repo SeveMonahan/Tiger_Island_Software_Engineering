@@ -2,12 +2,11 @@ package TigerIsland;
 
 public class Parser {
 
+
     //Takes in "MAKE YOUR MOVE IN GAME <gid> WITHIN <timemove> SECOND: MOVE <#> PLACE <tile>" and outputs Tile object
     public Tile makeYourMoveStringToTile(String makeYourMoveString) {
         String[] moveStringSplitBySpaceArray = makeYourMoveString.split("\\s+");
-
         final int tileIndex = 12;
-
         String tileString = moveStringSplitBySpaceArray[tileIndex];
         return tileStringToTile(tileString);
     }

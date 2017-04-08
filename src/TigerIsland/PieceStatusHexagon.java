@@ -1,6 +1,6 @@
 package TigerIsland;
 
-public enum HexagonOccupationStatus {
+public enum PieceStatusHexagon {
     EMPTY,
     MEEPLE,
     TOTORO,

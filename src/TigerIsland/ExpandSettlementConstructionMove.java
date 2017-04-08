@@ -13,18 +13,14 @@ public class ExpandSettlementConstructionMove implements ConstructionMoveInterna
         this.totalMeeplesNeeded = 1000;
     }
 
-    public HexagonOccupationStatus getOccupyStatus(){
-        return HexagonOccupationStatus.MEEPLE;
-    }
-
     public boolean canBeKilled() { return true; }
 
     @Override
-    public int numberPiecesRequiredToPreformMove(Player player, Board board) {
+    public boolean canPreformMove(Player player, Board board) {
         Settlement settlement = board.getSettlement(coordinate);
         totalMeeplesNeeded = settlement.expandSettlementFloodFill(board, player, terrain).size();
 
-        return totalMeeplesNeeded;
+        return totalMeeplesNeeded <= player.getMeeplesCount();
     }
 
     @Override
@@ -39,7 +35,7 @@ public class ExpandSettlementConstructionMove implements ConstructionMoveInterna
         while(!expansion.isEmpty()){
             Coordinate expansionCoordinate = expansion.remove();
             Hexagon hexagon = board.getHexagonAt(expansionCoordinate);
-            hexagon.setOccupationStatus(player.getColor(), this);
+            hexagon.setOccupationStatus(player.getColor(), PieceStatusHexagon.MEEPLE);
             player.addScore(hexagon.getLevel() * hexagon.getLevel());
         }
 

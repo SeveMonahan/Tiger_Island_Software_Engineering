@@ -11,13 +11,16 @@ import java.net.Socket;
        The server has to be run first, and it takes in a port for an argument.
        Use 4432.
 
-       So the server and client are configured to send a line back and forth to each other.
+       So the4 server and client are configured to send a line back and forth to each other.
        Right now I have them hooked up to standard input (the terminal).
        The goal is to have the client hooked up to the parser so it can reply back to the server automatically.
 
        The server sends out the first message, and the client must reply with a message in order to receive
        the next message from the server. This back and forth continues until server replies with "Bye."
 
+       WELCOME TO ANOTHER EDITION OF THUNDERDOME!
+       TWO SHALL ENTER, ONE SHALL LEAVE
+       WAIT FOR THE TOURNAMENT TO BEGIN 945
 */
 public class NetworkServerTest {
     public static void main(String[] args) throws IOException {
@@ -45,10 +48,13 @@ public class NetworkServerTest {
                         new InputStreamReader(clientSocket.getInputStream()))
         ) {
             System.out.println("Client connected!");
-            String inputLine, outputLine;
+            String outputLine;
             BufferedReader stdIn =
                     new BufferedReader(new InputStreamReader(System.in));
             // Initiate conversation with client
+            out.println("WELCOME TO ANOTHER EDITION OF THUNDERDOME!");
+            out.println("TWO SHALL ENTER, ONE SHALL LEAVE");
+            out.println("WAIT FOR THE TOURNAMENT TO BEGIN 853");
             while (true) {
                 outputLine = stdIn.readLine();
                 out.println(outputLine);

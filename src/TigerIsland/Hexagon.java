@@ -5,9 +5,8 @@ public class Hexagon {
     private int level;
     private Terrain terrain;
     private int tileHashCode;
-    private HexagonOccupationStatus occupationStatus;
+    private PieceStatusHexagon piecesStatus;
     private Color occupationColor;
-    private boolean canBeNuked;
 
     // Getters
     public int getLevel(){
@@ -17,11 +16,10 @@ public class Hexagon {
         return terrain;
     }
     int getTileHashCode() { return tileHashCode; }
-    public HexagonOccupationStatus getOccupationStatus() {
-        return occupationStatus;
+    public PieceStatusHexagon getPiecesStatus() {
+        return piecesStatus;
     }
     public Color getOccupationColor() { return occupationColor; }
-    boolean getCanBeNuked() { return canBeNuked; }
 
     public static Hexagon cloneHexagon(Hexagon copiedHexagon) {
         if (copiedHexagon == null){
@@ -30,53 +28,50 @@ public class Hexagon {
         return new Hexagon(copiedHexagon);
     }
 
-    public void setOccupationStatus(Color color, ConstructionMoveInternal move) {
-        occupationStatus = move.getOccupyStatus();
+    // Setters
+    public void setOccupationStatus(Color color, PieceStatusHexagon pieceStatus) {
+        this.piecesStatus = pieceStatus;
         occupationColor = color;
-        this.canBeNuked = move.canBeKilled();
     }
+
     public void setTileHashCode(int tileHashCode) {
         this.tileHashCode = tileHashCode;
     }
 
     // Constructors
     public Hexagon() {
-        canBeNuked = true;
         level = 0;
         terrain = Terrain.EMPTY;
-        occupationStatus = HexagonOccupationStatus.EMPTY;
+        piecesStatus = PieceStatusHexagon.EMPTY;
     }
-
-    private Hexagon(Hexagon copied) {
-        canBeNuked = copied.getCanBeNuked();
-        level = copied.getLevel();
-        terrain = copied.getTerrain();
-        occupationStatus = copied.getOccupationStatus();
-        tileHashCode = copied.getTileHashCode();
-        occupationColor = copied.getOccupationColor();
+    private Hexagon(Hexagon copiedHexagon) {
+        level = copiedHexagon.getLevel();
+        terrain = copiedHexagon.getTerrain();
+        piecesStatus = copiedHexagon.getPiecesStatus();
+        tileHashCode = copiedHexagon.getTileHashCode();
+        occupationColor = copiedHexagon.getOccupationColor();
     }
 
     // Methods
     public boolean isVolcano() {
         return terrain == Terrain.VOLCANO;
     }
-
     public boolean containsPieces() {
-        return occupationStatus != HexagonOccupationStatus.EMPTY;
+        return piecesStatus != PieceStatusHexagon.EMPTY;
     }
 
-    private void incrementLevel(){
-        level++;
-    }
+    boolean getCanBeNuked() { return piecesStatus != PieceStatusHexagon.TOTORO; }
 
     public void changeTerrainTypeThoughExplosion(Terrain new_terrain){
         terrain = new_terrain;
         incrementLevel();
         eliminatePieces();
     }
-
+    private void incrementLevel(){
+        level++;
+    }
     private void eliminatePieces() {
-        occupationStatus = HexagonOccupationStatus.EMPTY;
+        piecesStatus = PieceStatusHexagon.EMPTY;
         occupationColor = null;
     }
 }

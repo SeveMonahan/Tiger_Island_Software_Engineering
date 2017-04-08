@@ -1,5 +1,3 @@
-package TigerIsland.UnitTests;
-
 import TigerIsland.*;
 import org.junit.Test;
 
@@ -24,21 +22,21 @@ public class ExpandSettlementConstructionMoveTest {
         // Place a meeple down on upperright
         FoundSettlementConstructionMove move1 = new FoundSettlementConstructionMove(upperRight);
 
-        assertEquals(1, move1.numberPiecesRequiredToPreformMove(player_1, board));
+        assertEquals(true, move1.canPreformMove(player_1, board));
 
         move1.makePreverifiedMove(player_1, board);
 
         /// Expand a settlement to the adjacent Jungle hexagon
         ExpandSettlementConstructionMove move2 = new ExpandSettlementConstructionMove(upperRight, Terrain.JUNGLE);
 
-        assertEquals(1, move2.numberPiecesRequiredToPreformMove(player_1, board));
+        assertEquals(true, move2.canPreformMove(player_1, board));
 
         move2.makePreverifiedMove(player_1, board);
 
         Coordinate upperLeft = new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERLEFT);
 
         assertEquals(true, board.getHexagonAt(upperLeft).containsPieces());
-        assertEquals(HexagonOccupationStatus.MEEPLE , board.getHexagonAt(upperLeft).getOccupationStatus());
+        assertEquals(PieceStatusHexagon.MEEPLE , board.getHexagonAt(upperLeft).getPiecesStatus());
         assertEquals(Player_Color, board.getHexagonAt(upperLeft).getOccupationColor());
     }
 }

@@ -5,22 +5,18 @@ public class FoundSettlementConstructionMove extends ConstructionMoveJustCoordin
         super(coordinate);
     }
 
-    public HexagonOccupationStatus getOccupyStatus(){
-        return HexagonOccupationStatus.MEEPLE;
-    }
-
     public boolean canBeKilled() { return true; }
 
     @Override
-    public int numberPiecesRequiredToPreformMove(Player player, Board board) {
+    public boolean canPreformMove(Player player, Board board) {
         Hexagon hexagon = board.getHexagonAt(coordinate);
         if(!hexagon.isVolcano()
                 && hexagon.getLevel() == 1
                 && (!hexagon.containsPieces())) {
-            return 1;
+            return player.getMeeplesCount() != 0;
         }
 
-        return 1000;
+        return false;
     }
 
     @Override
@@ -28,7 +24,7 @@ public class FoundSettlementConstructionMove extends ConstructionMoveJustCoordin
         player.subtractMeeples(1);
 
         Hexagon hexagon = board.getHexagonAt(coordinate);
-        hexagon.setOccupationStatus(player.getColor(), this);
+        hexagon.setOccupationStatus(player.getColor(), PieceStatusHexagon.MEEPLE);
 
         player.addScore(1);
 

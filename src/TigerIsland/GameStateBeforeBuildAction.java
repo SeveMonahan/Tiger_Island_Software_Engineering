@@ -1,12 +1,15 @@
 package TigerIsland;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class GameStateBeforeBuildAction extends GameState {
 
     private GameStateBeforeBuildAction(GameState original, TileMove tilemove) {
         super(original);
         board.placeTile(tilemove);
+        lastTileMove = tilemove;
     }
 
     public static GameStateBeforeBuildAction createGameStateBeforeBuildAction(GameState original, TileMove tilemove) {
@@ -18,8 +21,8 @@ public class GameStateBeforeBuildAction extends GameState {
         return null;
     }
 
-    public ArrayList<GameState> getChildren(){
-        ArrayList<GameState> result = new ArrayList<GameState>();
+    public ArrayList<GameStateEndOfTurn> getChildren(){
+        ArrayList<GameStateEndOfTurn> result = new ArrayList<>();
         int minX = board.getMinXRange();
         int maxX = board.getMaxXRange();
         int minY = board.getMinYRange();
@@ -27,17 +30,34 @@ public class GameStateBeforeBuildAction extends GameState {
 
         for(int i = minX; i < maxX; i++){
             for(int j= minY; j < maxY; j++){
-                for(BuildOption option : new BuildOption[]{BuildOption.BUILDTIGER, BuildOption.BUILDTOTORO, BuildOption.FOUNDSETTLEMENT}){
-                    ConstructionMoveTransmission possibleConstructionMove = new ConstructionMoveTransmission(option, new Coordinate(i, j));
-                    GameState child = GameState.createGameStateFromConstructionMove(this, possibleConstructionMove);
+                Queue<ConstructionMoveInternal> ConstructionMovePossibilities = getConstructionMovePossibilities(new Coordinate(i, j));
 
-                    if(child != null){
-                        result.add(child);
+                while(!ConstructionMovePossibilities.isEmpty()) {
+                    GameStateEndOfTurn currentGameState = GameStateEndOfTurn.createGameStateFromConstructionMove(this, ConstructionMovePossibilities.remove());
+                    if(currentGameState != null){
+                        result.add(currentGameState);
                     }
                 }
             }
         }
 
+        return result;
+    }
+
+    private Queue<ConstructionMoveInternal> getConstructionMovePossibilities(Coordinate coordinate) {
+        Queue<ConstructionMoveInternal> result = new LinkedList<>();
+
+        if(board.getHexagonAt(coordinate).containsPieces()){
+           for(Terrain terrain : new Terrain[]{Terrain.GRASS, Terrain.JUNGLE, Terrain.LAKE, Terrain.ROCK}){
+               result.add(new ExpandSettlementConstructionMove(coordinate, terrain));
+           }
+           return result;
+        }
+
+        //else
+        result.add(new FoundSettlementConstructionMove(coordinate));
+        result.add(new TigerConstructionMove(coordinate));
+        result.add(new TotoroConstructionMove(coordinate));
         return result;
     }
 

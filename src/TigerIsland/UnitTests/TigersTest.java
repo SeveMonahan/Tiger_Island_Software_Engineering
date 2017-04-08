@@ -1,5 +1,3 @@
-package TigerIsland.UnitTests;
-
 import TigerIsland.*;
 import org.junit.Assert;
 import org.junit.Test;
@@ -27,7 +25,7 @@ public class TigersTest {
 
         Assert.assertEquals(0, player.getScore());
         Assert.assertEquals(2, player.getTigerCount());
-        assertEquals(HexagonOccupationStatus.EMPTY, hexagon.getOccupationStatus());
+        assertEquals(PieceStatusHexagon.EMPTY, hexagon.getPiecesStatus());
     }
 
     @Test
@@ -48,7 +46,7 @@ public class TigersTest {
 
         Hexagon hexagon = board.getHexagonAt(coordinate);
 
-        assertEquals(HexagonOccupationStatus.EMPTY, hexagon.getOccupationStatus());
+        assertEquals(PieceStatusHexagon.EMPTY, hexagon.getPiecesStatus());
     }
     @Test
     public void placeTigerOnVolcano() throws Exception {
@@ -64,7 +62,7 @@ public class TigersTest {
 
         assertEquals(0, player.getScore());
         assertEquals(2, player.getTigerCount());
-        assertEquals(HexagonOccupationStatus.EMPTY, hexagon.getOccupationStatus());
+        assertEquals(PieceStatusHexagon.EMPTY, hexagon.getPiecesStatus());
     }
 
     // TODO: Need to write success case, case where a Tile tries to nuke a Tiger and is successful, and case were being added to a settlement which already has a Tiger

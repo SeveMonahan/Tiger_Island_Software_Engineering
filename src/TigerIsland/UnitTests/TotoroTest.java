@@ -1,5 +1,3 @@
-package TigerIsland.UnitTests;
-
 import TigerIsland.*;
 import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
@@ -24,7 +22,7 @@ public class TotoroTest {
         TotoroConstructionMove newTotoro = new TotoroConstructionMove(new Coordinate(100, 100));
 
         Hexagon hexagon = board.getHexagonAt(new Coordinate(100, 100));
-        hexagon.setOccupationStatus(Color.WHITE, newTotoro);
+        hexagon.setOccupationStatus(Color.WHITE, PieceStatusHexagon.TOTORO);
 
         boolean isValidMove = board.placeTile(new TileMove(new Tile(Terrain.ROCK, Terrain.ROCK), HexagonNeighborDirection.LOWERRIGHT, new Coordinate(100, 101)));
 
@@ -45,7 +43,7 @@ public class TotoroTest {
         assertEquals(0, player.getScore());
         assertEquals(3, player.getTotoroCount());
         Hexagon hexagon = board.getHexagonAt(coordinate);
-        assertEquals(HexagonOccupationStatus.EMPTY, hexagon.getOccupationStatus());
+        assertEquals(PieceStatusHexagon.EMPTY, hexagon.getPiecesStatus());
     }
 
     @Test
@@ -61,7 +59,7 @@ public class TotoroTest {
         assertEquals(0, player.getScore());
         assertEquals(3, player.getTotoroCount());
         Hexagon hexagon = board.getHexagonAt(coordinate);
-        assertEquals(HexagonOccupationStatus.EMPTY, hexagon.getOccupationStatus());
+        assertEquals(PieceStatusHexagon.EMPTY, hexagon.getPiecesStatus());
     }
 
     private Board getBasicBoardWithHexagonAroundStartWithWhiteMeeples(){

@@ -39,7 +39,6 @@ public class NetworkClient {
                         new InputStreamReader(netSocket.getInputStream()))
         ) {
             authenticationProtocol(tournamentPass, username, password, out, in);
-            System.out.println(pid);
             challengeProtocol(out, in);
         } catch (UnknownHostException e) {
             System.err.println("Can't find the host!");
@@ -59,7 +58,7 @@ public class NetworkClient {
         while ((stringFromServer = in.readLine()) != null) {
             // TODO send below to parser
             System.out.println("Server: " + stringFromServer);
-            if (stringFromServer.equals("Bye.")) {
+            if (stringFromServer.equals("THANK YOU FOR PLAYING! GOODBYE")) {
                 break;
             }
             stringToServer = stdIn.readLine();

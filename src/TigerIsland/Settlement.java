@@ -24,7 +24,7 @@ public class Settlement {
     public boolean getSettlementContainsTotoro(Board board) {
         for(Coordinate currentLocation : settlement) {
             Hexagon hexagon = board.getHexagonAt(currentLocation);
-            if(hexagon.getOccupationStatus() == HexagonOccupationStatus.TOTORO){
+            if(hexagon.getPiecesStatus() == PieceStatusHexagon.TOTORO){
                 return true;
             }
         }
@@ -34,7 +34,7 @@ public class Settlement {
     public boolean getSettlementContainsTiger(Board board) {
         for(Coordinate currentLocation : settlement) {
             Hexagon hexagon = board.getHexagonAt(currentLocation);
-            if(hexagon.getOccupationStatus() == HexagonOccupationStatus.TIGER){
+            if(hexagon.getPiecesStatus() == PieceStatusHexagon.TIGER){
                 return true;
             }
         }
@@ -58,13 +58,13 @@ public class Settlement {
                 Hexagon hexagon = board.getHexagonAt(neighbor);
                 if( !searched.containsKey(neighbor) &&
                         hexagon.getTerrain() ==  terrain &&
-                        hexagon.getOccupationStatus() == HexagonOccupationStatus.EMPTY){
+                        hexagon.getPiecesStatus() == PieceStatusHexagon.EMPTY){
                     // expand to this hexagon
 
                     coordinateQueue.add(neighbor);
                     expansion.add(neighbor);
                 } else if( !searched.containsKey(neighbor) &&
-                        hexagon.getOccupationStatus() ==  HexagonOccupationStatus.MEEPLE &&
+                        hexagon.getPiecesStatus() ==  PieceStatusHexagon.MEEPLE &&
                         hexagon.getOccupationColor() == player.getColor() ) {
                     coordinateQueue.add(neighbor);
                     // Unsure if we need the above here... need additional tests for this...
@@ -79,9 +79,9 @@ public class Settlement {
         Coordinate coordinate = settlement[0];
 
         Color color = board.getHexagonAt(coordinate).getOccupationColor();
-        HexagonOccupationStatus occupationStatus = board.getHexagonAt(coordinate).getOccupationStatus();
+        PieceStatusHexagon occupationStatus = board.getHexagonAt(coordinate).getPiecesStatus();
         if( player.getColor() == color
-                && occupationStatus == HexagonOccupationStatus.MEEPLE){
+                && occupationStatus == PieceStatusHexagon.MEEPLE){
             Queue<Coordinate> settlement = expandSettlementFloodFill(board, player, terrain);
             if(settlement.size() <= player.getMeeplesCount()) {
                 performFloodFill(board, player, settlement );

@@ -5,38 +5,27 @@ public class TigerConstructionMove extends ConstructionMoveJustCoordinate {
         super(coordinate);
     }
 
-    public HexagonOccupationStatus getOccupyStatus(){
-        return HexagonOccupationStatus.TIGER;
-    }
-
-    public boolean canBeKilled() { return true; }
-
     @Override
-    public int numberPiecesRequiredToPreformMove(Player player, Board board) {
+    public boolean canPreformMove(Player player, Board board) {
         Hexagon hexagon = board.getHexagonAt(coordinate);
 
-        if (hexagon.isVolcano()) {
-            return 1000;
-        }
-
-        if (hexagon.getLevel() < 3) {
-            return 1000;
-        }
-
-        if (hexagon.containsPieces()) {
-            return 1000;
+        if (hexagon.isVolcano()
+            || hexagon.containsPieces()
+            || hexagon.getLevel() < 3 ) {
+            return false;
         }
 
         Coordinate[] neighbors = coordinate.getNeighboringCoordinates();
         for (Coordinate neighbor: neighbors) {
-            Hexagon hexagonNeighbor = board.getHexagonAt(neighbor);
-            if( hexagonNeighbor.containsPieces() ) {
-                return 1;
+            Settlement settlement = board.getSettlement(neighbor);
+
+            if(!settlement.getSettlementContainsTiger(board) &&
+                    player.getColor() == board.getHexagonAt(neighbor).getOccupationColor() ){
+                return player.getTigerCount() != 0;
             }
         }
-        // TODO: Multiple tigers can't exist in the same settlement
-        // TODO: Need a test to check the above functionality... if we aren't adjacent to a settlement
-        return 1000;
+        // TODO: Need a test to check the we can't add a Tiger to a settlement already containing one... if we aren't adjacent to a settlement
+        return false;
     }
 
     @Override
@@ -44,7 +33,7 @@ public class TigerConstructionMove extends ConstructionMoveJustCoordinate {
         player.substractTiger();
 
         Hexagon hexagon = board.getHexagonAt(coordinate);
-        hexagon.setOccupationStatus(player.getColor(), this);
+        hexagon.setOccupationStatus(player.getColor(), PieceStatusHexagon.TIGER);
 
         player.addScore(75);
 

@@ -58,7 +58,7 @@ public class TotoroDefinitions {
         TotoroConstructionMove newTotoro = new TotoroConstructionMove(new Coordinate(100, 100));
 
         Hexagon hexagon = board.getHexagonAt(new Coordinate(100, 100));
-        hexagon.setOccupationStatus(Color.WHITE, newTotoro);
+        hexagon.setOccupationStatus(Color.WHITE, PieceStatusHexagon.TOTORO);
     }
 
     @When("^I attempt to place a tile on a volcano so it overlaps onto the other tile$")
