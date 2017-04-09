@@ -1,6 +1,8 @@
 package TigerIsland;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class SmartAIController implements PlayerController {
     Color color;
@@ -119,6 +121,71 @@ public class SmartAIController implements PlayerController {
 
     }
 
+    private ArrayList<GameStateEndOfTurn> getBuildMoves(GameStateBeforeBuildAction gameStateBeforeBuildAction){
+        Board board = gameStateBeforeBuildAction.getBoard();
+
+        ArrayList<GameStateEndOfTurn> result = new ArrayList<>();
+        int minX = board.getMinXRange();
+        int maxX = board.getMaxXRange();
+        int minY = board.getMinYRange();
+        int maxY = board.getMaxYRange();
+
+        for(int i = 97; i < 103; i++){
+            for(int j= 97; j < 103; j++){
+                Queue<ConstructionMoveInternal> ConstructionMovePossibilities = getConstructionMovePossibilities(new Coordinate(i, j), board);
+
+                while(!ConstructionMovePossibilities.isEmpty()) {
+                    GameStateEndOfTurn currentGameState = GameStateEndOfTurn.createGameStateFromConstructionMove(gameStateBeforeBuildAction,
+                            ConstructionMovePossibilities.remove());
+                    if(currentGameState != null){
+                        result.add(currentGameState);
+                    }
+                }
+            }
+        }
+
+        if(!result.isEmpty()){
+            return result;
+        }
+
+        for(int i = minX; i < maxX; i++){
+            for(int j= minY; j < maxY; j++){
+                Queue<ConstructionMoveInternal> ConstructionMovePossibilities = getConstructionMovePossibilities(new Coordinate(i, j), board);
+
+                while(!ConstructionMovePossibilities.isEmpty()) {
+                    GameStateEndOfTurn currentGameState = GameStateEndOfTurn.createGameStateFromConstructionMove(gameStateBeforeBuildAction,
+                                                                                                                 ConstructionMovePossibilities.remove());
+                    if(currentGameState != null){
+                        result.add(currentGameState);
+                    }
+                }
+            }
+        }
+
+        GameStateEndOfTurn currentGameState = GameStateEndOfTurn.createGameStateFromConstructionMove(gameStateBeforeBuildAction, new UnableToBuildConstructionMove());
+
+        result.add(currentGameState);
+
+        return result;
+    }
+
+    private Queue<ConstructionMoveInternal> getConstructionMovePossibilities(Coordinate coordinate, Board board) {
+        Queue<ConstructionMoveInternal> result = new LinkedList<>();
+
+        if(board.getHexagonAt(coordinate).containsPieces()){
+            for(Terrain terrain : new Terrain[]{Terrain.GRASS, Terrain.JUNGLE, Terrain.LAKE, Terrain.ROCK}){
+                result.add(new ExpandSettlementConstructionMove(coordinate, terrain));
+            }
+            return result;
+        }
+
+        //else
+        result.add(new FoundSettlementConstructionMove(coordinate));
+        result.add(new TigerConstructionMove(coordinate));
+        result.add(new TotoroConstructionMove(coordinate));
+        return result;
+    }
+
     private GameStateEndOfTurn bestNewGameStates(GameStateWTile gameStateWTile){
         ArrayList<GameStateBeforeBuildAction> beforeBuildActions = getCloseTiles(gameStateWTile);
 
@@ -129,7 +196,7 @@ public class SmartAIController implements PlayerController {
         int bestScoresNeighborScore = -1;
 
         for (GameStateBeforeBuildAction gameState : beforeBuildActions) {
-            ArrayList<GameStateEndOfTurn> leaf_list = gameState.getChildren();
+            ArrayList<GameStateEndOfTurn> leaf_list = getBuildMoves(gameState);
             int neighbor_score = adjacent_hexs_score(gameState.getLastTileMove(), gameState.getBoard());
 
             for (GameStateEndOfTurn current_child : leaf_list) {
