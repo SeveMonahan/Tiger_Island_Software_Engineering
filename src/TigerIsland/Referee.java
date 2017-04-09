@@ -1,6 +1,6 @@
 package TigerIsland;
 
-public class Referee implements Runnable {
+public class Referee {
     PlayerController controller_1;
     PlayerController controller_2;
     OutputPlayerActions output;
@@ -23,8 +23,7 @@ public class Referee implements Runnable {
         output.dispatchInformation(gameEndOfTurn);
     }
 
-    @Override
-    public void run(){
+    public void execute(){
 
         while(true){
 
