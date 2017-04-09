@@ -2,6 +2,7 @@ package TigerIsland;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class SmartAIController implements PlayerController {
@@ -201,23 +202,26 @@ public class SmartAIController implements PlayerController {
     private GameStateEndOfTurn bestNewGameStates(GameStateWTile gameStateWTile){
         ArrayList<GameStateBeforeBuildAction> beforeBuildActions = getCloseTiles(gameStateWTile);
 
-        GameStateEndOfTurn result = null;
-
-        int bestScoreSoFar = -1;
+        PriorityQueue<GameStateEndOfTurn> pqueue = new PriorityQueue<GameStateEndOfTurn>();
 
         for (GameStateBeforeBuildAction gameState : beforeBuildActions) {
             ArrayList<GameStateEndOfTurn> leaf_list = getBuildMoves(gameState);
 
             for (GameStateEndOfTurn current_child : leaf_list) {
-                if (current_child.netEvalScore() > bestScoreSoFar) {
-                    result = current_child;
-                    bestScoreSoFar = current_child.netEvalScore();
+                pqueue.add(current_child);
+
+                if(pqueue.size() > 4){
+                    pqueue.poll();
                 }
             }
 
         }
 
-        return result;
+        while(pqueue.size() != 1){
+            pqueue.poll();
+        }
+
+        return pqueue.poll();
     }
 
     public GameStateEndOfTurn newGameState(GameStateWTile gameStateWTile) {

@@ -1,6 +1,8 @@
 package TigerIsland;
 
-public class GameStateEndOfTurn extends GameState {
+import java.util.Comparator;
+
+public class GameStateEndOfTurn extends GameState implements Comparable<GameStateEndOfTurn>  {
 
     private GameStateEndOfTurn() {
        super();
@@ -62,5 +64,10 @@ public class GameStateEndOfTurn extends GameState {
 
     public int netEvalScore(){
         return playerWhoseTurn.getScore() * 10 + adjacent_hexs_score();
+    }
+
+    @Override
+    public int compareTo(GameStateEndOfTurn compare) {
+        return this.netEvalScore() - compare.netEvalScore();
     }
 }
