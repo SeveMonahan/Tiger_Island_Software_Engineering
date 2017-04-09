@@ -239,6 +239,6 @@ public class PostMan {
     }
 
     private static String[] stringSplitter(String message) {
-        return message.split(" ");
+        return message.split("\\s+");
     }
 }
