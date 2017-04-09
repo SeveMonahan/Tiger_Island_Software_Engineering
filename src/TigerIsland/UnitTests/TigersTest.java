@@ -23,7 +23,7 @@ public class TigersTest {
 
         Player player = new Player(Color.WHITE);
 
-        player.placeTigerOnHexagon(testCoordinate, board);
+        player.buildTigerPlayground(testCoordinate, board);
 
         Assert.assertEquals(0, player.getScore());
         Assert.assertEquals(2, player.getTigerCount());
@@ -41,7 +41,7 @@ public class TigersTest {
 
         Player player = new Player(Color.WHITE);
 
-        player.placeTigerOnHexagon(coordinate, board);
+        player.buildTigerPlayground(coordinate, board);
 
         assertEquals(0, player.getScore());
         assertEquals(2, player.getTigerCount());
@@ -66,7 +66,7 @@ public class TigersTest {
 
         assertEquals(false, move.canPerformMove(player, board));
 
-        player.placeMeepleOnHexagon(new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERRIGHT), board);
+        player.foundSettlement(new Coordinate(100, 100).getNeighboringCoordinateAt(HexagonNeighborDirection.UPPERRIGHT), board);
 
         assertEquals(true, move.canPerformMove(player, board));
 
@@ -82,7 +82,7 @@ public class TigersTest {
         Hexagon hexagon = board.getHexagonAt(coordinate);
         Player player = new Player(Color.WHITE);
 
-        player.placeTigerOnHexagon(coordinate, board);
+        player.buildTigerPlayground(coordinate, board);
 
         assertEquals(0, player.getScore());
         assertEquals(2, player.getTigerCount());

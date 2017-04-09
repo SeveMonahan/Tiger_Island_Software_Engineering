@@ -114,14 +114,24 @@ public class Board {
         hexagonArray = new Hexagon[200][200];
     }
 
-    public void placeStartingTile() {
-        Coordinate coordCenter = new Coordinate(100,100);
+    public boolean isEmpty() {
+        Hexagon startingHexagon = this.getHexagonAt(new Coordinate(100,100));
+        if (startingHexagon.getLevel() == 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
-        Hexagon volcanoHex = this.getHexagonAt(coordCenter);
-        Hexagon upperLeft = this.getNeighboringHexagon(coordCenter, HexagonNeighborDirection.UPPERLEFT);
-        Hexagon upperRight = this.getNeighboringHexagon(coordCenter, HexagonNeighborDirection.UPPERRIGHT);
-        Hexagon lowerRight = this.getNeighboringHexagon(coordCenter, HexagonNeighborDirection.LOWERRIGHT);
-        Hexagon lowerLeft = this.getNeighboringHexagon(coordCenter, HexagonNeighborDirection.LOWERLEFT);
+    public void placeStartingTile() {
+        Coordinate centerCoordinate = new Coordinate(100,100);
+
+        Hexagon volcanoHex = this.getHexagonAt(centerCoordinate);
+        Hexagon upperLeft = this.getNeighboringHexagon(centerCoordinate, HexagonNeighborDirection.UPPERLEFT);
+        Hexagon upperRight = this.getNeighboringHexagon(centerCoordinate, HexagonNeighborDirection.UPPERRIGHT);
+        Hexagon lowerRight = this.getNeighboringHexagon(centerCoordinate, HexagonNeighborDirection.LOWERRIGHT);
+        Hexagon lowerLeft = this.getNeighboringHexagon(centerCoordinate, HexagonNeighborDirection.LOWERLEFT);
 
         volcanoHex.changeTerrainTypeThoughExplosion(Terrain.VOLCANO);
         upperLeft.changeTerrainTypeThoughExplosion(Terrain.JUNGLE);
@@ -169,16 +179,6 @@ public class Board {
         }
     }
 
-    public boolean isEmpty() {
-        Hexagon startingHexagon = this.getHexagonAt(new Coordinate(100,100));
-        if (startingHexagon.getLevel() == 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
     public Settlement getSettlement(Coordinate coordinate) {
         Queue<Coordinate> settlementQueue = new LinkedList<>();
         HashMap map = new HashMap();
@@ -209,9 +209,7 @@ public class Board {
                 }
             }
         }
-
         Settlement settlement = new Settlement(settlementQueue);
-
         return settlement;
     }
 }

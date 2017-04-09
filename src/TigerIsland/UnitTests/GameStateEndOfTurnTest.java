@@ -9,12 +9,12 @@ import static org.junit.Assert.assertEquals;
 
 public class GameStateEndOfTurnTest {
     @Test
-    public void testChildrenStart(){
-        GameStateEndOfTurn testGamestate = GameStateEndOfTurn.createInitalGameState();
+    public void testChildrenStart() {
+        GameStateEndOfTurn testGameState = GameStateEndOfTurn.createInitalGameState();
 
-        GameStateWTile testGamestateTile = testGamestate.getChild(new Tile(Terrain.JUNGLE, Terrain.JUNGLE));
+        GameStateWTile testGameStateTile = testGameState.getChild(new Tile(Terrain.JUNGLE, Terrain.JUNGLE));
 
-        ArrayList<GameStateBeforeBuildAction> tile_children = testGamestateTile.getChildren();
+        ArrayList<GameStateBeforeBuildAction> tile_children = testGameStateTile.getChildren();
 
         GameStateBeforeBuildAction beforeBuildAction = tile_children.get(0);
 
@@ -25,6 +25,5 @@ public class GameStateEndOfTurnTest {
         assertEquals(7, num_children);
         assertEquals(false, final_children.get(0).isMyTurn(Color.WHITE));
         assertEquals(true, final_children.get(0).isMyTurn(Color.BLACK));
-
     }
 }

@@ -78,4 +78,17 @@ public class HexagonTest {
         assertEquals(Color.WHITE, TestHexagon.getOccupationColor());
         assertEquals(PieceStatusHexagon.MEEPLE, TestHexagon.getPiecesStatus());
     }
+
+    @Test
+    public void containsPieces() throws Exception {
+        Board board = new Board();
+        board.placeStartingTile();
+        Player player = new Player(Color.BLACK);
+
+        player.foundSettlement(new Coordinate(99,101), board);
+
+        Hexagon TestHexagon = board.getHexagonAt(new Coordinate(99,101));
+
+        assertEquals(true, TestHexagon.containsPieces());
+    }
 }

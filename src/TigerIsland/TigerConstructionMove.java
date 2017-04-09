@@ -29,7 +29,7 @@ public class TigerConstructionMove extends ConstructionMoveJustCoordinate {
         for (Coordinate neighbor: neighbors) {
             Settlement settlement = board.getSettlement(neighbor);
 
-            if(!settlement.getSettlementContainsTiger(board) &&
+            if(!settlement.containsTiger(board) &&
                     player.getColor() == board.getHexagonAt(neighbor).getOccupationColor() ){
                 return player.getTigerCount() != 0;
             }
