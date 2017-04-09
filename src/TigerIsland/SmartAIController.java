@@ -23,8 +23,13 @@ public class SmartAIController implements PlayerController {
         for(HexagonNeighborDirection direction : HexagonNeighborDirection.values()){
             for(int i = 0; i < 3; i++){
                 Coordinate neighbor = coordinates[i].getNeighboringCoordinateAt(direction);
-                if(board.getHexagonAt(neighbor).getLevel() != 0){
+                Hexagon hexagon_here = board.getHexagonAt(neighbor);
+                if(hexagon_here.getLevel() != 0){
                     result++;
+                }
+
+                if(hexagon_here.containsPieces() && hexagon_here.getOccupationColor() == color){
+                    result += 5;
                 }
             }
         }
