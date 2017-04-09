@@ -16,6 +16,8 @@ import static java.lang.Integer.parseInt;
 */
 
 public class NetworkClient {
+
+    public static String outputLine;
     public static int pid = 0;
     public static int cid = 0;
     public static int rounds = 0;
@@ -56,15 +58,14 @@ public class NetworkClient {
         String stringFromServer;
         String stringToServer;
         while ((stringFromServer = in.readLine()) != null) {
-            // TODO send below to parser
             System.out.println("Server: " + stringFromServer);
             if (stringFromServer.equals("THANK YOU FOR PLAYING! GOODBYE")) {
                 break;
             }
-            stringToServer = stdIn.readLine();
-            if (stringToServer != null) {
-                System.out.println("Client: " + stringToServer);
-                sendMessage(out, stringToServer);
+            PostMan.decoder(stringFromServer);
+            if (outputLine != null) {
+                System.out.println("Client: " + outputLine);
+                sendMessage(out, outputLine);
             }
         }
     }
@@ -95,5 +96,8 @@ public class NetworkClient {
 
     public static void sendMessage(PrintWriter out, String stringToServer) {
         out.println(stringToServer);
+    }
+    public static void setOutputLine(String messageToServer) {
+        outputLine = messageToServer;
     }
 }
