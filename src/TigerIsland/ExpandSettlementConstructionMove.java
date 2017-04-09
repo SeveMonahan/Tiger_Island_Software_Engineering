@@ -49,7 +49,7 @@ public class ExpandSettlementConstructionMove extends ConstructionMoveJustCoordi
 
         player.subtractMeeples(totalMeeplesNeeded);
 
-        while(!expansion.isEmpty()){
+        while(!expansion.isEmpty()) {
             Coordinate expansionCoordinate = expansion.remove();
             Hexagon hexagon = board.getHexagonAt(expansionCoordinate);
             hexagon.setOccupationStatus(player.getColor(), PieceStatusHexagon.MEEPLE);

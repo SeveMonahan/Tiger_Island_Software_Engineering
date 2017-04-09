@@ -28,7 +28,9 @@ public class SettlementExpansionTest
 
         player.foundSettlement(sourceCoordinate, TestBoard);
 
-        player.expandSettlement(sourceCoordinate, TestBoard, Terrain.GRASS);
+        boolean isSuccess = player.expandSettlement(sourceCoordinate, TestBoard, Terrain.GRASS);
+
+        assertEquals(true, isSuccess);
 
         Hexagon TestHexagon1 = TestBoard.getHexagonAt(new Coordinate(100,101));
         Hexagon TestHexagon2 = TestBoard.getHexagonAt(new Coordinate(99,100));
@@ -67,7 +69,9 @@ public class SettlementExpansionTest
 
         player.foundSettlement(sourceCoordinate, TestBoard);
 
-        player.expandSettlement(sourceCoordinate, TestBoard, Terrain.GRASS);
+        boolean isSuccess = player.expandSettlement(sourceCoordinate, TestBoard, Terrain.GRASS);
+
+        assertEquals(true, isSuccess);
 
         Hexagon TestHexagon1 = TestBoard.getHexagonAt(new Coordinate(100,101));
         Hexagon TestHexagon2 = TestBoard.getHexagonAt(new Coordinate(99,100));
@@ -105,7 +109,9 @@ public class SettlementExpansionTest
         player.foundSettlement(sourceCoordinateOne, TestBoard);
         player.foundSettlement(sourceCoordinateTwo, TestBoard);
 
-        player.expandSettlement(sourceCoordinateOne, TestBoard, Terrain.GRASS);
+        boolean isSuccess = player.expandSettlement(sourceCoordinateOne, TestBoard, Terrain.GRASS);
+
+        assertEquals(true, isSuccess);
 
         Hexagon TestHexagon = TestBoard.getHexagonAt(new Coordinate(99,100));
 
@@ -143,7 +149,9 @@ public class SettlementExpansionTest
         player.foundSettlement(sourceCoordinateOne, TestBoard);
         player.foundSettlement(sourceCoordinateTwo, TestBoard);
 
-        player.expandSettlement(sourceCoordinateTwo, TestBoard, Terrain.GRASS);
+        boolean isSuccess = player.expandSettlement(sourceCoordinateTwo, TestBoard, Terrain.GRASS);
+
+        assertEquals(true, isSuccess);
 
         Hexagon TestHexagon1 = TestBoard.getHexagonAt(new Coordinate(99,101));
         Hexagon TestHexagon2 = TestBoard.getHexagonAt(new Coordinate(100,101));
@@ -169,9 +177,8 @@ public class SettlementExpansionTest
         assertEquals(12, player.getMeeplesCount());
         assertEquals(8, player.getScore());
 
-        Settlement newSettlement = TestBoard.getSettlement(sourceCoordinateTwo);
-
-        assertEquals(8, newSettlement.getSettlementSize());
+        Settlement settlement = TestBoard.getSettlement(sourceCoordinateTwo);
+        assertEquals(8, settlement.getSettlementSize());
     }
 
     @Test
@@ -200,7 +207,9 @@ public class SettlementExpansionTest
         player.foundSettlement(sourceCoordinateOne, TestBoard);
         player.foundSettlement(sourceCoordinateTwo, TestBoard);
 
-        player.expandSettlement(sourceCoordinateOne, TestBoard, Terrain.GRASS);
+        boolean isSuccess = player.expandSettlement(sourceCoordinateOne, TestBoard, Terrain.GRASS);
+
+        assertEquals(true, isSuccess);
 
         Hexagon TestHexagon1 = TestBoard.getHexagonAt(new Coordinate(100,101));
         Hexagon TestHexagon2 = TestBoard.getHexagonAt(new Coordinate(99,100));
@@ -220,8 +229,8 @@ public class SettlementExpansionTest
         assertEquals(15, player.getMeeplesCount());
         assertEquals(5, player.getScore());
 
-        Settlement newSettlement = TestBoard.getSettlement(sourceCoordinateOne);
-        assertEquals(5, newSettlement.getSettlementSize());
+        Settlement settlement = TestBoard.getSettlement(sourceCoordinateOne);
+        assertEquals(5, settlement.getSettlementSize());
     }
 
     @Test
@@ -247,10 +256,10 @@ public class SettlementExpansionTest
         Coordinate sourceCoordinate = new Coordinate(99,99);
 
         player.foundSettlement(sourceCoordinate, TestBoard);
-        player.expandSettlement(sourceCoordinate, TestBoard, Terrain.GRASS);
 
-        Settlement settlement = TestBoard.getSettlement(sourceCoordinate);
-        assertEquals(4, settlement.getSettlementSize());
+        boolean isSuccess = player.expandSettlement(sourceCoordinate, TestBoard, Terrain.GRASS);
+
+        assertEquals(true, isSuccess);
 
         Hexagon TestHexagon1 = TestBoard.getHexagonAt(new Coordinate(100,101));
         Hexagon TestHexagon2 = TestBoard.getHexagonAt(new Coordinate(99,100));
@@ -266,5 +275,8 @@ public class SettlementExpansionTest
 
         assertEquals(16, player.getMeeplesCount());
         assertEquals(10, player.getScore());
+
+        Settlement settlement = TestBoard.getSettlement(sourceCoordinate);
+        assertEquals(4, settlement.getSettlementSize());
     }
 }

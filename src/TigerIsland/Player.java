@@ -57,7 +57,7 @@ public class Player {
     public boolean buildTotoroSanctuary(Coordinate coordinate, Board board) {
         TotoroConstructionMove totoroMove = new TotoroConstructionMove(coordinate);
 
-        if(totoroMove.canPerformMove(this, board)){
+        if(totoroMove.canPerformMove(this, board)) {
            totoroMove.makePreverifiedMove(this, board);
            return true;
         }

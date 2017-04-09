@@ -35,7 +35,7 @@ public class Settlement {
     public boolean containsTiger(Board board) {
         for(Coordinate currentLocation : settlement) {
             Hexagon hexagon = board.getHexagonAt(currentLocation);
-            if(hexagon.getPiecesStatus() == PieceStatusHexagon.TIGER){
+            if(hexagon.getPiecesStatus() == PieceStatusHexagon.TIGER) {
                 return true;
             }
         }
