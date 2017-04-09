@@ -186,7 +186,7 @@ public class GenuisAIController implements PlayerController {
             for (GameStateEndOfTurn current_child : leaf_list) {
                 pqueue.add(current_child);
 
-                if(pqueue.size() > 10){
+                if(pqueue.size() > 20){
                     pqueue.poll();
                 }
             }
