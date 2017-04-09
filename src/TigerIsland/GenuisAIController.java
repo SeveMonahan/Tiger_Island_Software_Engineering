@@ -215,12 +215,27 @@ public class GenuisAIController implements PlayerController {
         return pqueue;
     }
 
+    private boolean elapsedTimeLongerThan(int panic_num){
+        return getElapsedTime() > panic_num;
+    }
+
+    private long getElapsedTime(){
+        return (System.currentTimeMillis() - startTime);
+    }
     public GameStateEndOfTurn newGameState(GameStateWTile gameStateWTile) {
         startTime = System.currentTimeMillis();
 
         PriorityQueue<GameStateEndOfTurn> pqueue = bestNewGameStates(gameStateWTile);
 
-        GameStateEndOfTurn best_state = null;
+        GameStateEndOfTurn best_state = pqueue.peek();
+
+        if(elapsedTimeLongerThan(60)){
+            System.out.println("EARLY PANIC!");
+            for(long i = getElapsedTime(); i > 0; i -= 60){
+                pqueue.poll();
+            }
+
+        }
 
         int bestNetScoreGain = -10000;
 
@@ -244,7 +259,7 @@ public class GenuisAIController implements PlayerController {
                 bestNetScoreGain = netScoreGain;
             }
 
-            if(System.currentTimeMillis() - startTime > 1400){
+            if(elapsedTimeLongerThan(1400)){
                 System.out.println("PANIC!");
                 System.out.println(System.currentTimeMillis() - startTime);
                 return best_state;
