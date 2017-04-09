@@ -16,32 +16,6 @@ public class GenuisAIController implements PlayerController {
         restriction_number = 0;
     }
 
-    private int adjacent_hexs_score(TileMove tileMove, Board board){
-        Coordinate coordinates[] = new Coordinate[3];
-
-        Coordinate c_1 = coordinates[0] = tileMove.getCoordinate();
-        coordinates[1] = c_1.getNeighboringCoordinateAt(tileMove.getDirection());
-        coordinates[2] = c_1.getNeighboringCoordinateAt(tileMove.getDirection().getNextClockwise());
-
-        int result = 0;
-
-        for(HexagonNeighborDirection direction : HexagonNeighborDirection.values()){
-            for(int i = 0; i < 3; i++){
-                Coordinate neighbor = coordinates[i].getNeighboringCoordinateAt(direction);
-                Hexagon hexagon_here = board.getHexagonAt(neighbor);
-                if(hexagon_here.getLevel() != 0){
-                    result++;
-                }
-
-                if(hexagon_here.containsPieces() && hexagon_here.getOccupationColor() == color){
-                        result += 5;
-                }
-            }
-        }
-
-        return result;
-    }
-
     private ArrayList<GameStateBeforeBuildAction> getCloseTiles(GameStateWTile gameStateWTile){
         ArrayList<GameStateBeforeBuildAction> result = new ArrayList<GameStateBeforeBuildAction>();
 
@@ -238,32 +212,11 @@ public class GenuisAIController implements PlayerController {
 
             PriorityQueue<GameStateEndOfTurn> leafNodes = bestNewGameStates(gameStateTile2);
 
-            GameStateEndOfTurn best_state2 = null;
-
-            int bestNetScoreGain2 = -10000;
-            while(leafNodes.size() != 0){
-                GameStateEndOfTurn lcurrent_state = leafNodes.poll();
-
-                GameStateWTile gameStateTile3 = lcurrent_state.getChild(new Tile(Terrain.UNKNOWN, Terrain.UNKNOWN));
-
-                PriorityQueue<GameStateEndOfTurn> leafNodes2 = bestNewGameStates(gameStateTile3);
-
-                while(leafNodes2.size() != 1){
-                    leafNodes2.poll();
-                }
-
-                GameStateEndOfTurn bestLeafNode = leafNodes2.poll();
-
-                int netScoreGain = lcurrent_state.activePlayerScore() - bestLeafNode.activePlayerScore();
-
-                if(netScoreGain > bestNetScoreGain2){
-                    best_state2 = lcurrent_state;
-                    bestNetScoreGain2 = netScoreGain;
-                }
-
+            while(leafNodes.size() != 1){
+                leafNodes.poll();
             }
 
-            GameStateEndOfTurn bestLeafNode = best_state2;
+            GameStateEndOfTurn bestLeafNode = leafNodes.poll();
 
             int netScoreGain = current_state.activePlayerScore() - bestLeafNode.activePlayerScore();
 
