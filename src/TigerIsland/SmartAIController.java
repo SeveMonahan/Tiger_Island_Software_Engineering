@@ -28,8 +28,9 @@ public class SmartAIController implements PlayerController {
                     result++;
                 }
 
-                if(hexagon_here.containsPieces() && hexagon_here.getOccupationColor() == color){
-                    result += 5;
+                if(hexagon_here.containsPieces()){
+                    if(hexagon_here.getOccupationColor() == color)
+                        result += 5;
                 }
             }
         }
