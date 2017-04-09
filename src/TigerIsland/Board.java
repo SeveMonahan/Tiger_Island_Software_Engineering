@@ -100,8 +100,8 @@ public class Board {
         minY = originalBoard.minY;
         maxY = originalBoard.maxY;
 
-        for(int i = minX; i <= maxX; i++) {
-            for (int j = minX; j <= maxX; j++) {
+        for(int i = minX; i <= maxY; i++) {
+            for (int j = minY; j <= maxY; j++) {
                 Hexagon oldHexagon = oldHexagonArray[i][j];
                 Hexagon newHexagon = Hexagon.cloneHexagon(oldHexagon);
                 hexagonArray[i][j] = newHexagon;

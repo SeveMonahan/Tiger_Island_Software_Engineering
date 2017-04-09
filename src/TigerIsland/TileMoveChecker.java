@@ -120,16 +120,17 @@ public class TileMoveChecker {
         }
     }
     private boolean noInvinciblePiecesUnderneath() {
+        Hexagon volcano_hex = underneathHexagons[0];
+
+        assert(volcano_hex.getCanBeNuked());
+
         Hexagon hexagonUnderNeighborOne = underneathHexagons[1];
         Hexagon hexagonUnderNeighborTwo = underneathHexagons[2];
-        if (hexagonUnderNeighborOne.getCanBeNuked() && hexagonUnderNeighborTwo.getCanBeNuked()) {
-            return true;
-        }
-        else {
-            return false;
-        }
+
+        return hexagonUnderNeighborOne.getCanBeNuked() && hexagonUnderNeighborTwo.getCanBeNuked();
     }
     private boolean noEntireSettlementsUnderneath() {
+
         Hexagon hexagonUnderNeighborOne = underneathHexagons[1];
         Hexagon hexagonUnderNeighborTwo = underneathHexagons[2];
         Settlement settlement1 = board.getSettlement(tileCoordinates[1]);

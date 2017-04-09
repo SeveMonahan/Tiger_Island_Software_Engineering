@@ -22,7 +22,7 @@ public class TotoroConstructionMove extends ConstructionMoveJustCoordinate {
         Color color = player.getColor();
         Hexagon hexagon = board.getHexagonAt(coordinate);
 
-        if( hexagon.isVolcano() || hexagon.containsPieces() || hexagon.getLevel() == 0 ) {
+        if(hexagon.isVolcano() || hexagon.containsPieces() || hexagon.getLevel() == 0) {
             return false;
         }
 
