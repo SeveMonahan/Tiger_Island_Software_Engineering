@@ -279,4 +279,15 @@ public class SettlementExpansionTest
         Settlement settlement = TestBoard.getSettlement(sourceCoordinate);
         assertEquals(4, settlement.getSettlementSize());
     }
+
+    @Test
+    public void expandSettlementFailsDueToNoAvailableTerrain() throws Exception {
+        Board board = new Board();
+        board.placeStartingTile();
+
+        Player player = new Player(Color.BLACK);
+        player.foundSettlement(new Coordinate(99,101), board);
+        boolean isSuccess = player.expandSettlement(new Coordinate(99,101), board, Terrain.GRASS);
+        assertEquals(false, isSuccess);
+    }
 }
