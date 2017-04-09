@@ -36,7 +36,7 @@ public class ParserTest {
         ConstructionMoveTransmission expectedConstructionMoveTransmission = new ConstructionMoveTransmission(expectedBuildOption, expectedConstructionCoordinate);
 
         final String testGID = "A";
-        final int testMoveNumber = 3;
+        final String testMoveNumber = "3";
         final String testPid = "myPlayerId";
         GameMoveIncomingTransmission expectedGameMoveIncomingTransmission = new GameMoveIncomingTransmission(testGID, testMoveNumber, testPid, expectedTileMove, expectedConstructionMoveTransmission);
 
@@ -70,7 +70,7 @@ public class ParserTest {
         ExpandSettlementMoveTransmission expectedExpandSettlementMoveTransmission = new ExpandSettlementMoveTransmission(expectedBuildOption, expectedConstructionCoordinate, Terrain.JUNGLE);
 
         final String testGID = "A";
-        final int testMoveNumber = 3;
+        final String testMoveNumber = "3";
         final String testPid = "myPlayerId";
         GameMoveIncomingTransmission expectedGameMoveIncomingTransmission = new GameMoveIncomingTransmission(testGID, testMoveNumber, testPid, expectedTileMove, expectedExpandSettlementMoveTransmission);
 
@@ -108,7 +108,7 @@ public class ParserTest {
         ConstructionMoveTransmission expectedConstructionMoveTransmission = new ConstructionMoveTransmission(expectedBuildOption, expectedConstructionCoordinate);
 
         final String testGID = "A";
-        final int testMoveNumber = 3;
+        final String testMoveNumber = "3";
         final String testPid = "myPlayerId";
         GameMoveIncomingTransmission expectedGameMoveIncomingTransmission = new GameMoveIncomingTransmission(testGID, testMoveNumber, testPid, expectedTileMove, expectedConstructionMoveTransmission);
 
@@ -143,7 +143,7 @@ public class ParserTest {
         ConstructionMoveTransmission expectedConstructionMoveTransmission = new ConstructionMoveTransmission(expectedBuildOption, expectedConstructionCoordinate);
 
         final String testGID = "A";
-        final int testMoveNumber = 3;
+        final String testMoveNumber = "3";
         final String testPid = "myPlayerId";
         GameMoveIncomingTransmission expectedGameMoveIncomingTransmission = new GameMoveIncomingTransmission(testGID, testMoveNumber, testPid, expectedTileMove, expectedConstructionMoveTransmission);
 

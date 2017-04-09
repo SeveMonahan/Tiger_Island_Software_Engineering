@@ -2,14 +2,14 @@ package TigerIsland;
 
 public class GameMoveIncomingTransmission {
     private String gid;
-    private int moveNumber;
+    private String moveNumber;
     private String pid;
     private TileMove tileMove;
     private ConstructionMoveTransmission constructionMoveTransmission;
 
     public String getGid() {return gid;}
 
-    public int getMoveNumber() {return moveNumber;}
+    public String getMoveNumber() {return moveNumber;}
 
     public String getPid() {return pid;}
 
@@ -17,7 +17,7 @@ public class GameMoveIncomingTransmission {
 
     public ConstructionMoveTransmission getConstructionMoveTransmission() { return constructionMoveTransmission;}
 
-    public GameMoveIncomingTransmission(String gid, int moveNumber, String pid, TileMove tileMove, ConstructionMoveTransmission constructionMoveTransmission){
+    public GameMoveIncomingTransmission(String gid, String moveNumber, String pid, TileMove tileMove, ConstructionMoveTransmission constructionMoveTransmission){
         this.gid = gid;
         this.moveNumber = moveNumber;
         this.pid = pid;

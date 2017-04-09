@@ -33,7 +33,7 @@ public class Parser {
         final int pidIndex = 5;
 
         String gid = opponentMoveStringSplitBySpaceArray[gidIndex];
-        int moveNumber = Integer.parseInt(opponentMoveStringSplitBySpaceArray[moveNumberIndex]);
+        String moveNumber = opponentMoveStringSplitBySpaceArray[moveNumberIndex];
         String pid = opponentMoveStringSplitBySpaceArray[pidIndex];
 
         TileMove tileMove = opponentMoveStringToTileMove(opponentMoveString);
