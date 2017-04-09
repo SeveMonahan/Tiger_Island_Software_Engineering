@@ -35,7 +35,6 @@ public class PostMan {
         return myPostMan;
     }
 
-
     // This will be execute everytime we want to start a match
     public void StartMatch() {
         tileMailBox = new LinkedList<>();
@@ -193,7 +192,7 @@ public class PostMan {
                     }
                     GameMoveIncomingTransmission sendSomewhere = Parser.opponentMoveStringToGameMove(message);
                     if (sendSomewhere != null) {
-                        //readTransmission(sendSomewhere);
+                        readTransmission(sendSomewhere);
                         GameMoveIncomingTransmission test = sendSomewhere;
                         postTileMessage(test);
                         postNetworkPlayerMessage(sendSomewhere);
