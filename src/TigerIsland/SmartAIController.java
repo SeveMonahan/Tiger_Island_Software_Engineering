@@ -238,11 +238,32 @@ public class SmartAIController implements PlayerController {
 
             PriorityQueue<GameStateEndOfTurn> leafNodes = bestNewGameStates(gameStateTile2);
 
-            while(leafNodes.size() != 1){
-                leafNodes.poll();
+            GameStateEndOfTurn best_state2 = null;
+
+            int bestNetScoreGain2 = -10000;
+            while(leafNodes.size() != 0){
+                GameStateEndOfTurn lcurrent_state = leafNodes.poll();
+
+                GameStateWTile gameStateTile3 = lcurrent_state.getChild(new Tile(Terrain.UNKNOWN, Terrain.UNKNOWN));
+
+                PriorityQueue<GameStateEndOfTurn> leafNodes2 = bestNewGameStates(gameStateTile3);
+
+                while(leafNodes2.size() != 1){
+                    leafNodes2.poll();
+                }
+
+                GameStateEndOfTurn bestLeafNode = leafNodes2.poll();
+
+                int netScoreGain = lcurrent_state.activePlayerScore() - bestLeafNode.activePlayerScore();
+
+                if(netScoreGain > bestNetScoreGain2){
+                    best_state2 = lcurrent_state;
+                    bestNetScoreGain2 = netScoreGain;
+                }
+
             }
 
-            GameStateEndOfTurn bestLeafNode = leafNodes.poll();
+            GameStateEndOfTurn bestLeafNode = best_state2;
 
             int netScoreGain = current_state.activePlayerScore() - bestLeafNode.activePlayerScore();
 
