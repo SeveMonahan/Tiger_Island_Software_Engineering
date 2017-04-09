@@ -80,4 +80,30 @@ public class ExpandSettlementConstructionMoveTest {
         assertEquals(false, move2.canPerformMove(player_1, board));
         move2.makePreverifiedMove(player_1, board);
     }
+    @Test
+    public void twoMeeplesDepletedTest() throws Exception {
+        Board board = startBoard();
+
+        Coordinate center = new Coordinate(100, 100);
+        Coordinate LowerRight = center.getNeighboringCoordinateAt(HexagonNeighborDirection.LOWERRIGHT);
+
+        Color Player_Color = Color.WHITE;
+        Player player_1 = new Player(Player_Color);
+
+        // Place a meeple down on LowerRight.
+        FoundSettlementConstructionMove move1 = new FoundSettlementConstructionMove(LowerRight);
+        assertEquals(true, move1.canPerformMove(player_1, board));
+        move1.makePreverifiedMove(player_1, board);
+
+        Coordinate rockCoordinate = LowerRight.getNeighboringCoordinateAt(HexagonNeighborDirection.LEFT);
+        Hexagon rockHex = board.getHexagonAt(rockCoordinate);
+        rockHex.changeTerrainTypeThoughExplosion(Terrain.ROCK);
+        assertEquals(2,rockHex.getLevel());
+
+        ExpandSettlementConstructionMove move2 = new ExpandSettlementConstructionMove(LowerRight, Terrain.ROCK);
+        assertEquals(true, move2.canPerformMove(player_1, board));
+        move2.makePreverifiedMove(player_1, board);
+        assertEquals(18,player_1.getMeeplesCount());
+
+    }
 }
