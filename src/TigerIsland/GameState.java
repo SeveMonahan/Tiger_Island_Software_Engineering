@@ -101,4 +101,13 @@ public class GameState {
         return board;
     }
 
+    public TileMove getLastTileMove(){
+        return lastTileMove;
+    }
+
+    public ConstructionMoveInternal getLastConstructionMove(){
+        return lastConstructionMove;
+    }
+
+
 }

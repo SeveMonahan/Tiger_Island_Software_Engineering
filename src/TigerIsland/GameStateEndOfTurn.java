@@ -28,14 +28,6 @@ public class GameStateEndOfTurn extends GameState {
         return null;
     }
 
-    public TileMove getLastTileMove(){
-        return lastTileMove;
-    }
-
-    public ConstructionMoveInternal getLastConstructionMove(){
-        return lastConstructionMove;
-    }
-
     public boolean checkForGameOver(){
         return lastConstructionMove instanceof UnableToBuildConstructionMove
                 || playerWhoseTurn.triggeredGameEnd();
