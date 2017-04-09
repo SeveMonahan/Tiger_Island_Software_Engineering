@@ -8,18 +8,12 @@ abstract class ConstructionMoveJustCoordinate implements ConstructionMoveInterna
     }
 
     String get_coordinate_marshalling(){
-        /*
         int coordinateNumbers[] = coordinate.ConvertToCube();
         String result = "";
 
         for(int i = 0; i < coordinateNumbers.length; i++){
             result += " " + coordinateNumbers[i];
         }
-        */
-
-        String result = "";
-        result += " " + coordinate.getX();
-        result += " " + coordinate.getY();
 
         return result;
     }

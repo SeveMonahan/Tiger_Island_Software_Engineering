@@ -5,15 +5,16 @@ public class Marshaller {
 
         String tileString = extractTileStringFromGameMove(gameMoveOutgoingTransmission);
 
-        int tileX = gameMoveOutgoingTransmission.getTileMove().getCoordinate().getX();
-        int tileY = gameMoveOutgoingTransmission.getTileMove().getCoordinate().getY();
+        int tileX = gameMoveOutgoingTransmission.getTileMove().getCoordinate().ConvertToCube()[0];
+        int tileY = gameMoveOutgoingTransmission.getTileMove().getCoordinate().ConvertToCube()[1];
+        int tileZ = gameMoveOutgoingTransmission.getTileMove().getCoordinate().ConvertToCube()[2];
 
         HexagonNeighborDirection tileDirection = gameMoveOutgoingTransmission.getTileMove().getDirection();
         int tileOrientation = tileDirection.directionToInt(tileDirection);
 
         String start_of_move_string = "GAME " + gameMoveOutgoingTransmission.getGid() + " MOVE "
                                         + gameMoveOutgoingTransmission.getMoveNumber() + " PLACE "
-                                        + tileString + " AT " + tileX + " " + tileY + " "
+                                        + tileString + " AT " + tileX + " " + tileY + " " + tileZ + " "
                                         + tileOrientation + " ";
 
         return start_of_move_string + gameMoveOutgoingTransmission.getConstructionMoveInternal().marshallMove();
