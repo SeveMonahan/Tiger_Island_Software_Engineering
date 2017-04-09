@@ -39,8 +39,13 @@ public class PostMan {
         match_01 = new Match(this, ai_01, network_01, "bullshit");
         match_02 = new Match(this, network_02, ai_02, "bullshit");
 
-        match_01.run();
-        match_02.run();
+        System.out.println("matches initialized");
+        Thread t1 = new Thread(match_01);
+        Thread t2 = new Thread(match_02);
+        t1.start();
+        System.out.println("match one running");
+        t2.start();
+        System.out.println("match two running");
     }
 
     public void postNetworkPlayerMessage(GameMoveIncomingTransmission gameMoveIncomingTransmission) {
@@ -87,6 +92,7 @@ public class PostMan {
 
     private static boolean gidSet = false;
     public void decoder(String message) {
+        System.out.println("message received: " + message);
         String[] arr = stringSplitter(message);
         if (message.contains("test")) {
             NetworkClient.setOutputLine("test");
@@ -140,7 +146,9 @@ public class PostMan {
             }
         }
         else if (status == TournamentStatus.MATCH) { //match protocol
+            System.out.println("Match about to start!");
             StartMatch();
+            System.out.println("Match started!");
             if (gameOver) {
                 if (readGameOneScore) {
                     System.out.println("read game two score");
@@ -180,7 +188,9 @@ public class PostMan {
                         readTransmission(sendSomewhere);
                         postTileMessage(sendSomewhere);
                         postNetworkPlayerMessage(sendSomewhere);
-                        NetworkClient.setOutputLine(AIMailBox.pop());
+                        if (!AIMailBox.isEmpty()) {
+                            NetworkClient.setOutputLine(AIMailBox.pop());
+                        }
                     }
                     else { //if someone forfeited
                         //TODO: KILL WHOEVER FORFEITED
