@@ -149,11 +149,6 @@ public class Board {
     }
 
     public boolean placeTile(TileMove tileMove) {
-
-        if(tileMove instanceof FirstTurnTileMove){
-            return true;
-        }
-
         TileMoveChecker tileMoveChecker = new TileMoveChecker();
         boolean validTilePlacement = tileMoveChecker.checkForValidity(tileMove, this);
         if (validTilePlacement) {

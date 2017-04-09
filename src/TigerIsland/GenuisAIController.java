@@ -8,22 +8,13 @@ import java.util.Queue;
 public class GenuisAIController implements PlayerController {
     Color color;
     long startTime;
-    boolean first_turn;
 
     public GenuisAIController(Color color){
         this.color = color;
-        first_turn = true;
     }
 
     private ArrayList<GameStateBeforeBuildAction> getCloseTiles(GameStateWTile gameStateWTile){
         ArrayList<GameStateBeforeBuildAction> result = new ArrayList<GameStateBeforeBuildAction>();
-
-        if(color == color.BLACK && first_turn) {
-           result.add(GameStateBeforeBuildAction.createGameStateBeforeBuildAction(gameStateWTile, new FirstTurnTileMove()));
-           first_turn = false;
-           return result;
-        }
-        first_turn = false;
 
         Board board = gameStateWTile.getBoard();
         Tile tile = gameStateWTile.getTile();
