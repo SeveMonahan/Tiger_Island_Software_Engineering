@@ -121,7 +121,6 @@ public class MeeplesTest {
         Hexagon targetHexagon = board.getHexagonAt(targetCoordinate);
 
         Player playerOne = new Player(Color.WHITE);
-        Player playerTwo = new Player(Color.BLACK);
 
         boolean isSuccess = playerOne.foundSettlement(targetCoordinate, board);
 
