@@ -7,11 +7,11 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class SmartAIController implements PlayerController {
+public class GenuisAIController implements PlayerController {
     Color color;
     int restriction_number;
 
-    public SmartAIController(Color color){
+    public GenuisAIController(Color color){
         this.color = color;
         restriction_number = 0;
     }
