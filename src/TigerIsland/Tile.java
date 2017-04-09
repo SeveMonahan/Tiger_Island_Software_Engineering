@@ -18,4 +18,9 @@ public class Tile {
 
         return terrains;
     }
+
+    public String toString() {
+        String string = terrain_1.name() + " " + terrain_2.name();
+        return string;
+    }
 }

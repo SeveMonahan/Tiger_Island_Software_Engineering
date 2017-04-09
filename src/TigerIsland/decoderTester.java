@@ -12,9 +12,9 @@ public class decoderTester {
                 "NEW CHALLENGE 346 YOU WILL PLAY 2 MATCHES",
                 "BEGIN ROUND 1 OF 2",
                 "NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER 34",
-                "blah blah",
-                "test",
-                "blah",
+                "MAKE YOUR MOVE IN GAME A WITHIN 1 SECOND: MOVE 1 PLACE LAKE+ROCK",
+                "GAME A MOVE 1 PLAYER 65 PLACED LAKE+ROCK AT 3 3 1 2 FOUNDED SETTLEMENT AT 3 3 1",
+                "GAME B MOVE 1 PLAYER 34 PLACED JUNGLE+GRASS AT 1 2 1 1 FOUNDED SETTLEMENT AT 1 2 1",
                 "gg",
                 "GAME A OVER PLAYER 65 100 PLAYER 34 5",
                 "GAME B OVER PLAYER 65 200 PLAYER 34 150",
@@ -46,6 +46,7 @@ public class decoderTester {
             if (s.equals("NEW CHALLENGE 888 YOU WILL PLAY 1 MATCH")) {
                 TimeUnit.SECONDS.sleep(5);
             }
+            System.out.println("Postman: " + s);
             PostMan.decoder(s);
             TimeUnit.SECONDS.sleep(1);
         }

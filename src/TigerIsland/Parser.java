@@ -1,11 +1,24 @@
 package TigerIsland;
 
 public class Parser {
+    /*TODO
+        read forfeit
+    */
+    //reads type 1 messages (MAKE YOUR MOVE IN GAME <gid> WITHIN <timemove> SECOND: MOVE <#> PLACE <tile>)
+    public static GameMoveIncomingCommand commandToObject(String command){
+        String[] commandArray = command.split("\\s+");
+        final int gidIndex = 5;
+        final int timeIndex = 7;
+        final int moveNumberIndex = 10;
+        String gid = commandArray[gidIndex];
+        int time = Integer.parseInt(commandArray[timeIndex]);
+        int moveNumber = Integer.parseInt(commandArray[moveNumberIndex]);
+        Tile tile = makeYourMoveStringToTile(command);
+        return new GameMoveIncomingCommand(gid,time,moveNumber,tile);
+    }
 
-
-    //Takes in "MAKE YOUR MOVE IN GAME <gid> WITHIN <timemove> SECOND: MOVE <#> PLACE <tile>" and outputs Tile object
-
-    public GameMoveIncomingTransmission opponentMoveStringToGameMove(String opponentMoveString){
+    //reads type 2 messages (GAME X MOVE Y PLAYER someID [...effect of whoever])
+    public static GameMoveIncomingTransmission opponentMoveStringToGameMove(String opponentMoveString){
         String[] opponentMoveStringSplitBySpaceArray = opponentMoveString.split("\\s+");
 
         final int gidIndex = 1;
@@ -22,14 +35,15 @@ public class Parser {
         return new GameMoveIncomingTransmission(gid, moveNumber, pid, tileMove, constructionMoveTransmission);
     }
 
-    public Tile makeYourMoveStringToTile(String makeYourMoveString) {
+    //returns tile from type 1
+    public static Tile makeYourMoveStringToTile(String makeYourMoveString) {
         String[] moveStringSplitBySpaceArray = makeYourMoveString.split("\\s+");
         final int tileIndex = 12;
         String tileString = moveStringSplitBySpaceArray[tileIndex];
         return tileStringToTile(tileString);
     }
 
-    private TileMove opponentMoveStringToTileMove(String opponentMoveString){
+    private static TileMove opponentMoveStringToTileMove(String opponentMoveString){
         String[] opponentMoveStringSplitBySpaceArray = opponentMoveString.split("\\s+");
 
         final int tileIndex = 7;
@@ -53,7 +67,7 @@ public class Parser {
         return new TileMove(tile, direction, coordinate);
     }
 
-    private ConstructionMoveTransmission opponentMoveStringToBuildMove(String opponentMoveString){
+    private static ConstructionMoveTransmission opponentMoveStringToBuildMove(String opponentMoveString){
         String[] opponentMoveStringSplitBySpaceArray = opponentMoveString.split("\\s+");
         final int buildKeyword1Index = 13;
         final int buildKeyword2Index = 14;
@@ -77,7 +91,7 @@ public class Parser {
         else return null;
     }
 
-    private ConstructionMoveTransmission opponentFoundedMoveStringToBuildMove(String[] opponentFoundedMoveStringSplitBySpace){
+    private static ConstructionMoveTransmission opponentFoundedMoveStringToBuildMove(String[] opponentFoundedMoveStringSplitBySpace){
         final int xIndex = 16;
         final int yIndex = 17;
         final int zIndex = 18;
@@ -89,7 +103,7 @@ public class Parser {
         return new ConstructionMoveTransmission(buildOption, coordinate);
     }
 
-    private ConstructionMoveTransmission opponentExpandedMoveStringToBuildMove(String[] opponentExpandedMoveStringSplitBySpace){
+    private static ConstructionMoveTransmission opponentExpandedMoveStringToBuildMove(String[] opponentExpandedMoveStringSplitBySpace){
         final int xIndex = 16;
         final int yIndex = 17;
         final int zIndex = 18;
@@ -104,7 +118,7 @@ public class Parser {
         return new ExpandSettlementMoveTransmission(buildOption, coordinate, terrain);
     }
 
-    private ConstructionMoveTransmission opponentBuildTotoroMoveStringToBuildMove(String[] opponentBuildTotoroMoveStringSplitBySpace){
+    private static ConstructionMoveTransmission opponentBuildTotoroMoveStringToBuildMove(String[] opponentBuildTotoroMoveStringSplitBySpace){
         final int xIndex = 17;
         final int yIndex = 18;
         final int zIndex = 19;
@@ -116,7 +130,7 @@ public class Parser {
         return new ConstructionMoveTransmission(buildOption, coordinate);
     }
 
-    private ConstructionMoveTransmission opponentBuildTigerMoveStringToBuildMove(String[] opponentBuildTigerMoveStringSplitBySpace){
+    private static ConstructionMoveTransmission opponentBuildTigerMoveStringToBuildMove(String[] opponentBuildTigerMoveStringSplitBySpace){
         final int xIndex = 17;
         final int yIndex = 18;
         final int zIndex = 19;
@@ -129,7 +143,7 @@ public class Parser {
     }
 
     //Converts string such as "JUNGLE+LAKE" to a tile object
-    private Tile tileStringToTile(String tileString){
+    private static Tile tileStringToTile(String tileString){
         String [] tileStringSplitByPlusSign = tileString.split("\\+");
 
         final int AterrainIndex = 0;
@@ -140,7 +154,7 @@ public class Parser {
         return new Tile(Aterrain, Bterrain);
     }
 
-    private Coordinate extractCoordinateFromString(String[] stringArrayContainingCoordinate, int xIndex, int yIndex, int zIndex){
+    private static Coordinate extractCoordinateFromString(String[] stringArrayContainingCoordinate, int xIndex, int yIndex, int zIndex){
         int x = Integer.parseInt(stringArrayContainingCoordinate[xIndex]);
         int y = Integer.parseInt(stringArrayContainingCoordinate[yIndex]);
         int z = Integer.parseInt(stringArrayContainingCoordinate[zIndex]);
