@@ -75,6 +75,10 @@ public class GameState {
         return playerWhoseTurn.getScore();
     }
 
+    public Player getActivePlayer(){
+        return playerWhoseTurn;
+    }
+
     public GameOutcome getGameOutcome(Player me) {
         Player winner;
 

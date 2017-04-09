@@ -17,12 +17,14 @@ public class OutputPlayerAI implements OutputPlayerActions{
     public void dispatchInformation(GameStateEndOfTurn gameStateEndOfTurn){}
 
     public void dispatchInformation(GameStateEndOfTurn gameStateEndOfTurn, PostMan postMan){
-        int moveNumber = 0;
-        TileMove tileMove = gameStateEndOfTurn.lastTileMove;
-        ConstructionMoveInternal constructionMoveInternal = gameStateEndOfTurn.getLastConstructionMove();
-        GameMoveOutgoingTransmission gameMoveOutgoingTransmission = new GameMoveOutgoingTransmission(gid, moveNumber, tileMove, constructionMoveInternal);
+        if(gameStateEndOfTurn.getActivePlayer().getColor() == color) {
+            int moveNumber = 0;
+            TileMove tileMove = gameStateEndOfTurn.lastTileMove;
+            ConstructionMoveInternal constructionMoveInternal = gameStateEndOfTurn.getLastConstructionMove();
+            GameMoveOutgoingTransmission gameMoveOutgoingTransmission = new GameMoveOutgoingTransmission(gid, moveNumber, tileMove, constructionMoveInternal);
 
-        postMan.mailAIMessages(gameMoveOutgoingTransmission);
+            postMan.mailAIMessages(gameMoveOutgoingTransmission);
+        }
     }
 
 }
