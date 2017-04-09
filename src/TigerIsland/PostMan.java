@@ -5,12 +5,14 @@ import java.util.LinkedList;
 import static java.lang.Integer.parseInt;
 
 public class PostMan {
-    private static int cid = 0;
-    private static int oid = 0;
-    private static int rid = 0;
-    private static int rounds = 0;
+    private static int cid = -1;
+    private static int oid = -1;
+    private static int rid = -1;
+    private static String gid1 = "";
+    private static String gid2 = "";
+    private static int rounds = -1;
     private static int currentRound = 0;
-    private static TournamentStatus status;
+    private static TournamentStatus status = TournamentStatus.CHALLENGE;
     private static boolean gameOver = false;
     private static boolean readGameOneScore = false;
     private static boolean roundsOver = false;
@@ -61,6 +63,7 @@ public class PostMan {
         return gameMoveIncomingTransmission;
     }
 
+    private static boolean gidSet = false;
     public static void decoder(String message) {
         String[] arr = stringSplitter(message);
         if (status == TournamentStatus.CHALLENGE) { //challenge protocol
@@ -134,12 +137,38 @@ public class PostMan {
                 status = TournamentStatus.MATCH;
             }
             else {
-                System.out.println("game(s) in progress...");
-                //TODO
-                //send to parser
+                if (!message.contains("MAKE YOUR MOVE") && message.contains("PLAYER")) { //type 2 message (handled by parser)
+                    if (gidSet == false) {
+                        if (gid1.isEmpty()) {
+                            gid1 = arr[5];
+                            System.out.println("grabbed gid1:" + gid1);
+                        }
+                        else if (gid2.isEmpty()) {
+                            gid2 = arr[5];
+                            System.out.println("grabbed gid2:" + gid2);
+                            gidSet = true;
+                        }
+                    }
+                    GameMoveIncomingTransmission sendSomewhere = Parser.opponentMoveStringToGameMove(message);
+                    readTransmission(sendSomewhere);
+                    //TODO: send this somewhere
+                }
+                else { //type 1 message (command telling us to make a move)
+
+                }
             }
         }
     }
+
+    public static void readTransmission(GameMoveIncomingTransmission sendSomewhere) {
+        System.out.println("------READING THE FOLLOWING------");
+        System.out.println("gid: "+ sendSomewhere.getGid());
+        System.out.println("move number: " + sendSomewhere.getMoveNumber());
+        System.out.println("pid: " + sendSomewhere.getPid());
+        System.out.println("coordinate: " + sendSomewhere.getConstructionMoveTransmission().getCoordinate().getX() + " " + sendSomewhere.getConstructionMoveTransmission().getCoordinate().getY());
+        System.out.println("---------------------------------");
+    }
+
     private static void stringArrayPrinter(String[] arr) {
         for (String s : arr) {
             System.out.println(s);
