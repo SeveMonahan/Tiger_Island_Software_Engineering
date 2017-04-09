@@ -212,7 +212,7 @@ public class SmartAIController implements PlayerController {
             for (GameStateEndOfTurn current_child : leaf_list) {
                 pqueue.add(current_child);
 
-                if(pqueue.size() > 40){
+                if(pqueue.size() > 10){
                     pqueue.poll();
                 }
             }
