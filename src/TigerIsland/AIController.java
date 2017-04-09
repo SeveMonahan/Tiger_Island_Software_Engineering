@@ -2,6 +2,8 @@ package TigerIsland;
 
 import TigerIsland.*;
 
+import java.util.ArrayList;
+
 public class AIController implements PlayerController {
     Color color;
 
@@ -10,7 +12,15 @@ public class AIController implements PlayerController {
     }
 
     public GameStateEndOfTurn newGameState(GameStateWTile gameStateWTile){
-        GameStateBeforeBuildAction beforeBuildAction = gameStateWTile.getChildren().get(0);
-        return beforeBuildAction.getChildren().get(0);
+        ArrayList<GameStateBeforeBuildAction> beforeBuildActions = gameStateWTile.getChildren();
+
+        for(GameStateBeforeBuildAction midpoint : beforeBuildActions){
+            ArrayList<GameStateEndOfTurn> endpoints = midpoint.getChildren();
+            if(endpoints.size() != 0){
+                return endpoints.get(0);
+            }
+        }
+
+        return null;
     }
 }
