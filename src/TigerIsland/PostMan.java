@@ -29,6 +29,7 @@ public class PostMan {
     public void StartMatch() {
         tileMailBox = new LinkedList<>();
         moveMailBox = new LinkedList<>();
+        AIMailBox = new LinkedList<>();
 
         PlayerController ai_01 = new DumbController(Color.BLACK);
         NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE);
