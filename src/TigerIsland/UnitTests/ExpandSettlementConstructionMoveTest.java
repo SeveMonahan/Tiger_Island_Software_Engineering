@@ -103,8 +103,7 @@ public class ExpandSettlementConstructionMoveTest {
         ExpandSettlementConstructionMove move2 = new ExpandSettlementConstructionMove(LowerRight, Terrain.ROCK);
         assertEquals(true, move2.canPerformMove(player_1, board));
         move2.makePreverifiedMove(player_1, board);
-        assertEquals(17,player_1.getMeeplesCount());
-
+        assertEquals(17, player_1.getMeeplesCount());
     }
 
     @Test
@@ -144,5 +143,55 @@ public class ExpandSettlementConstructionMoveTest {
         assertEquals(16, player_1.getMeeplesCount());
         assertEquals(PieceStatusHexagon.MEEPLE, rockHex2.getPiecesStatus());
         assertEquals(PieceStatusHexagon.MEEPLE, lowerLeft.getPiecesStatus());
+    }
+
+    @Test
+    public void expandSettlementOnMultipleLevelsTest2() throws Exception {
+        Board TestBoard = new Board();
+        Player player = new Player(Color.BLACK);
+
+        Tile tile_01 = new Tile(Terrain.GRASS, Terrain.JUNGLE);
+        Tile tile_02 = new Tile(Terrain.GRASS, Terrain.LAKE);
+        Tile tile_03 = new Tile(Terrain.GRASS, Terrain.ROCK);
+        Tile tile_04 = new Tile(Terrain.GRASS, Terrain.GRASS);
+
+        TileMove tileMove_01 = new TileMove(tile_01, HexagonNeighborDirection.UPPERRIGHT, new Coordinate(98, 99));
+        TileMove tileMove_02 = new TileMove(tile_02, HexagonNeighborDirection.LOWERLEFT, new Coordinate(100, 102));
+        TileMove tileMove_03 = new TileMove(tile_03, HexagonNeighborDirection.UPPERRIGHT, new Coordinate(100, 100));
+        TileMove tileMove_04 = new TileMove(tile_04, HexagonNeighborDirection.LEFT, new Coordinate(100,100));
+
+        TestBoard.placeTile(tileMove_01);
+        TestBoard.placeTile(tileMove_02);
+        TestBoard.placeTile(tileMove_03);
+        TestBoard.placeTile(tileMove_04);
+
+        Coordinate sourceCoordinate = new Coordinate(99,99);
+
+        player.foundSettlement(sourceCoordinate, TestBoard);
+
+        assertEquals(19, player.getMeeplesCount());
+        assertEquals(PieceStatusHexagon.MEEPLE, TestBoard.getHexagonAt(sourceCoordinate).getPiecesStatus());
+
+        boolean isSuccess = player.expandSettlement(sourceCoordinate, TestBoard, Terrain.GRASS);
+
+        assertEquals(true, isSuccess);
+
+        Hexagon TestHexagon1 = TestBoard.getHexagonAt(new Coordinate(100,101));
+        Hexagon TestHexagon2 = TestBoard.getHexagonAt(new Coordinate(99,100));
+        Hexagon TestHexagon3 = TestBoard.getHexagonAt(new Coordinate(99,101));
+
+        assertEquals(PieceStatusHexagon.MEEPLE, TestHexagon1.getPiecesStatus());
+        assertEquals(PieceStatusHexagon.MEEPLE, TestHexagon2.getPiecesStatus());
+        assertEquals(PieceStatusHexagon.MEEPLE, TestHexagon3.getPiecesStatus());
+
+        assertEquals(Color.BLACK, TestHexagon1.getOccupationColor());
+        assertEquals(Color.BLACK, TestHexagon2.getOccupationColor());
+        assertEquals(Color.BLACK, TestHexagon3.getOccupationColor());
+
+        assertEquals(14, player.getMeeplesCount());
+        assertEquals(10, player.getScore());
+
+        Settlement settlement = TestBoard.getSettlement(sourceCoordinate);
+        assertEquals(4, settlement.getSettlementSize());
     }
 }
