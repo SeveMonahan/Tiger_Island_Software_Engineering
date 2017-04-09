@@ -2,6 +2,7 @@ package TigerIsland;
 
 public class NetworkPlayerController implements PlayerController {
     Color color;
+    String gameID;
 
     public NetworkPlayerController(Color color){
         this.color = color;
@@ -21,7 +22,17 @@ public class NetworkPlayerController implements PlayerController {
     }
 
     // PostMan constructor
-    public GameStateEndOfTurn newGameState(GameStateWTile gameStateWTile, PostMan postMan){
+    public GameStateEndOfTurn newGameState(GameStateWTile gameStateWTile, PostMan postMan, String gameID){
+        GameMoveIncomingTransmission gameMoveIncomingTransmission = postMan.accessNetworkMailBox();
+        while(gameMoveIncomingTransmission == null) {
+            try {
+                postMan.wait();
+                postMan.accessNetworkMailBox(gameID);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         Tile tile = null;
         HexagonNeighborDirection hexagonNeighborDirection = null;
         Coordinate coordinate = null;
