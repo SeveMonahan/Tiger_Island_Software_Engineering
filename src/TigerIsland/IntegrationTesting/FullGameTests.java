@@ -14,6 +14,6 @@ public class FullGameTests {
 
         Referee referee = new Referee(ai_01, ai_02, logger, tileBag);
 
-        referee.run();
+        referee.execute();
     }
 }

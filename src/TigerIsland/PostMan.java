@@ -14,29 +14,24 @@ public class PostMan {
     private static boolean gameOver = false;
     private static boolean readGameOneScore = false;
     private static boolean roundsOver = false;
-    private Referee referee_01;
-    private Referee referee_02;
+    private Match match_01;
+    private Match match_02;
 
     private LinkedList<GameMoveIncomingTransmission> mailBox;
 
-    // This will be run everytime we want to start a match
+    // This will be execute everytime we want to start a match
     public void StartMatch() {
-        String gid_01 = "bs1";
-        String gid_02 = "bs2";
         PlayerController ai_01 = new DumbController(Color.BLACK);
-        PlayerController ai_02 = new DumbController(Color.BLACK);
         NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE);
+
+        PlayerController ai_02 = new DumbController(Color.BLACK);
         NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE);
-        OutputPlayerExample output_01 = new OutputPlayerExample(gid_01, Color.BLACK);
-        OutputPlayerExample output_02 = new OutputPlayerExample(gid_02, Color.BLACK);
-        TileBag tileBag_01 = new NetworkTileBag(this);
-        TileBag tileBag_02 = new NetworkTileBag(this);
 
-        referee_01 = new Referee(ai_01, network_01, output_01, tileBag_01);
-        referee_02 = new Referee(network_02, ai_02, output_02, tileBag_02);
+        match_01 = new Match(this, ai_01, network_01, "bullshit");
+        match_02 = new Match(this, network_02, ai_02, "bullshit");
 
-        referee_01.run();
-        referee_02.run();
+        match_01.run();
+        match_02.run();
     }
 
     public void postNetworkPlayerMessage(GameMoveIncomingTransmission gameMoveIncomingTransmission) {
