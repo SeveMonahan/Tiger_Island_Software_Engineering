@@ -68,8 +68,8 @@ public class SmartAIController implements PlayerController {
             }
         }
 
-        for(int i = minX + restriction_number; i < maxX - restriction_number; i++){
-            for(int j= minY + restriction_number; j < maxY - restriction_number; j++){
+        for(int i = 97 - restriction_number; i < 103 + restriction_number; i++){
+            for(int j= 97 - restriction_number; j < 103 + restriction_number; j++){
                 Coordinate current_coordinate = new Coordinate(i, j);
                 Terrain terrain = board.getHexagonAt(current_coordinate).getTerrain();
 
@@ -89,9 +89,11 @@ public class SmartAIController implements PlayerController {
         }
 
         if(!result.isEmpty()){
-            restriction_number += 3;
             return result;
         }
+
+        System.out.println("Fallthrough");
+        restriction_number += 10;
 
         for(int i = minX; i < maxX; i++){
             for(int j= minY; j < maxY; j++){
@@ -113,17 +115,11 @@ public class SmartAIController implements PlayerController {
             }
         }
 
-        restriction_number -= 2;
-
-        if(restriction_number < 0){
-            restriction_number = 0;
-        }
-
         return result;
 
     }
 
-    public GameStateEndOfTurn newGameState(GameStateWTile gameStateWTile) {
+    private GameStateEndOfTurn bestNewGameStates(GameStateWTile gameStateWTile){
         ArrayList<GameStateBeforeBuildAction> beforeBuildActions = getCloseTiles(gameStateWTile);
 
         GameStateEndOfTurn result = null;
@@ -150,6 +146,16 @@ public class SmartAIController implements PlayerController {
             }
 
         }
+
+        return result;
+    }
+
+    public GameStateEndOfTurn newGameState(GameStateWTile gameStateWTile) {
+        long startTime = System.currentTimeMillis();
+
+        GameStateEndOfTurn result = bestNewGameStates(gameStateWTile);
+
+        System.out.println(System.currentTimeMillis() - startTime);
 
         return result;
     }
