@@ -205,22 +205,13 @@ public class SmartAIController implements PlayerController {
 
         int bestScoreSoFar = -1;
 
-        int bestScoresNeighborScore = -1;
-
         for (GameStateBeforeBuildAction gameState : beforeBuildActions) {
             ArrayList<GameStateEndOfTurn> leaf_list = getBuildMoves(gameState);
-            int neighbor_score = adjacent_hexs_score(gameState.getLastTileMove(), gameState.getBoard());
 
             for (GameStateEndOfTurn current_child : leaf_list) {
-                if (current_child.activePlayerScore() > bestScoreSoFar) {
+                if (current_child.netEvalScore() > bestScoreSoFar) {
                     result = current_child;
-                    bestScoreSoFar = current_child.activePlayerScore();
-                    bestScoresNeighborScore = neighbor_score;
-                }else if (current_child.activePlayerScore() == bestScoreSoFar){
-                    if(neighbor_score > bestScoresNeighborScore){
-                        result = current_child;
-                        bestScoresNeighborScore = neighbor_score;
-                    }
+                    bestScoreSoFar = current_child.netEvalScore();
                 }
             }
 
