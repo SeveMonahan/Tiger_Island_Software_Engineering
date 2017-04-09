@@ -36,29 +36,28 @@ public class NetworkPlayerController implements PlayerController {
 
         Tile tile = gameMoveIncomingTransmission.getTileMove().getTile();
         HexagonNeighborDirection hexagonNeighborDirection = gameMoveIncomingTransmission.getTileMove().getDirection();
-        Coordinate coordinate = gameMoveIncomingTransmission.getTileMove().getCoordinate();
-        TileMove tileMove = new TileMove(tile, hexagonNeighborDirection, coordinate);
+        Coordinate coordinateTile = gameMoveIncomingTransmission.getTileMove().getCoordinate();
+        TileMove tileMove = new TileMove(tile, hexagonNeighborDirection, coordinateTile);
         GameStateBeforeBuildAction gameStateBeforeBuildAction = GameStateBeforeBuildAction.createGameStateBeforeBuildAction(gameStateWTile, tileMove);
-        gameMoveIncomingTransmission.getConstructionMoveTransmission();
-        Coordinate coordinate1 = gameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate();
+
+        Coordinate coordinateMove = gameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate();
         ConstructionMoveInternal constructionMove = null;
 
         switch (gameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption()){
             case BUILDTIGER:
-                constructionMove = new TigerConstructionMove(coordinate1);
+                constructionMove = new TigerConstructionMove(coordinateMove);
             case EXPANDSETTLEMENT:
                 ExpandSettlementMoveTransmission expandSettlementMoveTransmission = (ExpandSettlementMoveTransmission) gameMoveIncomingTransmission.getConstructionMoveTransmission();
                 Terrain terrain = expandSettlementMoveTransmission.getTerrain();
-                constructionMove = new ExpandSettlementConstructionMove(coordinate1, terrain);
+                constructionMove = new ExpandSettlementConstructionMove(coordinateMove, terrain);
             case FOUNDSETTLEMENT:
-                constructionMove = new FoundSettlementConstructionMove(coordinate1);
+                constructionMove = new FoundSettlementConstructionMove(coordinateMove);
             case BUILDTOTORO:
-                constructionMove = new TotoroConstructionMove(coordinate1);
+                constructionMove = new TotoroConstructionMove(coordinateMove);
             case UNABLETOBUILD:
                 constructionMove = null;
         }
         GameStateEndOfTurn gameStateEndOfTurn = GameStateEndOfTurn.createGameStateFromConstructionMove(gameStateBeforeBuildAction, constructionMove);
-
 
         return gameStateEndOfTurn;
     }
