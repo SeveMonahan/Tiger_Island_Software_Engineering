@@ -219,7 +219,7 @@ public class PostMan {
     public static void readTransmission(GameMoveIncomingTransmission sendSomewhere) {
         System.out.println("------READING THE FOLLOWING------");
         System.out.println("gid: "+ sendSomewhere.getGid());
-        System.out.println("move number: " + sendSomewhere.getMoveNumber());
+        System.out.println("move number: " + sendSomewhere.getMoveID());
         System.out.println("pid: " + sendSomewhere.getPid());
         System.out.println("coordinate: " + sendSomewhere.getConstructionMoveTransmission().getCoordinate().getX() + " " + sendSomewhere.getConstructionMoveTransmission().getCoordinate().getY());
         System.out.println("---------------------------------");

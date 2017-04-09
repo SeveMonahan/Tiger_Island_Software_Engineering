@@ -52,7 +52,7 @@ public class ParserTest {
         assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getY(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getY());
         assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption());
         assertEquals(expectedGameMoveIncomingTransmission.getGid(), testGameMoveIncomingTransmission.getGid());
-        assertEquals(expectedGameMoveIncomingTransmission.getMoveNumber(), testGameMoveIncomingTransmission.getMoveNumber());
+        assertEquals(expectedGameMoveIncomingTransmission.getMoveID(), testGameMoveIncomingTransmission.getMoveID());
 
     }
 
@@ -86,7 +86,7 @@ public class ParserTest {
         assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getY(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getY());
         assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption());
         assertEquals(expectedGameMoveIncomingTransmission.getGid(), testGameMoveIncomingTransmission.getGid());
-        assertEquals(expectedGameMoveIncomingTransmission.getMoveNumber(), testGameMoveIncomingTransmission.getMoveNumber());
+        assertEquals(expectedGameMoveIncomingTransmission.getMoveID(), testGameMoveIncomingTransmission.getMoveID());
 
         expectedExpandSettlementMoveTransmission = (ExpandSettlementMoveTransmission) expectedGameMoveIncomingTransmission.getConstructionMoveTransmission();
         ExpandSettlementMoveTransmission testExpandSettlementMoveTransmission = (ExpandSettlementMoveTransmission) testGameMoveIncomingTransmission.getConstructionMoveTransmission();
@@ -124,7 +124,7 @@ public class ParserTest {
         assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getY(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getY());
         assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption());
         assertEquals(expectedGameMoveIncomingTransmission.getGid(), testGameMoveIncomingTransmission.getGid());
-        assertEquals(expectedGameMoveIncomingTransmission.getMoveNumber(), testGameMoveIncomingTransmission.getMoveNumber());
+        assertEquals(expectedGameMoveIncomingTransmission.getMoveID(), testGameMoveIncomingTransmission.getMoveID());
 
     }
 
@@ -159,7 +159,7 @@ public class ParserTest {
         assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getY(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate().getY());
         assertEquals(expectedGameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption(), testGameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption());
         assertEquals(expectedGameMoveIncomingTransmission.getGid(), testGameMoveIncomingTransmission.getGid());
-        assertEquals(expectedGameMoveIncomingTransmission.getMoveNumber(), testGameMoveIncomingTransmission.getMoveNumber());
+        assertEquals(expectedGameMoveIncomingTransmission.getMoveID(), testGameMoveIncomingTransmission.getMoveID());
 
     }
 }
