@@ -48,12 +48,12 @@ public class PostMan {
         System.out.println("match two running");
     }
 
-    public void postNetworkPlayerMessage(GameMoveIncomingTransmission gameMoveIncomingTransmission) {
+    public synchronized void postNetworkPlayerMessage(GameMoveIncomingTransmission gameMoveIncomingTransmission) {
         moveMailBox.push(gameMoveIncomingTransmission);
         notifyAll();
     }
 
-    public void postTileMessage(GameMoveIncomingTransmission gameMoveIncomingTransmission) {
+    public synchronized void postTileMessage(GameMoveIncomingTransmission gameMoveIncomingTransmission) {
         tileMailBox.push(gameMoveIncomingTransmission);
         notifyAll();
     }
@@ -92,7 +92,6 @@ public class PostMan {
 
     private static boolean gidSet = false;
     public void decoder(String message) {
-        System.out.println("message received: " + message);
         String[] arr = stringSplitter(message);
         if (message.contains("test")) {
             NetworkClient.setOutputLine("test");
