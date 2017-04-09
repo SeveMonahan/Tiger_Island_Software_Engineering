@@ -59,7 +59,12 @@ public class Hexagon {
         return piecesStatus != PieceStatusHexagon.EMPTY;
     }
 
-    boolean getCanBeNuked() { return piecesStatus != PieceStatusHexagon.TOTORO; }
+    boolean getCanBeNuked() {
+       if(piecesStatus == PieceStatusHexagon.TIGER || piecesStatus == PieceStatusHexagon.TOTORO)
+            return false;
+        else
+            return true;
+    }
 
     public void changeTerrainTypeThoughExplosion(Terrain new_terrain) {
         terrain = new_terrain;
