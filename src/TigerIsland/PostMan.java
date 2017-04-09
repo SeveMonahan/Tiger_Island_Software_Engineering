@@ -1,10 +1,6 @@
 package TigerIsland;
 
-import sun.nio.ch.Net;
-
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Queue;
 
 import static java.lang.Integer.parseInt;
 
@@ -33,23 +29,33 @@ public class PostMan {
         NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE);
         OutputPlayerExample output_01 = new OutputPlayerExample(gid_01, Color.BLACK);
         OutputPlayerExample output_02 = new OutputPlayerExample(gid_02, Color.BLACK);
-        // TODO need a different tilebag that isn't random... ?
-        TileBag tileBag_01 = new RandomTileBag();
-        TileBag tileBag_02 = new RandomTileBag();
+        TileBag tileBag_01 = new NetworkTileBag(this);
+        TileBag tileBag_02 = new NetworkTileBag(this);
 
-        referee_01 = new Referee(ai_01, network_01, output_01, tileBag_01, this);
-        referee_02 = new Referee(network_02, ai_02, output_02, tileBag_02, this);
+        referee_01 = new Referee(ai_01, network_01, output_01, tileBag_01);
+        referee_02 = new Referee(network_02, ai_02, output_02, tileBag_02);
 
         referee_01.run();
         referee_02.run();
     }
 
-    public void postMessage(GameMoveIncomingTransmission gameMoveIncomingTransmission) {
+    public void postNetworkPlayerMessage(GameMoveIncomingTransmission gameMoveIncomingTransmission) {
         mailBox.push(gameMoveIncomingTransmission);
         notifyAll(); // We have a new message... please check if you can use it.
     }
 
-    public synchronized GameMoveIncomingTransmission accessMailBox(String gid) {
+    public void postTileMessage(GameMoveIncomingTransmission gameMoveIncomingTransmission) {
+        mailBox.push(gameMoveIncomingTransmission);
+        notifyAll(); // We have a new message... please check if you can use it.
+    }
+
+    public synchronized GameMoveIncomingTransmission accessTileMailBox(String gid) {
+        GameMoveIncomingTransmission gameMoveIncomingTransmission = null;
+        // Search to see if we have a message with the correct gameID here
+        return gameMoveIncomingTransmission;
+    }
+
+    public synchronized GameMoveIncomingTransmission accessNetworkMailBox(String gid) {
         GameMoveIncomingTransmission gameMoveIncomingTransmission = null;
         // Search to see if we have a message with the correct gameID here
         return gameMoveIncomingTransmission;

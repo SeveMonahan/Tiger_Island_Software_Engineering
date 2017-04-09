@@ -6,16 +6,13 @@ public class Referee implements Runnable {
     OutputPlayerActions output;
     TileBag tileBag;
     GameStateEndOfTurn gameEndOfTurn;
-    PostMan postMan;
-    // String gameID;
 
     public Referee(PlayerController controller_1, PlayerController controller_2, OutputPlayerActions output,
-                   TileBag tileBag, PostMan postMan) {
+                   TileBag tileBag) {
         this.controller_1 = controller_1;
         this.controller_2 = controller_2;
         this.output = output;
         this.tileBag = tileBag;
-        this.postMan = postMan;
         gameEndOfTurn = GameStateEndOfTurn.createInitalGameState();
     }
 
@@ -41,17 +38,6 @@ public class Referee implements Runnable {
             if(gameEndOfTurn.checkForGameOver() || tileBag.getNumberOfTilesInBag() == 0){
                 break;
             }
-
-/*            try {
-                // TODO Referee should wait if we check postMan.accessMailbox() and there is no mail
-                GameMoveIncomingTransmission gmt = postMan.accessMailBox(gameID);
-                if()
-                postMan.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-*/
-
         }
     }
 }
