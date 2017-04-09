@@ -218,7 +218,7 @@ public class GenuisAIController implements PlayerController {
     }
 
     public GameStateEndOfTurn newGameState(GameStateWTile gameStateWTile) {
-        long startTime = System.currentTimeMillis();
+        startTime = System.currentTimeMillis();
 
         PriorityQueue<GameStateEndOfTurn> pqueue = bestNewGameStates(gameStateWTile);
 
@@ -246,8 +246,9 @@ public class GenuisAIController implements PlayerController {
                 bestNetScoreGain = netScoreGain;
             }
 
-            if(System.currentTimeMillis() - startTime > 1000){
+            if(System.currentTimeMillis() - startTime > 1400){
                 System.out.println("PANIC!");
+                System.out.println(System.currentTimeMillis() - startTime);
                 return best_state;
             }
 
