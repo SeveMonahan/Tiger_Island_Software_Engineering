@@ -27,8 +27,8 @@ public class PostMan {
     public void StartMatch() {
         String gid_01 = "bs1";
         String gid_02 = "bs2";
-        AIController ai_01 = new AIController(Color.BLACK);
-        AIController ai_02 = new AIController(Color.BLACK);
+        PlayerController ai_01 = new DumbController(Color.BLACK);
+        PlayerController ai_02 = new DumbController(Color.BLACK);
         NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE);
         NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE);
         OutputPlayerExample output_01 = new OutputPlayerExample(gid_01, Color.BLACK);
