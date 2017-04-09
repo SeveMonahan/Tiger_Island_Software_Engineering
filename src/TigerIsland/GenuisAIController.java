@@ -9,11 +9,9 @@ import java.util.Queue;
 
 public class GenuisAIController implements PlayerController {
     Color color;
-    int restriction_number;
 
     public GenuisAIController(Color color){
         this.color = color;
-        restriction_number = 0;
     }
 
     private ArrayList<GameStateBeforeBuildAction> getCloseTiles(GameStateWTile gameStateWTile){
@@ -47,8 +45,8 @@ public class GenuisAIController implements PlayerController {
             }
         }
 
-        for(int i = 97 - restriction_number; i < 103 + restriction_number; i++){
-            for(int j= 97 - restriction_number; j < 103 + restriction_number; j++){
+        for(int i = 97; i <= 103; i++){
+            for(int j= 97; j <= 103; j++){
                 Coordinate current_coordinate = new Coordinate(i, j);
                 Terrain terrain = board.getHexagonAt(current_coordinate).getTerrain();
 
@@ -71,8 +69,31 @@ public class GenuisAIController implements PlayerController {
             return result;
         }
 
-        System.out.println("Fallthrough");
-        restriction_number += 10;
+        System.out.println("Fallthrough A");
+
+        for(int i = 94; i <= 106; i++){
+            for(int j= 94; j <= 106; j++){
+                Coordinate current_coordinate = new Coordinate(i, j);
+                Terrain terrain = board.getHexagonAt(current_coordinate).getTerrain();
+
+                if(terrain != Terrain.EMPTY){
+                    continue;
+                }
+
+                for(HexagonNeighborDirection direction : HexagonNeighborDirection.values()){
+                    TileMove possibleTileMove = new TileMove(tile, direction, new Coordinate(i, j));
+                    GameStateBeforeBuildAction child = GameStateBeforeBuildAction.createGameStateBeforeBuildAction(gameStateWTile, possibleTileMove);
+
+                    if(child != null){
+                        result.add(child);
+                    }
+                }
+            }
+        }
+
+        if(!result.isEmpty()){
+            return result;
+        }
 
         for(int i = minX; i < maxX; i++){
             for(int j= minY; j < maxY; j++){
