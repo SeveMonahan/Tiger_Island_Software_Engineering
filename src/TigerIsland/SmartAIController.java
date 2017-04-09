@@ -1,5 +1,7 @@
 package TigerIsland;
 
+import TigerIsland.UnitTests.GameStateEndOfTurnTest;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -199,7 +201,7 @@ public class SmartAIController implements PlayerController {
         return result;
     }
 
-    private GameStateEndOfTurn bestNewGameStates(GameStateWTile gameStateWTile){
+    private PriorityQueue<GameStateEndOfTurn> bestNewGameStates(GameStateWTile gameStateWTile){
         ArrayList<GameStateBeforeBuildAction> beforeBuildActions = getCloseTiles(gameStateWTile);
 
         PriorityQueue<GameStateEndOfTurn> pqueue = new PriorityQueue<GameStateEndOfTurn>();
@@ -217,20 +219,43 @@ public class SmartAIController implements PlayerController {
 
         }
 
-        while(pqueue.size() != 1){
-            pqueue.poll();
-        }
-
-        return pqueue.poll();
+        return pqueue;
     }
 
     public GameStateEndOfTurn newGameState(GameStateWTile gameStateWTile) {
         long startTime = System.currentTimeMillis();
 
-        GameStateEndOfTurn result = bestNewGameStates(gameStateWTile);
+        PriorityQueue<GameStateEndOfTurn> pqueue = bestNewGameStates(gameStateWTile);
+        assert(pqueue.size() <= 4);
+
+        GameStateEndOfTurn best_state = null;
+
+        int bestNetScoreGain = -10000;
+
+        while(pqueue.size() != 0){
+            GameStateEndOfTurn current_state = pqueue.poll();
+
+            GameStateWTile gameStateTile2 = current_state.getChild(new Tile(Terrain.UNKNOWN, Terrain.UNKNOWN));
+
+            PriorityQueue<GameStateEndOfTurn> leafNodes = bestNewGameStates(gameStateTile2);
+
+            while(leafNodes.size() != 1){
+                leafNodes.poll();
+            }
+
+            GameStateEndOfTurn bestLeafNode = leafNodes.poll();
+
+            int netScoreGain = current_state.activePlayerScore() - bestLeafNode.activePlayerScore();
+
+            if(netScoreGain > bestNetScoreGain){
+                best_state = current_state;
+                bestNetScoreGain = netScoreGain;
+            }
+
+        }
 
         System.out.println(System.currentTimeMillis() - startTime);
 
-        return result;
+        return best_state;
     }
 }
