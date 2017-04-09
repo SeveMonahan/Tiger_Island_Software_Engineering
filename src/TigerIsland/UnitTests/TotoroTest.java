@@ -64,6 +64,7 @@ public class TotoroTest {
 
         Settlement settlement = board.getSettlement(TestCoordinate1);
         assertEquals(5, settlement.getSettlementSize());
+        assertEquals(false, settlement.containsTotoro(board));
 
         Coordinate target = new Coordinate(98,100);
         Hexagon targetHexagon = board.getHexagonAt(target);
@@ -75,7 +76,7 @@ public class TotoroTest {
     }
 
     @Test
-    public void buildTotoroSanctuaryFailsBecauseHexagonIsAlreadyContainsPieces() throws Exception {
+    public void buildTotoroSanctuaryFailsBecauseHexagonContainsPieces() throws Exception {
         Board board = new Board();
         board.placeStartingTile();
         Player player = new Player(Color.WHITE);
@@ -108,6 +109,7 @@ public class TotoroTest {
 
         Settlement settlement = board.getSettlement(TestCoordinate1);
         assertEquals(6, settlement.getSettlementSize());
+        assertEquals(false, settlement.containsTotoro(board));
 
         boolean isSuccess = player.buildTotoroSanctuary(target, board);
         assertEquals(false, isSuccess);
@@ -130,6 +132,95 @@ public class TotoroTest {
         assertEquals(0, player.getScore());
         assertEquals(3, player.getTotoroCount());
         assertEquals(PieceStatusHexagon.EMPTY, hexagon.getPiecesStatus());
+    }
+
+    @Test
+    public void buildTotoroSanctuaryFailsDueToSizeOfAdjacentSettlement() throws Exception {
+        Board board = new Board();
+        board.placeStartingTile();
+        Player player = new Player(Color.WHITE);
+
+        Tile tile = new Tile(Terrain.ROCK, Terrain.ROCK);
+        Coordinate coordinate = new Coordinate(98,100);
+        TileMove tileMove = new TileMove(tile, HexagonNeighborDirection.UPPERRIGHT, coordinate);
+        board.placeTile(tileMove);
+
+        Coordinate TestCoordinate1 = new Coordinate(100, 101);
+        Coordinate TestCoordinate2 = new Coordinate(99,101);
+        Coordinate TestCoordinate3 = new Coordinate(99,100);
+
+        Hexagon TestHexagon1 = board.getHexagonAt(TestCoordinate1);
+        Hexagon TestHexagon2 = board.getHexagonAt(TestCoordinate2);
+        Hexagon TestHexagon3 = board.getHexagonAt(TestCoordinate3);
+
+        TestHexagon1.setOccupationStatus(player.getColor(), PieceStatusHexagon.MEEPLE);
+        TestHexagon2.setOccupationStatus(player.getColor(), PieceStatusHexagon.MEEPLE);
+        TestHexagon3.setOccupationStatus(player.getColor(), PieceStatusHexagon.MEEPLE);
+
+        Settlement settlement = board.getSettlement(TestCoordinate1);
+        assertEquals(3, settlement.getSettlementSize());
+        assertEquals(false, settlement.containsTotoro(board));
+
+        Coordinate target = new Coordinate(98,101);
+        Hexagon targetHexagon = board.getHexagonAt(target);
+
+        boolean isSuccess = player.buildTotoroSanctuary(target, board);
+        assertEquals(false, isSuccess);
+        assertEquals(PieceStatusHexagon.EMPTY, targetHexagon.getPiecesStatus());
+        assertEquals(3, player.getTotoroCount());
+    }
+
+    @Test
+    public void buildTotoroSanctuaryFailsBecauseAdjacentSettlementAlreadyHasTotoro() throws Exception {
+        Board board = new Board();
+        board.placeStartingTile();
+        Player player = new Player(Color.WHITE);
+
+        Tile tile = new Tile(Terrain.ROCK, Terrain.ROCK);
+        Coordinate coordinate = new Coordinate(98,100);
+        TileMove tileMove = new TileMove(tile, HexagonNeighborDirection.UPPERRIGHT, coordinate);
+        board.placeTile(tileMove);
+
+        Coordinate TestCoordinate1 = new Coordinate(100, 101);
+        Coordinate TestCoordinate2 = new Coordinate(99,101);
+        Coordinate TestCoordinate3 = new Coordinate(99,100);
+        Coordinate TestCoordinate4 = new Coordinate(99,99);
+        Coordinate TestCoordinate5 = new Coordinate(100,99);
+
+        Hexagon TestHexagon1 = board.getHexagonAt(TestCoordinate1);
+        Hexagon TestHexagon2 = board.getHexagonAt(TestCoordinate2);
+        Hexagon TestHexagon3 = board.getHexagonAt(TestCoordinate3);
+        Hexagon TestHexagon4 = board.getHexagonAt(TestCoordinate4);
+        Hexagon TestHexagon5 = board.getHexagonAt(TestCoordinate5);
+
+        TestHexagon1.setOccupationStatus(player.getColor(), PieceStatusHexagon.MEEPLE);
+        TestHexagon2.setOccupationStatus(player.getColor(), PieceStatusHexagon.MEEPLE);
+        TestHexagon3.setOccupationStatus(player.getColor(), PieceStatusHexagon.MEEPLE);
+        TestHexagon4.setOccupationStatus(player.getColor(), PieceStatusHexagon.MEEPLE);
+        TestHexagon5.setOccupationStatus(player.getColor(), PieceStatusHexagon.MEEPLE);
+
+        Settlement settlement = board.getSettlement(TestCoordinate1);
+        assertEquals(5, settlement.getSettlementSize());
+        assertEquals(false, settlement.containsTotoro(board));
+
+        Coordinate target = new Coordinate(98,100);
+        Hexagon targetHexagon = board.getHexagonAt(target);
+        targetHexagon.changeTerrainTypeThoughExplosion(Terrain.ROCK);
+
+        boolean isSuccess = player.buildTotoroSanctuary(target, board);
+        assertEquals(true, isSuccess);
+        assertEquals(PieceStatusHexagon.TOTORO, targetHexagon.getPiecesStatus());
+        assertEquals(2, player.getTotoroCount());
+        assertEquals(200, player.getScore());
+
+        target = new Coordinate(98,101);
+        targetHexagon = board.getHexagonAt(target);
+
+        isSuccess = player.buildTotoroSanctuary(target, board);
+        assertEquals(false, isSuccess);
+        assertEquals(PieceStatusHexagon.EMPTY, targetHexagon.getPiecesStatus());
+        assertEquals(2, player.getTotoroCount());
+        assertEquals(200, player.getScore());
     }
 
     private Board getBasicBoardWithHexagonAroundStartWithWhiteMeeples(){
