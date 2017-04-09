@@ -58,6 +58,41 @@ public class TileMoveTest
     }
 
     @Test
+    public void invalidPlacementDueToNotEnoughOpenGapsTest(){
+        Board board = new Board();
+        Player player = new Player(Color.BLACK);
+
+        Tile tile_01 = new Tile(Terrain.ROCK, Terrain.JUNGLE);
+        Tile tile_02 = new Tile(Terrain.GRASS, Terrain.LAKE);
+
+        TileMove tileMove_01 = new TileMove(tile_01, HexagonNeighborDirection.RIGHT, new Coordinate(97, 101));
+        TileMove tileMove_02 = new TileMove(tile_02, HexagonNeighborDirection.LEFT, new Coordinate(99, 100));
+
+        //check if first move was valid (leaves a gap at 99,100)
+        board.placeTile(tileMove_01);
+        Coordinate TestCoordinate1 = new Coordinate(97,101);
+        Coordinate TestCoordinate2 = new Coordinate(98,101);
+        Coordinate TestCoordinate3 = new Coordinate(98,100);
+        assertEquals(Terrain.VOLCANO, board.getHexagonAt(TestCoordinate1).getTerrain());
+        assertEquals(Terrain.ROCK, board.getHexagonAt(TestCoordinate2).getTerrain());
+        assertEquals(Terrain.JUNGLE, board.getHexagonAt(TestCoordinate3).getTerrain());
+        boolean success = board.placeTile(tileMove_01);
+        assertEquals(true, success);
+
+        //check if second tile move is valid(it should not be, even though there is a gap, tile will have overlap)
+        board.placeTile(tileMove_02);
+        Coordinate TestCoordinate4 = new Coordinate(99,100);
+        Coordinate TestCoordinate5 = new Coordinate(98,100);
+        Coordinate TestCoordinate6 = new Coordinate(98,101);
+        assertEquals(Terrain.VOLCANO, board.getHexagonAt(TestCoordinate4).getTerrain());
+        assertEquals(Terrain.GRASS, board.getHexagonAt(TestCoordinate5).getTerrain());
+        assertEquals(Terrain.LAKE, board.getHexagonAt(TestCoordinate6).getTerrain());
+        boolean isPlacingOverTileOne = board.placeTile(tileMove_02);
+        assertEquals(true, isPlacingOverTileOne);
+
+    }
+
+    @Test
     public void overwriteLevelOneShouldSucceedWhenValid() {
         Board board = new Board();
         board.placeStartingTile();
@@ -71,7 +106,6 @@ public class TileMoveTest
         TileMove tileMove2 = new TileMove(tile2, HexagonNeighborDirection.UPPERRIGHT, new Coordinate(99, 100));
 
         boolean isSuccess = board.placeTile(tileMove2);
-
         assertEquals(true, isSuccess);
     }
 
