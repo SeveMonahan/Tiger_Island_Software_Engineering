@@ -16,13 +16,17 @@ public class PostMan {
     private static boolean gameOver = false;
     private static boolean readGameOneScore = false;
     private static boolean roundsOver = false;
-    private Match match_01;
-    private Match match_02;
+    private static Match match_01;
+    private static Match match_02;
 
-    private LinkedList<GameMoveIncomingTransmission> mailBox;
+    private LinkedList<GameMoveIncomingTransmission> tileMailBox;
+    private LinkedList<GameMoveIncomingTransmission> moveMailBox; // For network player moves
 
     // This will be execute everytime we want to start a match
     public void StartMatch() {
+        tileMailBox = new LinkedList<>();
+        moveMailBox = new LinkedList<>();
+
         PlayerController ai_01 = new DumbController(Color.BLACK);
         NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE);
 
@@ -37,24 +41,38 @@ public class PostMan {
     }
 
     public void postNetworkPlayerMessage(GameMoveIncomingTransmission gameMoveIncomingTransmission) {
-        mailBox.push(gameMoveIncomingTransmission);
-        notifyAll(); // We have a new message... please check if you can use it.
+        moveMailBox.push(gameMoveIncomingTransmission);
+        notifyAll();
     }
 
     public void postTileMessage(GameMoveIncomingTransmission gameMoveIncomingTransmission) {
-        mailBox.push(gameMoveIncomingTransmission);
-        notifyAll(); // We have a new message... please check if you can use it.
+        tileMailBox.push(gameMoveIncomingTransmission);
+        notifyAll();
     }
 
-    public synchronized GameMoveIncomingTransmission accessTileMailBox(String gid) {
-        GameMoveIncomingTransmission gameMoveIncomingTransmission = null;
-        // Search to see if we have a message with the correct gameID here
-        return gameMoveIncomingTransmission;
+    public synchronized Tile accessTileMailBox(String gid) {
+        Tile tile = null;
+
+        for(GameMoveIncomingTransmission gameMoveIncomingTransmission : tileMailBox) {
+            if(gameMoveIncomingTransmission.getGid() == gid) {
+                tile = gameMoveIncomingTransmission.getTileMove().getTile();
+                tileMailBox.remove(gameMoveIncomingTransmission);
+                return tile;
+            }
+        }
+        return tile;
     }
 
     public synchronized GameMoveIncomingTransmission accessNetworkMailBox(String gid) {
         GameMoveIncomingTransmission gameMoveIncomingTransmission = null;
-        // Search to see if we have a message with the correct gameID here
+
+        for(GameMoveIncomingTransmission gameMoveIncomingTransmission1 : moveMailBox) {
+            if(gameMoveIncomingTransmission.getGid() == gid) {
+                gameMoveIncomingTransmission = gameMoveIncomingTransmission1;
+                moveMailBox.remove(gameMoveIncomingTransmission1);
+                return gameMoveIncomingTransmission;
+            }
+        }
         return gameMoveIncomingTransmission;
     }
 
