@@ -9,6 +9,7 @@ import java.util.Queue;
 
 public class GenuisAIController implements PlayerController {
     Color color;
+    long startTime;
 
     public GenuisAIController(Color color){
         this.color = color;
@@ -68,8 +69,6 @@ public class GenuisAIController implements PlayerController {
         if(!result.isEmpty()){
             return result;
         }
-
-        System.out.println("Fallthrough A");
 
         for(int i = 94; i <= 106; i++){
             for(int j= 94; j <= 106; j++){
@@ -246,9 +245,12 @@ public class GenuisAIController implements PlayerController {
                 bestNetScoreGain = netScoreGain;
             }
 
-        }
+            if(System.currentTimeMillis() - startTime > 1000){
+                System.out.println("PANIC!");
+                return best_state;
+            }
 
-        System.out.println(System.currentTimeMillis() - startTime);
+        }
 
         return best_state;
     }
