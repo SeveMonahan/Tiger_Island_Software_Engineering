@@ -21,6 +21,8 @@ public class PostMan {
 
     private LinkedList<GameMoveIncomingTransmission> tileMailBox;
     private LinkedList<GameMoveIncomingTransmission> moveMailBox; // For network player moves
+    private LinkedList<String> AIMailBox; // For network player moves
+
 
     // This will be execute everytime we want to start a match
     public void StartMatch() {
@@ -48,6 +50,12 @@ public class PostMan {
     public void postTileMessage(GameMoveIncomingTransmission gameMoveIncomingTransmission) {
         tileMailBox.push(gameMoveIncomingTransmission);
         notifyAll();
+    }
+
+    public synchronized void mailAIMessages(GameMoveIncomingTransmission gameMoveIncomingTransmission) {
+        Marshaller marshaller = new Marshaller();
+        String parsedString = marshaller.convertTileMoveAndConstructionMoveToString(gameMoveIncomingTransmission);
+        AIMailBox.push(parsedString);
     }
 
     public synchronized Tile accessTileMailBox(String gid) {
