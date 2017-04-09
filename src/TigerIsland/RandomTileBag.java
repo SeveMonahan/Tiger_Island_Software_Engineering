@@ -27,16 +27,12 @@ public class RandomTileBag implements TileBag {
     }
 
     private void permutationForAllTiles() {
-        for (Terrain terrain_1 : Terrain.values() ) {
-            for ( Terrain terrain_2 : Terrain.values() ) {
-                if( terrain_1 != Terrain.VOLCANO && terrain_1 != Terrain.EMPTY &&
-                        terrain_2 != Terrain.VOLCANO && terrain_2 != Terrain.EMPTY) {
-
-                    Tile newTile = new Tile(terrain_1, terrain_2);
-                    this.bag.push(newTile);
-                    this.bag.push(newTile);
-                    this.bag.push(newTile);
-                }
+        for(Terrain terrain_1 : new Terrain[]{Terrain.GRASS, Terrain.JUNGLE, Terrain.LAKE, Terrain.ROCK}){
+            for(Terrain terrain_2 : new Terrain[]{Terrain.GRASS, Terrain.JUNGLE, Terrain.LAKE, Terrain.ROCK}){
+                Tile newTile = new Tile(terrain_1, terrain_2);
+                this.bag.push(newTile);
+                this.bag.push(newTile);
+                this.bag.push(newTile);
 
             }
         }
