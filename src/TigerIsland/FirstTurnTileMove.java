@@ -1,7 +1,5 @@
 package TigerIsland;
 
-import org.omg.CORBA.UNKNOWN;
-
 public class FirstTurnTileMove extends TileMove{
 
     public FirstTurnTileMove(){

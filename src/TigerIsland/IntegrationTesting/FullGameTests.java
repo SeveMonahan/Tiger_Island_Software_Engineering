@@ -7,8 +7,9 @@ public class FullGameTests {
     @Test
     public void FullGameTest_01() {
         String gid = "bullshit";
+        // BLACK MUST BE PLAYER 1
         PlayerController ai_01 = new GenuisAIController(Color.BLACK);
-        PlayerController ai_02 = new DumbController(Color.WHITE);
+        PlayerController ai_02 = new GenuisAIController(Color.WHITE);
         OutputPlayerActions logger = new OutputPlayerLogger(gid, Color.BLACK );
         TileBag tileBag = new RandomTileBag();
 

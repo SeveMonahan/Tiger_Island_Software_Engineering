@@ -10,6 +10,11 @@ public class TileMoveChecker {
 
     // Methods
     public boolean checkForValidity(TileMove tileMove, Board board) {
+
+        if(tileMove instanceof FirstTurnTileMove){
+            return true;
+        }
+
         this.board = board;
         this.tileMove = tileMove;
         this.underneathHexagons = getHexagonsUnderneathTile();

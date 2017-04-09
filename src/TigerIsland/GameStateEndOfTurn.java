@@ -37,6 +37,10 @@ public class GameStateEndOfTurn extends GameState implements Comparable<GameStat
     private int adjacent_hexs_score(){
         TileMove tileMove = getLastTileMove();
 
+        if(tileMove instanceof FirstTurnTileMove){
+            return 0;
+        }
+
         Coordinate coordinates[] = new Coordinate[3];
 
         Coordinate c_1 = coordinates[0] = tileMove.getCoordinate();
