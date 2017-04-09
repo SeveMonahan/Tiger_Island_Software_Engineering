@@ -50,7 +50,7 @@ public class SettlementDefinitions {
             ChosenOne = playerTwo;
         }
 
-        ChosenOne.placeMeepleOnHexagon(new Coordinate(arg1, arg2), SettlementBoard);
+        ChosenOne.foundSettlement(new Coordinate(arg1, arg2), SettlementBoard);
 
 
     }

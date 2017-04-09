@@ -54,7 +54,7 @@ public class Player {
         meepleCount -= num;
     }
 
-    public boolean placeTotoroOnHexagon(Coordinate coordinate, Board board) {
+    public boolean buildTotoroSanctuary(Coordinate coordinate, Board board) {
         TotoroConstructionMove totoroMove = new TotoroConstructionMove(coordinate);
 
         if(totoroMove.canPerformMove(this, board)){
@@ -63,20 +63,29 @@ public class Player {
         }
         return false;
     }
-    public boolean placeTigerOnHexagon(Coordinate coordinate, Board board) {
+    public boolean buildTigerPlayground(Coordinate coordinate, Board board) {
         TigerConstructionMove tigerMove = new TigerConstructionMove(coordinate);
 
-        if(tigerMove.canPerformMove(this, board)){
+        if(tigerMove.canPerformMove(this, board)) {
             tigerMove.makePreverifiedMove(this, board);
             return true;
         }
         return false;
     }
-    public boolean placeMeepleOnHexagon(Coordinate coordinate, Board board) {
+    public boolean foundSettlement(Coordinate coordinate, Board board) {
         FoundSettlementConstructionMove foundMove = new FoundSettlementConstructionMove(coordinate);
 
-        if(foundMove.canPerformMove(this, board)){
+        if(foundMove.canPerformMove(this, board)) {
             foundMove.makePreverifiedMove(this, board);
+            return true;
+        }
+        return false;
+    }
+    public boolean expandSettlement(Coordinate coordinate, Board board, Terrain terrain) {
+        ExpandSettlementConstructionMove expandMove = new ExpandSettlementConstructionMove(coordinate, terrain);
+
+        if(expandMove.canPerformMove(this, board)) {
+            expandMove.makePreverifiedMove(this, board);
             return true;
         }
         return false;

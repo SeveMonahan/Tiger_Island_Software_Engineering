@@ -7,9 +7,8 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class CoordinateTest {
-
     @Test
-    public void convertToSquare() throws Exception{
+    public void convertToSquare() throws Exception {
         Coordinate testCoordinate = new Coordinate(1,-1,0);
         assertEquals(101, testCoordinate.getX());
         assertEquals(100, testCoordinate.getY());
@@ -47,10 +46,8 @@ public class CoordinateTest {
         assertEquals(99, testCoordinate9.getY());
     }
 
-
     @Test
-    public void convertToCubeCordinates() throws Exception{
-
+    public void convertToCubeCordinates() throws Exception {
         Coordinate testCoordinate = new Coordinate(101,100);
         int result[] = testCoordinate.ConvertToCube();
         int testResult[] = {1,-1,0};
@@ -91,5 +88,4 @@ public class CoordinateTest {
         int testResult9[] = {1,-2,1};
         assertArrayEquals(testResult9, result9);
     }
-
 }

@@ -51,8 +51,5 @@ public class ExpandSettlementConstructionMove extends ConstructionMoveJustCoordi
             hexagon.setOccupationStatus(player.getColor(), PieceStatusHexagon.MEEPLE);
             player.addScore(hexagon.getLevel() * hexagon.getLevel());
         }
-
-
     }
-
 }

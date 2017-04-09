@@ -40,7 +40,7 @@ public class TotoroTest {
         Coordinate coordinate = new Coordinate(101,100).getNeighboringCoordinateAt(HexagonNeighborDirection.LEFT);
         Player player = new Player(Color.WHITE);
 
-        player.placeTotoroOnHexagon(coordinate, board);
+        player.buildTotoroSanctuary(coordinate, board);
 
         assertEquals(0, player.getScore());
         assertEquals(3, player.getTotoroCount());
@@ -56,7 +56,7 @@ public class TotoroTest {
         Player player = new Player(Color.WHITE);
 
         Coordinate coordinate = new Coordinate(101,100);
-        player.placeTotoroOnHexagon(coordinate, board);
+        player.buildTotoroSanctuary(coordinate, board);
 
         assertEquals(0, player.getScore());
         assertEquals(3, player.getTotoroCount());
@@ -73,7 +73,7 @@ public class TotoroTest {
         Player player = new Player(Color.WHITE);
 
         for(HexagonNeighborDirection direction : HexagonNeighborDirection.values()) {
-            assertEquals(true, player.placeMeepleOnHexagon(new Coordinate(100, 100).getNeighboringCoordinateAt(direction), board));
+            assertEquals(true, player.foundSettlement(new Coordinate(100, 100).getNeighboringCoordinateAt(direction), board));
         }
 
         return board;
@@ -84,7 +84,7 @@ public class TotoroTest {
         Board board = getBasicBoardWithHexagonAroundStartWithWhiteMeeples();
         Settlement settlement = board.getSettlement(new Coordinate(100, 101) );
 
-        assertEquals(false, settlement.getSettlementContainsTotoro(board));
+        assertEquals(false, settlement.containsTotoro(board));
         assertEquals(6, settlement.getSettlementSize());
     }
 
@@ -94,7 +94,7 @@ public class TotoroTest {
 
         Board board = getBasicBoardWithHexagonAroundStartWithWhiteMeeples();
 
-        boolean result = player.placeTotoroOnHexagon(new Coordinate(98, 99), board);
+        boolean result = player.buildTotoroSanctuary(new Coordinate(98, 99), board);
 
         assertEquals(true, result);
     }
