@@ -133,8 +133,8 @@ public class SmartAIController implements PlayerController {
         int minY = board.getMinYRange();
         int maxY = board.getMaxYRange();
 
-        for(int i = 97; i < 103; i++){
-            for(int j= 97; j < 103; j++){
+        for(int i = 96; i < 104; i++){
+            for(int j= 96; j < 104; j++){
                 Coordinate coordinate = new Coordinate(i,j);
 
                 if(board.getHexagonAt(coordinate).getTerrain() == Terrain.EMPTY){
@@ -212,7 +212,7 @@ public class SmartAIController implements PlayerController {
             for (GameStateEndOfTurn current_child : leaf_list) {
                 pqueue.add(current_child);
 
-                if(pqueue.size() > 4){
+                if(pqueue.size() > 40){
                     pqueue.poll();
                 }
             }
@@ -226,7 +226,6 @@ public class SmartAIController implements PlayerController {
         long startTime = System.currentTimeMillis();
 
         PriorityQueue<GameStateEndOfTurn> pqueue = bestNewGameStates(gameStateWTile);
-        assert(pqueue.size() <= 4);
 
         GameStateEndOfTurn best_state = null;
 
