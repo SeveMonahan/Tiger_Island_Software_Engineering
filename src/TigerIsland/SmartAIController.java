@@ -11,8 +11,29 @@ public class SmartAIController implements PlayerController {
         restriction_number = 0;
     }
 
+    private int adjacent_hexs_score(TileMove tileMove, Board board){
+        Coordinate coordinates[] = new Coordinate[3];
+
+        Coordinate c_1 = coordinates[0] = tileMove.getCoordinate();
+        coordinates[1] = c_1.getNeighboringCoordinateAt(tileMove.getDirection());
+        coordinates[2] = c_1.getNeighboringCoordinateAt(tileMove.getDirection().getNextClockwise());
+
+        int result = 0;
+
+        for(HexagonNeighborDirection direction : HexagonNeighborDirection.values()){
+            for(int i = 0; i < 3; i++){
+                Coordinate neighbor = coordinates[i].getNeighboringCoordinateAt(direction);
+                if(board.getHexagonAt(neighbor).getLevel() != 0){
+                    result++;
+                }
+            }
+        }
+
+        return result;
+    }
+
     private ArrayList<GameStateBeforeBuildAction> getCloseTiles(GameStateWTile gameStateWTile){
-        ArrayList<GameStateBeforeBuildAction> result = gameStateWTile.getChildren();
+        ArrayList<GameStateBeforeBuildAction> result = new ArrayList<GameStateBeforeBuildAction>();
 
         Board board = gameStateWTile.getBoard();
         Tile tile = gameStateWTile.getTile();
@@ -66,11 +87,9 @@ public class SmartAIController implements PlayerController {
         }
 
         if(!result.isEmpty()){
-            restriction_number += 2;
+            restriction_number += 3;
             return result;
         }
-
-        restriction_number = 0;
 
         for(int i = minX; i < maxX; i++){
             for(int j= minY; j < maxY; j++){
@@ -92,6 +111,12 @@ public class SmartAIController implements PlayerController {
             }
         }
 
+        restriction_number -= 2;
+
+        if(restriction_number < 0){
+            restriction_number = 0;
+        }
+
         return result;
 
     }
@@ -103,13 +128,24 @@ public class SmartAIController implements PlayerController {
 
         int bestScoreSoFar = -1;
 
+        int bestScoresNeighborScore = -1;
+
         for (GameStateBeforeBuildAction gameState : beforeBuildActions) {
             ArrayList<GameStateEndOfTurn> leaf_list = gameState.getChildren();
+            int neighbor_score = adjacent_hexs_score(gameState.getLastTileMove(), gameState.getBoard());
+
             for (GameStateEndOfTurn current_child : leaf_list) {
                 if (current_child.activePlayerScore() > bestScoreSoFar) {
                     result = current_child;
                     bestScoreSoFar = current_child.activePlayerScore();
+                    bestScoresNeighborScore = neighbor_score;
                     System.out.println(bestScoreSoFar);
+                }else if (current_child.activePlayerScore() == bestScoreSoFar){
+                    if(neighbor_score > bestScoresNeighborScore){
+                        result = current_child;
+                        bestScoresNeighborScore = neighbor_score;
+                        System.out.println("Win using Neighbor Score.");
+                    }
                 }
             }
 
