@@ -257,6 +257,9 @@ public class SettlementExpansionTest
 
         player.foundSettlement(sourceCoordinate, TestBoard);
 
+        assertEquals(19, player.getMeeplesCount());
+        assertEquals(PieceStatusHexagon.MEEPLE, TestBoard.getHexagonAt(sourceCoordinate).getPiecesStatus());
+
         boolean isSuccess = player.expandSettlement(sourceCoordinate, TestBoard, Terrain.GRASS);
 
         assertEquals(true, isSuccess);
@@ -273,7 +276,7 @@ public class SettlementExpansionTest
         assertEquals(Color.BLACK, TestHexagon2.getOccupationColor());
         assertEquals(Color.BLACK, TestHexagon3.getOccupationColor());
 
-        assertEquals(16, player.getMeeplesCount());
+        assertEquals(14, player.getMeeplesCount());
         assertEquals(10, player.getScore());
 
         Settlement settlement = TestBoard.getSettlement(sourceCoordinate);

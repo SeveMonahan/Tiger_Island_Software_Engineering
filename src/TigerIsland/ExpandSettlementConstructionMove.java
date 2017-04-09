@@ -35,7 +35,11 @@ public class ExpandSettlementConstructionMove extends ConstructionMoveJustCoordi
         }
 
         Settlement settlement = board.getSettlement(coordinate);
-        totalMeeplesNeeded = settlement.expandSettlementFloodFill(board, player, terrain).size();
+        Queue<Coordinate> settlementCoordinates = settlement.expandSettlementFloodFill(board, player, terrain);
+        totalMeeplesNeeded = 0;
+        for (Coordinate coordinate : settlementCoordinates) {
+            totalMeeplesNeeded += board.getHexagonAt(coordinate).getLevel();
+        }
 
         return totalMeeplesNeeded != 0 && totalMeeplesNeeded <= player.getMeeplesCount();
     }
