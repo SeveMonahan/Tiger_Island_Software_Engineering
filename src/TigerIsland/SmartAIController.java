@@ -99,27 +99,20 @@ public class SmartAIController implements PlayerController {
     public GameStateEndOfTurn newGameState(GameStateWTile gameStateWTile) {
         ArrayList<GameStateBeforeBuildAction> beforeBuildActions = getCloseTiles(gameStateWTile);
 
-        ArrayList<GameStateEndOfTurn> final_children = new ArrayList<GameStateEndOfTurn>();
+        GameStateEndOfTurn result = null;
+
+        int bestScoreSoFar = -1;
 
         for (GameStateBeforeBuildAction gameState : beforeBuildActions) {
             ArrayList<GameStateEndOfTurn> leaf_list = gameState.getChildren();
-            for (GameStateEndOfTurn new_final_child : leaf_list) {
-                final_children.add(new_final_child);
+            for (GameStateEndOfTurn current_child : leaf_list) {
+                if (current_child.activePlayerScore() > bestScoreSoFar) {
+                    result = current_child;
+                    bestScoreSoFar = current_child.activePlayerScore();
+                    System.out.println(bestScoreSoFar);
+                }
             }
 
-        }
-
-        GameStateEndOfTurn result = final_children.get(0);
-
-        int bestScoreSoFar = 0;
-
-        for (GameStateEndOfTurn current_child : final_children) {
-
-            if (current_child.activePlayerScore() > bestScoreSoFar) {
-                result = current_child;
-                bestScoreSoFar = current_child.activePlayerScore();
-                System.out.println(bestScoreSoFar);
-            }
         }
 
         return result;
