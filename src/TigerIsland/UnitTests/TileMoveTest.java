@@ -60,6 +60,7 @@ public class TileMoveTest
     @Test
     public void invalidPlacementDueToNotEnoughOpenGapsTest(){
         Board board = new Board();
+        board.placeStartingTile();
         Player player = new Player(Color.BLACK);
 
         Tile tile_01 = new Tile(Terrain.ROCK, Terrain.JUNGLE);
@@ -69,27 +70,24 @@ public class TileMoveTest
         TileMove tileMove_02 = new TileMove(tile_02, HexagonNeighborDirection.LEFT, new Coordinate(99, 100));
 
         //check if first move was valid (leaves a gap at 99,100)
-        board.placeTile(tileMove_01);
+        boolean success = board.placeTile(tileMove_01);
+        assertEquals(true, success);
         Coordinate TestCoordinate1 = new Coordinate(97,101);
         Coordinate TestCoordinate2 = new Coordinate(98,101);
         Coordinate TestCoordinate3 = new Coordinate(98,100);
         assertEquals(Terrain.VOLCANO, board.getHexagonAt(TestCoordinate1).getTerrain());
         assertEquals(Terrain.ROCK, board.getHexagonAt(TestCoordinate2).getTerrain());
         assertEquals(Terrain.JUNGLE, board.getHexagonAt(TestCoordinate3).getTerrain());
-        boolean success = board.placeTile(tileMove_01);
-        assertEquals(true, success);
 
         //check if second tile move is valid(it should not be, even though there is a gap, tile will have overlap)
-        board.placeTile(tileMove_02);
+        boolean isPlacingOverTileOne = board.placeTile(tileMove_02);
+        assertEquals(false, isPlacingOverTileOne);
         Coordinate TestCoordinate4 = new Coordinate(99,100);
         Coordinate TestCoordinate5 = new Coordinate(98,100);
         Coordinate TestCoordinate6 = new Coordinate(98,101);
-        assertEquals(Terrain.VOLCANO, board.getHexagonAt(TestCoordinate4).getTerrain());
-        assertEquals(Terrain.GRASS, board.getHexagonAt(TestCoordinate5).getTerrain());
-        assertEquals(Terrain.LAKE, board.getHexagonAt(TestCoordinate6).getTerrain());
-        boolean isPlacingOverTileOne = board.placeTile(tileMove_02);
-        assertEquals(true, isPlacingOverTileOne);
-
+        assertEquals(Terrain.EMPTY, board.getHexagonAt(TestCoordinate4).getTerrain());
+        assertEquals(Terrain.JUNGLE, board.getHexagonAt(TestCoordinate5).getTerrain());
+        assertEquals(Terrain.ROCK, board.getHexagonAt(TestCoordinate6).getTerrain());
     }
 
     @Test

@@ -28,7 +28,6 @@ public class TotoroConstructionMove extends ConstructionMoveJustCoordinate {
 
         Coordinate[] neighbors = coordinate.getNeighboringCoordinates();
         for(int i = 0; i < 6; i++){
-            // TODO Need to test case where we place next to another players settlement...
             Settlement settlement = board.getSettlement(neighbors[i]);
             if(settlement.getSettlementSize() >= 5 && !settlement.containsTotoro(board) &&
                     color == board.getHexagonAt(neighbors[i]).getOccupationColor() ){
