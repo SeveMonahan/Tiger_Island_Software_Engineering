@@ -11,6 +11,7 @@ public class GameStateWTile extends GameState {
 
     GameStateWTile(GameStateEndOfTurn original, Tile tile) {
         super(original);
+        this.changeTurn();
         this.tile = tile;
     }
 

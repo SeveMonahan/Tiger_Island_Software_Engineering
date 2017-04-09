@@ -9,7 +9,6 @@ public class GameStateEndOfTurn extends GameState {
     private GameStateEndOfTurn(GameStateBeforeBuildAction original, ConstructionMoveInternal move) {
         super(original);
         move.makePreverifiedMove(playerWhoseTurn, board);
-        this.changeTurn();
         lastConstructionMove = move;
     }
 
