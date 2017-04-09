@@ -1,9 +1,6 @@
 package TigerIsland;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 public class GenuisAIController implements PlayerController {
     Color color;
@@ -180,9 +177,21 @@ public class GenuisAIController implements PlayerController {
     private Queue<ConstructionMoveInternal> getConstructionMovePossibilities(Coordinate coordinate, Board board) {
         Queue<ConstructionMoveInternal> result = new LinkedList<>();
 
+        HashMap map = new HashMap();
+
         if(board.getHexagonAt(coordinate).containsPieces()){
+            if(map.containsKey(coordinate)){
+                return result;
+            }
+
             for(Terrain terrain : new Terrain[]{Terrain.GRASS, Terrain.JUNGLE, Terrain.LAKE, Terrain.ROCK}){
                 result.add(new ExpandSettlementConstructionMove(coordinate, terrain));
+                Settlement settlement = board.getSettlement(coordinate);
+                Coordinate settlementCoordinates[] = settlement.getSettlementCoordinates();
+
+                for (Coordinate settlementCoordinate : settlementCoordinates) {
+                    map.put(settlementCoordinate, true);
+                }
             }
             return result;
         }
@@ -267,6 +276,7 @@ public class GenuisAIController implements PlayerController {
 
         }
 
+        System.out.println(getElapsedTime());
         return best_state;
     }
 }

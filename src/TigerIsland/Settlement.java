@@ -19,6 +19,10 @@ public class Settlement {
     }
 
     // Methods
+    public Coordinate[] getSettlementCoordinates() {
+        return settlement;
+    }
+
     public int getSettlementSize() {
         return settlement.length;
     }
