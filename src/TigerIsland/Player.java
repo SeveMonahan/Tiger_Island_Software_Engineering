@@ -101,6 +101,6 @@ public class Player {
         if(meepleCount == 0)
             piecesDepleted++;
 
-        return piecesDepleted > 2;
+        return piecesDepleted >= 2;
     }
 }
