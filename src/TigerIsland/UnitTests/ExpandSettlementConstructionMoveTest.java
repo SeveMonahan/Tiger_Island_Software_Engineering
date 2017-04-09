@@ -90,15 +90,19 @@ public class ExpandSettlementConstructionMoveTest {
 
         Color Player_Color = Color.WHITE;
         Player player_1 = new Player(Player_Color);
+
         //found a settlement on lower right hex (uses 1 meeple)
         FoundSettlementConstructionMove move1 = new FoundSettlementConstructionMove(SourceCoordinate);
         assertEquals(true, move1.canPerformMove(player_1, board));
+
         move1.makePreverifiedMove(player_1, board);
         assertEquals(19, player_1.getMeeplesCount());
         assertEquals(PieceStatusHexagon.MEEPLE, board.getHexagonAt(SourceCoordinate).getPiecesStatus());
+
         //rockCoordinate is a rock hex that is to the left of lower right (use 1 meeple)
         Coordinate rockCoordinate = new Coordinate(99,99);
         Hexagon lowerLeft = board.getHexagonAt(rockCoordinate);
+
         //create a grass hex that is of level one (should use 0 meeples)
         Coordinate rockCoordinate2 = new Coordinate(98,99);
         Hexagon grassHex = board.getHexagonAt(rockCoordinate2);
@@ -106,11 +110,12 @@ public class ExpandSettlementConstructionMoveTest {
         assertEquals(1, board.getHexagonAt(SourceCoordinate).getLevel());
         assertEquals(1, lowerLeft.getLevel());
         assertEquals(1, grassHex.getLevel());
+
         //when settlement is expanded it should use a total of 2 meelpes leaving a count of 16
         ExpandSettlementConstructionMove move2 = new ExpandSettlementConstructionMove(SourceCoordinate, Terrain.ROCK);
         assertEquals(true, move2.canPerformMove(player_1, board));
-        move2.makePreverifiedMove(player_1, board);
 
+        move2.makePreverifiedMove(player_1, board);
         Settlement settlement = board.getSettlement(SourceCoordinate);
         assertEquals(2, settlement.getSettlementSize());
         assertEquals(PieceStatusHexagon.EMPTY, grassHex.getPiecesStatus());
