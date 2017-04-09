@@ -68,9 +68,6 @@ public class SmartAIController implements PlayerController {
             }
         }
 
-        if(!result.isEmpty())
-            return result;
-
         for(int i = minX + restriction_number; i < maxX - restriction_number; i++){
             for(int j= minY + restriction_number; j < maxY - restriction_number; j++){
                 Coordinate current_coordinate = new Coordinate(i, j);
