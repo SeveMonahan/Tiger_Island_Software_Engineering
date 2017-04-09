@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class GameStateWTile extends GameState {
     private Tile tile;
 
+    Tile getTile(){
+        return tile;
+    }
+
     GameStateWTile(GameStateEndOfTurn original, Tile tile) {
         super(original);
         this.tile = tile;

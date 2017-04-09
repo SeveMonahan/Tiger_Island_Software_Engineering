@@ -7,8 +7,8 @@ public class FullGameTests {
     @Test
     public void FullGameTest_01() {
         String gid = "bullshit";
-        DumbController ai_01 = new DumbController(Color.BLACK);
-        DumbController ai_02 = new DumbController(Color.WHITE);
+        SmartAIController ai_01 = new SmartAIController(Color.BLACK);
+        SmartAIController ai_02 = new SmartAIController(Color.WHITE);
         OutputPlayerActions logger = new OutputPlayerLogger(gid, Color.BLACK );
         TileBag tileBag = new RandomTileBag();
         PostMan postManFaux = new PostMan();
