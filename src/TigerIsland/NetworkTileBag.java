@@ -20,8 +20,10 @@ public class NetworkTileBag implements TileBag {
         Tile tile = tileBagPostMan.accessTileMailBox(gameID);
         while(tile == null){
             try {
-                tileBagPostMan.wait();
-                tile = tileBagPostMan.accessTileMailBox(gameID);
+                synchronized (tileBagPostMan) {
+                    tileBagPostMan.wait();
+                    tile = tileBagPostMan.accessTileMailBox(gameID);
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
