@@ -139,12 +139,10 @@ public class SmartAIController implements PlayerController {
                     result = current_child;
                     bestScoreSoFar = current_child.activePlayerScore();
                     bestScoresNeighborScore = neighbor_score;
-                    System.out.println(bestScoreSoFar);
                 }else if (current_child.activePlayerScore() == bestScoreSoFar){
                     if(neighbor_score > bestScoresNeighborScore){
                         result = current_child;
                         bestScoresNeighborScore = neighbor_score;
-                        System.out.println("Win using Neighbor Score.");
                     }
                 }
             }
