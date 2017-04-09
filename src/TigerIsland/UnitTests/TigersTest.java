@@ -76,4 +76,26 @@ public class TigersTest {
         assertEquals(PieceStatusHexagon.EMPTY, targetHexagonTwo.getPiecesStatus());
         assertEquals(PieceStatusHexagon.MEEPLE, targetHexagonThree.getPiecesStatus());
     }
+
+    @Test
+    public void tigerShouldStopTilePlacement() {
+        Board board = new Board();
+        board.placeStartingTile();
+
+        Coordinate leftCoordinate = new Coordinate(99,100);
+
+        Tile tile = new Tile(Terrain.ROCK, Terrain.ROCK);
+        TileMove tileMove = new TileMove(tile, HexagonNeighborDirection.LEFT, leftCoordinate);
+
+        Coordinate target = new Coordinate(98,101);
+        Hexagon targetHexagon = board.getHexagonAt(target);
+        targetHexagon.setOccupationStatus(Color.WHITE, PieceStatusHexagon.TIGER);
+
+        tileMove = new TileMove(tile, HexagonNeighborDirection.UPPERLEFT, leftCoordinate);
+        boolean isValidMove = board.placeTile(tileMove);
+
+        assertEquals(false, isValidMove);
+        assertEquals(PieceStatusHexagon.TIGER, targetHexagon.getPiecesStatus());
+    }
+
 }
