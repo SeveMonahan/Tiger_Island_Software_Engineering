@@ -2,7 +2,6 @@ package TigerIsland;
 
 public class Parser {
     /*TODO
-        type 1 messages
         read forfeit
     */
     //reads type 1 messages (MAKE YOUR MOVE IN GAME <gid> WITHIN <timemove> SECOND: MOVE <#> PLACE <tile>)

@@ -10,6 +10,10 @@ public class GameMoveIncomingCommand {
 
     public int getMoveNumber() {return moveNumber;}
 
+    public int getTime () {
+        return time;
+    }
+
     public Tile getTile() {return tile;}
 
     public GameMoveIncomingCommand(String gid, int time, int moveNumber, Tile tile){

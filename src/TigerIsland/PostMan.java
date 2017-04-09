@@ -153,7 +153,11 @@ public class PostMan {
                     readTransmission(sendSomewhere);
                     //TODO: send this somewhere
                 }
-                else { //type 1 message (command telling us to make a move)
+                else if (message.contains("MAKE YOUR MOVE IN GAME")){ //type 1 message (command telling us to make a move)
+                    GameMoveIncomingCommand test = Parser.commandToObject(message);
+                    readCommand(test);
+                }
+                else { //couldn't read string
 
                 }
             }
@@ -168,7 +172,14 @@ public class PostMan {
         System.out.println("coordinate: " + sendSomewhere.getConstructionMoveTransmission().getCoordinate().getX() + " " + sendSomewhere.getConstructionMoveTransmission().getCoordinate().getY());
         System.out.println("---------------------------------");
     }
-
+    public static void readCommand(GameMoveIncomingCommand sendSomewhere) {
+        System.out.println("------ READING THE COMMAND ------");
+        System.out.println("gid: "+ sendSomewhere.getGid());
+        System.out.println("move number: " + sendSomewhere.getMoveNumber());
+        System.out.println("time: " + sendSomewhere.getTime());
+        System.out.println("tile: " + sendSomewhere.getTile().toString());
+        System.out.println("---------------------------------");
+    }
     private static void stringArrayPrinter(String[] arr) {
         for (String s : arr) {
             System.out.println(s);
