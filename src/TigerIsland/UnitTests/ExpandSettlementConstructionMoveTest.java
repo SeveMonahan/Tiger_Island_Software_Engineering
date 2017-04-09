@@ -134,7 +134,7 @@ public class ExpandSettlementConstructionMoveTest {
         ExpandSettlementConstructionMove move2 = new ExpandSettlementConstructionMove(lowerRight, Terrain.ROCK);
         assertEquals(true, move2.canPerformMove(player_1, board));
         move2.makePreverifiedMove(player_1, board);
-        int meeplesUsed = player_1.getMeeplesCount();
-        assertEquals(true,meeplesUsed != 16);
+        int meeplesUsed = 20-player_1.getMeeplesCount();
+        assertEquals(true,meeplesUsed != 4);
     }
 }
