@@ -30,6 +30,10 @@ public class ExpandSettlementConstructionMove extends ConstructionMoveJustCoordi
 
     @Override
     public boolean canPerformMove(Player player, Board board) {
+        if (board.getHexagonAt(coordinate).getOccupationColor() != player.getColor()){
+            return false;
+        }
+
         Settlement settlement = board.getSettlement(coordinate);
         totalMeeplesNeeded = settlement.expandSettlementFloodFill(board, player, terrain).size();
 
