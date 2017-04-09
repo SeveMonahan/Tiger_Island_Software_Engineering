@@ -11,7 +11,7 @@ public class Parser {
         final int timeIndex = 7;
         final int moveNumberIndex = 10;
         String gid = commandArray[gidIndex];
-        int time = Integer.parseInt(commandArray[timeIndex]);
+        double time = Double.parseDouble(commandArray[timeIndex]);
         int moveNumber = Integer.parseInt(commandArray[moveNumberIndex]);
         Tile tile = makeYourMoveStringToTile(command);
         return new GameMoveIncomingCommand(gid,time,moveNumber,tile);
@@ -36,7 +36,7 @@ public class Parser {
     }
 
     //returns tile from type 1
-    public static Tile makeYourMoveStringToTile(String makeYourMoveString) {
+    private static Tile makeYourMoveStringToTile(String makeYourMoveString) {
         String[] moveStringSplitBySpaceArray = makeYourMoveString.split("\\s+");
         final int tileIndex = 12;
         String tileString = moveStringSplitBySpaceArray[tileIndex];

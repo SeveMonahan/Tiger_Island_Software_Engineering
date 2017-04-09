@@ -3,20 +3,18 @@ package TigerIsland;
 public class GameMoveIncomingCommand {
     private String gid;
     private int moveNumber;
-    private int time;
+    private double time;
     private Tile tile;
 
     public String getGid() {return gid;}
 
     public int getMoveNumber() {return moveNumber;}
 
-    public int getTime () {
-        return time;
-    }
+    public double getTime () {return time;}
 
     public Tile getTile() {return tile;}
 
-    public GameMoveIncomingCommand(String gid, int time, int moveNumber, Tile tile){
+    public GameMoveIncomingCommand(String gid, double time, int moveNumber, Tile tile){
         this.gid = gid;
         this.time = time;
         this.moveNumber = moveNumber;

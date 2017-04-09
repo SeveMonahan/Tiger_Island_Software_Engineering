@@ -7,12 +7,19 @@ import static org.junit.Assert.assertEquals;
 
 public class ParserTest {
     @Test
-    public void getTileFromMakeYourMoveString(){
-        String message = "MAKE YOUR MOVE IN GAME <gid> WITHIN <timemove> SECOND: MOVE <#> PLACE JUNGLE+LAKE";
-        Tile expectedTestTile = new Tile(Terrain.JUNGLE, Terrain.LAKE);
+    public void getGameMoveIncomingCommandMakeYourMoveString(){
+        String message = "MAKE YOUR MOVE IN GAME gameId WITHIN 1.5 SECONDs: MOVE 5 PLACE JUNGLE+LAKE";
+
+        Tile expectedTile = new Tile(Terrain.JUNGLE, Terrain.LAKE);
+        GameMoveIncomingCommand expectedGameMoveIncomingCommand = new GameMoveIncomingCommand("gameId", 1.5, 5, expectedTile);
+
         Parser parser = new Parser();
-        Tile testTile = parser.makeYourMoveStringToTile(message);
-        assertEquals(expectedTestTile.getTerrainsClockwiseFromVolcano(), testTile.getTerrainsClockwiseFromVolcano());
+        GameMoveIncomingCommand testGameMoveIncomingCommand = parser.commandToObject(message);
+
+        assertEquals(expectedGameMoveIncomingCommand.getTile().getTerrainsClockwiseFromVolcano(), testGameMoveIncomingCommand.getTile().getTerrainsClockwiseFromVolcano());
+        assertEquals(expectedGameMoveIncomingCommand.getGid(), testGameMoveIncomingCommand.getGid());
+        assertEquals(expectedGameMoveIncomingCommand.getMoveNumber(), testGameMoveIncomingCommand.getMoveNumber());
+        assertEquals(expectedGameMoveIncomingCommand.getTime(), testGameMoveIncomingCommand.getTime(), 0);
     }
 
     //Founded
