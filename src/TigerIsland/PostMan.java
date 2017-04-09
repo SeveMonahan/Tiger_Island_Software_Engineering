@@ -7,6 +7,7 @@ import static java.lang.Integer.parseInt;
 //TODO: game over message from server kills both threads
 //
 public class PostMan {
+    private static PostMan myPostMan;
     private static int cid = -1;
     private static int oid = -1;
     private static int rid = -1;
@@ -24,6 +25,16 @@ public class PostMan {
     private LinkedList<GameMoveIncomingTransmission> tileMailBox;
     private LinkedList<GameMoveIncomingTransmission> moveMailBox; // For network player moves
     private LinkedList<String> AIMailBox; // For network player moves
+
+    private PostMan() {}
+
+    static PostMan grabPostMan() {
+        if( myPostMan == null ) {
+            myPostMan = new PostMan();
+        }
+        return myPostMan;
+    }
+
 
     // This will be execute everytime we want to start a match
     public void StartMatch() {

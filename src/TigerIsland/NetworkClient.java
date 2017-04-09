@@ -25,7 +25,7 @@ public class NetworkClient {
     public static int gid = 0;
     private static boolean messageSent = false;
     public static void main(String[] args) throws IOException {
-        PostMan x = new PostMan();
+        PostMan x = PostMan.grabPostMan();
         if (args.length != 5) {
             System.err.println(
                     "Arguments should be in this order:\n<hostname> <port> <tournamentPass> <username> <password>");

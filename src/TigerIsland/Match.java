@@ -7,7 +7,7 @@ public class Match implements Runnable {
     String gameID;
 
     Match(PostMan postMan, PlayerController player_01, PlayerController player_02, String gameID) {
-        OutputPlayerExample output = new OutputPlayerExample(gameID, Color.BLACK);
+        OutputPlayerAI output = new OutputPlayerAI(gameID, Color.BLACK);
         this.postMan = postMan;
         this.gameID = gameID;
         this.tileBag = new NetworkTileBag(this.postMan, this.gameID);
