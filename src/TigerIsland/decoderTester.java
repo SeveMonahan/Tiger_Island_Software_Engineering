@@ -47,7 +47,8 @@ public class decoderTester {
                 TimeUnit.SECONDS.sleep(5);
             }
             System.out.println("Postman: " + s);
-            PostMan.decoder(s);
+            PostMan d = new PostMan();
+            d.decoder(s);
             TimeUnit.SECONDS.sleep(1);
         }
 

@@ -3,6 +3,9 @@ package TigerIsland;
 public class Parser {
     /*TODO
         read forfeit
+        send client
+        outgoing mailbox
+
     */
     //reads type 1 messages (MAKE YOUR MOVE IN GAME <gid> WITHIN <timemove> SECOND: MOVE <#> PLACE <tile>)
     public static GameMoveIncomingCommand commandToObject(String command){
@@ -19,6 +22,10 @@ public class Parser {
 
     //reads type 2 messages (GAME X MOVE Y PLAYER someID [...effect of whoever])
     public static GameMoveIncomingTransmission opponentMoveStringToGameMove(String opponentMoveString){
+        if (opponentMoveString.contains("FORFEIT") || opponentMoveString.contains("LOST")) {
+            //TODO DAMMIT
+            return null;
+        }
         String[] opponentMoveStringSplitBySpaceArray = opponentMoveString.split("\\s+");
 
         final int gidIndex = 1;

@@ -63,6 +63,13 @@ public class NetworkServerTest {
                     "MAKE YOUR MOVE IN GAME A WITHIN 1 SECOND: MOVE 1 PLACE LAKE+ROCK",
                     "GAME A MOVE 1 PLAYER 65 PLACED LAKE+ROCK AT 3 3 1 2 FOUNDED SETTLEMENT AT 3 3 1",
                     "GAME B MOVE 1 PLAYER 34 PLACED JUNGLE+GRASS AT 1 2 1 1 FOUNDED SETTLEMENT AT 1 2 1",
+                    "MAKE YOUR MOVE IN GAME B WITHIN 2 SECONDS: MOVE 2 PLACE JUNGLE+GRASS",
+                    "GAME A MOVE 2 PLAYER 34 PLACED LAKE+LAKE AT 3 3 1 2 FOUNDED SETTLEMENT AT 3 3 1",
+                    "GAME B MOVE 2 PLAYER 65 PLACED JUNGLE+GRASS AT 1 2 1 1 FOUNDED SETTLEMENT AT 1 2 1",
+                    "MAKE YOUR MOVE IN GAME A WITHIN 1 SECOND: MOVE 2 PLACE JUNGLE+GRASS",
+                    "GAME A MOVE 2 PLAYER 65 PLACED LAKE+LAKE AT 3 3 1 2 FOUNDED SETTLEMENT AT 3 3 1",
+                    "GAME B MOVE 2 PLAYER 34 FORFEITED: ILLEGAL BUILD",
+                    "GAME A MOVE 2 PLAYER 34 PLACED LAKE+LAKE AT 3 3 1 2 FOUNDED SETTLEMENT AT 3 3 1",
                     "gg",
                     "GAME A OVER PLAYER 65 100 PLAYER 34 5",
                     "GAME B OVER PLAYER 65 200 PLAYER 34 150",
@@ -95,7 +102,7 @@ public class NetworkServerTest {
                     TimeUnit.SECONDS.sleep(5);
                 }
                 System.out.println("sending: " + s);
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(1);
                 out.println(s);
             }
             /*while (false) {
@@ -109,6 +116,4 @@ public class NetworkServerTest {
             System.out.println(e.getMessage());
         }
     }
-
-
 }

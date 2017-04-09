@@ -4,6 +4,8 @@ import java.util.LinkedList;
 
 import static java.lang.Integer.parseInt;
 
+//TODO: game over message from server kills both threads
+//
 public class PostMan {
     private static int cid = -1;
     private static int oid = -1;
@@ -84,8 +86,11 @@ public class PostMan {
     }
 
     private static boolean gidSet = false;
-    public static void decoder(String message) {
+    public void decoder(String message) {
         String[] arr = stringSplitter(message);
+        if (message.contains("test")) {
+            NetworkClient.setOutputLine("test");
+        }
         if (status == TournamentStatus.CHALLENGE) { //challenge protocol
             if (roundsOver) {
                 if (message.contains("END OF CHALLENGES")) {
@@ -135,6 +140,7 @@ public class PostMan {
             }
         }
         else if (status == TournamentStatus.MATCH) { //match protocol
+            StartMatch();
             if (gameOver) {
                 if (readGameOneScore) {
                     System.out.println("read game two score");
@@ -170,15 +176,22 @@ public class PostMan {
                         }
                     }
                     GameMoveIncomingTransmission sendSomewhere = Parser.opponentMoveStringToGameMove(message);
-                    readTransmission(sendSomewhere);
-                    //TODO: send this somewhere
+                    if (sendSomewhere != null) {
+                        readTransmission(sendSomewhere);
+                        postTileMessage(sendSomewhere);
+                        postNetworkPlayerMessage(sendSomewhere);
+                        NetworkClient.setOutputLine(AIMailBox.pop());
+                    }
+                    else { //if someone forfeited
+                        //TODO: KILL WHOEVER FORFEITED
+                    }
                 }
                 else if (message.contains("MAKE YOUR MOVE IN GAME")){ //type 1 message (command telling us to make a move)
                     GameMoveIncomingCommand test = Parser.commandToObject(message);
                     readCommand(test);
                 }
                 else { //couldn't read string
-
+                    System.out.println("couldn't read your string");
                 }
             }
         }
