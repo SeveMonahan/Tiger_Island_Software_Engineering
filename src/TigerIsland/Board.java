@@ -20,13 +20,13 @@ public class Board {
         return minX - 2;
     }
     public int getMaxXRange(){
-        return maxX + 2;
+        return maxX + 3;
     }
     public int getMinYRange(){
         return minY - 2;
     }
     public int getMaxYRange(){
-        return maxY + 2;
+        return maxY + 3;
     }
 
     public static Board cloneBoard(Board board) {
