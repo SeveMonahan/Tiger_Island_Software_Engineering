@@ -132,7 +132,13 @@ public class SmartAIController implements PlayerController {
 
         for(int i = 97; i < 103; i++){
             for(int j= 97; j < 103; j++){
-                Queue<ConstructionMoveInternal> ConstructionMovePossibilities = getConstructionMovePossibilities(new Coordinate(i, j), board);
+                Coordinate coordinate = new Coordinate(i,j);
+
+                if(board.getHexagonAt(coordinate).getTerrain() == Terrain.EMPTY){
+                    continue;
+                }
+
+                Queue<ConstructionMoveInternal> ConstructionMovePossibilities = getConstructionMovePossibilities(coordinate, board);
 
                 while(!ConstructionMovePossibilities.isEmpty()) {
                     GameStateEndOfTurn currentGameState = GameStateEndOfTurn.createGameStateFromConstructionMove(gameStateBeforeBuildAction,
@@ -150,7 +156,13 @@ public class SmartAIController implements PlayerController {
 
         for(int i = minX; i < maxX; i++){
             for(int j= minY; j < maxY; j++){
-                Queue<ConstructionMoveInternal> ConstructionMovePossibilities = getConstructionMovePossibilities(new Coordinate(i, j), board);
+                Coordinate coordinate = new Coordinate(i,j);
+
+                if(board.getHexagonAt(coordinate).getTerrain() == Terrain.EMPTY){
+                    continue;
+                }
+
+                Queue<ConstructionMoveInternal> ConstructionMovePossibilities = getConstructionMovePossibilities(coordinate, board);
 
                 while(!ConstructionMovePossibilities.isEmpty()) {
                     GameStateEndOfTurn currentGameState = GameStateEndOfTurn.createGameStateFromConstructionMove(gameStateBeforeBuildAction,
