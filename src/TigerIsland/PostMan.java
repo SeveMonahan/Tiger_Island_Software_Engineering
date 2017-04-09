@@ -1,6 +1,9 @@
 package TigerIsland;
 
+import sun.nio.ch.Net;
+
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Queue;
 
 import static java.lang.Integer.parseInt;
@@ -11,41 +14,50 @@ public class PostMan {
     private static int rid = 0;
     private static int rounds = 0;
     private static int currentRound = 0;
-    private static int state = 0;
+    private static TournamentStatus status;
     private static boolean gameOver = false;
     private static boolean readGameOneScore = false;
     private static boolean roundsOver = false;
-    private Referee game_01;
-    private Referee game_02;
+    private Referee referee_01;
+    private Referee referee_02;
 
-    private HashMap<String, GameMoveIncomingTransmission> mailBox;
+    private LinkedList<GameMoveIncomingTransmission> mailBox;
 
-    public static void StartChallenge() {
-        // spin up threads in here...
+    // This will be run everytime we want to start a match
+    public void StartMatch() {
+        String gid_01 = "bs1";
+        String gid_02 = "bs2";
+        AIController ai_01 = new AIController(Color.BLACK);
+        AIController ai_02 = new AIController(Color.BLACK);
+        NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE);
+        NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE);
+        OutputPlayerExample output_01 = new OutputPlayerExample(gid_01, Color.BLACK);
+        OutputPlayerExample output_02 = new OutputPlayerExample(gid_02, Color.BLACK);
+        // TODO need a different tilebag that isn't random... ?
+        TileBag tileBag_01 = new RandomTileBag();
+        TileBag tileBag_02 = new RandomTileBag();
+
+        referee_01 = new Referee(ai_01, network_01, output_01, tileBag_01, this);
+        referee_02 = new Referee(network_02, ai_02, output_02, tileBag_02, this);
+
+        referee_01.run();
+        referee_02.run();
     }
 
-    // TODO mailbox assumes we will never have multiple messages for a thread...
-    // is this dangerous? Maybe we shouldn't use a HashMap
+    public void postMessage(GameMoveIncomingTransmission gameMoveIncomingTransmission) {
+        mailBox.push(gameMoveIncomingTransmission);
+        notifyAll(); // We have a new message... please check if you can use it.
+    }
+
     public synchronized GameMoveIncomingTransmission accessMailBox(String gid) {
         GameMoveIncomingTransmission gameMoveIncomingTransmission = null;
-        if(mailBox.containsKey(gid)) {
-            gameMoveIncomingTransmission = mailBox.get(gid);
-            mailBox.remove(gid);
-            return gameMoveIncomingTransmission;
-        }
+        // Search to see if we have a message with the correct gameID here
         return gameMoveIncomingTransmission;
     }
 
-    /*
-    States:
-    0 = challenge
-    1 = round
-    2 = match
-    3 = move
-    */
     public static void decoder(String message) {
         String[] arr = stringSplitter(message);
-        if (state == 0) { //challenge protocol
+        if (status == TournamentStatus.CHALLENGE) { //challenge protocol
             if (roundsOver) {
                 if (message.contains("END OF CHALLENGES")) {
                     System.out.println("Challenges over!");
@@ -68,10 +80,10 @@ public class PostMan {
                 cid = parseInt(arr[2]);
                 rounds = parseInt(arr[6]);
                 System.out.println("grabbed cid: " + cid + " and rounds: " + rounds);
-                state++;
+                status = TournamentStatus.ROUND;
             }
         }
-        else if (state == 1) { //round protocol
+        else if (status == TournamentStatus.ROUND) { //round protocol
             if (gameOver) {
                 if (message.contains("END OF ROUND") && message.contains(" OF ")) {
                     currentRound++;
@@ -83,22 +95,22 @@ public class PostMan {
                     else {
                         gameOver = false;
                         roundsOver = true;
-                        state--;
+                        status = TournamentStatus.CHALLENGE;
                     }
                 }
             } else {
                 rid = parseInt(arr[2]);
                 rounds = parseInt(arr[4]);
                 System.out.println("grabbed rid: " + rid);
-                state++;
+                status = TournamentStatus.MATCH;
             }
         }
-        else if (state == 2) { //match protocol
+        else if (status == TournamentStatus.MATCH) { //match protocol
             if (gameOver) {
                 if (readGameOneScore) {
                     System.out.println("read game two score");
                     readGameOneScore = false;
-                    state--;
+                    status = TournamentStatus.ROUND;
                 } else {
                     readGameOneScore = true;
                     System.out.println("read game one score");
@@ -106,14 +118,14 @@ public class PostMan {
             } else {
                 oid = parseInt(arr[8]);
                 System.out.println("grabbed opponent cid: " + oid);
-                state++;
+                status = TournamentStatus.MOVE;
             }
         }
         else { //move protocol (this is where it diverges into two games)
             if (message.contains("gg")) {
                 System.out.println("gg was called for both games!");
                 gameOver = true;
-                state--;
+                status = TournamentStatus.MATCH;
             }
             else {
                 System.out.println("game(s) in progress...");

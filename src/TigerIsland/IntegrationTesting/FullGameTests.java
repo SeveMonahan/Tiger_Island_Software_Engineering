@@ -11,8 +11,9 @@ public class FullGameTests {
         AIController ai_02 = new AIController(Color.WHITE);
         OutputPlayerActions logger = new OutputPlayerLogger(gid, Color.BLACK );
         TileBag tileBag = new RandomTileBag();
+        PostMan postManFaux = new PostMan();
 
-        Referee referee = new Referee(ai_01, ai_02, logger, tileBag);
+        Referee referee = new Referee(ai_01, ai_02, logger, tileBag, postManFaux);
 
         referee.run();
     }
