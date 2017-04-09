@@ -90,7 +90,6 @@ public class ExpandSettlementConstructionMoveTest {
         Color Player_Color = Color.WHITE;
         Player player_1 = new Player(Player_Color);
 
-        // Place a meeple down on LowerRight.
         FoundSettlementConstructionMove move1 = new FoundSettlementConstructionMove(LowerRight);
         assertEquals(true, move1.canPerformMove(player_1, board));
         move1.makePreverifiedMove(player_1, board);
@@ -106,5 +105,35 @@ public class ExpandSettlementConstructionMoveTest {
         move2.makePreverifiedMove(player_1, board);
         assertEquals(17,player_1.getMeeplesCount());
 
+    }
+
+    @Test
+    public void expandOnMultipleLevelsTest() throws Exception {
+        Board board = startBoard();
+
+        Coordinate center = new Coordinate(100, 100);
+        Coordinate lowerRight = center.getNeighboringCoordinateAt(HexagonNeighborDirection.LOWERRIGHT);
+
+        Color Player_Color = Color.WHITE;
+        Player player_1 = new Player(Player_Color);
+        //found a settlement on lower right hex (uses 1 meeple)
+        FoundSettlementConstructionMove move1 = new FoundSettlementConstructionMove(lowerRight);
+        assertEquals(true, move1.canPerformMove(player_1, board));
+        move1.makePreverifiedMove(player_1, board);
+        //rockCoordinate is a rock hex that is to the left of lower right (use 1 meeple)
+        Coordinate rockCoordinate = lowerRight.getNeighboringCoordinateAt(HexagonNeighborDirection.LEFT);
+        Hexagon lowerLeft = board.getHexagonAt(rockCoordinate);
+        //create a rock hex that is of level two (should use 2 meeples)
+        Coordinate rockCoordinate2 = rockCoordinate.getNeighboringCoordinateAt(HexagonNeighborDirection.LEFT);
+        Hexagon rockHex2 = board.getHexagonAt(rockCoordinate2);
+        rockHex2.changeTerrainTypeThoughExplosion(Terrain.ROCK);
+        rockHex2.changeTerrainTypeThoughExplosion(Terrain.ROCK);
+        assertEquals(1,lowerLeft.getLevel());
+        assertEquals(2, rockHex2.getLevel());
+        //when settlement is expanded it should use a total of 4 meelpes leaving a count of 16
+        ExpandSettlementConstructionMove move2 = new ExpandSettlementConstructionMove(lowerRight, Terrain.ROCK);
+        assertEquals(true, move2.canPerformMove(player_1, board));
+        move2.makePreverifiedMove(player_1, board);
+        assertEquals(16,player_1.getMeeplesCount());
     }
 }
