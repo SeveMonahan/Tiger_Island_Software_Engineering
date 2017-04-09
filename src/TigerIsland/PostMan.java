@@ -184,8 +184,9 @@ public class PostMan {
                     }
                     GameMoveIncomingTransmission sendSomewhere = Parser.opponentMoveStringToGameMove(message);
                     if (sendSomewhere != null) {
-                        readTransmission(sendSomewhere);
-                        postTileMessage(sendSomewhere);
+                        //readTransmission(sendSomewhere);
+                        GameMoveIncomingTransmission test = sendSomewhere;
+                        postTileMessage(test);
                         postNetworkPlayerMessage(sendSomewhere);
                         if (!AIMailBox.isEmpty()) {
                             NetworkClient.setOutputLine(AIMailBox.pop());

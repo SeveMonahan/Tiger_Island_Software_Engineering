@@ -38,7 +38,7 @@ public class Parser {
 
         TileMove tileMove = opponentMoveStringToTileMove(opponentMoveString);
         ConstructionMoveTransmission constructionMoveTransmission = opponentMoveStringToBuildMove(opponentMoveString);
-
+        //System.out.println("sending to postman...");
         return new GameMoveIncomingTransmission(gid, moveNumber, pid, tileMove, constructionMoveTransmission);
     }
 

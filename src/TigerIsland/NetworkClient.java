@@ -25,6 +25,7 @@ public class NetworkClient {
     public static int gid = 0;
     private static boolean messageSent = false;
     public static void main(String[] args) throws IOException {
+        PostMan x = new PostMan();
         if (args.length != 5) {
             System.err.println(
                     "Arguments should be in this order:\n<hostname> <port> <tournamentPass> <username> <password>");
@@ -42,7 +43,7 @@ public class NetworkClient {
                         new InputStreamReader(netSocket.getInputStream()))
         ) {
             authenticationProtocol(tournamentPass, username, password, out, in);
-            challengeProtocol(out, in);
+            challengeProtocol(x, out, in);
         } catch (UnknownHostException e) {
             System.err.println("Can't find the host!");
             System.exit(1);
@@ -52,7 +53,7 @@ public class NetworkClient {
         }
     }
 
-    public static void challengeProtocol(PrintWriter out, BufferedReader in) throws IOException {
+    public static void challengeProtocol(PostMan x,PrintWriter out, BufferedReader in) throws IOException {
         System.out.println("Now executing the challenge protocol...");
         BufferedReader stdIn =
                 new BufferedReader(new InputStreamReader(System.in));
@@ -63,7 +64,6 @@ public class NetworkClient {
             if (stringFromServer.equals("THANK YOU FOR PLAYING! GOODBYE")) {
                 break;
             }
-            PostMan x = new PostMan();
             x.decoder(stringFromServer);
             if (outputLine != null) {
                 System.out.println("Client: " + outputLine);
