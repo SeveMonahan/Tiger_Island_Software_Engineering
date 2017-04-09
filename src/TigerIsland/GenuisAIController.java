@@ -166,6 +166,7 @@ public class GenuisAIController implements PlayerController {
                                                                                                                  ConstructionMovePossibilities.remove());
                     if(currentGameState != null){
                         result.add(currentGameState);
+                        return result;
                     }
                 }
             }
