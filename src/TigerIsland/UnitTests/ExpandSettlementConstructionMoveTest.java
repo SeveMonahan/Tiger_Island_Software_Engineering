@@ -38,4 +38,26 @@ public class ExpandSettlementConstructionMoveTest {
         assertEquals(PieceStatusHexagon.MEEPLE , board.getHexagonAt(upperLeft).getPiecesStatus());
         assertEquals(Player_Color, board.getHexagonAt(upperLeft).getOccupationColor());
     }
+
+    @Test
+    public void expandSettlementFailsDueToNumberOfMeeplesLeft() throws Exception {
+        Board board = new Board();
+        board.placeStartingTile();
+
+        Tile tile = new Tile(Terrain.JUNGLE, Terrain.JUNGLE);
+        Coordinate coordinate = new Coordinate(99,100);
+        TileMove tileMove = new TileMove(tile, HexagonNeighborDirection.LEFT, coordinate);
+        board.placeTile(tileMove);
+
+        Player player = new Player(Color.BLACK);
+        Coordinate sourceCoordinate = new Coordinate(98,100);
+        player.foundSettlement(sourceCoordinate, board);
+        assertEquals(19, player.getMeeplesCount());
+
+        player.subtractMeeples(18);
+
+        boolean isSuccess = player.expandSettlement(sourceCoordinate, board, Terrain.JUNGLE);
+        assertEquals(false, isSuccess);
+        assertEquals(1, player.getMeeplesCount());
+    }
 }
