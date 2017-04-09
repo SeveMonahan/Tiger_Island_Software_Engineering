@@ -96,14 +96,15 @@ public class ExpandSettlementConstructionMoveTest {
         move1.makePreverifiedMove(player_1, board);
 
         Coordinate rockCoordinate = LowerRight.getNeighboringCoordinateAt(HexagonNeighborDirection.LEFT);
-        Hexagon rockHex = board.getHexagonAt(rockCoordinate);
-        rockHex.changeTerrainTypeThoughExplosion(Terrain.ROCK);
-        assertEquals(2,rockHex.getLevel());
+        Coordinate rockCoordinate2 = rockCoordinate.getNeighboringCoordinateAt(HexagonNeighborDirection.LEFT);
+        Hexagon rockHex2 = board.getHexagonAt(rockCoordinate2);
+        rockHex2.changeTerrainTypeThoughExplosion(Terrain.ROCK);
+        assertEquals(1,rockHex2.getLevel());
 
         ExpandSettlementConstructionMove move2 = new ExpandSettlementConstructionMove(LowerRight, Terrain.ROCK);
         assertEquals(true, move2.canPerformMove(player_1, board));
         move2.makePreverifiedMove(player_1, board);
-        assertEquals(18,player_1.getMeeplesCount());
+        assertEquals(17,player_1.getMeeplesCount());
 
     }
 }
