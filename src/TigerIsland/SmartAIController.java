@@ -8,7 +8,6 @@ import java.util.Queue;
 public class SmartAIController implements PlayerController {
     Color color;
     int restriction_number;
-    boolean i_like_meeples;
     long startTime;
 
     public SmartAIController(Color color){
@@ -142,10 +141,6 @@ public class SmartAIController implements PlayerController {
                 }
 
                 Queue<ConstructionMoveInternal> ConstructionMovePossibilities = getConstructionMovePossibilities(coordinate, board);
-
-                if(i_like_meeples && !ConstructionMovePossibilities.isEmpty() && board.getHexagonAt(coordinate).containsPieces()){
-                    continue;
-                }
 
                 while(!ConstructionMovePossibilities.isEmpty()) {
                     GameStateEndOfTurn currentGameState = GameStateEndOfTurn.createGameStateFromConstructionMove(gameStateBeforeBuildAction,
