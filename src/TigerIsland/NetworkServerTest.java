@@ -66,6 +66,8 @@ public class NetworkServerTest {
             TimeUnit.MILLISECONDS.sleep(1300);
             out.println("GAME B MOVE 0 PLAYER 6 PLACED GRASS+LAKE AT 3 -1 -2 4 FOUNDED SETTLEMENT AT 1 0 -1");
             out.println("GAME A MOVE 0 PLAYER 3 PLACED GRASS+LAKE AT 1 1 -2 6 FOUNDED SETTLEMENT AT 1 2 -3");
+            TimeUnit.MILLISECONDS.sleep(150);
+            out.println("MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 0 PLACE ROCK+JUNGLE");
 
             String outputLine;
             //sendTestMessages(out);
