@@ -44,18 +44,9 @@ public class GameStateEndOfTurn extends GameState implements Comparable<GameStat
         coordinates[2] = c_1.getNeighboringCoordinateAt(tileMove.getDirection().getNextClockwise());
 
         int result = 0;
-
-        for(HexagonNeighborDirection direction : HexagonNeighborDirection.values()){
-            for(int i = 0; i < 3; i++){
-                Coordinate neighbor = coordinates[i].getNeighboringCoordinateAt(direction);
-                Hexagon hexagon_here = board.getHexagonAt(neighbor);
-                if(hexagon_here.getLevel() != 0){
-                    result++;
-                }
-
-                if(hexagon_here.containsPieces() && hexagon_here.getOccupationColor() == playerWhoseTurn.getColor()){
-                    result += 5;
-                }
+        for(Coordinate c : coordinates){
+            if(board.getHexagonAt(c).getOccupationColor() == playerWhoseTurn.getColor()){
+                result -= 10;
             }
         }
 
@@ -71,7 +62,7 @@ public class GameStateEndOfTurn extends GameState implements Comparable<GameStat
 
         int inactive_player_pieces = inactive_player.getMeeplesCount() + inactive_player.getMeeplesCount() + inactive_player.getTotoroCount();
 
-        return active_player_pieces - inactive_player_pieces;
+        return ((active_player_pieces - inactive_player_pieces)*100 + adjacent_hexs_score());
     }
 
     @Override
