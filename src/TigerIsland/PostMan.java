@@ -76,13 +76,13 @@ public class PostMan {
     }
 
     public synchronized void mailAIMessages(GameMoveOutgoingTransmission gameMoveOutgoingTransmission) {
-        System.out.println("Mail AI messages here");
-        //printOurMove(gameMoveOutgoingTransmission);
+        printOurMove(gameMoveOutgoingTransmission);
         Marshaller marshaller = new Marshaller();
         String parsedString = marshaller.convertTileMoveAndConstructionMoveToString(gameMoveOutgoingTransmission);
-        //System.out.println("pushing to AIMailBox");
         parsedString = parsedString.replace("**********move_id**********",moveID);
-        AIMailBox.push(parsedString);
+        // AIMailBox.push(parsedString);
+        NetworkClient.setOutputLine( parsedString );
+        System.out.println( System.currentTimeMillis() );
     }
 
     public synchronized Tile accessTileMailBox(String gid) {
@@ -206,11 +206,6 @@ public class PostMan {
                         readTransmission(sendSomewhere);
                         postNetworkPlayerMessage(sendSomewhere);
                         //NetworkClient.setOutputLine("waffles");
-                        for (int i = 0; i < 5; i++) {
-                            if (!AIMailBox.isEmpty()) {
-                                NetworkClient.setOutputLine(AIMailBox.pop());
-                            }
-                        }
                     }
                     else { //if someone forfeited
                         String gameToBeKilled = arr[1];
