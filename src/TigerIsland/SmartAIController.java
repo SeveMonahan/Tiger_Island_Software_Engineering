@@ -238,6 +238,12 @@ public class SmartAIController implements PlayerController {
         int bestNetScoreGain = -10000;
 
         while(pqueue.size() != 0){
+
+            if(elapsedTimeLongerThan(1000)){
+                System.out.println("PANIC!");
+                break;
+            }
+
             GameStateEndOfTurn current_state = pqueue.poll();
 
             GameStateWTile gameStateTile2 = current_state.getChild(new Tile(Terrain.UNKNOWN, Terrain.UNKNOWN));
@@ -265,10 +271,6 @@ public class SmartAIController implements PlayerController {
                 bestNetScoreGain = netScoreGain;
             }
 
-            if(elapsedTimeLongerThan(1000)){
-                System.out.println("PANIC!");
-                break;
-            }
         }
 
         if(pqueue.size() != 0){
