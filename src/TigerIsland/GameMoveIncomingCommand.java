@@ -5,7 +5,9 @@ public class GameMoveIncomingCommand {
     private int moveNumber;
     private double time;
     private Tile tile;
-
+    public void setGid(String gid) {
+        this.gid = gid;
+    }
     public String getGid() {return gid;}
 
     public int getMoveNumber() {return moveNumber;}
