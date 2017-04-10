@@ -92,7 +92,7 @@ public class PostMan {
         Tile tile = null;
 
         for(GameMoveIncomingCommand gameMoveIncomingCommand : tileMailBox) {
-            if(gameMoveIncomingCommand.getGid() == gid) {
+            if(gameMoveIncomingCommand.getGid().equals(gid)) {
                 tile = gameMoveIncomingCommand.getTile();
                 tileMailBox.remove(gameMoveIncomingCommand);
                 return tile;
