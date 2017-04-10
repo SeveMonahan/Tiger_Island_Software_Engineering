@@ -18,7 +18,6 @@ import static java.lang.Integer.parseInt;
 
 public class NetworkClient {
     private static String outputLine = null;
-    public static int gid = 0;
 
     private static boolean waitingForOutPut = false;
 
