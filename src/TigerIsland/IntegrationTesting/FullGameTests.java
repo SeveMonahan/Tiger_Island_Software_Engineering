@@ -16,7 +16,7 @@ public class FullGameTests {
 
         String gid = "Best vs. Dumb";
         PlayerController ai_01 = new SmartAIController(Color.BLACK);
-        PlayerController ai_02 = new DumbController(Color.WHITE);
+        PlayerController ai_02 = new GenuisAIController(Color.WHITE);
         OutputPlayerActions logger = new OutputPlayerLogger(gid, Color.BLACK );
         TileBag tileBag = new RandomTileBag();
 
@@ -37,7 +37,7 @@ public class FullGameTests {
 
         gid = "SmartAI vs. Best";
         ai_02 = new SmartAIController(Color.BLACK);
-        ai_01 = new DumbController(Color.WHITE);
+        ai_01 = new GenuisAIController(Color.WHITE);
         logger = new OutputPlayerLogger(gid, Color.BLACK );
         tileBag = new RandomTileBag();
 
@@ -47,6 +47,29 @@ public class FullGameTests {
             dumb_wins++;
         }
 
+        gid = "SmartAI vs. Best";
+        ai_01 = new SmartAIController(Color.BLACK);
+        ai_02 = new DumbController(Color.WHITE);
+        logger = new OutputPlayerLogger(gid, Color.BLACK );
+        tileBag = new RandomTileBag();
+
+        referee = new Referee(ai_01, ai_02, logger, tileBag);
+
+        if(referee.execute()){
+            smart_wins++;
+        }
+
+        gid = "SmartAI vs. Best";
+        ai_02 = new SmartAIController(Color.BLACK);
+        ai_01 = new DumbController(Color.WHITE);
+        logger = new OutputPlayerLogger(gid, Color.BLACK );
+        tileBag = new RandomTileBag();
+
+        referee = new Referee(ai_01, ai_02, logger, tileBag);
+
+        if(referee.execute()){
+            smart_wins++;
+        }
     }
 
     @Test
@@ -57,10 +80,10 @@ public class FullGameTests {
             FullGameTest_01();
         }
 
-        System.out.print("Dumb games won:");
+        System.out.print("GenuisAI games won:");
         System.out.println(dumb_wins);
 
-        System.out.print("Smart games won:");
+        System.out.print("Dumb games won:");
         System.out.println(smart_wins);
 
 
