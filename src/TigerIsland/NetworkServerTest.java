@@ -61,8 +61,8 @@ public class NetworkServerTest {
                     "BEGIN ROUND 1 OF 2",
                     "NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER 34",
                     "MAKE YOUR MOVE IN GAME A WITHIN 1 SECOND: MOVE 1 PLACE LAKE+ROCK",
-                    "GAME A MOVE 1 PLAYER 65 PLACED LAKE+ROCK AT 3 3 1 2 FOUNDED SETTLEMENT AT 3 3 1",
-                    "GAME B MOVE 1 PLAYER 34 PLACED JUNGLE+GRASS AT 1 2 1 1 FOUNDED SETTLEMENT AT 1 2 1",
+                    "GAME A MOVE 1 PLAYER 34 PLACED GRASS+GRASS AT -2 1 1 1 FOUNDED SETTLEMENT AT -2 2 0",
+                    "GAME B MOVE 1 PLAYER 65 PLACED GRASS+GRASS AT -4 3 1 1 FOUNDED SETTLEMENT AT -4 4 0",
                     "MAKE YOUR MOVE IN GAME B WITHIN 2 SECONDS: MOVE 2 PLACE JUNGLE+GRASS",
                     "GAME A MOVE 2 PLAYER 34 PLACED LAKE+LAKE AT 3 3 1 2 FOUNDED SETTLEMENT AT 3 3 1",
                     "GAME B MOVE 2 PLAYER 65 PLACED JUNGLE+GRASS AT 1 2 1 1 FOUNDED SETTLEMENT AT 1 2 1",
@@ -102,7 +102,7 @@ public class NetworkServerTest {
                     TimeUnit.SECONDS.sleep(5);
                 }
                 System.out.println("sending: " + s);
-                TimeUnit.SECONDS.sleep(1);
+                TimeUnit.MILLISECONDS.sleep(1500);
                 out.println(s);
             }
             /*while (false) {

@@ -13,8 +13,8 @@ public class OutputPlayerAI implements OutputPlayerActions{
 
     public void dispatchInformation(GameStateEndOfTurn gameStateEndOfTurn){
         if(gameStateEndOfTurn.getActivePlayer().getColor() == color) {
-            int moveNumber = 0;
-            TileMove tileMove = gameStateEndOfTurn.lastTileMove;
+            String moveNumber = "**********move_id**********";
+            TileMove tileMove = gameStateEndOfTurn.getLastTileMove();
             ConstructionMoveInternal constructionMoveInternal = gameStateEndOfTurn.getLastConstructionMove();
             GameMoveOutgoingTransmission gameMoveOutgoingTransmission = new GameMoveOutgoingTransmission(gid, moveNumber, tileMove, constructionMoveInternal);
 

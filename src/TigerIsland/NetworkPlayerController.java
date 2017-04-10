@@ -31,19 +31,24 @@ public class NetworkPlayerController implements PlayerController {
         Coordinate coordinateMove = gameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate();
         ConstructionMoveInternal constructionMove = null;
 
-        switch (gameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption()){
+        switch ( gameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption() ) {
             case BUILDTIGER:
                 constructionMove = new TigerConstructionMove(coordinateMove);
+                break;
             case EXPANDSETTLEMENT:
                 ExpandSettlementMoveTransmission expandSettlementMoveTransmission = (ExpandSettlementMoveTransmission) gameMoveIncomingTransmission.getConstructionMoveTransmission();
                 Terrain terrain = expandSettlementMoveTransmission.getTerrain();
                 constructionMove = new ExpandSettlementConstructionMove(coordinateMove, terrain);
+                break;
             case FOUNDSETTLEMENT:
                 constructionMove = new FoundSettlementConstructionMove(coordinateMove);
+                break;
             case BUILDTOTORO:
                 constructionMove = new TotoroConstructionMove(coordinateMove);
+                break;
             case UNABLETOBUILD:
-                constructionMove = null;
+                constructionMove = new UnableToBuildConstructionMove();
+                break;
         }
         GameStateEndOfTurn gameStateEndOfTurn = GameStateEndOfTurn.createGameStateFromConstructionMove(gameStateBeforeBuildAction, constructionMove);
 

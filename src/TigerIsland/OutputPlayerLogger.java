@@ -14,7 +14,7 @@ public class OutputPlayerLogger implements  OutputPlayerActions{
     }
 
     public void dispatchInformation(GameStateEndOfTurn gameStateEndOfTurn){
-        int moveNumber = 1;
+        String moveNumber = "3";
         TileMove tileMove = gameStateEndOfTurn.getLastTileMove();
         ConstructionMoveInternal constructMove = gameStateEndOfTurn.getLastConstructionMove();
 

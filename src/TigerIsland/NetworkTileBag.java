@@ -22,7 +22,6 @@ public class NetworkTileBag implements TileBag {
             try {
                 synchronized (tileBagPostMan) {
                     tileBagPostMan.wait();
-                    System.out.println("AI Tile Bag Awoken From Slumber");
                     tile = tileBagPostMan.accessTileMailBox(gameID);
                 }
             } catch (InterruptedException e) {

@@ -18,7 +18,7 @@ public class MarshallerTest {
         ConstructionMoveInternal testConstructionMoveTransmission = new FoundSettlementConstructionMove(testConstructionCoordinate);
 
         final String testGID = "A";
-        final int testMoveNumber = 3;
+        final String testMoveNumber = "3";
         GameMoveOutgoingTransmission testGameMoveOutgoingTransmission = new GameMoveOutgoingTransmission(testGID, testMoveNumber, testTileMove, testConstructionMoveTransmission);
 
         Marshaller marshaller = new Marshaller();
@@ -39,7 +39,7 @@ public class MarshallerTest {
         ExpandSettlementConstructionMove testExpandSettlementMoveTransmission = new ExpandSettlementConstructionMove(testConstructionCoordinate, Terrain.GRASS);
 
         final String testGID = "A";
-        final int testMoveNumber = 3;
+        final String testMoveNumber = "3";
         GameMoveOutgoingTransmission testGameMoveOutgoingTransmission = new GameMoveOutgoingTransmission(testGID, testMoveNumber, testTileMove, testExpandSettlementMoveTransmission);
 
         Marshaller marshaller = new Marshaller();
@@ -60,7 +60,7 @@ public class MarshallerTest {
         TotoroConstructionMove testConstructionMoveTransmission = new TotoroConstructionMove(testConstructionCoordinate);
 
         final String testGID = "A";
-        final int testMoveNumber = 3;
+        final String testMoveNumber = "3";
         GameMoveOutgoingTransmission testGameMoveOutgoingTransmission = new GameMoveOutgoingTransmission(testGID, testMoveNumber, testTileMove, testConstructionMoveTransmission);
 
         Marshaller marshaller = new Marshaller();
@@ -81,7 +81,7 @@ public class MarshallerTest {
         TigerConstructionMove testConstructionMoveTransmission = new TigerConstructionMove(testConstructionCoordinate);
 
         final String testGID = "A";
-        final int testMoveNumber = 3;
+        final String testMoveNumber = "3";
         GameMoveOutgoingTransmission testGameMoveOutgoingTransmission = new GameMoveOutgoingTransmission(testGID, testMoveNumber, testTileMove, testConstructionMoveTransmission);
 
         Marshaller marshaller = new Marshaller();
@@ -102,7 +102,7 @@ public class MarshallerTest {
         UnableToBuildConstructionMove testConstructionMoveTransmission = new UnableToBuildConstructionMove();
 
         final String testGID = "A";
-        final int testMoveNumber = 3;
+        final String testMoveNumber = "3";
         GameMoveOutgoingTransmission testGameMoveOutgoingTransmission = new GameMoveOutgoingTransmission(testGID, testMoveNumber, testTileMove, testConstructionMoveTransmission);
 
         Marshaller marshaller = new Marshaller();
