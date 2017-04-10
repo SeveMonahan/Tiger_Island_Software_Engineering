@@ -11,8 +11,8 @@ public class PostMan {
     private static int cid = -1;
     private static int oid = -1;
     private static int rid = -1;
-    private static String gid1 = "";
-    private static String gid2 = "";
+    private static String gid1 = "A";
+    private static String gid2 = "A";
     private static int rounds = -1;
     private static int currentRound = 0;
     private static TournamentStatus status = TournamentStatus.CHALLENGE;
@@ -47,8 +47,8 @@ public class PostMan {
         PlayerController ai_02 = new DumbController(Color.BLACK);
         NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE, "gameID", this);
 
-        match_01 = new Match(this, ai_01, network_01, "bullshit");
-        match_02 = new Match(this, network_02, ai_02, "bullshit");
+        match_01 = new Match(this, ai_01, network_01, gid1);
+        match_02 = new Match(this, network_02, ai_02, gid2);
 
         Thread t1 = new Thread(match_01);
         Thread t2 = new Thread(match_02);
@@ -67,6 +67,8 @@ public class PostMan {
     }
 
     public synchronized void mailAIMessages(GameMoveOutgoingTransmission gameMoveOutgoingTransmission) {
+        System.out.println("Mail AI messages here");
+        printOurMove(gameMoveOutgoingTransmission);
         Marshaller marshaller = new Marshaller();
         String parsedString = marshaller.convertTileMoveAndConstructionMoveToString(gameMoveOutgoingTransmission);
         AIMailBox.push(parsedString);
@@ -76,7 +78,7 @@ public class PostMan {
         Tile tile = null;
 
         for(GameMoveIncomingTransmission gameMoveIncomingTransmission : tileMailBox) {
-            if(gameMoveIncomingTransmission.getGid() == gid) {
+            if( gameMoveIncomingTransmission.getGid().toString().equals(gid) ) {
                 tile = gameMoveIncomingTransmission.getTileMove().getTile();
                 tileMailBox.remove(gameMoveIncomingTransmission);
                 return tile;
@@ -181,11 +183,11 @@ public class PostMan {
                 if (!message.contains("MAKE YOUR MOVE") && message.contains("PLAYER")) { //type 2 message (handled by parser)
                     if (gidSet == false) {
                         if (gid1.isEmpty()) {
-                            gid1 = arr[5];
+                            gid1 = arr[5]; // TODO is this index correct? Should be 1?
                             System.out.println("grabbed gid1:" + gid1);
                         }
                         else if (gid2.isEmpty()) {
-                            gid2 = arr[5];
+                            gid2 = arr[5]; // TODO is this index correct? Should be 1?
                             System.out.println("grabbed gid2:" + gid2);
                             gidSet = true;
                         }
@@ -221,6 +223,13 @@ public class PostMan {
         System.out.println("move number: " + sendSomewhere.getMoveID());
         System.out.println("pid: " + sendSomewhere.getPid());
         System.out.println("coordinate: " + sendSomewhere.getConstructionMoveTransmission().getCoordinate().getX() + " " + sendSomewhere.getConstructionMoveTransmission().getCoordinate().getY());
+        System.out.println("---------------------------------");
+    }
+    public static void printOurMove(GameMoveOutgoingTransmission gameMoveOutgoingTransmission) {
+        Marshaller marshaller = new Marshaller();
+        String outgoing = marshaller.convertTileMoveAndConstructionMoveToString(gameMoveOutgoingTransmission);
+        System.out.println("------- Sending our move -------");
+        System.out.println("Our move: " + outgoing);
         System.out.println("---------------------------------");
     }
     public static void readCommand(GameMoveIncomingCommand sendSomewhere) {
