@@ -37,10 +37,15 @@ public class NetworkClient {
         check_arguments(args);
 
         String host = args[0];
+
         int port = parseInt(args[1]);
+
         String tournamentPass = args[2];
+
         String username = args[3];
+
         String password = args[4];
+
         try (
                 Socket netSocket = new Socket(host, port);
                 PrintWriter out = new PrintWriter(netSocket.getOutputStream(), true);
@@ -61,10 +66,7 @@ public class NetworkClient {
     public static void challengeProtocol(PostMan x,PrintWriter out, BufferedReader in) throws IOException, InterruptedException {
         System.out.println("Now executing the challenge protocol...");
         x.pid = pid;
-        BufferedReader stdIn =
-                new BufferedReader(new InputStreamReader(System.in));
         String stringFromServer;
-        String stringToServer;
         while ((stringFromServer = in.readLine()) != null) {
             long serverTime = System.currentTimeMillis();
             long difference = 0;
