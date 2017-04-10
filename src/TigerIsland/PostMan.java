@@ -9,6 +9,7 @@ import static java.lang.Integer.toUnsignedString;
 //
 public class PostMan {
     private static PostMan myPostMan;
+    public static int pid = -1;
     private static int cid = -1;
     private static int oid = -1;
     private static int rid = -1;
@@ -44,10 +45,10 @@ public class PostMan {
         AIMailBox = new LinkedList<>();
 
         PlayerController ai_01 = new SmartAIController(Color.BLACK);
-        NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, "A", this);
+        NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, "A11", this);
 
         PlayerController ai_02 = new SmartAIController(Color.BLACK);
-        NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE, "B", this);
+        NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE, "B11", this);
 
         match_01 = new Match(this, ai_01, network_01, "A11");
         match_02 = new Match(this, network_02, ai_02, "B11");
@@ -85,7 +86,6 @@ public class PostMan {
         parsedString = parsedString.replace("A11", gid1);
         parsedString = parsedString.replace("B11", gid2);
         NetworkClient.setOutputLine( parsedString );
-        System.out.println( System.currentTimeMillis() );
     }
 
     public synchronized Tile accessTileMailBox(String gid) {
@@ -93,6 +93,17 @@ public class PostMan {
 
         for(GameMoveIncomingCommand gameMoveIncomingCommand : tileMailBox) {
             if(gameMoveIncomingCommand.getGid().equals(gid)) {
+                String msg;
+                if (gid.equals("A11")) {
+                    msg = "thread 1";
+                }
+                else if (gid.equals("B11")) {
+                    msg = "thread 2";
+                }
+                else {
+                    msg = "WTF thread";
+                }
+                System.out.println(gid + " grabbed tile from mailbox!");
                 tile = gameMoveIncomingCommand.getTile();
                 tileMailBox.remove(gameMoveIncomingCommand);
                 return tile;
@@ -208,9 +219,12 @@ public class PostMan {
                     if (sendSomewhere != null) {
                         readTransmission(sendSomewhere);
                         //take in opponent's move only
-                        if (sendSomewhere.getPid().equals(toUnsignedString(oid))) { // post only if opponent's move
-                            System.out.println("Sending opponent's move to AI");
+                        if (!sendSomewhere.getPid().equals(toUnsignedString(pid))) { // post only if opponent's move
+                            System.out.println(sendSomewhere.getPid() + " " + pid + " sending opponent's move to AI");
                             postNetworkPlayerMessage(sendSomewhere);
+                        }
+                        else {
+                            System.out.println("Reading our move...");
                         }
                     }
                     else { //if someone forfeited
@@ -262,7 +276,6 @@ public class PostMan {
                 }
             }
         }
-        System.out.println("out of decoder");
     }
 
     public static void readTransmission(GameMoveIncomingTransmission sendSomewhere) {

@@ -55,65 +55,80 @@ public class NetworkServerTest {
             // Initiate conversation with client
             out.println("WELCOME TO ANOTHER EDITION OF THUNDERDOME!");
             out.println("TWO SHALL ENTER, ONE SHALL LEAVE");
-            out.println("WAIT FOR THE TOURNAMENT TO BEGIN 853");
-            String[] messages = {
-                    "NEW CHALLENGE 346 YOU WILL PLAY 2 MATCHES",
-                    "BEGIN ROUND 1 OF 2",
-                    "NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER 34",
-                    "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 1 PLACE LAKE+ROCK",
-                    "GAME A MOVE 1 PLAYER 65 PLACED GRASS+GRASS AT -2 1 1 1 FOUNDED SETTLEMENT AT -2 2 0",
-                    "GAME B MOVE 1 PLAYER 34 PLACED GRASS+GRASS AT -4 3 1 1 FOUNDED SETTLEMENT AT -4 4 0",
-                    "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 2 PLACE JUNGLE+GRASS",
-                    "GAME A MOVE 2 PLAYER 34 PLACED LAKE+LAKE AT 3 3 1 2 FOUNDED SETTLEMENT AT 3 3 1",
-                    "GAME B MOVE 2 PLAYER 65 PLACED JUNGLE+GRASS AT 1 2 1 1 FOUNDED SETTLEMENT AT 1 2 1",
-                    "MAKE YOUR MOVE IN GAME B WITHIN 1 SECOND: MOVE 3 PLACE JUNGLE+GRASS",
-                    "GAME A MOVE 2 PLAYER 65 PLACED LAKE+LAKE AT 3 3 1 2 FOUNDED SETTLEMENT AT 3 3 1",
-                    "GAME B MOVE 2 PLAYER 34 FORFEITED: ILLEGAL BUILD",
-                    "GAME A MOVE 2 PLAYER 34 PLACED LAKE+LAKE AT 3 3 1 2 FOUNDED SETTLEMENT AT 3 3 1",
-                    "gg",
-                    "GAME A OVER PLAYER 65 100 PLAYER 34 5",
-                    "GAME B OVER PLAYER 65 200 PLAYER 34 150",
-                    "END OF ROUND 1 OF 2 WAIT FOR THE NEXT MATCH",
-                    "BEGIN ROUND 2 OF 2",
-                    "NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER 45",
-                    "blah blah",
-                    "test",
-                    "blah",
-                    "gg",
-                    "GAME A OVER PLAYER 65 100 PLAYER 45 5",
-                    "GAME B OVER PLAYER 65 200 PLAYER 45 150",
-                    "END OF ROUND 2 OF 2",
-                    "WAIT FOR THE NEXT CHALLENGE TO BEGIN",
-                    "NEW CHALLENGE 888 YOU WILL PLAY 1 MATCH",
-                    "BEGIN ROUND 1 OF 1",
-                    "NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER 55",
-                    "blah blah",
-                    "test",
-                    "blah",
-                    "gg",
-                    "GAME A OVER PLAYER 65 100 PLAYER 55 12",
-                    "GAME B OVER PLAYER 65 200 PLAYER 55 14",
-                    "END OF ROUND 1 OF 1",
-                    "END OF CHALLENGES"
-            };
+            out.println("WAIT FOR THE TOURNAMENT TO BEGIN 6");
+            TimeUnit.MILLISECONDS.sleep(300);
+            out.println("NEW CHALLENGE 346 YOU WILL PLAY 2 MATCHES");
+            TimeUnit.MILLISECONDS.sleep(200);
+            out.println("BEGIN ROUND 1 OF 2");
+            TimeUnit.MILLISECONDS.sleep(150);
+            out.println("NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER 3");
+            out.println("MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 0 PLACE GRASS+LAKE");
 
-            for (String s : messages) {
-                if (s.equals("NEW CHALLENGE 888 YOU WILL PLAY 1 MATCH")) {
-                    TimeUnit.SECONDS.sleep(5);
-                }
-                System.out.println("sending: " + s);
-                TimeUnit.MILLISECONDS.sleep(1500);
-                out.println(s);
-            }
-            /*while (false) {
+
+            String outputLine;
+            //sendTestMessages(out);
+
+            while (true) {
                 outputLine = stdIn.readLine();
                 out.println(outputLine);
                 if (outputLine.equals("Bye."))
                     break;
-            }*/
+            }
         } catch (IOException e) {
             System.out.println("Problem with the connection!");
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static void sendTestMessages(PrintWriter out) throws InterruptedException {
+        String[] messages = {
+                "NEW CHALLENGE 346 YOU WILL PLAY 2 MATCHES",
+                "BEGIN ROUND 1 OF 2",
+                "NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER 34",
+                "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 1 PLACE LAKE+ROCK",
+                "GAME A MOVE 1 PLAYER 65 PLACED GRASS+GRASS AT -2 1 1 1 FOUNDED SETTLEMENT AT -2 2 0",
+                "GAME B MOVE 1 PLAYER 34 PLACED GRASS+GRASS AT -4 3 1 1 FOUNDED SETTLEMENT AT -4 4 0",
+                "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 2 PLACE JUNGLE+GRASS",
+                "GAME A MOVE 2 PLAYER 34 PLACED LAKE+LAKE AT 3 3 1 2 FOUNDED SETTLEMENT AT 3 3 1",
+                "GAME B MOVE 2 PLAYER 65 PLACED JUNGLE+GRASS AT 1 2 1 1 FOUNDED SETTLEMENT AT 1 2 1",
+                "MAKE YOUR MOVE IN GAME B WITHIN 1 SECOND: MOVE 3 PLACE JUNGLE+GRASS",
+                "GAME A MOVE 2 PLAYER 65 PLACED LAKE+LAKE AT 3 3 1 2 FOUNDED SETTLEMENT AT 3 3 1",
+                "GAME B MOVE 2 PLAYER 34 FORFEITED: ILLEGAL BUILD",
+                "GAME A MOVE 2 PLAYER 34 PLACED LAKE+LAKE AT 3 3 1 2 FOUNDED SETTLEMENT AT 3 3 1",
+                "gg",
+                "GAME A OVER PLAYER 65 100 PLAYER 34 5",
+                "GAME B OVER PLAYER 65 200 PLAYER 34 150",
+                "END OF ROUND 1 OF 2 WAIT FOR THE NEXT MATCH",
+                "BEGIN ROUND 2 OF 2",
+                "NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER 45",
+                "blah blah",
+                "test",
+                "blah",
+                "gg",
+                "GAME A OVER PLAYER 65 100 PLAYER 45 5",
+                "GAME B OVER PLAYER 65 200 PLAYER 45 150",
+                "END OF ROUND 2 OF 2",
+                "WAIT FOR THE NEXT CHALLENGE TO BEGIN",
+                "NEW CHALLENGE 888 YOU WILL PLAY 1 MATCH",
+                "BEGIN ROUND 1 OF 1",
+                "NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER 55",
+                "blah blah",
+                "test",
+                "blah",
+                "gg",
+                "GAME A OVER PLAYER 65 100 PLAYER 55 12",
+                "GAME B OVER PLAYER 65 200 PLAYER 55 14",
+                "END OF ROUND 1 OF 1",
+                "END OF CHALLENGES"
+        };
+
+        for (String s : messages) {
+            if (s.equals("NEW CHALLENGE 888 YOU WILL PLAY 1 MATCH")) {
+                TimeUnit.SECONDS.sleep(5);
+            }
+            System.out.println("sending: " + s);
+            TimeUnit.MILLISECONDS.sleep(1500);
+            out.println(s);
         }
     }
 }

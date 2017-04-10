@@ -58,12 +58,15 @@ public class NetworkClient {
 
     public static void challengeProtocol(PostMan x,PrintWriter out, BufferedReader in) throws IOException, InterruptedException {
         System.out.println("Now executing the challenge protocol...");
+        x.pid = pid;
         BufferedReader stdIn =
                 new BufferedReader(new InputStreamReader(System.in));
         String stringFromServer;
         String stringToServer;
         while ((stringFromServer = in.readLine()) != null) {
-            System.out.println(System.currentTimeMillis() + " Server: " + stringFromServer);
+            long serverTime = System.currentTimeMillis();
+            long difference = 0;
+            System.out.println("Server: " + stringFromServer);
             if (stringFromServer.equals("THANK YOU FOR PLAYING! GOODBYE")) {
                 break;
             }
@@ -76,7 +79,8 @@ public class NetworkClient {
                 TimeUnit.MILLISECONDS.sleep(100);
             }
             if (outputLine != null) {
-                System.out.println(System.currentTimeMillis() + " Client: " + outputLine);
+                difference = System.currentTimeMillis() - serverTime;
+                System.out.println(difference + " Client: " + outputLine);
                 sendMessage(out, outputLine);
                 outputLine = null;
                 waitingForOutPut = false;
@@ -103,6 +107,7 @@ public class NetworkClient {
             else {
                 stringFromServer = stringFromServer.replace("WAIT FOR THE TOURNAMENT TO BEGIN ", "");
                 pid = parseInt(stringFromServer);
+
                 break;
             }
         }
