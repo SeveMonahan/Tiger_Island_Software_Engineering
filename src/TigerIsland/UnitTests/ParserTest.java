@@ -11,7 +11,7 @@ public class ParserTest {
         String message = "MAKE YOUR MOVE IN GAME gameId WITHIN 1.5 SECONDs: MOVE 5 PLACE JUNGLE+LAKE";
 
         Tile expectedTile = new Tile(Terrain.JUNGLE, Terrain.LAKE);
-        GameMoveIncomingCommand expectedGameMoveIncomingCommand = new GameMoveIncomingCommand("gameId", 1.5, 5, expectedTile);
+        GameMoveIncomingCommand expectedGameMoveIncomingCommand = new GameMoveIncomingCommand("gameId", 1.5, "5", expectedTile);
 
         Parser parser = new Parser();
         GameMoveIncomingCommand testGameMoveIncomingCommand = parser.commandToObject(message);

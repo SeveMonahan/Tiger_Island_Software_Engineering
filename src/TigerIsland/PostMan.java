@@ -25,8 +25,8 @@ public class PostMan {
     private static Thread t2;
     private LinkedList<GameMoveIncomingCommand> tileMailBox; // For AI to make a move
     private LinkedList<GameMoveIncomingTransmission> moveMailBox; // For opponent
-    private LinkedList<String> AIMailBox; // For network player moves
-
+    private LinkedList<String> AIMailBox; // What we're sending to the damn server
+    private static String moveID = "";
     private PostMan() {}
 
     static PostMan grabPostMan() {
@@ -59,18 +59,10 @@ public class PostMan {
 
     public void killThread(int x) {
         if (x == 1) {
-            try {
-                t1.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            t1.stop();
         }
         else {
-            try {
-                t2.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            t2.stop();
         }
     }
     public synchronized void postNetworkPlayerMessage(GameMoveIncomingTransmission gameMoveIncomingTransmission) {
@@ -85,10 +77,11 @@ public class PostMan {
 
     public synchronized void mailAIMessages(GameMoveOutgoingTransmission gameMoveOutgoingTransmission) {
         System.out.println("Mail AI messages here");
-        printOurMove(gameMoveOutgoingTransmission);
+        //printOurMove(gameMoveOutgoingTransmission);
         Marshaller marshaller = new Marshaller();
         String parsedString = marshaller.convertTileMoveAndConstructionMoveToString(gameMoveOutgoingTransmission);
         //System.out.println("pushing to AIMailBox");
+        parsedString = parsedString.replace("**********move_id**********",moveID);
         AIMailBox.push(parsedString);
     }
 
@@ -196,6 +189,8 @@ public class PostMan {
                 System.out.println("gg was called for both games!");
                 gameOver = true;
                 status = TournamentStatus.MATCH;
+                t1.stop();
+                t2.stop();
             }
             else {
                 if (!message.contains("MAKE YOUR MOVE") && message.contains("PLAYER")) { //type 2 message (handled by parser)
@@ -239,7 +234,7 @@ public class PostMan {
                         }
                     }
                     GameMoveIncomingCommand test = Parser.commandToObject(message);
-                    readCommand(test);
+                    //readCommand(test);
                     if (test.getGid().equals(gid1)) {
                         test.setGid("A");
                     }
@@ -247,6 +242,7 @@ public class PostMan {
                         test.setGid("B");
                     }
                     System.out.println("sending command with gid: " + test.getGid());
+                    moveID = test.getMoveNumber();
                     postTileMessage(test);
                 }
                 else { //couldn't read string

@@ -60,13 +60,13 @@ public class NetworkClient {
         String stringFromServer;
         String stringToServer;
         while ((stringFromServer = in.readLine()) != null) {
-            System.out.println("Server: " + stringFromServer);
+            System.out.println(System.currentTimeMillis() + " Server: " + stringFromServer);
             if (stringFromServer.equals("THANK YOU FOR PLAYING! GOODBYE")) {
                 break;
             }
             x.decoder(stringFromServer);
             if (outputLine != null) {
-                System.out.println("Client: " + outputLine);
+                System.out.println(System.currentTimeMillis() + " Client: " + outputLine);
                 sendMessage(out, outputLine);
                 outputLine = null;
             }
