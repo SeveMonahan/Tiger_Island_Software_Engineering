@@ -42,10 +42,10 @@ public class PostMan {
         AIMailBox = new LinkedList<>();
 
         PlayerController ai_01 = new DumbController(Color.BLACK);
-        NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, "gameID", this);
+        NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, gid1, this);
 
         PlayerController ai_02 = new DumbController(Color.BLACK);
-        NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE, "gameID", this);
+        NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE, gid2, this);
 
         match_01 = new Match(this, ai_01, network_01, gid1);
         match_02 = new Match(this, network_02, ai_02, gid2);
@@ -90,10 +90,10 @@ public class PostMan {
     public synchronized GameMoveIncomingTransmission accessNetworkMailBox(String gid) {
         GameMoveIncomingTransmission gameMoveIncomingTransmission = null;
 
-        for(GameMoveIncomingTransmission gameMoveIncomingTransmission1 : moveMailBox) {
-            if(gameMoveIncomingTransmission.getGid() == gid) {
-                gameMoveIncomingTransmission = gameMoveIncomingTransmission1;
-                moveMailBox.remove(gameMoveIncomingTransmission1);
+        for(GameMoveIncomingTransmission gmtFromMailBox : moveMailBox) {
+            if( gmtFromMailBox.getGid().toString().equals(gid) ) {
+                gameMoveIncomingTransmission = gmtFromMailBox;
+                moveMailBox.remove(gmtFromMailBox);
                 return gameMoveIncomingTransmission;
             }
         }
