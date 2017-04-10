@@ -239,7 +239,6 @@ public class GenuisAIController implements PlayerController {
         GameStateEndOfTurn best_state = pqueue.peek();
 
         if(elapsedTimeLongerThan(60)){
-            System.out.println("EARLY PANIC!");
             for(long i = getElapsedTime(); i > 0; i -= 60){
                 pqueue.poll();
             }
@@ -269,14 +268,11 @@ public class GenuisAIController implements PlayerController {
             }
 
             if(elapsedTimeLongerThan(1400)){
-                System.out.println("PANIC!");
-                System.out.println(System.currentTimeMillis() - startTime);
                 return best_state;
             }
 
         }
 
-        System.out.println(getElapsedTime());
         return best_state;
     }
 }
