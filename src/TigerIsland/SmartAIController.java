@@ -97,6 +97,7 @@ public class SmartAIController implements PlayerController {
 
         System.out.println("Fallthrough");
         panic = true;
+        boolean extreme_panic = elapsedTimeLongerThan(600);
 
         for(int i = minX; i < maxX; i++){
             for(int j= minY; j < maxY; j++){
@@ -115,6 +116,9 @@ public class SmartAIController implements PlayerController {
                         result.add(child);
                     }
                 }
+            }
+            if(extreme_panic){
+                return result;
             }
         }
 
