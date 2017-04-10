@@ -76,16 +76,13 @@ public class PostMan {
     }
 
     public synchronized void mailAIMessages(GameMoveOutgoingTransmission gameMoveOutgoingTransmission) {
-        System.out.println("Mail AI messages here");
-        //printOurMove(gameMoveOutgoingTransmission);
+        printOurMove(gameMoveOutgoingTransmission);
         Marshaller marshaller = new Marshaller();
         String parsedString = marshaller.convertTileMoveAndConstructionMoveToString(gameMoveOutgoingTransmission);
-        //System.out.println("pushing to AIMailBox");
         parsedString = parsedString.replace("**********move_id**********",moveID);
-
-        //AIMailBox.push(parsedString);
-        NetworkClient.setOutputLine(parsedString);
-        System.out.println(System.currentTimeMillis());
+        // AIMailBox.push(parsedString);
+        NetworkClient.setOutputLine( parsedString );
+        System.out.println( System.currentTimeMillis() );
     }
 
     public synchronized Tile accessTileMailBox(String gid) {
