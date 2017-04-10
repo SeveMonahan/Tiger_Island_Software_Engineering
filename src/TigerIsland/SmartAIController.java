@@ -220,7 +220,7 @@ public class SmartAIController implements PlayerController {
                 }
             }
 
-            if(second && elapsedTimeLongerThan(1000)){
+            if(second && elapsedTimeLongerThan(800)){
                 System.out.println("PANIC!");
                 return pqueue;
             }
@@ -247,7 +247,7 @@ public class SmartAIController implements PlayerController {
 
         while(pqueue.size() != 0){
 
-            if(panic || elapsedTimeLongerThan(1000)){
+            if(panic || elapsedTimeLongerThan(800)){
                 System.out.println("PANIC!");
                 break;
             }
@@ -305,7 +305,7 @@ public class SmartAIController implements PlayerController {
 
         // System.out.println(getElapsedTime());
 
-        if(getElapsedTime() > 1400){
+        if(getElapsedTime() > 1200){
             System.out.println(getElapsedTime());
             System.out.println("!!!!!!!");
         }
