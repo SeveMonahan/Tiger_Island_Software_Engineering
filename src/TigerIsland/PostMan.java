@@ -258,22 +258,22 @@ public class PostMan {
                             System.out.println("grabbed gid1:" + gid1);
                         }
                     }
-                    GameMoveIncomingCommand test = Parser.commandToObject(message);
+                    GameMoveIncomingCommand gameMoveIncomingCommand = Parser.commandToObject(message);
                     //readCommand(test);
-                    moveID = test.getMoveNumber();
-                    if (test.getGid().equals(gid1)) {
-                        test.setGid("A11");
+                    moveID = gameMoveIncomingCommand.getMoveNumber();
+                    if (gameMoveIncomingCommand.getGid().equals(gid1)) {
+                        gameMoveIncomingCommand.setGid("A11");
                     }
-                    else if (test.getGid().equals(gid2)){
-                        test.setGid("B11");
+                    else if (gameMoveIncomingCommand.getGid().equals(gid2)){
+                        gameMoveIncomingCommand.setGid("B11");
                     }
                     else {
                         System.out.println("wat gid");
                     }
-                    System.out.println("sending to thread: " + test.getGid());
-                    properTile = test.getTile().toString();
-                    postTileMessage(test);
-                    readCommand(test);
+                    System.out.println("sending to thread: " + gameMoveIncomingCommand.getGid());
+                    properTile = gameMoveIncomingCommand.getTile().toString();
+                    postTileMessage(gameMoveIncomingCommand);
+                    readCommand(gameMoveIncomingCommand);
                 }
                 else { //couldn't read string
                     System.out.println("Couldn't read string! assuming game over...");
