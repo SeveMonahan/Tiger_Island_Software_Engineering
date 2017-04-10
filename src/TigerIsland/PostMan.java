@@ -285,7 +285,7 @@ public class PostMan {
                     readCommand(test);
                 }
                 else { //couldn't read string
-                    System.out.println("assuming game over...");
+                    System.out.println("Couldn't read string! assuming game over...");
                     System.out.println("gg was called for both games!");
                     gameOver = true;
                     status = TournamentStatus.MATCH;
