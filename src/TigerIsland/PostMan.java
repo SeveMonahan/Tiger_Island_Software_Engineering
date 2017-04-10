@@ -239,7 +239,8 @@ public class PostMan {
                         }
                     }
                     GameMoveIncomingCommand test = Parser.commandToObject(message);
-                    if (test.getGid() == gid1) {
+                    readCommand(test);
+                    if (test.getGid().equals(gid1)) {
                         test.setGid("A");
                     }
                     else {
@@ -247,7 +248,6 @@ public class PostMan {
                     }
                     System.out.println("sending command with gid: " + test.getGid());
                     postTileMessage(test);
-                    readCommand(test);
                 }
                 else { //couldn't read string
                     System.out.println("couldn't read your string");
