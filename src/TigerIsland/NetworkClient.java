@@ -18,7 +18,6 @@ import static java.lang.Integer.parseInt;
 
 public class NetworkClient {
     public static String outputLine = null;
-    public static int pid = 0;
     public static int gid = 0;
 
     public static boolean waitingForOutPut = false;
@@ -32,7 +31,6 @@ public class NetworkClient {
 
     }
     public static void main(String[] args) throws IOException, InterruptedException {
-        PostMan x = PostMan.grabPostMan();
 
         check_arguments(args);
 
@@ -52,8 +50,8 @@ public class NetworkClient {
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(netSocket.getInputStream()))
         ) {
-            authenticationProtocol(tournamentPass, username, password, out, in);
-            challengeProtocol(x, out, in);
+            int pid = authenticationProtocol(tournamentPass, username, password, out, in);
+            challengeProtocol(out, in, pid);
         } catch (UnknownHostException e) {
             System.err.println("Can't find the host!");
             System.exit(1);
@@ -63,9 +61,13 @@ public class NetworkClient {
         }
     }
 
-    public static void challengeProtocol(PostMan x, PrintWriter out, BufferedReader in) throws IOException, InterruptedException {
+    public static void challengeProtocol(PrintWriter out, BufferedReader in, int pid) throws IOException, InterruptedException {
         System.out.println("Now executing the challenge protocol...");
-        x.pid = pid;
+
+        PostMan postMan = PostMan.grabPostMan();
+
+        postMan.pid = pid;
+
         String stringFromServer;
         while ((stringFromServer = in.readLine()) != null) {
             long serverTime = System.currentTimeMillis();
@@ -74,7 +76,7 @@ public class NetworkClient {
             if (stringFromServer.equals("THANK YOU FOR PLAYING! GOODBYE")) {
                 break;
             }
-            x.decoder(stringFromServer);
+            postMan.decoder(stringFromServer);
             if (stringFromServer.contains("MAKE YOUR MOVE IN GAME")) {
                 waitingForOutPut = true;
             }
@@ -92,29 +94,30 @@ public class NetworkClient {
         }
     }
 
-    public static void authenticationProtocol(String tournamentPass, String username, String password, PrintWriter out, BufferedReader in) throws IOException {
+    private static int authenticationProtocol(String tournamentPass, String username, String password, PrintWriter out, BufferedReader in) throws IOException {
         String stringFromServer;
         String stringToServer;
-        System.out.println("Executing authentication protocol...");
-        while ((stringFromServer = in.readLine()) != null) {
-            System.out.println("Server: " + stringFromServer);
-            if (stringFromServer.equals("WELCOME TO ANOTHER EDITION OF THUNDERDOME!")) {
-                stringToServer = "ENTER THUNDERDOME " + tournamentPass;
-                System.out.println("Sending tournament password: " + tournamentPass);
-                sendMessage(out, stringToServer);
-            }
-            else if (stringFromServer.equals("TWO SHALL ENTER, ONE SHALL LEAVE")){
-                stringToServer = "I AM " + username + " " + password;
-                System.out.println("Sending username: " + username + "\nSending password: " + password);
-                sendMessage(out, stringToServer);
-            }
-            else {
-                stringFromServer = stringFromServer.replace("WAIT FOR THE TOURNAMENT TO BEGIN ", "");
-                pid = parseInt(stringFromServer);
 
-                break;
-            }
-        }
+        // "WELCOME TO ANOTHER EDITION OF THUNDERDOME!"
+        final String Welcome_string = in.readLine();
+
+        stringToServer = "ENTER THUNDERDOME " + tournamentPass;
+        sendMessage(out, stringToServer);
+
+        // "TWO SHALL ENTER, ONE SHALL LEAVE"
+        final String Two_shall_enter_string = in.readLine();
+
+        stringToServer = "I AM " + username + " " + password;
+        sendMessage(out, stringToServer);
+
+        final String Recieve_Player_id_string = in.readLine();
+        stringFromServer = Recieve_Player_id_string.replace("WAIT FOR THE TOURNAMENT TO BEGIN ", "");
+        int pid = parseInt(stringFromServer);
+
+        System.out.println("Authentical Protocol complete.");
+
+        return pid;
+
     }
 
     public static void sendMessage(PrintWriter out, String stringToServer) {
