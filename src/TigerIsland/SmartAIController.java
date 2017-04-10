@@ -9,6 +9,7 @@ public class SmartAIController implements PlayerController {
     Color color;
     int restriction_number;
     boolean i_like_meeples;
+    long startTime;
 
     public SmartAIController(Color color){
         this.color = color;
@@ -226,9 +227,16 @@ public class SmartAIController implements PlayerController {
         return pqueue;
     }
 
+    private boolean elapsedTimeLongerThan(int panic_num){
+        return getElapsedTime() > panic_num;
+    }
+
+    private long getElapsedTime(){
+        return (System.currentTimeMillis() - startTime);
+    }
+
     public GameStateEndOfTurn newGameState_get_ahead(GameStateWTile gameStateWTile){
         PriorityQueue<GameStateEndOfTurn> pqueue = bestNewGameStates(gameStateWTile);
-        assert(pqueue.size() <= 4);
 
         GameStateEndOfTurn best_state = null;
 
@@ -263,18 +271,24 @@ public class SmartAIController implements PlayerController {
             }
         }
 
+        if(pqueue.size() != 0){
+            while(pqueue.size() != 1){
+                pqueue.poll();
+            }
+
+            return pqueue.poll();
+        }
+
         return best_state;
 
 
     }
     public GameStateEndOfTurn newGameState(GameStateWTile gameStateWTile) {
-        long startTime = System.currentTimeMillis();
-
-        Player activePlayer = gameStateWTile.getActivePlayer();
+        startTime = System.currentTimeMillis();
 
         GameStateEndOfTurn best_state = newGameState_get_ahead(gameStateWTile);
 
-        System.out.println(System.currentTimeMillis() - startTime);
+        System.out.println(getElapsedTime());
 
         return best_state;
     }
