@@ -85,7 +85,7 @@ public class NetworkClient {
             }
             if (outputLine != null) {
                 long difference = System.currentTimeMillis() - serverTime;
-                System.out.println(difference + " Client: " + outputLine);
+                System.out.println(" Client: " + outputLine + " Time in miliseconds since read in server line: " + serverTime);
                 sendMessage(out, outputLine);
                 outputLine = null;
                 waitingForOutPut = false;
