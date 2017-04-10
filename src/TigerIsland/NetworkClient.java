@@ -113,6 +113,8 @@ public class NetworkClient {
         stringFromServer = Recieve_Player_id_string.replace("WAIT FOR THE TOURNAMENT TO BEGIN ", "");
         int pid = parseInt(stringFromServer);
 
+        System.out.print("Our Player ID is: ");
+        System.out.println(pid);
         System.out.println("Authentical Protocol complete.");
 
         return pid;
