@@ -30,11 +30,15 @@ public class Referee {
             ControllerTakesTurn(controller_1);
 
             if(gameEndOfTurn.checkForGameOver() || tileBag.getNumberOfTilesInBag() == 0){
+                if (tileBag.getNumberOfTilesInBag() == 0) {
+                    System.out.println("WTF");
+                }
                 break;
             }
 
             ControllerTakesTurn(controller_2);
             if(gameEndOfTurn.checkForGameOver() || tileBag.getNumberOfTilesInBag() == 0){
+                System.out.println("wat2");
                 break;
             }
         }
