@@ -119,10 +119,10 @@ public class NetworkClient {
 
     }
 
-    public static void sendMessage(PrintWriter out, String stringToServer) {
+    public static synchronized void sendMessage(PrintWriter out, String stringToServer) {
         out.println(stringToServer);
     }
-    public static void setOutputLine(String messageToServer) {
+    public static synchronized void setOutputLine(String messageToServer) {
         outputLine = messageToServer;
     }
 }
