@@ -21,7 +21,9 @@ public class NetworkTileBag implements TileBag {
         while(tile == null){
             try {
                 synchronized (tileBagPostMan) {
+                    System.out.println(this.gameID + " waiting for tiles to get to the mailbox...");
                     tileBagPostMan.wait();
+                    System.out.println(this.gameID + " has risen from the dead!");
                     tile = tileBagPostMan.accessTileMailBox(gameID);
                 }
             } catch (InterruptedException e) {
