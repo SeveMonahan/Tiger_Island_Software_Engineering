@@ -5,7 +5,7 @@ import java.util.LinkedList;
 public class NetworkTileBag implements TileBag {
 
     private LinkedList<Tile> bag;
-    private int numberOfTilesInBag;
+    private int numberOfTilesInBag = 48;
     private PostMan tileBagPostMan;
     private String gameID;
 
@@ -30,10 +30,10 @@ public class NetworkTileBag implements TileBag {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if(tile != null) {
-                bag.push(tile);
-                numberOfTilesInBag++;
-            }
+        }
+
+        if(tile != null) {
+            bag.push(tile);
         }
         numberOfTilesInBag--;
         return this.bag.pop();

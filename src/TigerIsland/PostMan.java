@@ -95,7 +95,7 @@ public class PostMan {
         parsedString = parsedString.replace("B11", gid2);
         String [] parsedArray = parsedString.split("\\s+");
         String badTile = parsedArray[5];
-        // parsedString = parsedString.replace(badTile, properTile);
+        parsedString = parsedString.replace(badTile, properTile);
         NetworkClient.setOutputLine( parsedString );
     }
 
@@ -106,6 +106,7 @@ public class PostMan {
             if(gameMoveIncomingCommand.getGid().equals(gid)) {
                 tile = gameMoveIncomingCommand.getTile();
                 tileMailBox.remove(gameMoveIncomingCommand);
+                System.out.println("Access to tile mailbox : " + gid + " " + tile.toString() );
                 return tile;
             }
         }
@@ -233,6 +234,7 @@ public class PostMan {
                             postNetworkPlayerMessage(opponentMove);
                         }
                         else {
+                            // TODO opponent or our move?
                             System.out.println("Reading our move...");
                         }
                     }

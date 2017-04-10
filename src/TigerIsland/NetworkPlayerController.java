@@ -25,6 +25,7 @@ public class NetworkPlayerController implements PlayerController {
         }
 
         Tile tile = gameMoveIncomingTransmission.getTileMove().getTile();
+        // Tile tile = gameStateWTile.getTile();
         HexagonNeighborDirection hexagonNeighborDirection = gameMoveIncomingTransmission.getTileMove().getDirection();
         Coordinate coordinateTile = gameMoveIncomingTransmission.getTileMove().getCoordinate();
         TileMove tileMove = new TileMove(tile, hexagonNeighborDirection, coordinateTile);
