@@ -204,7 +204,7 @@ public class SmartAIController implements PlayerController {
         return result;
     }
 
-    private PriorityQueue<GameStateEndOfTurn> bestNewGameStates(GameStateWTile gameStateWTile){
+    private PriorityQueue<GameStateEndOfTurn> bestNewGameStates(GameStateWTile gameStateWTile, boolean second){
         ArrayList<GameStateBeforeBuildAction> beforeBuildActions = getCloseTiles(gameStateWTile);
 
         PriorityQueue<GameStateEndOfTurn> pqueue = new PriorityQueue<GameStateEndOfTurn>();
@@ -220,7 +220,12 @@ public class SmartAIController implements PlayerController {
                 }
             }
 
-        }
+            if(second && elapsedTimeLongerThan(1000)){
+                System.out.println("PANIC!");
+                return pqueue;
+            }
+
+            }
 
         return pqueue;
     }
@@ -234,7 +239,7 @@ public class SmartAIController implements PlayerController {
     }
 
     public GameStateEndOfTurn newGameState_get_ahead(GameStateWTile gameStateWTile){
-        PriorityQueue<GameStateEndOfTurn> pqueue = bestNewGameStates(gameStateWTile);
+        PriorityQueue<GameStateEndOfTurn> pqueue = bestNewGameStates(gameStateWTile, false);
 
         GameStateEndOfTurn best_state = null;
 
@@ -251,7 +256,11 @@ public class SmartAIController implements PlayerController {
 
             GameStateWTile gameStateTile2 = current_state.getChild(new Tile(Terrain.UNKNOWN, Terrain.UNKNOWN));
 
-            PriorityQueue<GameStateEndOfTurn> leafNodes = bestNewGameStates(gameStateTile2);
+            PriorityQueue<GameStateEndOfTurn> leafNodes = bestNewGameStates(gameStateTile2, true);
+
+            if(leafNodes.size() == 0){
+                break;
+            }
 
             while(leafNodes.size() != 1){
                 leafNodes.poll();
