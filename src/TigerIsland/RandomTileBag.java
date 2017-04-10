@@ -1,5 +1,6 @@
 package TigerIsland;
 
+import java.util.Collections;
 import java.util.LinkedList;
 
 public class RandomTileBag implements TileBag {
@@ -36,6 +37,8 @@ public class RandomTileBag implements TileBag {
 
             }
         }
+
+        Collections.shuffle(bag);
 
         numberOfTilesInBag = bag.size();
     }

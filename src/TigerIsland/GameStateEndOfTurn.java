@@ -63,7 +63,15 @@ public class GameStateEndOfTurn extends GameState implements Comparable<GameStat
     }
 
     public int netEvalScore(){
-        return playerWhoseTurn.getScore() * 10 + adjacent_hexs_score();
+        Player active_player = this.getInactivePlayer();
+
+        int active_player_pieces = active_player.getMeeplesCount() + active_player.getMeeplesCount() + active_player.getTotoroCount();
+
+        Player inactive_player = this.getActivePlayer();
+
+        int inactive_player_pieces = inactive_player.getMeeplesCount() + inactive_player.getMeeplesCount() + inactive_player.getTotoroCount();
+
+        return active_player_pieces - inactive_player_pieces;
     }
 
     @Override

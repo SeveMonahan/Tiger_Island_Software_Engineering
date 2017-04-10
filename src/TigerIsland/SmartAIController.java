@@ -8,6 +8,7 @@ import java.util.Queue;
 public class SmartAIController implements PlayerController {
     Color color;
     int restriction_number;
+    boolean i_like_meeples;
 
     public SmartAIController(Color color){
         this.color = color;
@@ -141,6 +142,10 @@ public class SmartAIController implements PlayerController {
 
                 Queue<ConstructionMoveInternal> ConstructionMovePossibilities = getConstructionMovePossibilities(coordinate, board);
 
+                if(i_like_meeples && !ConstructionMovePossibilities.isEmpty() && board.getHexagonAt(coordinate).containsPieces()){
+                    continue;
+                }
+
                 while(!ConstructionMovePossibilities.isEmpty()) {
                     GameStateEndOfTurn currentGameState = GameStateEndOfTurn.createGameStateFromConstructionMove(gameStateBeforeBuildAction,
                             ConstructionMovePossibilities.remove());
@@ -192,6 +197,7 @@ public class SmartAIController implements PlayerController {
             return result;
         }
 
+
         //else
         result.add(new FoundSettlementConstructionMove(coordinate));
         result.add(new TigerConstructionMove(coordinate));
@@ -220,9 +226,7 @@ public class SmartAIController implements PlayerController {
         return pqueue;
     }
 
-    public GameStateEndOfTurn newGameState(GameStateWTile gameStateWTile) {
-        long startTime = System.currentTimeMillis();
-
+    public GameStateEndOfTurn newGameState_get_ahead(GameStateWTile gameStateWTile){
         PriorityQueue<GameStateEndOfTurn> pqueue = bestNewGameStates(gameStateWTile);
         assert(pqueue.size() <= 4);
 
@@ -243,14 +247,32 @@ public class SmartAIController implements PlayerController {
 
             GameStateEndOfTurn bestLeafNode = leafNodes.poll();
 
-            int netScoreGain = current_state.activePlayerScore() - bestLeafNode.activePlayerScore();
+            Player active_player = bestLeafNode.getInactivePlayer();
+
+            int active_player_pieces = active_player.getMeeplesCount() + active_player.getMeeplesCount() + active_player.getTotoroCount();
+
+            Player inactive_player = bestLeafNode.getActivePlayer();
+
+            int inactive_player_pieces = inactive_player.getMeeplesCount() + inactive_player.getMeeplesCount() + inactive_player.getTotoroCount();
+
+            int netScoreGain = active_player_pieces - inactive_player_pieces;
 
             if(netScoreGain > bestNetScoreGain){
                 best_state = current_state;
                 bestNetScoreGain = netScoreGain;
             }
-
         }
+
+        return best_state;
+
+
+    }
+    public GameStateEndOfTurn newGameState(GameStateWTile gameStateWTile) {
+        long startTime = System.currentTimeMillis();
+
+        Player activePlayer = gameStateWTile.getActivePlayer();
+
+        GameStateEndOfTurn best_state = newGameState_get_ahead(gameStateWTile);
 
         System.out.println(System.currentTimeMillis() - startTime);
 

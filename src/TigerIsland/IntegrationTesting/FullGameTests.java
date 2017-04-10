@@ -15,7 +15,7 @@ public class FullGameTests {
         FileWriter writer;
 
         String gid = "Best vs. Dumb";
-        PlayerController ai_01 = new GenuisAIController(Color.BLACK);
+        PlayerController ai_01 = new SmartAIController(Color.BLACK);
         PlayerController ai_02 = new DumbController(Color.WHITE);
         OutputPlayerActions logger = new OutputPlayerLogger(gid, Color.BLACK );
         TileBag tileBag = new RandomTileBag();
@@ -35,8 +35,8 @@ public class FullGameTests {
             e.printStackTrace();
         }
 
-        gid = "Dumb vs. Best";
-        ai_02 = new GenuisAIController(Color.BLACK);
+        gid = "SmartAI vs. Best";
+        ai_02 = new SmartAIController(Color.BLACK);
         ai_01 = new DumbController(Color.WHITE);
         logger = new OutputPlayerLogger(gid, Color.BLACK );
         tileBag = new RandomTileBag();
@@ -47,47 +47,6 @@ public class FullGameTests {
             dumb_wins++;
         }
 
-        try {
-            writer = new FileWriter(new File("log.txt"), true);
-            writer.write("\nNEW GAME:\n");
-            writer.write(System.lineSeparator());
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        gid = "Best vs. Smart";
-        ai_01 = new GenuisAIController(Color.BLACK);
-        ai_02 = new SmartAIController(Color.WHITE);
-        logger = new OutputPlayerLogger(gid, Color.BLACK );
-        tileBag = new RandomTileBag();
-
-        referee = new Referee(ai_01, ai_02, logger, tileBag);
-
-        if(referee.execute()){
-            smart_wins++;
-        }
-
-        try {
-            writer = new FileWriter(new File("log.txt"), true);
-            writer.write("\nNEW GAME:\n");
-            writer.write(System.lineSeparator());
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        gid = "Smart vs. Best";
-        ai_02 = new GenuisAIController(Color.BLACK);
-        ai_01 = new SmartAIController(Color.WHITE);
-        logger = new OutputPlayerLogger(gid, Color.BLACK );
-        tileBag = new RandomTileBag();
-
-        referee = new Referee(ai_01, ai_02, logger, tileBag);
-
-        if(referee.execute()){
-            smart_wins++;
-        }
     }
 
     @Test
