@@ -12,7 +12,9 @@ public class GameStateBeforeBuildAction extends GameState {
         lastTileMove = tilemove;
     }
 
-    public static GameStateBeforeBuildAction createGameStateBeforeBuildAction(GameState original, TileMove tilemove) {
+    public static GameStateBeforeBuildAction createGameStateBeforeBuildAction(GameStateWTile original, TileMove tilemove) {
+        assert(tilemove.getTile().toString().equals(original.getTile().toString()));
+
         TileMoveChecker tileMoveChecker = new TileMoveChecker();
         boolean validTilePlacement = tileMoveChecker.checkForValidity(tilemove, original.getBoard());
         if (validTilePlacement)

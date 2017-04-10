@@ -10,7 +10,7 @@ import static java.lang.Integer.toUnsignedString;
 //
 public class PostMan {
     private static PostMan myPostMan;
-    public static int pid = -1;
+    public int pid = -1;
     private static int cid = -1;
     private static int oid = -1;
     private static int rid = -1;
@@ -38,6 +38,10 @@ public class PostMan {
             myPostMan = new PostMan();
         }
         return myPostMan;
+    }
+
+    public void setpid(int pid) {
+        this.pid = pid;
     }
 
     // This will be execute everytime we want to start a match
@@ -82,16 +86,16 @@ public class PostMan {
     }
 
     public synchronized void mailAIMessages(GameMoveOutgoingTransmission gameMoveOutgoingTransmission) {
-        printOurMove(gameMoveOutgoingTransmission);
+        // printOurMove(gameMoveOutgoingTransmission);
         Marshaller marshaller = new Marshaller();
         String parsedString = marshaller.convertTileMoveAndConstructionMoveToString(gameMoveOutgoingTransmission);
         parsedString = parsedString.replace("**********move_id**********",moveID);
         // AIMailBox.push(parsedString);
         parsedString = parsedString.replace("A11", gid1);
         parsedString = parsedString.replace("B11", gid2);
-        String [] parsedArray = parsedString.split(" ");
+        String [] parsedArray = parsedString.split("\\s+");
         String badTile = parsedArray[5];
-        parsedString = parsedString.replace(badTile, properTile);
+        // parsedString = parsedString.replace(badTile, properTile);
         NetworkClient.setOutputLine( parsedString );
     }
 
@@ -99,24 +103,10 @@ public class PostMan {
         Tile tile = null;
 
         for(GameMoveIncomingCommand gameMoveIncomingCommand : tileMailBox) {
-            String msg;
-            if (gid.equals("A11")) {
-                msg = "thread 1";
-            }
-            else if (gid.equals("B11")) {
-                msg = "thread 2";
-            }
-            else {
-                msg = "WTF thread";
-            }
-            System.out.println(msg + " scrolling through tiles " + gameMoveIncomingCommand.getTile().toString());
             if(gameMoveIncomingCommand.getGid().equals(gid)) {
-
-                System.out.println(msg + " grabbed tile from mailbox!");
                 tile = gameMoveIncomingCommand.getTile();
                 tileMailBox.remove(gameMoveIncomingCommand);
                 return tile;
-
             }
         }
         return tile;
@@ -225,22 +215,22 @@ public class PostMan {
                             gidSet = true;
                         }
                     }
-                    GameMoveIncomingTransmission sendSomewhere = Parser.opponentMoveStringToGameMove(message);
-                    if (sendSomewhere != null) {
-                        readTransmission(sendSomewhere);
+                    GameMoveIncomingTransmission opponentMove = Parser.opponentMoveStringToGameMove(message);
+                    if (opponentMove != null) {
+                        readTransmission(opponentMove);
                         //take in opponent's move only
-                        if (!sendSomewhere.getPid().equals(toUnsignedString(pid))) { // post only if opponent's move
-                            System.out.println(sendSomewhere.getPid() + " " + pid + " reading opponent's move. Sending to AI...");
-                            if (sendSomewhere.getGid().equals(gid1)) {
-                                sendSomewhere.setGid("A11");
+                        if (!opponentMove.getPid().equals(toUnsignedString(pid))) { // post only if opponent's move
+                            System.out.println(opponentMove.getPid() + " " + pid + " reading opponent's move. Sending to AI...");
+                            if (opponentMove.getGid().equals(gid1)) {
+                                opponentMove.setGid("A11");
                             }
-                            else if (sendSomewhere.getGid().equals(gid2)) {
-                                sendSomewhere.setGid("B11");
+                            else if (opponentMove.getGid().equals(gid2)) {
+                                opponentMove.setGid("B11");
                             }
                             else {
                                 System.out.println("couldn't set transmission's GID");
                             }
-                            postNetworkPlayerMessage(sendSomewhere);
+                            postNetworkPlayerMessage(opponentMove);
                         }
                         else {
                             System.out.println("Reading our move...");
@@ -268,22 +258,22 @@ public class PostMan {
                             System.out.println("grabbed gid1:" + gid1);
                         }
                     }
-                    GameMoveIncomingCommand test = Parser.commandToObject(message);
+                    GameMoveIncomingCommand gameMoveIncomingCommand = Parser.commandToObject(message);
                     //readCommand(test);
-                    moveID = test.getMoveNumber();
-                    if (test.getGid().equals(gid1)) {
-                        test.setGid("A11");
+                    moveID = gameMoveIncomingCommand.getMoveNumber();
+                    if (gameMoveIncomingCommand.getGid().equals(gid1)) {
+                        gameMoveIncomingCommand.setGid("A11");
                     }
-                    else if (test.getGid().equals(gid2)){
-                        test.setGid("B11");
+                    else if (gameMoveIncomingCommand.getGid().equals(gid2)){
+                        gameMoveIncomingCommand.setGid("B11");
                     }
                     else {
                         System.out.println("wat gid");
                     }
-                    System.out.println("sending to thread: " + test.getGid());
-                    properTile = test.getTile().toString();
-                    postTileMessage(test);
-                    readCommand(test);
+                    System.out.println("sending to thread: " + gameMoveIncomingCommand.getGid());
+                    properTile = gameMoveIncomingCommand.getTile().toString();
+                    postTileMessage(gameMoveIncomingCommand);
+                    readCommand(gameMoveIncomingCommand);
                 }
                 else { //couldn't read string
                     System.out.println("Couldn't read string! assuming game over...");
