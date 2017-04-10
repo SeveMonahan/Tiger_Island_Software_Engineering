@@ -42,10 +42,10 @@ public class PostMan {
         AIMailBox = new LinkedList<>();
 
         PlayerController ai_01 = new DumbController(Color.BLACK);
-        NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE);
+        NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, "gameID", this);
 
         PlayerController ai_02 = new DumbController(Color.BLACK);
-        NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE);
+        NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE, "gameID", this);
 
         match_01 = new Match(this, ai_01, network_01, "bullshit");
         match_02 = new Match(this, network_02, ai_02, "bullshit");

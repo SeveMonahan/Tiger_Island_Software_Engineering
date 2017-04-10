@@ -14,15 +14,4 @@ public class NetworkPlayerTest {
     public void ensureMovesPlacedCorrectly_02() {
 
     }
-
-    @Test
-    public void returnInstanceOfGameState() {
-        NetworkPlayerController networkPlayer = new NetworkPlayerController(Color.BLACK);
-
-        //GameStateWTile gameStateWTile = new GameStateWTile();
-
-        // GameStateEndOfTurn endOfTurn = networkPlayer.newGameState();
-    }
-
-
 }
