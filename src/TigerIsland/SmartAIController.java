@@ -269,6 +269,11 @@ public class SmartAIController implements PlayerController {
                 best_state = current_state;
                 bestNetScoreGain = netScoreGain;
             }
+
+            if(elapsedTimeLongerThan(1000)){
+                System.out.println("PANIC!");
+                break;
+            }
         }
 
         if(pqueue.size() != 0){
