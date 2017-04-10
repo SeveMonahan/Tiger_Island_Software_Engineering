@@ -82,7 +82,10 @@ public class PostMan {
         String parsedString = marshaller.convertTileMoveAndConstructionMoveToString(gameMoveOutgoingTransmission);
         //System.out.println("pushing to AIMailBox");
         parsedString = parsedString.replace("**********move_id**********",moveID);
-        AIMailBox.push(parsedString);
+
+        //AIMailBox.push(parsedString);
+        NetworkClient.setOutputLine(parsedString);
+        System.out.println(System.currentTimeMillis());
     }
 
     public synchronized Tile accessTileMailBox(String gid) {
@@ -206,11 +209,6 @@ public class PostMan {
                         readTransmission(sendSomewhere);
                         postNetworkPlayerMessage(sendSomewhere);
                         //NetworkClient.setOutputLine("waffles");
-                        for (int i = 0; i < 5; i++) {
-                            if (!AIMailBox.isEmpty()) {
-                                NetworkClient.setOutputLine(AIMailBox.pop());
-                            }
-                        }
                     }
                     else { //if someone forfeited
                         String gameToBeKilled = arr[1];
@@ -244,6 +242,7 @@ public class PostMan {
                     System.out.println("sending command with gid: " + test.getGid());
                     moveID = test.getMoveNumber();
                     postTileMessage(test);
+
                 }
                 else { //couldn't read string
                     System.out.println("couldn't read your string");

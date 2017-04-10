@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.concurrent.TimeUnit;
 
 import static java.lang.Integer.parseInt;
 
@@ -23,8 +24,10 @@ public class NetworkClient {
     public static int rounds = 0;
     public static int rid = 0;
     public static int gid = 0;
+
+    public static boolean waitingForOutPut = false;
     private static boolean messageSent = false;
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         PostMan x = PostMan.grabPostMan();
         if (args.length != 5) {
             System.err.println(
@@ -53,7 +56,7 @@ public class NetworkClient {
         }
     }
 
-    public static void challengeProtocol(PostMan x,PrintWriter out, BufferedReader in) throws IOException {
+    public static void challengeProtocol(PostMan x,PrintWriter out, BufferedReader in) throws IOException, InterruptedException {
         System.out.println("Now executing the challenge protocol...");
         BufferedReader stdIn =
                 new BufferedReader(new InputStreamReader(System.in));
@@ -65,10 +68,17 @@ public class NetworkClient {
                 break;
             }
             x.decoder(stringFromServer);
+            if (stringFromServer.contains("MAKE YOUR MOVE IN GAME")) {
+                waitingForOutPut = true;
+            }
+            while (outputLine == null && waitingForOutPut) {
+                TimeUnit.MILLISECONDS.sleep(100);
+            }
             if (outputLine != null) {
                 System.out.println(System.currentTimeMillis() + " Client: " + outputLine);
                 sendMessage(out, outputLine);
                 outputLine = null;
+                waitingForOutPut = false;
             }
         }
     }
