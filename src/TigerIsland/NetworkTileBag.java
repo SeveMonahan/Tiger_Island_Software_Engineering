@@ -17,6 +17,7 @@ public class NetworkTileBag implements TileBag {
 
     @Override
     public Tile drawTile() {
+        System.out.println(this.gameID + " is attempting to draw a tile...");
         Tile tile = tileBagPostMan.accessTileMailBox(gameID);
         while(tile == null){
             try {
@@ -34,7 +35,6 @@ public class NetworkTileBag implements TileBag {
                 numberOfTilesInBag++;
             }
         }
-
         numberOfTilesInBag--;
         return this.bag.pop();
     }
