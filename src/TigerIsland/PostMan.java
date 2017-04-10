@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import static java.lang.Integer.parseInt;
 
 //TODO: game over message from server kills both threads
-//
+
 public class PostMan {
     private static PostMan myPostMan;
     private static int cid = -1;
@@ -48,8 +48,8 @@ public class PostMan {
         PlayerController ai_02 = new SmartAIController(Color.BLACK);
         NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE, gid2, this);
 
-        match_01 = new Match(this, ai_01, network_01, "A");
-        match_02 = new Match(this, network_02, ai_02, "B");
+        match_01 = new Match(this, ai_01, network_01, gid1);
+        match_02 = new Match(this, network_02, ai_02, gid2);
 
         t1 = new Thread(match_01);
         t2 = new Thread(match_02);
@@ -122,16 +122,14 @@ public class PostMan {
                 if (message.contains("END OF CHALLENGES")) {
                     System.out.println("Challenges over!");
                     System.exit(1);
-                }
-                else if (message.contains("WAIT FOR THE NEXT CHALLENGE TO BEGIN")) {
+                } else if (message.contains("WAIT FOR THE NEXT CHALLENGE TO BEGIN")) {
                     System.out.println("waiting for next challenge...");
                     cid = 0;
                     oid = 0;
                     rid = 0;
                     rounds = 0;
                     currentRound = 0;
-                }
-                else if (message.contains("NEW CHALLENGE")) {
+                } else if (message.contains("NEW CHALLENGE")) {
                     roundsOver = false;
                 }
             }
@@ -142,8 +140,7 @@ public class PostMan {
                 System.out.println("grabbed cid: " + cid + " and rounds: " + rounds);
                 status = TournamentStatus.ROUND;
             }
-        }
-        else if (status == TournamentStatus.ROUND) { //round protocol
+        } else if (status == TournamentStatus.ROUND) { //round protocol
             if (gameOver) {
                 if (message.contains("END OF ROUND") && message.contains(" OF ")) {
                     currentRound++;
@@ -164,8 +161,7 @@ public class PostMan {
                 System.out.println("grabbed rid: " + rid);
                 status = TournamentStatus.MATCH;
             }
-        }
-        else if (status == TournamentStatus.MATCH) { //match protocol
+        } else if (status == TournamentStatus.MATCH) { //match protocol
             System.out.println("Match about to start!");
             StartMatch();
             System.out.println("Match started!");
@@ -183,16 +179,14 @@ public class PostMan {
                 System.out.println("grabbed opponent cid: " + oid);
                 status = TournamentStatus.MOVE;
             }
-        }
-        else { //move protocol (this is where it diverges into two games)
+        } else { //move protocol (this is where it diverges into two games)
             if (message.contains("gg")) {
                 System.out.println("gg was called for both games!");
                 gameOver = true;
                 status = TournamentStatus.MATCH;
                 t1.stop();
                 t2.stop();
-            }
-            else {
+            } else {
                 if (!message.contains("MAKE YOUR MOVE") && message.contains("PLAYER")) { //type 2 message (handled by parser)
                     if (gidSet == false) {
                         if (gid2.isEmpty() && !arr[1].equals(gid1)) {
@@ -206,8 +200,7 @@ public class PostMan {
                         readTransmission(sendSomewhere);
                         postNetworkPlayerMessage(sendSomewhere);
                         //NetworkClient.setOutputLine("waffles");
-                    }
-                    else { //if someone forfeited
+                    } else { //if someone forfeited
                         String gameToBeKilled = arr[1];
                         if (gameToBeKilled.equals(gid1)) {
                             killThread(1);
@@ -220,8 +213,7 @@ public class PostMan {
                         }
                         //TODO: KILL WHOEVER FORFEITED
                     }
-                }
-                else if (message.contains("MAKE YOUR MOVE IN GAME")){ //type 1 message (command telling us to make a move)
+                } else if (message.contains("MAKE YOUR MOVE IN GAME")){ //type 1 message (command telling us to make a move)
                     if (gidSet == false) {
                         if (gid1.isEmpty()) {
                             gid1 = arr[5]; //assign this to thread 1
@@ -232,15 +224,13 @@ public class PostMan {
                     //readCommand(test);
                     if (test.getGid().equals(gid1)) {
                         test.setGid("A");
-                    }
-                    else {
+                    } else {
                         test.setGid("B");
                     }
                     System.out.println("sending command with gid: " + test.getGid());
                     moveID = test.getMoveNumber();
                     postTileMessage(test);
-                }
-                else { //couldn't read string
+                } else { //couldn't read string
                     System.out.println("couldn't read your string");
                 }
             }
