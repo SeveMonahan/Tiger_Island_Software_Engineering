@@ -54,7 +54,7 @@ public class NetworkServerTest {
                     new BufferedReader(new InputStreamReader(System.in));
             // Initiate conversation with client
             authenticate(out, stdIn);
-            sendMessagesNotOnCommand(out, stdIn);
+            sendMessagesOnCommand(out, stdIn);
             String outputLine;
             while (true) {
                 outputLine = stdIn.readLine();
@@ -75,8 +75,11 @@ public class NetworkServerTest {
                 "GAME A MOVE 0 PLAYER 3 PLACED GRASS+LAKE AT 1 1 -2 6 FOUNDED SETTLEMENT AT 1 2 -3",
                 "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 0 PLACE ROCK+JUNGLE",
                 "GAME A MOVE 0 PLAYER 6 PLACED ROCK+JUNGLE AT 3 -1 -2 4 FOUNDED SETTLEMENT AT 1 0 -1",
-                "GAME B MOVE 0 PLAYER 3 PLACED ROCK+JUNGLE AT 1 1 -2 6 FOUNDED SETTLEMENT AT 1 2 -3",
-                "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 1 PLACE JUNGLE+JUNGLE"
+                "GAME A MOVE 0 PLAYER 3 PLACED GRASS+LAKE AT 1 1 -2 6 FOUNDED SETTLEMENT AT 1 2 -3",
+                "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 0 PLACE ROCK+JUNGLE",
+                "GAME A MOVE 0 PLAYER 6 PLACED ROCK+JUNGLE AT 3 -1 -2 4 FOUNDED SETTLEMENT AT 1 0 -1",
+                "GAME B MOVE 0 PLAYER 3 PLACED ROCK+JUNGLE AT -1 -1 2 3 FOUNDED SETTLEMENT AT -1 -2 3",
+                "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 1 PLACE LAKE+ROCK"
         };
         for (String x : messages) {
             String k = stdIn.readLine();
@@ -85,21 +88,7 @@ public class NetworkServerTest {
             }
         }
     }
-    public static void sendMessagesNotOnCommand(PrintWriter out, BufferedReader stdIn) throws IOException, InterruptedException {
-        String[] messages = {
-                "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 0 PLACE GRASS+LAKE",
-                "GAME B MOVE 0 PLAYER 6 PLACED GRASS+LAKE AT 3 -1 -2 4 FOUNDED SETTLEMENT AT 1 0 -1",
-                "GAME A MOVE 0 PLAYER 3 PLACED GRASS+LAKE AT 1 1 -2 6 FOUNDED SETTLEMENT AT 1 2 -3",
-                "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 0 PLACE ROCK+JUNGLE",
-                "GAME A MOVE 0 PLAYER 6 PLACED ROCK+JUNGLE AT 3 -1 -2 4 FOUNDED SETTLEMENT AT 1 0 -1",
-                "GAME B MOVE 0 PLAYER 3 PLACED ROCK+JUNGLE AT 1 1 -2 6 FOUNDED SETTLEMENT AT 1 2 -3",
-                "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 1 PLACE JUNGLE+JUNGLE"
-        };
-        for (String x : messages) {
-                out.println(x);
-                TimeUnit.MILLISECONDS.sleep(300);
-        }
-    }
+
     public static void sendTestMessages(PrintWriter out) throws InterruptedException {
         String[] messages = {
                 "NEW CHALLENGE 346 YOU WILL PLAY 2 MATCHES",

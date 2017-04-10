@@ -15,11 +15,6 @@ public class Coordinate {
         this.y = y;
     }
 
-    public String toString () {
-        String x = this.getX() + " " + this.getY();
-        return x;
-    }
-
     public Coordinate(int xC, int yC, int zC){
         int col = xC + (zC-(zC&1))/2;
         int row = -zC;
