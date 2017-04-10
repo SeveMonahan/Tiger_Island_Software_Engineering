@@ -72,6 +72,7 @@ public class NetworkClient {
                 waitingForOutPut = true;
             }
             while (outputLine == null && waitingForOutPut) {
+                System.out.println("sleep");
                 TimeUnit.MILLISECONDS.sleep(100);
             }
             if (outputLine != null) {

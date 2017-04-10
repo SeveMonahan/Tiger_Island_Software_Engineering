@@ -43,13 +43,13 @@ public class PostMan {
         AIMailBox = new LinkedList<>();
 
         PlayerController ai_01 = new SmartAIController(Color.BLACK);
-        NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, gid1, this);
+        NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, "A11", this);
 
         PlayerController ai_02 = new SmartAIController(Color.BLACK);
-        NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE, gid2, this);
+        NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE, "B11", this);
 
-        match_01 = new Match(this, ai_01, network_01, "A");
-        match_02 = new Match(this, network_02, ai_02, "B");
+        match_01 = new Match(this, ai_01, network_01, "A11");
+        match_02 = new Match(this, network_02, ai_02, "B11");
 
         t1 = new Thread(match_01);
         t2 = new Thread(match_02);
@@ -81,6 +81,8 @@ public class PostMan {
         String parsedString = marshaller.convertTileMoveAndConstructionMoveToString(gameMoveOutgoingTransmission);
         parsedString = parsedString.replace("**********move_id**********",moveID);
         // AIMailBox.push(parsedString);
+        parsedString = parsedString.replace("A11", gid1);
+        parsedString = parsedString.replace("B11", gid2);
         NetworkClient.setOutputLine( parsedString );
         System.out.println( System.currentTimeMillis() );
     }
@@ -230,22 +232,23 @@ public class PostMan {
                     }
                     GameMoveIncomingCommand test = Parser.commandToObject(message);
                     //readCommand(test);
+                    moveID = test.getMoveNumber();
                     if (test.getGid().equals(gid1)) {
-                        test.setGid("A");
+                        test.setGid("A11");
                     }
                     else {
-                        test.setGid("B");
+                        test.setGid("B11");
                     }
-                    System.out.println("sending command with gid: " + test.getGid());
-                    moveID = test.getMoveNumber();
-                    postTileMessage(test);
+                    System.out.println("sending to thread: " + test.getGid());
 
+                    postTileMessage(test);
                 }
                 else { //couldn't read string
                     System.out.println("couldn't read your string");
                 }
             }
         }
+        System.out.println("out of decoder");
     }
 
     public static void readTransmission(GameMoveIncomingTransmission sendSomewhere) {

@@ -15,6 +15,7 @@ public class Parser {
         final int moveNumberIndex = 10;
         String gid = commandArray[gidIndex];
         double time = Double.parseDouble(commandArray[timeIndex]);
+
         String moveNumber = commandArray[moveNumberIndex];
         Tile tile = tileStringToTile(commandArray[12]);
         return new GameMoveIncomingCommand(gid,time,moveNumber,tile);
