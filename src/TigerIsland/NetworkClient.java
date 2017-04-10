@@ -24,6 +24,7 @@ public class NetworkClient {
     public static int rid = 0;
     public static int gid = 0;
     private static boolean messageSent = false;
+    private static PrintWriter server_out;
     public static void main(String[] args) throws IOException {
         PostMan x = PostMan.grabPostMan();
         if (args.length != 5) {
@@ -53,7 +54,8 @@ public class NetworkClient {
         }
     }
 
-    public static void challengeProtocol(PostMan x,PrintWriter out, BufferedReader in) throws IOException {
+    public static void challengeProtocol(PostMan x, PrintWriter out, BufferedReader in) throws IOException {
+        server_out = out;
         System.out.println("Now executing the challenge protocol...");
         BufferedReader stdIn =
                 new BufferedReader(new InputStreamReader(System.in));
@@ -65,11 +67,6 @@ public class NetworkClient {
                 break;
             }
             x.decoder(stringFromServer);
-            if (outputLine != null) {
-                System.out.println(System.currentTimeMillis() + " Client: " + outputLine);
-                sendMessage(out, outputLine);
-                outputLine = null;
-            }
         }
     }
 
@@ -100,7 +97,10 @@ public class NetworkClient {
     public static void sendMessage(PrintWriter out, String stringToServer) {
         out.println(stringToServer);
     }
-    public static void setOutputLine(String messageToServer) {
-        outputLine = messageToServer;
+    public static void setOutputLine(String outputLine) {
+        if (outputLine != null) {
+            System.out.println(System.currentTimeMillis() + " Client: " + outputLine);
+            sendMessage(server_out, outputLine);
+        }
     }
 }
