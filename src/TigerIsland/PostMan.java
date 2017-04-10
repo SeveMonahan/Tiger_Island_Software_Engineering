@@ -3,6 +3,7 @@ package TigerIsland;
 import java.util.LinkedList;
 
 import static java.lang.Integer.parseInt;
+import static java.lang.Integer.toUnsignedString;
 
 //TODO: game over message from server kills both threads
 //
@@ -195,7 +196,7 @@ public class PostMan {
                 t2.stop();
             }
             else {
-                if (!message.contains("MAKE YOUR MOVE") && message.contains("PLAYER")) { //type 2 message (handled by parser)
+                if (!message.contains("MAKE YOUR MOVE") && message.contains("PLAYER") && !message.contains("OVER PLAYER")) { //type 2 message (handled by parser)
                     if (gidSet == false) {
                         if (gid2.isEmpty() && !arr[1].equals(gid1)) {
                             gid2 = arr[1]; //assign this to thread 2
@@ -206,10 +207,14 @@ public class PostMan {
                     GameMoveIncomingTransmission sendSomewhere = Parser.opponentMoveStringToGameMove(message);
                     if (sendSomewhere != null) {
                         readTransmission(sendSomewhere);
-                        postNetworkPlayerMessage(sendSomewhere);
-                        //NetworkClient.setOutputLine("waffles");
+                        //take in opponent's move only
+                        if (sendSomewhere.getPid().equals(toUnsignedString(oid))) { // post only if opponent's move
+                            System.out.println("Sending opponent's move to AI");
+                            postNetworkPlayerMessage(sendSomewhere);
+                        }
                     }
                     else { //if someone forfeited
+                        System.out.println("someone forfeited!");
                         String gameToBeKilled = arr[1];
                         if (gameToBeKilled.equals(gid1)) {
                             killThread(1);
@@ -245,9 +250,15 @@ public class PostMan {
                     System.out.println("sending to thread: " + test.getGid());
 
                     postTileMessage(test);
+                    readCommand(test);
                 }
                 else { //couldn't read string
-                    System.out.println("couldn't read your string");
+                    System.out.println("assuming game over...");
+                    System.out.println("gg was called for both games!");
+                    gameOver = true;
+                    status = TournamentStatus.MATCH;
+                    t1.stop();
+                    t2.stop();
                 }
             }
         }
