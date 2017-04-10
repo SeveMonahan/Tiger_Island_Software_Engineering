@@ -17,14 +17,14 @@ public class NetworkTileBag implements TileBag {
 
     @Override
     public Tile drawTile() {
-        System.out.println(this.gameID + " is attempting to draw a tile...");
+        System.out.println(this.gameID + "attempts to draw a tile.");
         Tile tile = tileBagPostMan.accessTileMailBox(gameID);
         while(tile == null){
             try {
                 synchronized (tileBagPostMan) {
-                    System.out.println(this.gameID + " waiting for tiles to get to the mailbox...");
+                    System.out.println(this.gameID + "doesn't have a tile in accessTileMailBox and is waiting");
                     tileBagPostMan.wait();
-                    System.out.println(this.gameID + " has risen from the dead!");
+                    System.out.println(this.gameID + " has been notified by tileBagPostMan there are new tiles availible.");
                     tile = tileBagPostMan.accessTileMailBox(gameID);
                 }
             } catch (InterruptedException e) {
