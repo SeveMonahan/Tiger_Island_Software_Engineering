@@ -23,9 +23,9 @@ public class GameStateEndOfTurn extends GameState implements Comparable<GameStat
     }
 
     public static GameStateEndOfTurn createGameStateFromConstructionMove(GameStateBeforeBuildAction original, ConstructionMoveInternal move) {
-        if(move.canPerformMove(original.playerWhoseTurn, original.board)){
-            return new GameStateEndOfTurn(original, move);
-        }
+            if(move.canPerformMove(original.playerWhoseTurn, original.board)){
+                return new GameStateEndOfTurn(original, move);
+            }
         return null;
     }
 

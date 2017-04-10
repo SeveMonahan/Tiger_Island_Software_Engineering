@@ -36,6 +36,7 @@ public class NetworkTileBag implements TileBag {
             }
         }
         numberOfTilesInBag--;
+
         return this.bag.pop();
     }
 
