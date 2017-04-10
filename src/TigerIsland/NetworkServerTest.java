@@ -53,34 +53,9 @@ public class NetworkServerTest {
             BufferedReader stdIn =
                     new BufferedReader(new InputStreamReader(System.in));
             // Initiate conversation with client
-            out.println("WELCOME TO ANOTHER EDITION OF THUNDERDOME!");
-            out.println("TWO SHALL ENTER, ONE SHALL LEAVE");
-            out.println("WAIT FOR THE TOURNAMENT TO BEGIN 6");
-            TimeUnit.MILLISECONDS.sleep(300);
-            out.println("NEW CHALLENGE 346 YOU WILL PLAY 2 MATCHES");
-            TimeUnit.MILLISECONDS.sleep(200);
-            out.println("BEGIN ROUND 1 OF 2");
-            TimeUnit.MILLISECONDS.sleep(150);
-            out.println("NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER 3");
-            TimeUnit.MILLISECONDS.sleep(1500);
-            out.println("MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 0 PLACE GRASS+LAKE");
-            TimeUnit.MILLISECONDS.sleep(1300);
-            out.println("GAME B MOVE 0 PLAYER 6 PLACED GRASS+LAKE AT 3 -1 -2 4 FOUNDED SETTLEMENT AT 1 0 -1");
-            TimeUnit.MILLISECONDS.sleep(1500);
-            out.println("GAME A MOVE 0 PLAYER 3 PLACED GRASS+LAKE AT 1 1 -2 6 FOUNDED SETTLEMENT AT 1 2 -3");
-            TimeUnit.MILLISECONDS.sleep(1500);
-            out.println("MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 0 PLACE ROCK+JUNGLE");
-            TimeUnit.MILLISECONDS.sleep(1500);
-            out.println("GAME A MOVE 0 PLAYER 6 PLACED ROCK+JUNGLE AT 3 -1 -2 4 FOUNDED SETTLEMENT AT 1 0 -1");
-            TimeUnit.MILLISECONDS.sleep(1500);
-            out.println("GAME B MOVE 0 PLAYER 3 PLACED ROCK+JUNGLE AT -1 -1 2 3 FOUNDED SETTLEMENT AT -1 -2 3");
-            TimeUnit.MILLISECONDS.sleep(1500);
-            out.println("MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 1 PLACE LAKE+ROCK");
-
-
+            authenticate(out, stdIn);
+            sendMessagesOnCommand(out, stdIn);
             String outputLine;
-            //sendTestMessages(out);
-
             while (true) {
                 outputLine = stdIn.readLine();
                 out.println(outputLine);
@@ -90,6 +65,27 @@ public class NetworkServerTest {
         } catch (IOException e) {
             System.out.println("Problem with the connection!");
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static void sendMessagesOnCommand(PrintWriter out, BufferedReader stdIn) throws IOException {
+        String[] messages = {
+                "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 0 PLACE GRASS+LAKE",
+                "GAME B MOVE 0 PLAYER 6 PLACED GRASS+LAKE AT 3 -1 -2 4 FOUNDED SETTLEMENT AT 1 0 -1",
+                "GAME A MOVE 0 PLAYER 3 PLACED GRASS+LAKE AT 1 1 -2 6 FOUNDED SETTLEMENT AT 1 2 -3",
+                "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 0 PLACE ROCK+JUNGLE",
+                "GAME A MOVE 0 PLAYER 6 PLACED ROCK+JUNGLE AT 3 -1 -2 4 FOUNDED SETTLEMENT AT 1 0 -1",
+                "GAME A MOVE 0 PLAYER 3 PLACED GRASS+LAKE AT 1 1 -2 6 FOUNDED SETTLEMENT AT 1 2 -3",
+                "MAKE YOUR MOVE IN GAME A WITHIN 1.5 SECONDS: MOVE 0 PLACE ROCK+JUNGLE",
+                "GAME A MOVE 0 PLAYER 6 PLACED ROCK+JUNGLE AT 3 -1 -2 4 FOUNDED SETTLEMENT AT 1 0 -1",
+                "GAME B MOVE 0 PLAYER 3 PLACED ROCK+JUNGLE AT -1 -1 2 3 FOUNDED SETTLEMENT AT -1 -2 3",
+                "MAKE YOUR MOVE IN GAME B WITHIN 1.5 SECONDS: MOVE 1 PLACE LAKE+ROCK"
+        };
+        for (String x : messages) {
+            String k = stdIn.readLine();
+            if (k != null) {
+                out.println(x);
+            }
         }
     }
 
@@ -141,6 +137,23 @@ public class NetworkServerTest {
             }
             System.out.println("sending: " + s);
             TimeUnit.MILLISECONDS.sleep(1500);
+            out.println(s);
+        }
+    }
+
+    public static void authenticate(PrintWriter out, BufferedReader stdIn) throws IOException, InterruptedException {
+        String[] messages = {
+                "WELCOME TO ANOTHER EDITION OF THUNDERDOME!",
+                "TWO SHALL ENTER, ONE SHALL LEAVE",
+                "WAIT FOR THE TOURNAMENT TO BEGIN 6",
+                "NEW CHALLENGE 346 YOU WILL PLAY 2 MATCHES",
+                "BEGIN ROUND 1 OF 2",
+                "NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER 3",
+        };
+
+        for (String s : messages) {
+            System.out.println("sending: " + s);
+            TimeUnit.MILLISECONDS.sleep(100);
             out.println(s);
         }
     }
