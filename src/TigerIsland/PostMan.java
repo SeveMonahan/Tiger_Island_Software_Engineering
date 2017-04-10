@@ -10,7 +10,7 @@ import static java.lang.Integer.toUnsignedString;
 //
 public class PostMan {
     private static PostMan myPostMan;
-    public static int pid = -1;
+    public int pid = -1;
     private static int cid = -1;
     private static int oid = -1;
     private static int rid = -1;
@@ -38,6 +38,10 @@ public class PostMan {
             myPostMan = new PostMan();
         }
         return myPostMan;
+    }
+
+    public void setpid(int pid) {
+        this.pid = pid;
     }
 
     // This will be execute everytime we want to start a match

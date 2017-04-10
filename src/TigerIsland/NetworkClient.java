@@ -65,7 +65,7 @@ public class NetworkClient {
 
         PostMan postMan = PostMan.grabPostMan();
 
-        postMan.pid = pid;
+        postMan.setpid(pid);
 
         String stringFromServer;
 
