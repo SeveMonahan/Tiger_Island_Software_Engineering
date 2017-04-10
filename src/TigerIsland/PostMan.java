@@ -103,7 +103,7 @@ public class PostMan {
                 else {
                     msg = "WTF thread";
                 }
-                System.out.println(gid + " grabbed tile from mailbox!");
+                System.out.println(msg + " grabbed tile from mailbox!");
                 tile = gameMoveIncomingCommand.getTile();
                 tileMailBox.remove(gameMoveIncomingCommand);
                 return tile;
@@ -220,7 +220,16 @@ public class PostMan {
                         readTransmission(sendSomewhere);
                         //take in opponent's move only
                         if (!sendSomewhere.getPid().equals(toUnsignedString(pid))) { // post only if opponent's move
-                            System.out.println(sendSomewhere.getPid() + " " + pid + " sending opponent's move to AI");
+                            System.out.println(sendSomewhere.getPid() + " " + pid + " reading opponent's move. Sending to AI...");
+                            if (sendSomewhere.getGid().equals(gid1)) {
+                                sendSomewhere.setGid("A11");
+                            }
+                            else if (sendSomewhere.getGid().equals(gid2)) {
+                                sendSomewhere.setGid("B11");
+                            }
+                            else {
+                                System.out.println("couldn't set transmission's GID");
+                            }
                             postNetworkPlayerMessage(sendSomewhere);
                         }
                         else {

@@ -1,6 +1,10 @@
 package TigerIsland;
 
 public class GameMoveIncomingTransmission {
+    public void setGid(String gid) {
+        this.gid = gid;
+    }
+
     private String gid;
     private String moveID;
     private String pid;
