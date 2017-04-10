@@ -23,13 +23,19 @@ public class NetworkClient {
 
     public static boolean waitingForOutPut = false;
 
-    public static void main(String[] args) throws IOException, InterruptedException {
-        PostMan x = PostMan.grabPostMan();
+    private static void check_arguments(String[] args){
         if (args.length != 5) {
             System.err.println(
                     "Arguments should be in this order:\n<hostname> <port> <tournamentPass> <username> <password>");
             System.exit(1);
         }
+
+    }
+    public static void main(String[] args) throws IOException, InterruptedException {
+        PostMan x = PostMan.grabPostMan();
+
+        check_arguments(args);
+
         String host = args[0];
         int port = parseInt(args[1]);
         String tournamentPass = args[2];
