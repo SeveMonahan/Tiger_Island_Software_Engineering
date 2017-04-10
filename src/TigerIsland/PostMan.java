@@ -47,13 +47,13 @@ public class PostMan {
         AIMailBox = new LinkedList<>();
 
         PlayerController ai_01 = new SmartAIController(Color.BLACK);
-        NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, "A11", this);
+        NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, "STRAWBERRY", this);
 
         PlayerController ai_02 = new SmartAIController(Color.BLACK);
-        NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE, "B11", this);
+        NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE, "ZEBRA", this);
 
-        match_01 = new Match(this, ai_01, network_01, "A11");
-        match_02 = new Match(this, network_02, ai_02, "B11");
+        match_01 = new Match(this, ai_01, network_01, "STRAWBERRY");
+        match_02 = new Match(this, network_02, ai_02, "ZEBRA");
 
         t1 = new Thread(match_01);
         t2 = new Thread(match_02);
@@ -87,8 +87,8 @@ public class PostMan {
         String parsedString = marshaller.convertTileMoveAndConstructionMoveToString(gameMoveOutgoingTransmission);
         parsedString = parsedString.replace("**********move_id**********",moveID);
         // AIMailBox.push(parsedString);
-        parsedString = parsedString.replace("A11", gid1);
-        parsedString = parsedString.replace("B11", gid2);
+        parsedString = parsedString.replace("STRAWBERRY", gid1);
+        parsedString = parsedString.replace("ZEBRA", gid2);
         String [] parsedArray = parsedString.split(" ");
         String badTile = parsedArray[5];
         parsedString = parsedString.replace(badTile, properTile);
@@ -100,10 +100,10 @@ public class PostMan {
 
         for(GameMoveIncomingCommand gameMoveIncomingCommand : tileMailBox) {
             String msg;
-            if (gid.equals("A11")) {
+            if (gid.equals("STRAWBERRY")) {
                 msg = "thread 1";
             }
-            else if (gid.equals("B11")) {
+            else if (gid.equals("ZEBRA")) {
                 msg = "thread 2";
             }
             else {
@@ -112,7 +112,7 @@ public class PostMan {
             System.out.println(msg + " scrolling through tiles " + gameMoveIncomingCommand.getTile().toString());
             if(gameMoveIncomingCommand.getGid().equals(gid)) {
 
-                System.out.println(msg + " grabbed tile from mailbox!");
+                System.out.println(gid + " grabbed tile from mailbox!");
                 tile = gameMoveIncomingCommand.getTile();
                 tileMailBox.remove(gameMoveIncomingCommand);
                 return tile;
@@ -126,9 +126,21 @@ public class PostMan {
         GameMoveIncomingTransmission gameMoveIncomingTransmission = null;
 
         for(GameMoveIncomingTransmission gmtFromMailBox : moveMailBox) {
+            String msg;
+            if (gid.equals("STRAWBERRY")) {
+                msg = "thread_1";
+            }
+            else if (gid.equals("ZEBRA")) {
+                msg = "thread 2";
+            }
+            else {
+                msg = "WTF thread";
+            }
+            System.out.println(msg + " scrolling through moves " + gmtFromMailBox.getTileMove().getTile().toString());
             if( gmtFromMailBox.getGid().toString().equals(gid) ) {
                 gameMoveIncomingTransmission = gmtFromMailBox;
                 moveMailBox.remove(gmtFromMailBox);
+                System.out.println(gid + " grabbed " + gmtFromMailBox.getConstructionMoveTransmission().getCoordinate().toString() + " from the mailbox!");
                 return gameMoveIncomingTransmission;
             }
         }
@@ -227,20 +239,21 @@ public class PostMan {
                     }
                     GameMoveIncomingTransmission sendSomewhere = Parser.opponentMoveStringToGameMove(message);
                     if (sendSomewhere != null) {
-                        readTransmission(sendSomewhere);
                         //take in opponent's move only
                         if (!sendSomewhere.getPid().equals(toUnsignedString(pid))) { // post only if opponent's move
-                            System.out.println(sendSomewhere.getPid() + " " + pid + " reading opponent's move. Sending to AI...");
+
                             if (sendSomewhere.getGid().equals(gid1)) {
-                                sendSomewhere.setGid("A11");
+                                sendSomewhere.setGid("STRAWBERRY");
                             }
                             else if (sendSomewhere.getGid().equals(gid2)) {
-                                sendSomewhere.setGid("B11");
+                                sendSomewhere.setGid("ZEBRA");
                             }
                             else {
                                 System.out.println("couldn't set transmission's GID");
                             }
-                            postNetworkPlayerMessage(sendSomewhere);
+                            readTransmission(sendSomewhere);
+                            System.out.println(sendSomewhere.getPid() + " " + pid + " reading opponent's move. Sending to the network mailbox...");
+                            postNetworkPlayerMessage(sendSomewhere); //send opponent's move
                         }
                         else {
                             System.out.println("Reading our move...");
@@ -272,10 +285,10 @@ public class PostMan {
                     //readCommand(test);
                     moveID = test.getMoveNumber();
                     if (test.getGid().equals(gid1)) {
-                        test.setGid("A11");
+                        test.setGid("STRAWBERRY");
                     }
                     else if (test.getGid().equals(gid2)){
-                        test.setGid("B11");
+                        test.setGid("ZEBRA");
                     }
                     else {
                         System.out.println("wat gid");

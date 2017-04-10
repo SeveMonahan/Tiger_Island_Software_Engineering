@@ -12,12 +12,15 @@ public class NetworkPlayerController implements PlayerController {
     }
 
     public GameStateEndOfTurn newGameState(GameStateWTile gameStateWTile){
+        System.out.println(gameID + " is trying to look for moves in the mailbox!");
         GameMoveIncomingTransmission gameMoveIncomingTransmission = postMan.accessNetworkMailBox(gameID);
         while(gameMoveIncomingTransmission == null) {
             try {
                 synchronized (postMan) {
+                    System.out.println(gameID + " cant find a move, going to sleep!");
                     postMan.wait();
                     gameMoveIncomingTransmission = postMan.accessNetworkMailBox(gameID);
+                    System.out.println(gameID + " found a move!");
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
