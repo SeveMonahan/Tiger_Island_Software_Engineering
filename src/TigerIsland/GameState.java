@@ -79,6 +79,14 @@ public class GameState {
         return playerWhoseTurn;
     }
 
+    public Player getInactivePlayer(){
+        if(playerWhoseTurn == player_1){
+            return player_2;
+        }
+        else
+            return player_2;
+    }
+
     public GameOutcome getGameOutcome(Player me) {
         Player winner;
 
