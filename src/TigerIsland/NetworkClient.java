@@ -63,7 +63,7 @@ public class NetworkClient {
         }
     }
 
-    public static void challengeProtocol(PostMan x,PrintWriter out, BufferedReader in) throws IOException, InterruptedException {
+    public static void challengeProtocol(PostMan x, PrintWriter out, BufferedReader in) throws IOException, InterruptedException {
         System.out.println("Now executing the challenge protocol...");
         x.pid = pid;
         String stringFromServer;
