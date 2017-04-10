@@ -15,7 +15,7 @@ public class FullGameTests {
         FileWriter writer;
 
         String gid = "Best vs. Dumb";
-        PlayerController ai_01 = new GenuisAIController((Color.BLACK);
+        PlayerController ai_01 = new GenuisAIController(Color.BLACK);
         PlayerController ai_02 = new DumbController(Color.WHITE);
         OutputPlayerActions logger = new OutputPlayerLogger(gid, Color.BLACK );
         TileBag tileBag = new RandomTileBag();

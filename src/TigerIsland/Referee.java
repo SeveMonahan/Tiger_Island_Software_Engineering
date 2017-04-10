@@ -23,7 +23,7 @@ public class Referee {
         output.dispatchInformation(gameEndOfTurn);
     }
 
-    public void execute(){
+    public boolean execute(){
 
         while(true){
 
@@ -38,5 +38,13 @@ public class Referee {
                 break;
             }
         }
+
+        boolean won = gameEndOfTurn.getActivePlayer().getColor() == Color.BLACK;
+
+        if(gameEndOfTurn.getLastConstructionMove() instanceof UnableToBuildConstructionMove){
+            won = !won;
+        }
+
+        return won;
     }
 }
