@@ -70,8 +70,8 @@ public class SmartAIController implements PlayerController {
             }
         }
 
-        for(int i = 97; i <= 103; i++){
-            for(int j= 97; j <= 103; j++){
+        for(int i = 97; i < 103; i++){
+            for(int j= 97; j < 103; j++){
                 Coordinate current_coordinate = new Coordinate(i, j);
                 Terrain terrain = board.getHexagonAt(current_coordinate).getTerrain();
 
