@@ -290,7 +290,7 @@ public class SmartAIController implements PlayerController {
 
         GameStateEndOfTurn best_state = newGameState_get_ahead(gameStateWTile);
 
-        System.out.println(getElapsedTime());
+        // System.out.println(getElapsedTime());
 
         if(getElapsedTime() > 1400){
             System.out.println("!!!!!!!");
