@@ -17,10 +17,10 @@ import static java.lang.Integer.parseInt;
 */
 
 public class NetworkClient {
-    public static String outputLine = null;
+    private static String outputLine = null;
     public static int gid = 0;
 
-    public static boolean waitingForOutPut = false;
+    private static boolean waitingForOutPut = false;
 
     private static void check_arguments(String[] args){
         if (args.length != 5) {
