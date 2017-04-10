@@ -9,6 +9,7 @@ import java.io.IOException;
 
 public class FullGameTests {
 
+    /*
     private int dumb_wins = 0;
     private int smart_wins = 0;
     public void FullGameTest_01() {
@@ -88,5 +89,6 @@ public class FullGameTests {
 
 
     }
+    */
 
 }
