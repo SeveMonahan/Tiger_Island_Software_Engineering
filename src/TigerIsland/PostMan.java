@@ -61,10 +61,12 @@ public class PostMan {
 
     public void killThread(int x) {
         if (x == 1) {
-            t1.stop();
+            if (t1.isAlive())
+                t1.stop();
         }
         else {
-            t2.stop();
+            if (t2.isAlive())
+                t2.stop();
         }
     }
     public synchronized void postNetworkPlayerMessage(GameMoveIncomingTransmission gameMoveIncomingTransmission) {
@@ -92,17 +94,19 @@ public class PostMan {
         Tile tile = null;
 
         for(GameMoveIncomingCommand gameMoveIncomingCommand : tileMailBox) {
+            String msg;
+            if (gid.equals("A11")) {
+                msg = "thread 1";
+            }
+            else if (gid.equals("B11")) {
+                msg = "thread 2";
+            }
+            else {
+                msg = "WTF thread";
+            }
+            System.out.println(msg + " scrolling through tiles " + gameMoveIncomingCommand.getTile().toString());
             if(gameMoveIncomingCommand.getGid().equals(gid)) {
-                String msg;
-                if (gid.equals("A11")) {
-                    msg = "thread 1";
-                }
-                else if (gid.equals("B11")) {
-                    msg = "thread 2";
-                }
-                else {
-                    msg = "WTF thread";
-                }
+
                 System.out.println(msg + " grabbed tile from mailbox!");
                 tile = gameMoveIncomingCommand.getTile();
                 tileMailBox.remove(gameMoveIncomingCommand);
@@ -280,8 +284,12 @@ public class PostMan {
                     System.out.println("gg was called for both games!");
                     gameOver = true;
                     status = TournamentStatus.MATCH;
-                    t1.stop();
-                    t2.stop();
+                    if (t1.isAlive()) {
+                        t1.stop();
+                    }
+                    if (t2.isAlive()) {
+                        t2.stop();
+                    }
                 }
             }
         }
