@@ -8,6 +8,7 @@ import java.util.Queue;
 public class SmartAIController implements PlayerController {
     Color color;
     long startTime;
+    boolean panic;
 
     public SmartAIController(Color color){
         this.color = color;
@@ -95,6 +96,7 @@ public class SmartAIController implements PlayerController {
         }
 
         System.out.println("Fallthrough");
+        panic = true;
 
         for(int i = minX; i < maxX; i++){
             for(int j= minY; j < maxY; j++){
@@ -236,7 +238,7 @@ public class SmartAIController implements PlayerController {
 
         while(pqueue.size() != 0){
 
-            if(elapsedTimeLongerThan(1000)){
+            if(panic || elapsedTimeLongerThan(1000)){
                 System.out.println("PANIC!");
                 break;
             }
@@ -284,6 +286,7 @@ public class SmartAIController implements PlayerController {
     }
     public GameStateEndOfTurn newGameState(GameStateWTile gameStateWTile) {
         startTime = System.currentTimeMillis();
+        panic = false;
 
         GameStateEndOfTurn best_state = newGameState_get_ahead(gameStateWTile);
 
