@@ -11,8 +11,8 @@ public class PostMan {
     private static int cid = -1;
     private static int oid = -1;
     private static int rid = -1;
-    private static String gid1 = "A";
-    private static String gid2 = "A";
+    private static String gid1 = "";
+    private static String gid2 = "";
     private static int rounds = -1;
     private static int currentRound = 0;
     private static TournamentStatus status = TournamentStatus.CHALLENGE;
@@ -21,9 +21,10 @@ public class PostMan {
     private static boolean roundsOver = false;
     private static Match match_01;
     private static Match match_02;
-
-    private LinkedList<GameMoveIncomingTransmission> tileMailBox;
-    private LinkedList<GameMoveIncomingTransmission> moveMailBox; // For network player moves
+    private static Thread t1;
+    private static Thread t2;
+    private LinkedList<GameMoveIncomingCommand> tileMailBox; // For AI to make a move
+    private LinkedList<GameMoveIncomingTransmission> moveMailBox; // For opponent
     private LinkedList<String> AIMailBox; // For network player moves
 
     private PostMan() {}
@@ -47,22 +48,38 @@ public class PostMan {
         PlayerController ai_02 = new DumbController(Color.BLACK);
         NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE, gid2, this);
 
-        match_01 = new Match(this, ai_01, network_01, gid1);
-        match_02 = new Match(this, network_02, ai_02, gid2);
+        match_01 = new Match(this, ai_01, network_01, "A");
+        match_02 = new Match(this, network_02, ai_02, "B");
 
-        Thread t1 = new Thread(match_01);
-        Thread t2 = new Thread(match_02);
+        t1 = new Thread(match_01);
+        t2 = new Thread(match_02);
         t1.start();
         t2.start();
     }
 
+    public void killThread(int x) {
+        if (x == 1) {
+            try {
+                t1.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            try {
+                t2.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     public synchronized void postNetworkPlayerMessage(GameMoveIncomingTransmission gameMoveIncomingTransmission) {
         moveMailBox.push(gameMoveIncomingTransmission);
         notifyAll();
     }
 
-    public synchronized void postTileMessage(GameMoveIncomingTransmission gameMoveIncomingTransmission) {
-        tileMailBox.push(gameMoveIncomingTransmission);
+    public synchronized void postTileMessage(GameMoveIncomingCommand gameMoveIncomingCommand) {
+        tileMailBox.push(gameMoveIncomingCommand);
         notifyAll();
     }
 
@@ -71,16 +88,17 @@ public class PostMan {
         printOurMove(gameMoveOutgoingTransmission);
         Marshaller marshaller = new Marshaller();
         String parsedString = marshaller.convertTileMoveAndConstructionMoveToString(gameMoveOutgoingTransmission);
+        //System.out.println("pushing to AIMailBox");
         AIMailBox.push(parsedString);
     }
 
     public synchronized Tile accessTileMailBox(String gid) {
         Tile tile = null;
 
-        for(GameMoveIncomingTransmission gameMoveIncomingTransmission : tileMailBox) {
-            if( gameMoveIncomingTransmission.getGid().toString().equals(gid) ) {
-                tile = gameMoveIncomingTransmission.getTileMove().getTile();
-                tileMailBox.remove(gameMoveIncomingTransmission);
+        for(GameMoveIncomingCommand gameMoveIncomingCommand : tileMailBox) {
+            if(gameMoveIncomingCommand.getGid() == gid) {
+                tile = gameMoveIncomingCommand.getTile();
+                tileMailBox.remove(gameMoveIncomingCommand);
                 return tile;
             }
         }
@@ -182,12 +200,8 @@ public class PostMan {
             else {
                 if (!message.contains("MAKE YOUR MOVE") && message.contains("PLAYER")) { //type 2 message (handled by parser)
                     if (gidSet == false) {
-                        if (gid1.isEmpty()) {
-                            gid1 = arr[5]; // TODO is this index correct? Should be 1?
-                            System.out.println("grabbed gid1:" + gid1);
-                        }
-                        else if (gid2.isEmpty()) {
-                            gid2 = arr[5]; // TODO is this index correct? Should be 1?
+                        if (gid2.isEmpty() && !arr[1].equals(gid1)) {
+                            gid2 = arr[1]; //assign this to thread 2
                             System.out.println("grabbed gid2:" + gid2);
                             gidSet = true;
                         }
@@ -195,20 +209,45 @@ public class PostMan {
                     GameMoveIncomingTransmission sendSomewhere = Parser.opponentMoveStringToGameMove(message);
                     if (sendSomewhere != null) {
                         readTransmission(sendSomewhere);
-                        GameMoveIncomingTransmission test = sendSomewhere;
-                        postTileMessage(test);
                         postNetworkPlayerMessage(sendSomewhere);
-                        if (!AIMailBox.isEmpty()) {
-                            NetworkClient.setOutputLine(AIMailBox.pop());
+                        //NetworkClient.setOutputLine("waffles");
+                        for (int i = 0; i < 5; i++) {
+                            if (!AIMailBox.isEmpty()) {
+                                NetworkClient.setOutputLine(AIMailBox.pop());
+                            }
                         }
                     }
                     else { //if someone forfeited
+                        String gameToBeKilled = arr[1];
+                        if (gameToBeKilled.equals(gid1)) {
+                            killThread(1);
+                        }
+                        else if (gameToBeKilled.equals(gid2)) {
+                            killThread(0);
+                        }
+                        else {
+                            System.out.println("couldn't kill a game");
+                        }
                         //TODO: KILL WHOEVER FORFEITED
                     }
                 }
                 else if (message.contains("MAKE YOUR MOVE IN GAME")){ //type 1 message (command telling us to make a move)
+                    if (gidSet == false) {
+                        if (gid1.isEmpty()) {
+                            gid1 = arr[5]; //assign this to thread 1
+                            System.out.println("grabbed gid1:" + gid1);
+                        }
+                    }
                     GameMoveIncomingCommand test = Parser.commandToObject(message);
                     readCommand(test);
+                    if (test.getGid().equals(gid1)) {
+                        test.setGid("A");
+                    }
+                    else {
+                        test.setGid("B");
+                    }
+                    System.out.println("sending command with gid: " + test.getGid());
+                    postTileMessage(test);
                 }
                 else { //couldn't read string
                     System.out.println("couldn't read your string");
