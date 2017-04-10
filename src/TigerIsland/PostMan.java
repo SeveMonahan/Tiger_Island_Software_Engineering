@@ -1,5 +1,6 @@
 package TigerIsland;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 import static java.lang.Integer.parseInt;
@@ -29,6 +30,7 @@ public class PostMan {
     private LinkedList<GameMoveIncomingTransmission> moveMailBox; // For opponent
     private LinkedList<String> AIMailBox; // What we're sending to the damn server
     private static String moveID = "";
+    private static String properTile = "";
     private PostMan() {}
 
     static PostMan grabPostMan() {
@@ -87,6 +89,9 @@ public class PostMan {
         // AIMailBox.push(parsedString);
         parsedString = parsedString.replace("A11", gid1);
         parsedString = parsedString.replace("B11", gid2);
+        String [] parsedArray = parsedString.split(" ");
+        String badTile = parsedArray[5];
+        parsedString = parsedString.replace(badTile, properTile);
         NetworkClient.setOutputLine( parsedString );
     }
 
@@ -275,7 +280,7 @@ public class PostMan {
                         System.out.println("wat gid");
                     }
                     System.out.println("sending to thread: " + test.getGid());
-
+                    properTile = test.getTile().toString();
                     postTileMessage(test);
                     readCommand(test);
                 }
