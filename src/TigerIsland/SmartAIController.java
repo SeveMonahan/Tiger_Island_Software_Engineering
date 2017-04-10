@@ -7,12 +7,10 @@ import java.util.Queue;
 
 public class SmartAIController implements PlayerController {
     Color color;
-    int restriction_number;
     long startTime;
 
     public SmartAIController(Color color){
         this.color = color;
-        restriction_number = 0;
     }
 
     private int adjacent_hexs_score(TileMove tileMove, Board board){
@@ -72,8 +70,8 @@ public class SmartAIController implements PlayerController {
             }
         }
 
-        for(int i = 97 - restriction_number; i < 103 + restriction_number; i++){
-            for(int j= 97 - restriction_number; j < 103 + restriction_number; j++){
+        for(int i = 97; i <= 103; i++){
+            for(int j= 97; j <= 103; j++){
                 Coordinate current_coordinate = new Coordinate(i, j);
                 Terrain terrain = board.getHexagonAt(current_coordinate).getTerrain();
 
@@ -97,7 +95,6 @@ public class SmartAIController implements PlayerController {
         }
 
         System.out.println("Fallthrough");
-        restriction_number += 10;
 
         for(int i = minX; i < maxX; i++){
             for(int j= minY; j < maxY; j++){
