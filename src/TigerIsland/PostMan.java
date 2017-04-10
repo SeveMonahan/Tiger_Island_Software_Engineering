@@ -43,10 +43,10 @@ public class PostMan {
         AIMailBox = new LinkedList<>();
 
         PlayerController ai_01 = new SmartAIController(Color.BLACK);
-        NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, "A11", this);
+        NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, "A", this);
 
         PlayerController ai_02 = new SmartAIController(Color.BLACK);
-        NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE, "B11", this);
+        NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE, "B", this);
 
         match_01 = new Match(this, ai_01, network_01, "A11");
         match_02 = new Match(this, network_02, ai_02, "B11");
@@ -236,8 +236,11 @@ public class PostMan {
                     if (test.getGid().equals(gid1)) {
                         test.setGid("A11");
                     }
-                    else {
+                    else if (test.getGid().equals(gid2)){
                         test.setGid("B11");
+                    }
+                    else {
+                        System.out.println("wat gid");
                     }
                     System.out.println("sending to thread: " + test.getGid());
 
