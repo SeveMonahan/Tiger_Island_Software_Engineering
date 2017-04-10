@@ -17,16 +17,12 @@ import static java.lang.Integer.parseInt;
 */
 
 public class NetworkClient {
-    public PostMan postMan;
     public static String outputLine = null;
     public static int pid = 0;
-    public static int cid = 0;
-    public static int rounds = 0;
-    public static int rid = 0;
     public static int gid = 0;
 
     public static boolean waitingForOutPut = false;
-    private static boolean messageSent = false;
+
     public static void main(String[] args) throws IOException, InterruptedException {
         PostMan x = PostMan.grabPostMan();
         if (args.length != 5) {
