@@ -15,8 +15,10 @@ public class NetworkPlayerController implements PlayerController {
         GameMoveIncomingTransmission gameMoveIncomingTransmission = postMan.accessNetworkMailBox(gameID);
         while(gameMoveIncomingTransmission == null) {
             try {
-                postMan.wait();
-                gameMoveIncomingTransmission = postMan.accessNetworkMailBox(gameID);
+                synchronized (postMan) {
+                    postMan.wait();
+                    gameMoveIncomingTransmission = postMan.accessNetworkMailBox(gameID);
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
