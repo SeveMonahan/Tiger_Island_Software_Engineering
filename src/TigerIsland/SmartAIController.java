@@ -95,7 +95,7 @@ public class SmartAIController implements PlayerController {
             return result;
         }
 
-        System.out.println("Fallthrough");
+        //System.out.println("Fallthrough");
         panic = true;
         boolean extreme_panic = elapsedTimeLongerThan(600);
 
@@ -218,12 +218,13 @@ public class SmartAIController implements PlayerController {
                 if(pqueue.size() > 4){
                     pqueue.poll();
                 }
+
+                if(second && elapsedTimeLongerThan(800)){
+                    //System.out.println("PANIC!");
+                    return pqueue;
+                }
             }
 
-            if(second && elapsedTimeLongerThan(800)){
-                System.out.println("PANIC!");
-                return pqueue;
-            }
 
             }
 
@@ -248,7 +249,7 @@ public class SmartAIController implements PlayerController {
         while(pqueue.size() != 0){
 
             if(panic || elapsedTimeLongerThan(800)){
-                System.out.println("PANIC!");
+                //System.out.println("PANIC!");
                 break;
             }
 
