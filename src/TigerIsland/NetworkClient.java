@@ -18,7 +18,6 @@ import static java.lang.Integer.parseInt;
 
 public class NetworkClient {
     private static String outputLine = null;
-
     private static boolean waitingForOutPut = false;
 
     private static void check_arguments(String[] args){
@@ -29,6 +28,7 @@ public class NetworkClient {
         }
 
     }
+
     public static void main(String[] args) throws IOException, InterruptedException {
 
         check_arguments(args);
@@ -68,9 +68,9 @@ public class NetworkClient {
         postMan.pid = pid;
 
         String stringFromServer;
+
         while ((stringFromServer = in.readLine()) != null) {
             long serverTime = System.currentTimeMillis();
-            long difference = 0;
             System.out.println("Server: " + stringFromServer);
             if (stringFromServer.equals("THANK YOU FOR PLAYING! GOODBYE")) {
                 break;
@@ -84,7 +84,7 @@ public class NetworkClient {
                 TimeUnit.MILLISECONDS.sleep(100);
             }
             if (outputLine != null) {
-                difference = System.currentTimeMillis() - serverTime;
+                long difference = System.currentTimeMillis() - serverTime;
                 System.out.println(difference + " Client: " + outputLine);
                 sendMessage(out, outputLine);
                 outputLine = null;
