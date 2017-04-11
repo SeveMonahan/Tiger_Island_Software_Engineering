@@ -63,6 +63,7 @@ public class NetworkClient {
     }
 
     // Network client object functions used later to send message around
+    private long startTime;
     private PrintWriter out;
     private BufferedReader in;
 
@@ -76,7 +77,7 @@ public class NetworkClient {
     }
 
     public void challengeProtocol(int pid) throws IOException, InterruptedException {
-        boolean waitingForOutPut = false;
+        startTime = System.currentTimeMillis();
 
         System.out.println("Now executing the challenge protocol...");
 
@@ -98,6 +99,10 @@ public class NetworkClient {
 
     public synchronized void sendMessage(String stringToServer) {
         out.println(stringToServer);
+
+        long currentTime = System.currentTimeMillis() - startTime;
+
+        System.out.println(currentTime + " Client: " + stringToServer);
     }
 
 }
