@@ -138,13 +138,14 @@ public class PostMan {
         String[] token = stringSplitter(message);
 
         int rid = parseInt(token[2]);
-        int rounds = parseInt(token[4]);
 
         System.out.println("Start new Round: " + rid);
 
         while(HandleMatchAndReturnWhetherThereIsANewMatch()){
             ;
         }
+
+        readLine(); //Skip End of Round message
 
     }
 
@@ -183,8 +184,8 @@ public class PostMan {
         System.out.println("We have successfully completed the Tournament! Done!");
         System.exit(0);
     }
-
     private boolean gidSet = false;
+/*
     void respondToServerMessage(String message) {
         String[] token = stringSplitter(message);
 
@@ -301,6 +302,7 @@ public class PostMan {
             }
         }
     }
+    */
 
     private void HandleIncomingGameMove(String message, String gid1, String gid2, int pid) {
         String[] arr = stringSplitter(message);
