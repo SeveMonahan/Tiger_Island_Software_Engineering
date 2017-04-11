@@ -129,6 +129,10 @@ public class PostMan {
         return "";
     }
 
+    public void HandleRound(){
+
+    }
+
     public boolean HandleChallengeAndReturnWhetherThereIsANewChallenge(){
         String message = readLine();
 
@@ -138,7 +142,10 @@ public class PostMan {
         int cid = parseInt(token[2]);
         int rounds = parseInt(token[6]);
         System.out.println("grabbed cid: " + cid + " and rounds: " + rounds);
-        status = TournamentStatus.ROUND;
+
+        for(int i = 0; i < rounds; i++){
+            HandleRound();
+        }
 
         return false;
     }
