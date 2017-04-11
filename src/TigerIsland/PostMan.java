@@ -118,10 +118,6 @@ public class PostMan {
     void respondToServerMessage(String message) {
         String[] arr = stringSplitter(message);
 
-        if (message.contains("test")) {
-            output_taker.sendMessage("test");
-        }
-
         int oid;
         int rid;
 
