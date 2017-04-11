@@ -129,8 +129,17 @@ public class PostMan {
         return "";
     }
 
-    public boolean HandleMatchAndReturnWhetherThereIsANewMatch() {
+    private boolean HandleMoveAndReturnWhetherThereIsANewMove(){
         return false;
+    }
+
+    public void HandleMatch() {
+        readLine(); // Eat "NEW MATCH BEGINNING NOW YOUR OPPONENT IS ..."
+        while(HandleMoveAndReturnWhetherThereIsANewMove()){
+            ;
+        }
+        readLine(); // Eat "GAME OVER" lines
+        readLine();
     }
 
     public void HandleRound(){
@@ -141,9 +150,7 @@ public class PostMan {
 
         System.out.println("Start new Round: " + rid);
 
-        while(HandleMatchAndReturnWhetherThereIsANewMatch()){
-            ;
-        }
+        HandleMatch();
 
         readLine(); //Skip End of Round message
 
