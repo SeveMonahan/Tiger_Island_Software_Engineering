@@ -11,12 +11,6 @@ public class PostMan {
     private int pid = -1;
     private String gid1 = "";
     private String gid2 = "";
-    private int rounds = -1;
-    private int currentRound = 0;
-    private TournamentStatus status = TournamentStatus.CHALLENGE;
-    private boolean gameOver = false;
-    private boolean readGameOneScore = false;
-    private boolean roundsOver = false;
     private Thread t1;
     private Thread t2;
     private LinkedList<ServerRequestAskingUsToMove> tileMailBox; // For AI to make a move
@@ -274,7 +268,7 @@ public class PostMan {
         System.out.println("We have successfully completed the Tournament! Done!");
         System.exit(0);
     }
-    private boolean gidSet = false;
+
 /*
     void respondToServerMessage(String message) {
         String[] token = stringSplitter(message);
@@ -393,50 +387,6 @@ public class PostMan {
         }
     }
     */
-
-    private void HandleIncomingGameMove(String message, String gid1, String gid2, int pid) {
-        String[] arr = stringSplitter(message);
-
-        MoveInGameIncoming opponentMove = Parser.opponentMoveStringToGameMove(message);
-
-        if (opponentMove != null) {
-
-            printMoveInGameIncoming(opponentMove);
-            //take in opponent's move only
-            if (!opponentMove.getPid().equals(toUnsignedString(pid))) { // post only if opponent's move
-                System.out.println(opponentMove.getPid() + " " + pid + " reading opponent's move. Sending to AI...");
-                if (opponentMove.getGid().equals(gid1)) {
-                    opponentMove.setGid("Strawberry");
-                }
-                else if (opponentMove.getGid().equals(gid2)) {
-                    opponentMove.setGid("Chocolate");
-                }
-                else {
-                    System.out.println("couldn't set transmission's GID");
-                }
-                postNetworkPlayerMessage(opponentMove);
-            }
-            else {
-                System.out.println("Reading our move...");
-            }
-        }
-        else { // We're assuming somebody forfeited. If the Server sent us a move which was invalid, we would also hit this conditional.
-            System.out.println("We think somebody forfeited!");
-
-            System.out.println("Forfeit message: " + message);
-
-            String gameToBeKilled = arr[1];
-            if (gameToBeKilled.equals(gid1)) {
-                killThread(1);
-            }
-            else if (gameToBeKilled.equals(gid2)) {
-                killThread(0);
-            }
-            else {
-                System.out.println("couldn't kill a game");
-            }
-        }
-    }
 
     public static void printMoveInGameIncoming(MoveInGameIncoming sendSomewhere) {
         System.out.println("-SERVER INFORMED US OF FOLLOWING MOVE--"
