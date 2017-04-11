@@ -170,34 +170,41 @@ public class PostMan {
         }
     }
 
-    private int HandleGameStateUpdateAndReturnActiveGames(int activeGames, boolean GrabGid2){
+    private boolean HandleSingleGameStateUpdateAndReturnIfStillActive(boolean GrabGid2){
         String message_1 = readLine();
 
-        MoveInGameIncoming Move_1 = Parser.opponentMoveStringToGameMove(message_1);
+        if(message_1.contains("FORFEIT") || message_1.contains("UNABLE")){
+            return false;
+        }else {
 
-        passMoveInGameIncomingToMatchObject(Move_1);
+            MoveInGameIncoming Move_1 = Parser.opponentMoveStringToGameMove(message_1);
+            if(GrabGid2 && Move_1.getGid().equals(gid1)) {
 
-        if(activeGames == 2) {
-            String message_2 = readLine();
-            MoveInGameIncoming Move_2 = Parser.opponentMoveStringToGameMove(message_2);
-
-            if(GrabGid2) {
-                // We don't even know which message is which, so distinguish them.
-                if (Move_1.getGid().equals(gid1)) {
-                    gid2 = Move_2.getGid();
-                } else {
-                    gid2 = Move_1.getGid();
-                }
-
+            }else{
+                gid2 = Move_1.getGid();
                 System.out.println("Determined that gid#2 is: " + gid1);
             }
 
-            passMoveInGameIncomingToMatchObject(Move_2);
+            passMoveInGameIncomingToMatchObject(Move_1);
+        }
+        return true;
+    }
 
+    private int HandleGameStateUpdateAndReturnActiveGames(int activeGames, boolean GrabGid2){
+
+        int result = 0;
+
+        if(HandleSingleGameStateUpdateAndReturnIfStillActive(GrabGid2)){
+            result++;
         }
 
+        if(activeGames == 2) {
+            if(HandleSingleGameStateUpdateAndReturnIfStillActive(GrabGid2)){
+                result++;
+            }
+        }
 
-        return 2;
+        return result;
     }
 
     public void HandleMatch() {
