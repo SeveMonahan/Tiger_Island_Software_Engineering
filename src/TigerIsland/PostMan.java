@@ -11,19 +11,19 @@ import static java.lang.Integer.toUnsignedString;
 public class PostMan {
     private static PostMan myPostMan;
     private int pid = -1;
-    private static String gid1 = "";
-    private static String gid2 = "";
-    private static int rounds = -1;
-    private static int currentRound = 0;
-    private static TournamentStatus status = TournamentStatus.CHALLENGE;
-    private static boolean gameOver = false;
-    private static boolean readGameOneScore = false;
-    private static boolean roundsOver = false;
-    private static Thread t1;
-    private static Thread t2;
+    private String gid1 = "";
+    private String gid2 = "";
+    private int rounds = -1;
+    private int currentRound = 0;
+    private TournamentStatus status = TournamentStatus.CHALLENGE;
+    private boolean gameOver = false;
+    private boolean readGameOneScore = false;
+    private boolean roundsOver = false;
+    private Thread t1;
+    private Thread t2;
     private LinkedList<GameMoveIncomingCommand> tileMailBox; // For AI to make a move
     private LinkedList<GameMoveIncomingTransmission> moveMailBox; // For opponent
-    private static String moveID = "";
+    private String moveID = "";
 
     private NetworkClient output_taker;
 
@@ -48,12 +48,12 @@ public class PostMan {
         moveMailBox = new LinkedList<>();
 
         PlayerController ai_01 = new SmartAIController(Color.BLACK);
-        NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, "A11", this);
+        NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, "Strawberry", this);
 
         PlayerController ai_02 = new SmartAIController(Color.BLACK);
         NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE, "B11", this);
 
-        Match match_01 = new Match(this, ai_01, network_01, "A11");
+        Match match_01 = new Match(this, ai_01, network_01, "Strawberry");
         Match match_02 = new Match(this, network_02, ai_02, "B11");
 
         t1 = new Thread(match_01);
@@ -87,7 +87,7 @@ public class PostMan {
         Marshaller marshaller = new Marshaller();
         String parsedString = marshaller.convertTileMoveAndConstructionMoveToString(gameMoveOutgoingTransmission);
         parsedString = parsedString.replace("**********move_id**********",moveID);
-        parsedString = parsedString.replace("A11", gid1);
+        parsedString = parsedString.replace("Strawberry", gid1);
         parsedString = parsedString.replace("B11", gid2);
         String [] parsedArray = parsedString.split("\\s+");
         String badTile = parsedArray[5];
@@ -220,7 +220,7 @@ public class PostMan {
                         if (!opponentMove.getPid().equals(toUnsignedString(pid))) { // post only if opponent's move
                             System.out.println(opponentMove.getPid() + " " + pid + " reading opponent's move. Sending to AI...");
                             if (opponentMove.getGid().equals(gid1)) {
-                                opponentMove.setGid("A11");
+                                opponentMove.setGid("Strawberry");
                             }
                             else if (opponentMove.getGid().equals(gid2)) {
                                 opponentMove.setGid("B11");
@@ -260,7 +260,7 @@ public class PostMan {
                     //readCommand(test);
                     moveID = gameMoveIncomingCommand.getMoveNumber();
                     if (gameMoveIncomingCommand.getGid().equals(gid1)) {
-                        gameMoveIncomingCommand.setGid("A11");
+                        gameMoveIncomingCommand.setGid("Strawberry");
                     }
                     else if (gameMoveIncomingCommand.getGid().equals(gid2)){
                         gameMoveIncomingCommand.setGid("B11");
