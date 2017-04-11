@@ -129,13 +129,7 @@ public class PostMan {
         return "";
     }
 
-    private boolean HandleFirstMakeAMoveMessage(){
-        String message = readLine();
-        String[] token = stringSplitter(message);
-
-        gid1 = token[5]; //assign this to thread 1
-        System.out.println("Determined that gid#1 is: " + gid1);
-
+    private void HandleSereverRequestAskingUsToMoveMessage(String message){
         ServerRequestAskingUsToMove serverRequestAskingUsToMove = Parser.commandToObject(message);
 
         if (serverRequestAskingUsToMove.getGid().equals(gid1)) {
@@ -151,6 +145,18 @@ public class PostMan {
         postTileMessage(serverRequestAskingUsToMove);
 
         printServerRequestAskingUsToMove(serverRequestAskingUsToMove);
+
+    }
+
+    private boolean HandleFirstMakeAMoveMessage(){
+        String message = readLine();
+        String[] token = stringSplitter(message);
+
+        gid1 = token[5]; //assign this to thread 1
+        System.out.println("Determined that gid#1 is: " + gid1);
+
+        HandleSereverRequestAskingUsToMoveMessage(message);
+
         return false;
     }
 
