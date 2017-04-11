@@ -137,6 +137,12 @@ public class PostMan {
         }
     }
 
+    // Exits the program
+    private void endOfTournament(){
+        System.out.println("We have successfully completed the Tournament! Done!");
+        System.exit(0);
+    }
+
     private boolean gidSet = false;
     void respondToServerMessage(String message) {
         String[] arr = stringSplitter(message);
@@ -148,8 +154,7 @@ public class PostMan {
             int cid;
             if (roundsOver) {
                 if (message.contains("END OF CHALLENGES")) {
-                    System.out.println("Challenges over!");
-                    System.exit(1);
+                    endOfTournament();
                 }
                 else if (message.contains("WAIT FOR THE NEXT CHALLENGE TO BEGIN")) {
                     System.out.println("waiting for next challenge...");
