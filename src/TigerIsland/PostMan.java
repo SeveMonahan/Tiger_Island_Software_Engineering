@@ -134,7 +134,7 @@ public class PostMan {
         String[] token = stringSplitter(message);
 
         gid1 = token[5]; //assign this to thread 1
-        System.out.println("Determined that gid 1 is: " + gid1);
+        System.out.println("Determined that gid#1 is: " + gid1);
 
         ServerRequestAskingUsToMove serverRequestAskingUsToMove = Parser.commandToObject(message);
 
@@ -161,6 +161,8 @@ public class PostMan {
 
     public void HandleMatch() {
         readLine(); // Eat "NEW MATCH BEGINNING NOW YOUR OPPONENT IS ..."
+
+        StartMatch();
 
         HandleFirstMakeAMoveMessage();
 
@@ -394,12 +396,12 @@ public class PostMan {
     }
 
     public static void printServerRequestAskingUsToMove(ServerRequestAskingUsToMove sendSomewhere) {
-        System.out.println("-- THE SERVER ASKED US TO MOVE --");
-        System.out.println("In the game with ID: "+ sendSomewhere.getGid());
-        System.out.println("Move Number : " + sendSomewhere.getMoveNumber());
-        System.out.println("Time allowed: : " + sendSomewhere.getTime());
-        System.out.println("Tile to place : " + sendSomewhere.getTile().toString());
-        System.out.println("---------------------------------");
+        System.out.print("-- THE SERVER ASKED US TO MOVE --"                        +"\n"
+                         + "In the game with ID: "+ sendSomewhere.getGid()          +"\n"
+                         + "Move Number : " + sendSomewhere.getMoveNumber()         +"\n"
+                         + "Time allowed: : " + sendSomewhere.getTime()             +"\n"
+                         + "Tile to place : " + sendSomewhere.getTile().toString()  +"\n"
+                         +"---------------------------------\n");
     }
 
     private static String[] stringSplitter(String message) {
