@@ -68,22 +68,25 @@ public class NetworkClient {
 
         postMan.setpid(pid);
 
-        String stringFromServer;
-
-        while ((stringFromServer = in.readLine()) != null) {
+        for(String stringFromServer = in.readLine(); stringFromServer != null; stringFromServer = in.readLine()){
             long serverTime = System.currentTimeMillis();
+
             System.out.println("Server: " + stringFromServer);
+
             if (stringFromServer.equals("THANK YOU FOR PLAYING! GOODBYE")) {
                 break;
             }
+
             postMan.decoder(stringFromServer);
+
             if (stringFromServer.contains("MAKE YOUR MOVE IN GAME")) {
                 waitingForOutPut = true;
             }
+
             while (outputLine == null && waitingForOutPut) {
-                //System.out.println("sleep");
                 TimeUnit.MILLISECONDS.sleep(100);
             }
+
             if (outputLine != null) {
                 long difference = System.currentTimeMillis() - serverTime;
                 System.out.println(" Client: " + outputLine + " Time in miliseconds since read in server line: " + serverTime);
