@@ -1,6 +1,5 @@
 package TigerIsland;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 import static java.lang.Integer.parseInt;
@@ -86,7 +85,7 @@ public class PostMan {
         parsedString = parsedString.replace("**********move_id**********",moveID);
         parsedString = parsedString.replace("Strawberry", gid1);
         parsedString = parsedString.replace("Chocolate", gid2);
-        output_taker.setOutputLine( parsedString );
+        output_taker.sendMessage( parsedString );
     }
 
     public synchronized Tile accessTileMailBox(String gid) {
@@ -119,7 +118,7 @@ public class PostMan {
     public void decoder(String message) {
         String[] arr = stringSplitter(message);
         if (message.contains("test")) {
-            output_taker.setOutputLine("test");
+            output_taker.sendMessage("test");
         }
         int oid = -1;
         int rid = -1;

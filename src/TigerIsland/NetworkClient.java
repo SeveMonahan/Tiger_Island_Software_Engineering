@@ -63,7 +63,6 @@ public class NetworkClient {
     }
 
     // Network client object functions used later to send message around
-    private String outputLine = null;
     private PrintWriter out;
     private BufferedReader in;
 
@@ -86,8 +85,6 @@ public class NetworkClient {
         postMan.setpid(pid);
 
         for(String stringFromServer = readLine(); stringFromServer != null; stringFromServer = readLine()){
-            long serverTime = System.currentTimeMillis();
-
             System.out.println("Server: " + stringFromServer);
 
             if (stringFromServer.equals("THANK YOU FOR PLAYING! GOODBYE")) {
@@ -96,21 +93,6 @@ public class NetworkClient {
 
             postMan.decoder(stringFromServer);
 
-            if (stringFromServer.contains("MAKE YOUR MOVE IN GAME")) {
-                waitingForOutPut = true;
-            }
-
-            while (outputLine == null && waitingForOutPut) {
-                TimeUnit.MILLISECONDS.sleep(100);
-            }
-
-            if (outputLine != null) {
-                long difference = System.currentTimeMillis() - serverTime;
-                System.out.println(" Client: " + outputLine + " Time in miliseconds since read in server line: " + difference);
-                sendMessage(outputLine);
-                outputLine = null;
-                waitingForOutPut = false;
-            }
         }
     }
 
@@ -118,7 +100,4 @@ public class NetworkClient {
         out.println(stringToServer);
     }
 
-    public synchronized void setOutputLine(String messageToServer) {
-        outputLine = messageToServer;
-    }
 }
