@@ -138,10 +138,11 @@ public class PostMan {
 
         String[] token = stringSplitter(message);
 
-        System.out.println("--------Starting new challenge!--------");
         int cid = parseInt(token[2]);
         int rounds = parseInt(token[6]);
-        System.out.println("grabbed cid: " + cid + " and rounds: " + rounds);
+
+        System.out.println("--------Starting new challenge!--------");
+        System.out.println("CID: " + cid + " Rounds: " + rounds);
 
         for(int i = 0; i < rounds; i++){
             HandleRound();
@@ -170,7 +171,7 @@ public class PostMan {
 
     private boolean gidSet = false;
     void respondToServerMessage(String message) {
-        String[] arr = stringSplitter(message);
+        String[] token = stringSplitter(message);
 
         int oid;
         int rid;
@@ -203,8 +204,8 @@ public class PostMan {
                     }
                 }
             } else {
-                rid = parseInt(arr[2]);
-                rounds = parseInt(arr[4]);
+                rid = parseInt(token[2]);
+                rounds = parseInt(token[4]);
                 System.out.println("grabbed rid: " + rid);
                 status = TournamentStatus.MATCH;
             }
@@ -223,7 +224,7 @@ public class PostMan {
                     System.out.println("read game one score");
                 }
             } else {
-                oid = parseInt(arr[8]);
+                oid = parseInt(token[8]);
                 System.out.println("grabbed opponent cid: " + oid);
                 status = TournamentStatus.MOVE;
             }
@@ -239,8 +240,8 @@ public class PostMan {
             else {
                 if (!message.contains("MAKE YOUR MOVE") && message.contains("PLAYER") && !message.contains("OVER PLAYER")) { //type 2 message (handled by parser)
                     if (!gidSet) {
-                        if (gid2.isEmpty() && !arr[1].equals(gid1)) {
-                            gid2 = arr[1]; //assign this to thread 2
+                        if (gid2.isEmpty() && !token[1].equals(gid1)) {
+                            gid2 = token[1]; //assign this to thread 2
                             System.out.println("grabbed gid2:" + gid2);
                             gidSet = true;
                         }
@@ -252,7 +253,7 @@ public class PostMan {
 
                     if (!gidSet) {
                         if (gid1.isEmpty()) {
-                            gid1 = arr[5]; //assign this to thread 1
+                            gid1 = token[5]; //assign this to thread 1
                             System.out.println("grabbed gid1:" + gid1);
                         }
                     }
