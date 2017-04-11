@@ -231,48 +231,18 @@ public class PostMan {
                             gidSet = true;
                         }
                     }
-                    GameMoveIncomingTransmission opponentMove = Parser.opponentMoveStringToGameMove(message);
-                    if (opponentMove != null) {
-                        readTransmission(opponentMove);
-                        //take in opponent's move only
-                        if (!opponentMove.getPid().equals(toUnsignedString(pid))) { // post only if opponent's move
-                            System.out.println(opponentMove.getPid() + " " + pid + " reading opponent's move. Sending to AI...");
-                            if (opponentMove.getGid().equals(gid1)) {
-                                opponentMove.setGid("Strawberry");
-                            }
-                            else if (opponentMove.getGid().equals(gid2)) {
-                                opponentMove.setGid("Chocolate");
-                            }
-                            else {
-                                System.out.println("couldn't set transmission's GID");
-                            }
-                            postNetworkPlayerMessage(opponentMove);
-                        }
-                        else {
-                            System.out.println("Reading our move...");
-                        }
-                    }
-                    else { //if someone forfeited
-                        System.out.println("someone forfeited!");
-                        String gameToBeKilled = arr[1];
-                        if (gameToBeKilled.equals(gid1)) {
-                            killThread(1);
-                        }
-                        else if (gameToBeKilled.equals(gid2)) {
-                            killThread(0);
-                        }
-                        else {
-                            System.out.println("couldn't kill a game");
-                        }
-                    }
+
+                    HandleIncomingGameMove(message, gid1, gid2, pid);
                 }
                 else if (message.contains("MAKE YOUR MOVE IN GAME")){ //type 1 message (command telling us to make a move)
+
                     if (!gidSet) {
                         if (gid1.isEmpty()) {
                             gid1 = arr[5]; //assign this to thread 1
                             System.out.println("grabbed gid1:" + gid1);
                         }
                     }
+
                     GameMoveIncomingCommand gameMoveIncomingCommand = Parser.commandToObject(message);
                     //readCommand(test);
                     moveID = gameMoveIncomingCommand.getMoveNumber();
@@ -301,6 +271,50 @@ public class PostMan {
                         t2.stop();
                     }
                 }
+            }
+        }
+    }
+
+    private void HandleIncomingGameMove(String message, String gid1, String gid2, int pid) {
+        String[] arr = stringSplitter(message);
+
+        GameMoveIncomingTransmission opponentMove = Parser.opponentMoveStringToGameMove(message);
+
+        if (opponentMove != null) {
+
+            readTransmission(opponentMove);
+            //take in opponent's move only
+            if (!opponentMove.getPid().equals(toUnsignedString(pid))) { // post only if opponent's move
+                System.out.println(opponentMove.getPid() + " " + pid + " reading opponent's move. Sending to AI...");
+                if (opponentMove.getGid().equals(gid1)) {
+                    opponentMove.setGid("Strawberry");
+                }
+                else if (opponentMove.getGid().equals(gid2)) {
+                    opponentMove.setGid("Chocolate");
+                }
+                else {
+                    System.out.println("couldn't set transmission's GID");
+                }
+                postNetworkPlayerMessage(opponentMove);
+            }
+            else {
+                System.out.println("Reading our move...");
+            }
+        }
+        else { // We're assuming somebody forfeited. If the Server sent us a move which was invalid, we would also hit this conditional.
+            System.out.println("We think somebody forfeited!");
+
+            System.out.println("Forfeit message: " + message);
+
+            String gameToBeKilled = arr[1];
+            if (gameToBeKilled.equals(gid1)) {
+                killThread(1);
+            }
+            else if (gameToBeKilled.equals(gid2)) {
+                killThread(0);
+            }
+            else {
+                System.out.println("couldn't kill a game");
             }
         }
     }
