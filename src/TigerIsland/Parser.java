@@ -1,12 +1,7 @@
 package TigerIsland;
 
 public class Parser {
-    /*TODO
-        read forfeit
-        send client
-        outgoing mailbox
 
-    */
     //reads type 1 messages (MAKE YOUR MOVE IN GAME <gid> WITHIN <timemove> SECOND: MOVE <#> PLACE <tile>)
     public static ServerRequestAskingUsToMove commandToObject(String command){
         String[] commandArray = command.split("\\s+");

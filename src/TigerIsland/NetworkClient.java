@@ -66,7 +66,7 @@ public class NetworkClient {
     private PrintWriter out;
     private BufferedReader in;
 
-    NetworkClient(PrintWriter out, BufferedReader in){
+    public NetworkClient(PrintWriter out, BufferedReader in){
         this.out = out;
         this.in = in;
     }

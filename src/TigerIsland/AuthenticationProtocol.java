@@ -1,11 +1,9 @@
 package TigerIsland;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 public class AuthenticationProtocol {
-    static int authenticationProtocol(String tournamentPass, String username, String password, NetworkClient output_taker) throws IOException {
+    public static int authenticationProtocol(String tournamentPass, String username, String password, NetworkClient output_taker) throws IOException {
         String stringFromServer;
         String stringToServer;
 
