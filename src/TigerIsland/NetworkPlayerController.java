@@ -12,33 +12,33 @@ public class NetworkPlayerController implements PlayerController {
     }
 
     public GameStateEndOfTurn newGameState(GameStateWTile gameStateWTile){
-        GameMoveIncomingTransmission gameMoveIncomingTransmission = postMan.accessNetworkMailBox(gameID);
-        while(gameMoveIncomingTransmission == null) {
+        MoveInGameIncoming moveInGameIncoming = postMan.accessNetworkMailBox(gameID);
+        while(moveInGameIncoming == null) {
             try {
                 synchronized (postMan) {
                     postMan.wait();
-                    gameMoveIncomingTransmission = postMan.accessNetworkMailBox(gameID);
+                    moveInGameIncoming = postMan.accessNetworkMailBox(gameID);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
-        Tile tile = gameMoveIncomingTransmission.getTileMove().getTile();
-        HexagonNeighborDirection hexagonNeighborDirection = gameMoveIncomingTransmission.getTileMove().getDirection();
-        Coordinate coordinateTile = gameMoveIncomingTransmission.getTileMove().getCoordinate();
+        Tile tile = moveInGameIncoming.getTileMove().getTile();
+        HexagonNeighborDirection hexagonNeighborDirection = moveInGameIncoming.getTileMove().getDirection();
+        Coordinate coordinateTile = moveInGameIncoming.getTileMove().getCoordinate();
         TileMove tileMove = new TileMove(tile, hexagonNeighborDirection, coordinateTile);
         GameStateBeforeBuildAction gameStateBeforeBuildAction = GameStateBeforeBuildAction.createGameStateBeforeBuildAction(gameStateWTile, tileMove);
 
-        Coordinate coordinateMove = gameMoveIncomingTransmission.getConstructionMoveTransmission().getCoordinate();
+        Coordinate coordinateMove = moveInGameIncoming.getConstructionMoveTransmission().getCoordinate();
         ConstructionMoveInternal constructionMove = null;
 
-        switch ( gameMoveIncomingTransmission.getConstructionMoveTransmission().getBuildOption() ) {
+        switch ( moveInGameIncoming.getConstructionMoveTransmission().getBuildOption() ) {
             case BUILDTIGER:
                 constructionMove = new TigerConstructionMove(coordinateMove);
                 break;
             case EXPANDSETTLEMENT:
-                ExpandSettlementMoveTransmission expandSettlementMoveTransmission = (ExpandSettlementMoveTransmission) gameMoveIncomingTransmission.getConstructionMoveTransmission();
+                ExpandSettlementMoveTransmission expandSettlementMoveTransmission = (ExpandSettlementMoveTransmission) moveInGameIncoming.getConstructionMoveTransmission();
                 Terrain terrain = expandSettlementMoveTransmission.getTerrain();
                 constructionMove = new ExpandSettlementConstructionMove(coordinateMove, terrain);
                 break;

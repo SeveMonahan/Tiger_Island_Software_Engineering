@@ -1,6 +1,6 @@
 package TigerIsland;
 
-public class GameMoveIncomingCommand {
+public class ServerRequestAskingUsToMove {
     private String gid;
     private String moveID;
     private double time;
@@ -16,7 +16,7 @@ public class GameMoveIncomingCommand {
 
     public Tile getTile() {return tile;}
 
-    public GameMoveIncomingCommand(String gid, double time, String moveNumber, Tile tile){
+    public ServerRequestAskingUsToMove(String gid, double time, String moveNumber, Tile tile){
         this.gid = gid;
         this.time = time;
         this.moveID = moveNumber;

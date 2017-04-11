@@ -8,7 +8,7 @@ public class Parser {
 
     */
     //reads type 1 messages (MAKE YOUR MOVE IN GAME <gid> WITHIN <timemove> SECOND: MOVE <#> PLACE <tile>)
-    public static GameMoveIncomingCommand commandToObject(String command){
+    public static ServerRequestAskingUsToMove commandToObject(String command){
         String[] commandArray = command.split("\\s+");
         final int gidIndex = 5;
         final int timeIndex = 7;
@@ -18,11 +18,11 @@ public class Parser {
 
         String moveNumber = commandArray[moveNumberIndex];
         Tile tile = tileStringToTile(commandArray[12]);
-        return new GameMoveIncomingCommand(gid,time,moveNumber,tile);
+        return new ServerRequestAskingUsToMove(gid,time,moveNumber,tile);
     }
 
     //reads type 2 messages (GAME X MOVE Y PLAYER someID [...effect of whoever])
-    public static GameMoveIncomingTransmission opponentMoveStringToGameMove(String opponentMoveString){
+    public static MoveInGameIncoming opponentMoveStringToGameMove(String opponentMoveString){
         if (opponentMoveString.contains("FORFEIT") || opponentMoveString.contains("LOST")) {
             //TODO DAMMIT
             return null;
@@ -40,7 +40,7 @@ public class Parser {
         TileMove tileMove = opponentMoveStringToTileMove(opponentMoveString);
         ConstructionMoveTransmission constructionMoveTransmission = opponentMoveStringToBuildMove(opponentMoveString);
         //System.out.println("sending to postman...");
-        return new GameMoveIncomingTransmission(gid, moveNumber, pid, tileMove, constructionMoveTransmission);
+        return new MoveInGameIncoming(gid, moveNumber, pid, tileMove, constructionMoveTransmission);
     }
 
     //returns tile from type 1

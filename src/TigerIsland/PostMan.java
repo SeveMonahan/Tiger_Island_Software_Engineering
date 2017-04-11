@@ -19,8 +19,8 @@ public class PostMan {
     private boolean roundsOver = false;
     private Thread t1;
     private Thread t2;
-    private LinkedList<GameMoveIncomingCommand> tileMailBox; // For AI to make a move
-    private LinkedList<GameMoveIncomingTransmission> moveMailBox; // For opponent
+    private LinkedList<ServerRequestAskingUsToMove> tileMailBox; // For AI to make a move
+    private LinkedList<MoveInGameIncoming> moveMailBox; // For opponent
     private String moveID = "";
 
     private NetworkClient output_taker;
@@ -70,13 +70,13 @@ public class PostMan {
                 t2.stop();
         }
     }
-    public synchronized void postNetworkPlayerMessage(GameMoveIncomingTransmission gameMoveIncomingTransmission) {
-        moveMailBox.push(gameMoveIncomingTransmission);
+    public synchronized void postNetworkPlayerMessage(MoveInGameIncoming moveInGameIncoming) {
+        moveMailBox.push(moveInGameIncoming);
         notifyAll();
     }
 
-    public synchronized void postTileMessage(GameMoveIncomingCommand gameMoveIncomingCommand) {
-        tileMailBox.push(gameMoveIncomingCommand);
+    public synchronized void postTileMessage(ServerRequestAskingUsToMove serverRequestAskingUsToMove) {
+        tileMailBox.push(serverRequestAskingUsToMove);
         notifyAll();
     }
 
@@ -92,27 +92,27 @@ public class PostMan {
     public synchronized Tile accessTileMailBox(String gid) {
         Tile tile = null;
 
-        for(GameMoveIncomingCommand gameMoveIncomingCommand : tileMailBox) {
-            if(gameMoveIncomingCommand.getGid().equals(gid)) {
-                tile = gameMoveIncomingCommand.getTile();
-                tileMailBox.remove(gameMoveIncomingCommand);
+        for(ServerRequestAskingUsToMove serverRequestAskingUsToMove : tileMailBox) {
+            if(serverRequestAskingUsToMove.getGid().equals(gid)) {
+                tile = serverRequestAskingUsToMove.getTile();
+                tileMailBox.remove(serverRequestAskingUsToMove);
                 return tile;
             }
         }
         return tile;
     }
 
-    public synchronized GameMoveIncomingTransmission accessNetworkMailBox(String gid) {
-        GameMoveIncomingTransmission gameMoveIncomingTransmission = null;
+    public synchronized MoveInGameIncoming accessNetworkMailBox(String gid) {
+        MoveInGameIncoming moveInGameIncoming = null;
 
-        for(GameMoveIncomingTransmission gmtFromMailBox : moveMailBox) {
+        for(MoveInGameIncoming gmtFromMailBox : moveMailBox) {
             if( gmtFromMailBox.getGid().toString().equals(gid) ) {
-                gameMoveIncomingTransmission = gmtFromMailBox;
+                moveInGameIncoming = gmtFromMailBox;
                 moveMailBox.remove(gmtFromMailBox);
-                return gameMoveIncomingTransmission;
+                return moveInGameIncoming;
             }
         }
-        return gameMoveIncomingTransmission;
+        return moveInGameIncoming;
     }
 
     private String readLine(){
@@ -243,21 +243,21 @@ public class PostMan {
                         }
                     }
 
-                    GameMoveIncomingCommand gameMoveIncomingCommand = Parser.commandToObject(message);
+                    ServerRequestAskingUsToMove serverRequestAskingUsToMove = Parser.commandToObject(message);
                     //readCommand(test);
-                    moveID = gameMoveIncomingCommand.getMoveNumber();
-                    if (gameMoveIncomingCommand.getGid().equals(gid1)) {
-                        gameMoveIncomingCommand.setGid("Strawberry");
+                    moveID = serverRequestAskingUsToMove.getMoveNumber();
+                    if (serverRequestAskingUsToMove.getGid().equals(gid1)) {
+                        serverRequestAskingUsToMove.setGid("Strawberry");
                     }
-                    else if (gameMoveIncomingCommand.getGid().equals(gid2)){
-                        gameMoveIncomingCommand.setGid("Chocolate");
+                    else if (serverRequestAskingUsToMove.getGid().equals(gid2)){
+                        serverRequestAskingUsToMove.setGid("Chocolate");
                     }
                     else {
                         System.out.println("wat gid");
                     }
-                    System.out.println("sending to thread: " + gameMoveIncomingCommand.getGid());
-                    postTileMessage(gameMoveIncomingCommand);
-                    readCommand(gameMoveIncomingCommand);
+                    System.out.println("sending to thread: " + serverRequestAskingUsToMove.getGid());
+                    postTileMessage(serverRequestAskingUsToMove);
+                    readCommand(serverRequestAskingUsToMove);
                 }
                 else { //couldn't read string
                     System.out.println("Couldn't read string! assuming game over...");
@@ -278,7 +278,7 @@ public class PostMan {
     private void HandleIncomingGameMove(String message, String gid1, String gid2, int pid) {
         String[] arr = stringSplitter(message);
 
-        GameMoveIncomingTransmission opponentMove = Parser.opponentMoveStringToGameMove(message);
+        MoveInGameIncoming opponentMove = Parser.opponentMoveStringToGameMove(message);
 
         if (opponentMove != null) {
 
@@ -319,7 +319,7 @@ public class PostMan {
         }
     }
 
-    public static void readTransmission(GameMoveIncomingTransmission sendSomewhere) {
+    public static void readTransmission(MoveInGameIncoming sendSomewhere) {
         System.out.println("------READING THE FOLLOWING------");
         System.out.println("gid: "+ sendSomewhere.getGid());
         System.out.println("move number: " + sendSomewhere.getMoveID());
@@ -328,7 +328,7 @@ public class PostMan {
         System.out.println("---------------------------------");
     }
 
-    public static void readCommand(GameMoveIncomingCommand sendSomewhere) {
+    public static void readCommand(ServerRequestAskingUsToMove sendSomewhere) {
         System.out.println("------ READING THE COMMAND ------");
         System.out.println("gid: "+ sendSomewhere.getGid());
         System.out.println("move number: " + sendSomewhere.getMoveNumber());
