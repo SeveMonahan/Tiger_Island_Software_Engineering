@@ -81,14 +81,11 @@ public class PostMan {
     }
 
     public synchronized void mailAIMessages(GameMoveOutgoingTransmission gameMoveOutgoingTransmission) {
-        // printOurMove(gameMoveOutgoingTransmission);
         Marshaller marshaller = new Marshaller();
         String parsedString = marshaller.convertTileMoveAndConstructionMoveToString(gameMoveOutgoingTransmission);
         parsedString = parsedString.replace("**********move_id**********",moveID);
         parsedString = parsedString.replace("Strawberry", gid1);
         parsedString = parsedString.replace("Chocolate", gid2);
-        String [] parsedArray = parsedString.split("\\s+");
-        String badTile = parsedArray[5];
         output_taker.setOutputLine( parsedString );
     }
 
