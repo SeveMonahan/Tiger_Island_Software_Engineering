@@ -115,7 +115,7 @@ public class PostMan {
     }
 
     private static boolean gidSet = false;
-    public void decoder(String message) {
+    public void respondToServerMessage(String message) {
         String[] arr = stringSplitter(message);
         if (message.contains("test")) {
             output_taker.sendMessage("test");

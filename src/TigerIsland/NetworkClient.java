@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.concurrent.TimeUnit;
 
 import static java.lang.Integer.parseInt;
 
@@ -93,7 +92,7 @@ public class NetworkClient {
                 break;
             }
 
-            postMan.decoder(stringFromServer);
+            postMan.respondToServerMessage(stringFromServer);
 
         }
     }
