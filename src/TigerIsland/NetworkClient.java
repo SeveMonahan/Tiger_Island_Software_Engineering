@@ -47,11 +47,11 @@ public class NetworkClient {
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(netSocket.getInputStream()))
         ) {
-            NetworkClient output_taker = new NetworkClient(out);
+            NetworkClient output_taker = new NetworkClient(out, in);
 
-            int pid = AuthenticationProtocol.authenticationProtocol(tournamentPass, username, password, in, output_taker);
+            int pid = AuthenticationProtocol.authenticationProtocol(tournamentPass, username, password, output_taker);
 
-            output_taker.challengeProtocol(in, pid);
+            output_taker.challengeProtocol(pid);
 
         } catch (UnknownHostException e) {
             System.err.println("Can't find the host!");
@@ -65,12 +65,18 @@ public class NetworkClient {
     // Network client object functions used later to send message around
     private String outputLine = null;
     private PrintWriter out;
+    private BufferedReader in;
 
-    NetworkClient(PrintWriter out){
+    NetworkClient(PrintWriter out, BufferedReader in){
         this.out = out;
+        this.in = in;
     }
 
-    public void challengeProtocol(BufferedReader in, int pid) throws IOException, InterruptedException {
+    public String readLine() throws IOException {
+        return in.readLine();
+    }
+
+    public void challengeProtocol(int pid) throws IOException, InterruptedException {
         boolean waitingForOutPut = false;
 
         System.out.println("Now executing the challenge protocol...");
@@ -79,7 +85,7 @@ public class NetworkClient {
 
         postMan.setpid(pid);
 
-        for(String stringFromServer = in.readLine(); stringFromServer != null; stringFromServer = in.readLine()){
+        for(String stringFromServer = readLine(); stringFromServer != null; stringFromServer = readLine()){
             long serverTime = System.currentTimeMillis();
 
             System.out.println("Server: " + stringFromServer);
