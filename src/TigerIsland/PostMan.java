@@ -170,6 +170,8 @@ public class PostMan {
                 System.out.println("Unknown gid in MoveInGameIncoming");
             }
 
+            postTileMessage(new ServerRequestAskingUsToMove(moveInGameIncoming.getGid(), 0,
+                                    "SEEING_THIS_IS_AN_ERROR_IN_POSTMAN", moveInGameIncoming.getTileMove().getTile()));
             postNetworkPlayerMessage(moveInGameIncoming);
         }
     }
