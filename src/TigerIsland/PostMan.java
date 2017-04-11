@@ -292,13 +292,7 @@ public class PostMan {
         System.out.println("coordinate: " + sendSomewhere.getConstructionMoveTransmission().getCoordinate().getX() + " " + sendSomewhere.getConstructionMoveTransmission().getCoordinate().getY());
         System.out.println("---------------------------------");
     }
-    public static void printOurMove(GameMoveOutgoingTransmission gameMoveOutgoingTransmission) {
-        Marshaller marshaller = new Marshaller();
-        String outgoing = marshaller.convertTileMoveAndConstructionMoveToString(gameMoveOutgoingTransmission);
-        System.out.println("------- Sending our move -------");
-        System.out.println("Our move: " + outgoing);
-        System.out.println("---------------------------------");
-    }
+
     public static void readCommand(GameMoveIncomingCommand sendSomewhere) {
         System.out.println("------ READING THE COMMAND ------");
         System.out.println("gid: "+ sendSomewhere.getGid());
@@ -306,11 +300,6 @@ public class PostMan {
         System.out.println("time: " + sendSomewhere.getTime());
         System.out.println("tile: " + sendSomewhere.getTile().toString());
         System.out.println("---------------------------------");
-    }
-    private static void stringArrayPrinter(String[] arr) {
-        for (String s : arr) {
-            System.out.println(s);
-        }
     }
 
     private static String[] stringSplitter(String message) {
