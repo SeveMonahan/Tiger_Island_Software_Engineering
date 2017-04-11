@@ -129,7 +129,7 @@ public class PostMan {
         return "";
     }
 
-    private void HandleSereverRequestAskingUsToMoveMessage(String message){
+    private void HandleServerRequestAskingUsToMoveMessage(String message){
         ServerRequestAskingUsToMove serverRequestAskingUsToMove = Parser.commandToObject(message);
 
         if (serverRequestAskingUsToMove.getGid().equals(gid1)) {
@@ -155,7 +155,7 @@ public class PostMan {
         gid1 = token[5]; //assign this to thread 1
         System.out.println("Determined that gid#1 is: " + gid1);
 
-        HandleSereverRequestAskingUsToMoveMessage(message);
+        HandleServerRequestAskingUsToMoveMessage(message);
     }
 
     private boolean HandleMoveAndReturnWhetherThereIsANewMove(){
