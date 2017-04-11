@@ -158,18 +158,21 @@ public class PostMan {
         HandleServerRequestAskingUsToMoveMessage(message);
     }
 
-    private void HandleFirstGameStateUpdate(){
+    private void HandleGameStateUpdate(int moves_to_grab, boolean GrabGid2){
         String message_1 = readLine();
         String message_2 = readLine();
 
         MoveInGameIncoming Move_1 = Parser.opponentMoveStringToGameMove(message_1);
         MoveInGameIncoming Move_2 = Parser.opponentMoveStringToGameMove(message_2);
 
-        // We don't even know which message is which, so distinguish them.
-        if(Move_1.getGid().equals(gid1)){
-            gid2 = Move_2.getGid();
-        }else{
-            gid2 = Move_1.getGid();
+
+        if(GrabGid2) {
+            // We don't even know which message is which, so distinguish them.
+            if (Move_1.getGid().equals(gid1)) {
+                gid2 = Move_2.getGid();
+            } else {
+                gid2 = Move_1.getGid();
+            }
         }
 
         for(MoveInGameIncoming moveInGameIncoming : new MoveInGameIncoming[] {Move_1, Move_2}) {
@@ -187,6 +190,9 @@ public class PostMan {
                 postNetworkPlayerMessage(moveInGameIncoming);
             }
         }
+    }
+    private void HandleFirstGameStateUpdate(){
+        HandleGameStateUpdate(2, true);
 
         // TODO: Must handle the first two messages recieved about forfeiting.
         String message = readLine();
