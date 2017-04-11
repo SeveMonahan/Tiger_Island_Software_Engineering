@@ -161,6 +161,9 @@ public class PostMan {
 
     public void HandleMatch() {
         readLine(); // Eat "NEW MATCH BEGINNING NOW YOUR OPPONENT IS ..."
+
+        HandleFirstMakeAMoveMessage();
+
         while(HandleMoveAndReturnWhetherThereIsANewMove()){
             ;
         }
