@@ -129,7 +129,33 @@ public class PostMan {
         return "";
     }
 
+    private boolean HandleFirstMakeAMoveMessage(){
+        String message = readLine();
+        String[] token = stringSplitter(message);
+
+        gid1 = token[5]; //assign this to thread 1
+        System.out.println("Determined that gid 1 is: " + gid1);
+
+        ServerRequestAskingUsToMove serverRequestAskingUsToMove = Parser.commandToObject(message);
+
+        if (serverRequestAskingUsToMove.getGid().equals(gid1)) {
+            serverRequestAskingUsToMove.setGid("Strawberry");
+        }
+        else if (serverRequestAskingUsToMove.getGid().equals(gid2)){
+            serverRequestAskingUsToMove.setGid("Chocolate");
+        }
+        else {
+            System.out.println("Recieved a Server Request Asking us to Move with an unknown gid");
+        }
+
+        postTileMessage(serverRequestAskingUsToMove);
+
+        printServerRequestAskingUsToMove(serverRequestAskingUsToMove);
+        return false;
+    }
+
     private boolean HandleMoveAndReturnWhetherThereIsANewMove(){
+
         return false;
     }
 
@@ -279,7 +305,7 @@ public class PostMan {
                     }
 
                     ServerRequestAskingUsToMove serverRequestAskingUsToMove = Parser.commandToObject(message);
-                    //readCommand(test);
+                    //printServerRequestAskingUsToMove(test);
                     moveID = serverRequestAskingUsToMove.getMoveNumber();
                     if (serverRequestAskingUsToMove.getGid().equals(gid1)) {
                         serverRequestAskingUsToMove.setGid("Strawberry");
@@ -292,7 +318,7 @@ public class PostMan {
                     }
                     System.out.println("sending to thread: " + serverRequestAskingUsToMove.getGid());
                     postTileMessage(serverRequestAskingUsToMove);
-                    readCommand(serverRequestAskingUsToMove);
+                    printServerRequestAskingUsToMove(serverRequestAskingUsToMove);
                 }
                 else { //couldn't read string
                     System.out.println("Couldn't read string! assuming game over...");
@@ -364,12 +390,12 @@ public class PostMan {
         System.out.println("---------------------------------");
     }
 
-    public static void readCommand(ServerRequestAskingUsToMove sendSomewhere) {
-        System.out.println("------ READING THE COMMAND ------");
-        System.out.println("gid: "+ sendSomewhere.getGid());
-        System.out.println("move number: " + sendSomewhere.getMoveNumber());
-        System.out.println("time: " + sendSomewhere.getTime());
-        System.out.println("tile: " + sendSomewhere.getTile().toString());
+    public static void printServerRequestAskingUsToMove(ServerRequestAskingUsToMove sendSomewhere) {
+        System.out.println("-- THE SERVER ASKED US TO MOVE --");
+        System.out.println("In the game with ID: "+ sendSomewhere.getGid());
+        System.out.println("Move Number : " + sendSomewhere.getMoveNumber());
+        System.out.println("Time allowed: : " + sendSomewhere.getTime());
+        System.out.println("Tile to place : " + sendSomewhere.getTile().toString());
         System.out.println("---------------------------------");
     }
 
