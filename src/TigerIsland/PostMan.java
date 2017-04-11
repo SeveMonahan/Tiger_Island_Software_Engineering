@@ -158,50 +158,50 @@ public class PostMan {
         HandleServerRequestAskingUsToMoveMessage(message);
     }
 
-    private void HandleGameStateUpdate(int moves_to_grab, boolean GrabGid2){
-        String message_1 = readLine();
-        String message_2 = readLine();
+    private void passMoveInGameIncomingToMatchObject(MoveInGameIncoming moveInGameIncoming){
+        if (!moveInGameIncoming.getPid().equals(toUnsignedString(pid))) { // post only if opponent's move
+            printMoveInGameIncoming(moveInGameIncoming);
 
-        MoveInGameIncoming Move_1 = Parser.opponentMoveStringToGameMove(message_1);
-        MoveInGameIncoming Move_2 = Parser.opponentMoveStringToGameMove(message_2);
-
-
-        if(GrabGid2) {
-            // We don't even know which message is which, so distinguish them.
-            if (Move_1.getGid().equals(gid1)) {
-                gid2 = Move_2.getGid();
+            if (moveInGameIncoming.getGid().equals(gid1)) {
+                moveInGameIncoming.setGid("Strawberry");
+            } else if (moveInGameIncoming.getGid().equals(gid2)) {
+                moveInGameIncoming.setGid("Chocolate");
             } else {
-                gid2 = Move_1.getGid();
+                System.out.println("Unknown gid in MoveInGameIncoming");
             }
-        }
 
-        for(MoveInGameIncoming moveInGameIncoming : new MoveInGameIncoming[] {Move_1, Move_2}) {
-            if (!moveInGameIncoming.getPid().equals(toUnsignedString(pid))) { // post only if opponent's move
-                printMoveInGameIncoming(moveInGameIncoming);
-
-                if (moveInGameIncoming.getGid().equals(gid1)) {
-                    moveInGameIncoming.setGid("Strawberry");
-                } else if (moveInGameIncoming.getGid().equals(gid2)) {
-                    moveInGameIncoming.setGid("Chocolate");
-                } else {
-                    System.out.println("Unknown gid in MoveInGameIncoming");
-                }
-
-                postNetworkPlayerMessage(moveInGameIncoming);
-            }
+            postNetworkPlayerMessage(moveInGameIncoming);
         }
     }
-    private void HandleFirstGameStateUpdate(){
-        HandleGameStateUpdate(2, true);
 
-        // TODO: Must handle the first two messages recieved about forfeiting.
-        String message = readLine();
-        String[] token = stringSplitter(message);
+    private int HandleGameStateUpdateAndReturnActiveGames(int activeGames, boolean GrabGid2){
+        String message_1 = readLine();
 
-        gid2 = token[5]; //assign this to thread 2
-        System.out.println("Determined that gid#2 is: " + gid1);
+        MoveInGameIncoming Move_1 = Parser.opponentMoveStringToGameMove(message_1);
 
-        HandleServerRequestAskingUsToMoveMessage(message);
+        passMoveInGameIncomingToMatchObject(Move_1);
+
+        if(activeGames == 2) {
+            String message_2 = readLine();
+            MoveInGameIncoming Move_2 = Parser.opponentMoveStringToGameMove(message_2);
+
+            if(GrabGid2) {
+                // We don't even know which message is which, so distinguish them.
+                if (Move_1.getGid().equals(gid1)) {
+                    gid2 = Move_2.getGid();
+                } else {
+                    gid2 = Move_1.getGid();
+                }
+
+                System.out.println("Determined that gid#2 is: " + gid1);
+            }
+
+            passMoveInGameIncomingToMatchObject(Move_2);
+
+        }
+
+
+        return 2;
     }
 
     private boolean HandleMoveAndReturnWhetherThereIsANewMove(){
@@ -216,7 +216,7 @@ public class PostMan {
 
         HandleFirstMakeAMoveMessage();
 
-        HandleFirstGameStateUpdate();
+        HandleGameStateUpdateAndReturnActiveGames(2, true);
 
         while(HandleMoveAndReturnWhetherThereIsANewMove()){
             ;
