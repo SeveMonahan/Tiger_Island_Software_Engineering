@@ -51,10 +51,10 @@ public class PostMan {
         NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, "Strawberry", this);
 
         PlayerController ai_02 = new SmartAIController(Color.BLACK);
-        NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE, "B11", this);
+        NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE, "Chocolate", this);
 
         Match match_01 = new Match(this, ai_01, network_01, "Strawberry");
-        Match match_02 = new Match(this, network_02, ai_02, "B11");
+        Match match_02 = new Match(this, network_02, ai_02, "Chocolate");
 
         t1 = new Thread(match_01);
         t2 = new Thread(match_02);
@@ -88,7 +88,7 @@ public class PostMan {
         String parsedString = marshaller.convertTileMoveAndConstructionMoveToString(gameMoveOutgoingTransmission);
         parsedString = parsedString.replace("**********move_id**********",moveID);
         parsedString = parsedString.replace("Strawberry", gid1);
-        parsedString = parsedString.replace("B11", gid2);
+        parsedString = parsedString.replace("Chocolate", gid2);
         String [] parsedArray = parsedString.split("\\s+");
         String badTile = parsedArray[5];
         output_taker.setOutputLine( parsedString );
@@ -223,7 +223,7 @@ public class PostMan {
                                 opponentMove.setGid("Strawberry");
                             }
                             else if (opponentMove.getGid().equals(gid2)) {
-                                opponentMove.setGid("B11");
+                                opponentMove.setGid("Chocolate");
                             }
                             else {
                                 System.out.println("couldn't set transmission's GID");
@@ -263,7 +263,7 @@ public class PostMan {
                         gameMoveIncomingCommand.setGid("Strawberry");
                     }
                     else if (gameMoveIncomingCommand.getGid().equals(gid2)){
-                        gameMoveIncomingCommand.setGid("B11");
+                        gameMoveIncomingCommand.setGid("Chocolate");
                     }
                     else {
                         System.out.println("wat gid");
