@@ -117,13 +117,15 @@ public class PostMan {
     private static boolean gidSet = false;
     public void respondToServerMessage(String message) {
         String[] arr = stringSplitter(message);
+
         if (message.contains("test")) {
             output_taker.sendMessage("test");
         }
-        int oid = -1;
-        int rid = -1;
+        
+        int oid;
+        int rid;
         if (status == TournamentStatus.CHALLENGE) { //challenge protocol
-            int cid = -1;
+            int cid;
             if (roundsOver) {
                 if (message.contains("END OF CHALLENGES")) {
                     System.out.println("Challenges over!");
