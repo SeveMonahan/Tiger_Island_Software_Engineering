@@ -49,7 +49,7 @@ public class NetworkClient {
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(netSocket.getInputStream()))
         ) {
-            int pid = authenticationProtocol(tournamentPass, username, password, out, in);
+            int pid = AuthenticationProtocol.authenticationProtocol(tournamentPass, username, password, out, in);
             challengeProtocol(out, in, pid);
         } catch (UnknownHostException e) {
             System.err.println("Can't find the host!");
@@ -91,34 +91,6 @@ public class NetworkClient {
                 waitingForOutPut = false;
             }
         }
-    }
-
-    private static int authenticationProtocol(String tournamentPass, String username, String password, PrintWriter out, BufferedReader in) throws IOException {
-        String stringFromServer;
-        String stringToServer;
-
-        // "WELCOME TO ANOTHER EDITION OF THUNDERDOME!"
-        final String Welcome_string = in.readLine();
-
-        stringToServer = "ENTER THUNDERDOME " + tournamentPass;
-        sendMessage(out, stringToServer);
-
-        // "TWO SHALL ENTER, ONE SHALL LEAVE"
-        final String Two_shall_enter_string = in.readLine();
-
-        stringToServer = "I AM " + username + " " + password;
-        sendMessage(out, stringToServer);
-
-        final String Recieve_Player_id_string = in.readLine();
-        stringFromServer = Recieve_Player_id_string.replace("WAIT FOR THE TOURNAMENT TO BEGIN ", "");
-        int pid = parseInt(stringFromServer);
-
-        System.out.print("Our Player ID is: ");
-        System.out.println(pid);
-        System.out.println("Authentical Protocol complete.");
-
-        return pid;
-
     }
 
     public static synchronized void sendMessage(PrintWriter out, String stringToServer) {
