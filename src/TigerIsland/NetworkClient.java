@@ -18,7 +18,6 @@ import static java.lang.Integer.parseInt;
 
 public class NetworkClient {
     private static String outputLine = null;
-    private static boolean waitingForOutPut = false;
 
     private static void check_arguments(String[] args){
         if (args.length != 5) {
@@ -61,6 +60,8 @@ public class NetworkClient {
     }
 
     public static void challengeProtocol(PrintWriter out, BufferedReader in, int pid) throws IOException, InterruptedException {
+        boolean waitingForOutPut = false;
+
         System.out.println("Now executing the challenge protocol...");
 
         PostMan postMan = PostMan.grabPostMan();
