@@ -116,6 +116,8 @@ public class PostMan {
 
     private boolean gidSet = false;
     void respondToServerMessage(String message) {
+        System.out.println("Server: " + message);
+
         String[] arr = stringSplitter(message);
 
         int oid;

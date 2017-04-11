@@ -85,13 +85,6 @@ public class NetworkClient {
         postMan.setpid(pid);
 
         for(String stringFromServer = readLine(); stringFromServer != null; stringFromServer = readLine()){
-            System.out.println("Server: " + stringFromServer);
-
-            // This means that the tournament is over and the server expects no more messages
-            if (stringFromServer.equals("THANK YOU FOR PLAYING! GOODBYE")) {
-                break;
-            }
-
             postMan.respondToServerMessage(stringFromServer);
 
         }
