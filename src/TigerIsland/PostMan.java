@@ -48,22 +48,20 @@ public class PostMan {
         Match match_01 = new Match(this, ai_01, network_01, "Strawberry");
         Match match_02 = new Match(this, network_02, ai_02, "Chocolate");
 
+        if(t1 != null){
+            t1.stop();
+        }
+
+        if(t2 != null){
+            t2.stop();
+        }
+
         t1 = new Thread(match_01);
         t2 = new Thread(match_02);
         t1.start();
         t2.start();
     }
 
-    public void killThread(int x) {
-        if (x == 1) {
-            if (t1.isAlive())
-                t1.stop();
-        }
-        else {
-            if (t2.isAlive())
-                t2.stop();
-        }
-    }
     public synchronized void postNetworkPlayerMessage(MoveInGameIncoming moveInGameIncoming) {
         moveMailBox.push(moveInGameIncoming);
         notifyAll();
