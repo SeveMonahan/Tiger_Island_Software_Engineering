@@ -10,10 +10,7 @@ import static java.lang.Integer.toUnsignedString;
 //
 public class PostMan {
     private static PostMan myPostMan;
-    public int pid = -1;
-    private static int cid = -1;
-    private static int oid = -1;
-    private static int rid = -1;
+    private int pid = -1;
     private static String gid1 = "";
     private static String gid2 = "";
     private static int rounds = -1;
@@ -22,14 +19,11 @@ public class PostMan {
     private static boolean gameOver = false;
     private static boolean readGameOneScore = false;
     private static boolean roundsOver = false;
-    private static Match match_01;
-    private static Match match_02;
     private static Thread t1;
     private static Thread t2;
     private LinkedList<GameMoveIncomingCommand> tileMailBox; // For AI to make a move
     private LinkedList<GameMoveIncomingTransmission> moveMailBox; // For opponent
     private static String moveID = "";
-    private static String properTile = "";
 
     private NetworkClient output_taker;
 
@@ -59,8 +53,8 @@ public class PostMan {
         PlayerController ai_02 = new SmartAIController(Color.BLACK);
         NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE, "B11", this);
 
-        match_01 = new Match(this, ai_01, network_01, "A11");
-        match_02 = new Match(this, network_02, ai_02, "B11");
+        Match match_01 = new Match(this, ai_01, network_01, "A11");
+        Match match_02 = new Match(this, network_02, ai_02, "B11");
 
         t1 = new Thread(match_01);
         t2 = new Thread(match_02);
@@ -97,7 +91,6 @@ public class PostMan {
         parsedString = parsedString.replace("B11", gid2);
         String [] parsedArray = parsedString.split("\\s+");
         String badTile = parsedArray[5];
-        // parsedString = parsedString.replace(badTile, properTile);
         output_taker.setOutputLine( parsedString );
     }
 
@@ -133,7 +126,10 @@ public class PostMan {
         if (message.contains("test")) {
             output_taker.setOutputLine("test");
         }
+        int oid = -1;
+        int rid = -1;
         if (status == TournamentStatus.CHALLENGE) { //challenge protocol
+            int cid = -1;
             if (roundsOver) {
                 if (message.contains("END OF CHALLENGES")) {
                     System.out.println("Challenges over!");
@@ -273,7 +269,6 @@ public class PostMan {
                         System.out.println("wat gid");
                     }
                     System.out.println("sending to thread: " + gameMoveIncomingCommand.getGid());
-                    properTile = gameMoveIncomingCommand.getTile().toString();
                     postTileMessage(gameMoveIncomingCommand);
                     readCommand(gameMoveIncomingCommand);
                 }
