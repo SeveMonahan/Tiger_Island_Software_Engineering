@@ -158,6 +158,46 @@ public class PostMan {
         HandleServerRequestAskingUsToMoveMessage(message);
     }
 
+    private void HandleFirstGameStateUpdate(){
+        String message_1 = readLine();
+        String message_2 = readLine();
+
+        MoveInGameIncoming Move_1 = Parser.opponentMoveStringToGameMove(message_1);
+        MoveInGameIncoming Move_2 = Parser.opponentMoveStringToGameMove(message_2);
+
+        // We don't even know which message is which, so distinguish them.
+        if(Move_1.getGid().equals(gid1)){
+            gid2 = Move_2.getGid();
+        }else{
+            gid2 = Move_1.getGid();
+        }
+
+        for(MoveInGameIncoming moveInGameIncoming : new MoveInGameIncoming[] {Move_1, Move_2}) {
+            if (!moveInGameIncoming.getPid().equals(toUnsignedString(pid))) { // post only if opponent's move
+                readTransmission(moveInGameIncoming);
+
+                if (moveInGameIncoming.getGid().equals(gid1)) {
+                    moveInGameIncoming.setGid("Strawberry");
+                } else if (moveInGameIncoming.getGid().equals(gid2)) {
+                    moveInGameIncoming.setGid("Chocolate");
+                } else {
+                    System.out.println("Unknown gid in MoveInGameIncoming");
+                }
+
+                postNetworkPlayerMessage(moveInGameIncoming);
+            }
+        }
+
+        // TODO: Must handle the first two messages recieved about forfeiting.
+        String message = readLine();
+        String[] token = stringSplitter(message);
+
+        gid2 = token[5]; //assign this to thread 2
+        System.out.println("Determined that gid#2 is: " + gid1);
+
+        HandleServerRequestAskingUsToMoveMessage(message);
+    }
+
     private boolean HandleMoveAndReturnWhetherThereIsANewMove(){
 
         return false;
@@ -169,6 +209,8 @@ public class PostMan {
         StartMatch();
 
         HandleFirstMakeAMoveMessage();
+
+        HandleFirstGameStateUpdate();
 
         while(HandleMoveAndReturnWhetherThereIsANewMove()){
             ;
