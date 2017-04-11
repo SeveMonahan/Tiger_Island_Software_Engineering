@@ -33,7 +33,6 @@ public class NetworkTileBag implements TileBag {
             }
             if(tile != null) {
                 numberOfTilesInBag--;
-                System.out.println("#### In Network TileBag removed:" + tile.toString());
                 return tile;
             }
         }

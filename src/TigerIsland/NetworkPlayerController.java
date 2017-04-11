@@ -14,9 +14,6 @@ public class NetworkPlayerController implements PlayerController {
     public GameStateEndOfTurn newGameState(GameStateWTile gameStateWTile){
         MoveInGameIncoming moveInGameIncoming = postMan.accessNetworkMailBox(gameID);
 
-        System.out.println("####Tile @ start of NetworkPlayerController: " + gameStateWTile.getTile().toString());
-        System.out.println("####TileMove Tile @ end of NetworkPlayerController: " + moveInGameIncoming.getTileMove().getTile().toString());
-
         while(moveInGameIncoming == null) {
             try {
                 synchronized (postMan) {
