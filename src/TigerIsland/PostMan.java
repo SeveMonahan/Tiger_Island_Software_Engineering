@@ -148,12 +148,14 @@ public class PostMan {
 
     }
 
-    private void HandleFirstMakeAMoveMessage(){
+    private void HandleMakeAMoveMessage(boolean grabgid1){
         String message = readLine();
-        String[] token = stringSplitter(message);
 
-        gid1 = token[5]; //assign this to thread 1
-        System.out.println("Determined that gid#1 is: " + gid1);
+        if(grabgid1) {
+            String[] token = stringSplitter(message);
+            gid1 = token[5]; //assign this to thread 1
+            System.out.println("Determined that gid#1 is: " + gid1);
+        }
 
         HandleServerRequestAskingUsToMoveMessage(message);
     }
@@ -204,23 +206,21 @@ public class PostMan {
         return 2;
     }
 
-    private boolean HandleMoveAndReturnWhetherThereIsANewMove(){
-
-        return false;
-    }
-
     public void HandleMatch() {
         readLine(); // Eat "NEW MATCH BEGINNING NOW YOUR OPPONENT IS ..."
 
         StartMatch();
 
-        HandleFirstMakeAMoveMessage();
+        HandleMakeAMoveMessage(true);
 
-        HandleGameStateUpdateAndReturnActiveGames(2, true);
+        int activeGames = HandleGameStateUpdateAndReturnActiveGames(2, true);
 
-        while(HandleMoveAndReturnWhetherThereIsANewMove()){
-            ;
+        while(activeGames != 0){
+            HandleMakeAMoveMessage(false);
+            activeGames = HandleGameStateUpdateAndReturnActiveGames(activeGames, false);
         }
+
+
         readLine(); // Eat "GAME OVER" lines
         readLine();
     }
