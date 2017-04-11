@@ -118,7 +118,10 @@ public class PostMan {
     private String readLine(){
 
         try {
-            return output_taker.readLine();
+            String message = output_taker.readLine();
+            System.out.println("Server: " + message);
+            return message;
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -136,8 +139,6 @@ public class PostMan {
 
     private boolean gidSet = false;
     void respondToServerMessage(String message) {
-        System.out.println("Server: " + message);
-
         String[] arr = stringSplitter(message);
 
         int oid;
