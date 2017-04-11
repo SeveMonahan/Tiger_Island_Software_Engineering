@@ -148,7 +148,7 @@ public class PostMan {
 
     }
 
-    private boolean HandleFirstMakeAMoveMessage(){
+    private void HandleFirstMakeAMoveMessage(){
         String message = readLine();
         String[] token = stringSplitter(message);
 
@@ -156,8 +156,6 @@ public class PostMan {
         System.out.println("Determined that gid#1 is: " + gid1);
 
         HandleSereverRequestAskingUsToMoveMessage(message);
-
-        return false;
     }
 
     private boolean HandleMoveAndReturnWhetherThereIsANewMove(){
