@@ -129,7 +129,22 @@ public class PostMan {
         return "";
     }
 
+    public boolean HandleMatchAndReturnWhetherThereIsANewMatch() {
+        return false;
+    }
+
     public void HandleRound(){
+        String message = readLine();
+        String[] token = stringSplitter(message);
+
+        int rid = parseInt(token[2]);
+        int rounds = parseInt(token[4]);
+
+        System.out.println("Start new Round: " + rid);
+
+        while(HandleMatchAndReturnWhetherThereIsANewMatch()){
+            ;
+        }
 
     }
 
@@ -204,9 +219,6 @@ public class PostMan {
                     }
                 }
             } else {
-                rid = parseInt(token[2]);
-                rounds = parseInt(token[4]);
-                System.out.println("grabbed rid: " + rid);
                 status = TournamentStatus.MATCH;
             }
         }
