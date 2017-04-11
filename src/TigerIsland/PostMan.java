@@ -158,9 +158,6 @@ public class PostMan {
                 }
                 else if (message.contains("WAIT FOR THE NEXT CHALLENGE TO BEGIN")) {
                     System.out.println("waiting for next challenge...");
-                    cid = 0;
-                    oid = 0;
-                    rid = 0;
                     rounds = 0;
                     currentRound = 0;
                 }
