@@ -114,16 +114,17 @@ public class PostMan {
         return gameMoveIncomingTransmission;
     }
 
-    private static boolean gidSet = false;
-    public void respondToServerMessage(String message) {
+    private boolean gidSet = false;
+    void respondToServerMessage(String message) {
         String[] arr = stringSplitter(message);
 
         if (message.contains("test")) {
             output_taker.sendMessage("test");
         }
-        
+
         int oid;
         int rid;
+
         if (status == TournamentStatus.CHALLENGE) { //challenge protocol
             int cid;
             if (roundsOver) {
