@@ -17,8 +17,7 @@ import static java.lang.Integer.parseInt;
 */
 
 public class NetworkClient {
-    private String outputLine = null;
-
+    // Static functions used to enter the program's main loop
     private static void check_arguments(String[] args){
         if (args.length != 5) {
             System.err.println(
@@ -48,9 +47,12 @@ public class NetworkClient {
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(netSocket.getInputStream()))
         ) {
-            NetworkClient output_taker = new NetworkClient();
-            int pid = AuthenticationProtocol.authenticationProtocol(tournamentPass, username, password, out, in, output_taker);
-            output_taker.challengeProtocol(out, in, pid);
+            NetworkClient output_taker = new NetworkClient(out);
+
+            int pid = AuthenticationProtocol.authenticationProtocol(tournamentPass, username, password, in, output_taker);
+
+            output_taker.challengeProtocol(in, pid);
+
         } catch (UnknownHostException e) {
             System.err.println("Can't find the host!");
             System.exit(1);
@@ -60,7 +62,15 @@ public class NetworkClient {
         }
     }
 
-    public void challengeProtocol(PrintWriter out, BufferedReader in, int pid) throws IOException, InterruptedException {
+    // Network client object functions used later to send message around
+    private String outputLine = null;
+    private PrintWriter out;
+
+    NetworkClient(PrintWriter out){
+        this.out = out;
+    }
+
+    public void challengeProtocol(BufferedReader in, int pid) throws IOException, InterruptedException {
         boolean waitingForOutPut = false;
 
         System.out.println("Now executing the challenge protocol...");
@@ -91,14 +101,14 @@ public class NetworkClient {
             if (outputLine != null) {
                 long difference = System.currentTimeMillis() - serverTime;
                 System.out.println(" Client: " + outputLine + " Time in miliseconds since read in server line: " + difference);
-                sendMessage(out, outputLine);
+                sendMessage(outputLine);
                 outputLine = null;
                 waitingForOutPut = false;
             }
         }
     }
 
-    public synchronized void sendMessage(PrintWriter out, String stringToServer) {
+    public synchronized void sendMessage(String stringToServer) {
         out.println(stringToServer);
     }
 
