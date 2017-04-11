@@ -84,10 +84,7 @@ public class NetworkClient {
 
         postMan.setpid(pid);
 
-        for(String stringFromServer = readLine(); stringFromServer != null; stringFromServer = readLine()){
-            postMan.respondToServerMessage(stringFromServer);
-
-        }
+        postMan.main_loop();
     }
 
     public synchronized void sendMessage(String stringToServer) {

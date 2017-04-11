@@ -1,5 +1,6 @@
 package TigerIsland;
 
+import java.io.IOException;
 import java.util.LinkedList;
 
 import static java.lang.Integer.parseInt;
@@ -112,6 +113,25 @@ public class PostMan {
             }
         }
         return gameMoveIncomingTransmission;
+    }
+
+    private String readLine(){
+
+        try {
+            return output_taker.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
+    /// The main loop of the program, which eventually calls System.exit() when
+    /// its time to leave
+    public void main_loop(){
+        for(String stringFromServer = readLine(); stringFromServer != null; stringFromServer = readLine()){
+            respondToServerMessage(stringFromServer);
+
+        }
     }
 
     private boolean gidSet = false;
