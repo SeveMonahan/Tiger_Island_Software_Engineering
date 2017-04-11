@@ -147,7 +147,9 @@ public class PostMan {
             HandleRound();
         }
 
-        return false;
+        String end_message = readLine();
+
+        return !end_message.contains("NEW CHALLENGE");
     }
 
     /// The main loop of the program, which eventually calls System.exit() when
@@ -156,6 +158,8 @@ public class PostMan {
        while(HandleChallengeAndReturnWhetherThereIsANewChallenge()){
            ;
        }
+
+       endOfTournament();
     }
 
     // Exits the program
@@ -174,16 +178,10 @@ public class PostMan {
         if (status == TournamentStatus.CHALLENGE) { //challenge protocol
             int cid;
             if (roundsOver) {
-                if (message.contains("END OF CHALLENGES")) {
-                    endOfTournament();
-                }
                 else if (message.contains("WAIT FOR THE NEXT CHALLENGE TO BEGIN")) {
                     System.out.println("waiting for next challenge...");
                     rounds = 0;
                     currentRound = 0;
-                }
-                else if (message.contains("NEW CHALLENGE")) {
-                    roundsOver = false;
                 }
             }
             if (!roundsOver){
