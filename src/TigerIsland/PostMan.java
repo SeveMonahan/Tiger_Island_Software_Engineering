@@ -68,6 +68,7 @@ public class PostMan {
     }
 
     public synchronized void postTileMessage(ServerRequestAskingUsToMove serverRequestAskingUsToMove) {
+        System.out.println("####Posted: " + serverRequestAskingUsToMove.getTile().toString());
         tileMailBox.push(serverRequestAskingUsToMove);
         notifyAll();
     }
@@ -84,13 +85,18 @@ public class PostMan {
     public synchronized Tile accessTileMailBox(String gid) {
         Tile tile = null;
 
-        for(ServerRequestAskingUsToMove serverRequestAskingUsToMove : tileMailBox) {
-            if(serverRequestAskingUsToMove.getGid().equals(gid)) {
+        for (int i = 0; i < tileMailBox.size(); i++) {
+
+            ServerRequestAskingUsToMove serverRequestAskingUsToMove = tileMailBox.get(i);
+
+            if (serverRequestAskingUsToMove.getGid().equals(gid)) {
                 tile = serverRequestAskingUsToMove.getTile();
-                tileMailBox.remove(serverRequestAskingUsToMove);
+                tileMailBox.remove(i);
+                System.out.println("####Removed: " + serverRequestAskingUsToMove.getTile().toString());
                 return tile;
             }
         }
+
         return tile;
     }
 
