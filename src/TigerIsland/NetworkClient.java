@@ -17,7 +17,7 @@ import static java.lang.Integer.parseInt;
 */
 
 public class NetworkClient {
-    private static String outputLine = null;
+    private String outputLine = null;
 
     private static void check_arguments(String[] args){
         if (args.length != 5) {
@@ -48,8 +48,9 @@ public class NetworkClient {
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(netSocket.getInputStream()))
         ) {
-            int pid = AuthenticationProtocol.authenticationProtocol(tournamentPass, username, password, out, in);
-            challengeProtocol(out, in, pid);
+            NetworkClient output_taker = new NetworkClient();
+            int pid = AuthenticationProtocol.authenticationProtocol(tournamentPass, username, password, out, in, output_taker);
+            output_taker.challengeProtocol(out, in, pid);
         } catch (UnknownHostException e) {
             System.err.println("Can't find the host!");
             System.exit(1);
@@ -59,12 +60,12 @@ public class NetworkClient {
         }
     }
 
-    public static void challengeProtocol(PrintWriter out, BufferedReader in, int pid) throws IOException, InterruptedException {
+    public void challengeProtocol(PrintWriter out, BufferedReader in, int pid) throws IOException, InterruptedException {
         boolean waitingForOutPut = false;
 
         System.out.println("Now executing the challenge protocol...");
 
-        PostMan postMan = PostMan.grabPostMan();
+        PostMan postMan = PostMan.grabPostMan(this);
 
         postMan.setpid(pid);
 
@@ -97,10 +98,11 @@ public class NetworkClient {
         }
     }
 
-    public static synchronized void sendMessage(PrintWriter out, String stringToServer) {
+    public synchronized void sendMessage(PrintWriter out, String stringToServer) {
         out.println(stringToServer);
     }
-    public static synchronized void setOutputLine(String messageToServer) {
+
+    public synchronized void setOutputLine(String messageToServer) {
         outputLine = messageToServer;
     }
 }

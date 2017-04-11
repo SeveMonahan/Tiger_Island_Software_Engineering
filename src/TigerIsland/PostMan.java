@@ -31,11 +31,16 @@ public class PostMan {
     private LinkedList<String> AIMailBox; // What we're sending to the damn server
     private static String moveID = "";
     private static String properTile = "";
-    private PostMan() {}
 
-    static PostMan grabPostMan() {
+    private NetworkClient output_taker;
+
+    private PostMan(NetworkClient output_taker) {
+        this.output_taker = output_taker;
+    }
+
+    static PostMan grabPostMan(NetworkClient output_taker) {
         if( myPostMan == null ) {
-            myPostMan = new PostMan();
+            myPostMan = new PostMan(output_taker);
         }
         return myPostMan;
     }
@@ -96,7 +101,7 @@ public class PostMan {
         String [] parsedArray = parsedString.split("\\s+");
         String badTile = parsedArray[5];
         // parsedString = parsedString.replace(badTile, properTile);
-        NetworkClient.setOutputLine( parsedString );
+        output_taker.setOutputLine( parsedString );
     }
 
     public synchronized Tile accessTileMailBox(String gid) {
@@ -129,7 +134,7 @@ public class PostMan {
     public void decoder(String message) {
         String[] arr = stringSplitter(message);
         if (message.contains("test")) {
-            NetworkClient.setOutputLine("test");
+            output_taker.setOutputLine("test");
         }
         if (status == TournamentStatus.CHALLENGE) { //challenge protocol
             if (roundsOver) {
