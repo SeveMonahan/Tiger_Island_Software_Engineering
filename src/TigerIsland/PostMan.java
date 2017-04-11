@@ -6,8 +6,6 @@ import java.util.LinkedList;
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.toUnsignedString;
 
-//TODO: game over message from server kills both threads
-//
 public class PostMan {
     private static PostMan myPostMan;
     private int pid = -1;
@@ -246,7 +244,6 @@ public class PostMan {
                         else {
                             System.out.println("couldn't kill a game");
                         }
-                        //TODO: KILL WHOEVER FORFEITED
                     }
                 }
                 else if (message.contains("MAKE YOUR MOVE IN GAME")){ //type 1 message (command telling us to make a move)
