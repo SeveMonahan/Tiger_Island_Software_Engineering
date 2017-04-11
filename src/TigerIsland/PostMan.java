@@ -246,7 +246,7 @@ public class PostMan {
                     }
                 }
                 else if (message.contains("MAKE YOUR MOVE IN GAME")){ //type 1 message (command telling us to make a move)
-                    if (gidSet == false) {
+                    if (!gidSet) {
                         if (gid1.isEmpty()) {
                             gid1 = arr[5]; //assign this to thread 1
                             System.out.println("grabbed gid1:" + gid1);
