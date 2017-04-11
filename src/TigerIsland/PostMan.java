@@ -174,7 +174,7 @@ public class PostMan {
 
         for(MoveInGameIncoming moveInGameIncoming : new MoveInGameIncoming[] {Move_1, Move_2}) {
             if (!moveInGameIncoming.getPid().equals(toUnsignedString(pid))) { // post only if opponent's move
-                readTransmission(moveInGameIncoming);
+                printMoveInGameIncoming(moveInGameIncoming);
 
                 if (moveInGameIncoming.getGid().equals(gid1)) {
                     moveInGameIncoming.setGid("Strawberry");
@@ -395,7 +395,7 @@ public class PostMan {
 
         if (opponentMove != null) {
 
-            readTransmission(opponentMove);
+            printMoveInGameIncoming(opponentMove);
             //take in opponent's move only
             if (!opponentMove.getPid().equals(toUnsignedString(pid))) { // post only if opponent's move
                 System.out.println(opponentMove.getPid() + " " + pid + " reading opponent's move. Sending to AI...");
@@ -432,13 +432,14 @@ public class PostMan {
         }
     }
 
-    public static void readTransmission(MoveInGameIncoming sendSomewhere) {
-        System.out.println("------READING THE FOLLOWING------");
-        System.out.println("gid: "+ sendSomewhere.getGid());
-        System.out.println("move number: " + sendSomewhere.getMoveID());
-        System.out.println("pid: " + sendSomewhere.getPid());
-        System.out.println("coordinate: " + sendSomewhere.getConstructionMoveTransmission().getCoordinate().getX() + " " + sendSomewhere.getConstructionMoveTransmission().getCoordinate().getY());
-        System.out.println("---------------------------------");
+    public static void printMoveInGameIncoming(MoveInGameIncoming sendSomewhere) {
+        System.out.println("-SERVER INFORMED US OF FOLLOWING MOVE--"
+                           +"gid: "+ sendSomewhere.getGid()                                                 + "\n"
+                           +"move number: " + sendSomewhere.getMoveID()                                     + "\n"
+                           +"pid: " + sendSomewhere.getPid()                                                + "\n"
+                           +"coordinate: " + sendSomewhere.getConstructionMoveTransmission().getCoordinate().getX() /* \n excluded on purpose */
+                           + " " + sendSomewhere.getConstructionMoveTransmission().getCoordinate().getY()   + "\n"
+                           +"---------------------------------\n");
     }
 
     public static void printServerRequestAskingUsToMove(ServerRequestAskingUsToMove sendSomewhere) {
