@@ -128,13 +128,27 @@ public class PostMan {
 
         return "";
     }
+
+    public boolean HandleChallengeAndReturnWhetherThereIsANewChallenge(){
+        String message = readLine();
+
+        String[] token = stringSplitter(message);
+
+        System.out.println("--------Starting new challenge!--------");
+        int cid = parseInt(token[2]);
+        int rounds = parseInt(token[6]);
+        System.out.println("grabbed cid: " + cid + " and rounds: " + rounds);
+        status = TournamentStatus.ROUND;
+
+        return false;
+    }
+
     /// The main loop of the program, which eventually calls System.exit() when
     /// its time to leave
     public void main_loop(){
-        for(String stringFromServer = readLine(); stringFromServer != null; stringFromServer = readLine()){
-            respondToServerMessage(stringFromServer);
-
-        }
+       while(HandleChallengeAndReturnWhetherThereIsANewChallenge()){
+           ;
+       }
     }
 
     // Exits the program
@@ -166,11 +180,6 @@ public class PostMan {
                 }
             }
             if (!roundsOver){
-                System.out.println("--------Starting new challenge!--------");
-                cid = parseInt(arr[2]);
-                rounds = parseInt(arr[6]);
-                System.out.println("grabbed cid: " + cid + " and rounds: " + rounds);
-                status = TournamentStatus.ROUND;
             }
         }
         else if (status == TournamentStatus.ROUND) { //round protocol
