@@ -224,7 +224,7 @@ public class PostMan {
             }
             else {
                 if (!message.contains("MAKE YOUR MOVE") && message.contains("PLAYER") && !message.contains("OVER PLAYER")) { //type 2 message (handled by parser)
-                    if (gidSet == false) {
+                    if (!gidSet) {
                         if (gid2.isEmpty() && !arr[1].equals(gid1)) {
                             gid2 = arr[1]; //assign this to thread 2
                             System.out.println("grabbed gid2:" + gid2);
