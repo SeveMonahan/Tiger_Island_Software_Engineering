@@ -13,6 +13,7 @@ public class NetworkTileBag implements TileBag {
         bag = new LinkedList<Tile>();
         this.tileBagPostMan = postMan;
         this.gameID = gameID;
+        numberOfTilesInBag = 48;
     }
 
     @Override
@@ -31,12 +32,13 @@ public class NetworkTileBag implements TileBag {
                 e.printStackTrace();
             }
             if(tile != null) {
-                bag.push(tile);
-                numberOfTilesInBag++;
+                numberOfTilesInBag--;
+                System.out.println("#### In Network TileBag removed:" + tile.toString());
+                return tile;
             }
         }
-        numberOfTilesInBag--;
-        return this.bag.pop();
+
+        return null;
     }
 
     public LinkedList<Tile> getAllTilesInBag() {

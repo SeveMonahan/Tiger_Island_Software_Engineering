@@ -19,6 +19,7 @@ public class Referee {
     private void ControllerTakesTurn(PlayerController controller){
         Tile tile = tileBag.drawTile();
         GameStateWTile gameStateWithTile = gameEndOfTurn.getChild(tile);
+        System.out.println("#####In Controller takes turn Tile is: " + gameStateWithTile.getTile().toString());
         gameEndOfTurn = controller.newGameState(gameStateWithTile);
         output.dispatchInformation(gameEndOfTurn);
     }
