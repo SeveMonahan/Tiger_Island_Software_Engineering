@@ -28,7 +28,6 @@ public class PostMan {
     private static Thread t2;
     private LinkedList<GameMoveIncomingCommand> tileMailBox; // For AI to make a move
     private LinkedList<GameMoveIncomingTransmission> moveMailBox; // For opponent
-    private LinkedList<String> AIMailBox; // What we're sending to the damn server
     private static String moveID = "";
     private static String properTile = "";
 
@@ -53,7 +52,6 @@ public class PostMan {
     public void StartMatch() {
         tileMailBox = new LinkedList<>();
         moveMailBox = new LinkedList<>();
-        AIMailBox = new LinkedList<>();
 
         PlayerController ai_01 = new SmartAIController(Color.BLACK);
         NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, "A11", this);
@@ -95,7 +93,6 @@ public class PostMan {
         Marshaller marshaller = new Marshaller();
         String parsedString = marshaller.convertTileMoveAndConstructionMoveToString(gameMoveOutgoingTransmission);
         parsedString = parsedString.replace("**********move_id**********",moveID);
-        // AIMailBox.push(parsedString);
         parsedString = parsedString.replace("A11", gid1);
         parsedString = parsedString.replace("B11", gid2);
         String [] parsedArray = parsedString.split("\\s+");
