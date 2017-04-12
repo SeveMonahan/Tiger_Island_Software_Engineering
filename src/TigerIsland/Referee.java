@@ -20,6 +20,7 @@ public class Referee {
         Tile tile = tileBag.drawTile();
         GameStateWTile gameStateWithTile = gameEndOfTurn.getChild(tile);
         gameEndOfTurn = controller.newGameState(gameStateWithTile);
+        if (gameEndOfTurn.getLastTileMove().getTile() != tile) throw new AssertionError();
         output.dispatchInformation(gameEndOfTurn);
     }
 
