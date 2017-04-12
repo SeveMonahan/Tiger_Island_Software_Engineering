@@ -26,7 +26,7 @@ public class PostManTest {
 
         PostMan postMan = PostMan.grabPostMan(mock);
 
-        postMan.setpid(6);
+        postMan.setpid("6");
 
         postMan.main_loop();
 

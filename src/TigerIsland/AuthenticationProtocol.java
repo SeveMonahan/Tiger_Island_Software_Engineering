@@ -3,7 +3,7 @@ package TigerIsland;
 import java.io.IOException;
 
 public class AuthenticationProtocol {
-    public static int authenticationProtocol(String tournamentPass, String username, String password, NetworkClient output_taker) throws IOException {
+    public static String authenticationProtocol(String tournamentPass, String username, String password, NetworkClient output_taker) throws IOException {
         String stringFromServer;
         String stringToServer;
 
@@ -21,7 +21,7 @@ public class AuthenticationProtocol {
 
         final String Recieve_Player_id_string = output_taker.readLine();
         stringFromServer = Recieve_Player_id_string.replace("WAIT FOR THE TOURNAMENT TO BEGIN ", "");
-        int pid = Integer.parseInt(stringFromServer);
+        String pid = stringFromServer;
 
         System.out.print("Our Player ID is: ");
         System.out.println(pid);

@@ -162,7 +162,7 @@ public class PostMan {
     }
 
     private void passMoveInGameIncomingToMatchObject(MoveInGameIncoming moveInGameIncoming){
-        if (!moveInGameIncoming.getPid().equals(toUnsignedString(pid))) { // post only if opponent's move
+        if (!moveInGameIncoming.getPid().equals(pid)) { // post only if opponent's move
             printMoveInGameIncoming(moveInGameIncoming);
 
             if (moveInGameIncoming.getGid().equals(gid1)) {

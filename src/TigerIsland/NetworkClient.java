@@ -48,7 +48,7 @@ public class NetworkClient {
         ) {
             NetworkClient output_taker = new NetworkClient(out, in);
 
-            int pid = AuthenticationProtocol.authenticationProtocol(tournamentPass, username, password, output_taker);
+            String pid = AuthenticationProtocol.authenticationProtocol(tournamentPass, username, password, output_taker);
 
             output_taker.challengeProtocol(pid);
 
@@ -75,7 +75,7 @@ public class NetworkClient {
         return in.readLine();
     }
 
-    private void challengeProtocol(int pid) throws IOException, InterruptedException {
+    private void challengeProtocol(String pid) throws IOException, InterruptedException {
         startTime = System.currentTimeMillis();
 
         System.out.println("Now executing the challenge protocol...");
