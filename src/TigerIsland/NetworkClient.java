@@ -75,7 +75,7 @@ public class NetworkClient {
         return in.readLine();
     }
 
-    public void challengeProtocol(int pid) throws IOException, InterruptedException {
+    private void challengeProtocol(int pid) throws IOException, InterruptedException {
         startTime = System.currentTimeMillis();
 
         System.out.println("Now executing the challenge protocol...");
