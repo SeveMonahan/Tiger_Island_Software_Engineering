@@ -6,8 +6,7 @@ public class Match implements Runnable {
     private TileBag tileBag;
     String gameID;
 
-    Match(PostMan postMan, PlayerController player_01, PlayerController player_02, String gameID) {
-        OutputPlayerAI output = new OutputPlayerAI(gameID, Color.BLACK, postMan);
+    Match(PostMan postMan, PlayerController player_01, PlayerController player_02, String gameID, OutputPlayerAI output) {
         this.postMan = postMan;
         this.gameID = gameID;
         this.tileBag = new NetworkTileBag(this.postMan, this.gameID);
