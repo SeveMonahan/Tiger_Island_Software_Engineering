@@ -38,6 +38,7 @@ public class NetworkClientMock extends NetworkClient {
     }
 
     public synchronized void sendMessage(String stringToServer) {
+        System.out.println("Client : " + stringToServer);
         result_array[result_num++] = stringToServer;
     }
 
