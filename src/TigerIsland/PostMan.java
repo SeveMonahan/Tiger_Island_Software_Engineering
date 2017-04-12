@@ -241,7 +241,8 @@ public class PostMan {
 
         HandleMatch();
 
-        readLine(); //Skip End of Round message
+        String end_message = readLine(); //Skip End of Round message
+        assert(end_message.contains("END OF ROUND"));
 
     }
 
