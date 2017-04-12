@@ -195,7 +195,6 @@ public class PostMan {
         }else {
             MoveInGameIncoming Move_1 = Parser.opponentMoveStringToGameMove(message_1);
             assert message_1.contains("PLACED"); // TODO doesn't check if our own move
-            assert message_1.contains(pid);
             if(GrabGid2 && !(Move_1.getGid().equals(gid1))) {
                 gid2 = Move_1.getGid();
                 System.out.println("Determined that gid#2 is: " + gid2);
