@@ -39,10 +39,12 @@ public class PostMan {
         tileMailBox = new LinkedList<>();
         moveMailBox = new LinkedList<>();
 
-        PlayerController ai_01 = new SmartAIController(Color.BLACK);
+        // PlayerController ai_01 = new SmartAIController(Color.BLACK);
+        PlayerController ai_01 = new DumbController(Color.BLACK);
         NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, "Strawberry", this);
 
-        PlayerController ai_02 = new SmartAIController(Color.BLACK);
+        // PlayerController ai_02 = new SmartAIController(Color.BLACK);
+        PlayerController ai_02 = new DumbController(Color.BLACK);
         NetworkPlayerController network_02 = new NetworkPlayerController(Color.WHITE, "Chocolate", this);
 
         Match match_01 = new Match(this, ai_01, network_01, "Strawberry");
@@ -265,8 +267,10 @@ public class PostMan {
         }
 
         String end_message = readLine();
+        assert end_message.contains("WAIT FOR THE NEXT CHALLENGE TO BEGIN") || end_message.contains("END OF CHALLENGES");
 
-        return !end_message.contains("NEW CHALLENGE");
+        return !end_message.contains("NEXT CHALLENGE");
+        // same as end_message.contains("END OF CHALLENGES");
     }
 
     /// The main loop of the program, which eventually calls System.exit() when
