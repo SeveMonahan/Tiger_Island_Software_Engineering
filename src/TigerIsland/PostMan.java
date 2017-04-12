@@ -8,7 +8,7 @@ import static java.lang.Integer.toUnsignedString;
 
 public class PostMan {
     private static PostMan myPostMan;
-    private int pid = -1;
+    private String pid = "-1";
     private String gid1 = "";
     private String gid2 = "";
     private Thread t1;
@@ -30,7 +30,7 @@ public class PostMan {
         return myPostMan;
     }
 
-    public void setpid(int pid) {
+    public void setpid(String pid) {
         this.pid = pid;
     }
 
@@ -162,7 +162,7 @@ public class PostMan {
     }
 
     private void passMoveInGameIncomingToMatchObject(MoveInGameIncoming moveInGameIncoming){
-        if (!moveInGameIncoming.getPid().equals(toUnsignedString(pid))) { // post only if opponent's move
+        if (!moveInGameIncoming.getPid().equals(pid)) { // post only if opponent's move
             printMoveInGameIncoming(moveInGameIncoming);
 
             if (moveInGameIncoming.getGid().equals(gid1)) {
@@ -181,14 +181,16 @@ public class PostMan {
 
     private boolean HandleSingleGameStateUpdateAndReturnIfStillActive(boolean GrabGid2){
         String message_1 = readLine();
-        assert message_1.contains("FORFEITED") || message_1.contains("LOST: UNABLE TO BUILD");
+                ;
         // Handles all 4 cases of forfeiting and the case losing because you can't build
 
         if(message_1.contains("FORFEIT") || message_1.contains("UNABLE")){
+            assert message_1.contains("FORFEITED") || message_1.contains("LOST: UNABLE TO BUILD");
             return false;
         }else {
-
             MoveInGameIncoming Move_1 = Parser.opponentMoveStringToGameMove(message_1);
+            assert message_1.contains("PLACED"); // TODO doesn't check if our own move
+            assert message_1.contains(pid);
             if(GrabGid2 && !(Move_1.getGid().equals(gid1))) {
                 gid2 = Move_1.getGid();
                 System.out.println("Determined that gid#2 is: " + gid2);
