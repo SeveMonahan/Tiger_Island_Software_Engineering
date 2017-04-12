@@ -84,7 +84,7 @@ public class GameState {
             return player_2;
         }
         else
-            return player_2;
+            return player_1;
     }
 
     public GameOutcome getGameOutcome(Player me) {
