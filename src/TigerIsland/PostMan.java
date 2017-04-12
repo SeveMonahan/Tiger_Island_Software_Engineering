@@ -128,6 +128,8 @@ public class PostMan {
     private void HandleServerRequestAskingUsToMoveMessage(String message){
         ServerRequestAskingUsToMove serverRequestAskingUsToMove = Parser.commandToObject(message);
 
+        moveID = serverRequestAskingUsToMove.getMoveNumber();
+
         if (serverRequestAskingUsToMove.getGid().equals(gid1)) {
             serverRequestAskingUsToMove.setGid("Strawberry");
         }
@@ -184,7 +186,7 @@ public class PostMan {
             MoveInGameIncoming Move_1 = Parser.opponentMoveStringToGameMove(message_1);
             if(GrabGid2 && !(Move_1.getGid().equals(gid1))) {
                 gid2 = Move_1.getGid();
-                System.out.println("Determined that gid#2 is: " + gid1);
+                System.out.println("Determined that gid#2 is: " + gid2);
             }
 
             passMoveInGameIncomingToMatchObject(Move_1);
@@ -279,22 +281,22 @@ public class PostMan {
         System.exit(0);
     }
 
-    public static void printMoveInGameIncoming(MoveInGameIncoming sendSomewhere) {
+    public static void printMoveInGameIncoming(MoveInGameIncoming incomingMessage) {
         System.out.println("-SERVER INFORMED US OF FOLLOWING MOVE--"
-                           +"gid: "+ sendSomewhere.getGid()                                                 + "\n"
-                           +"move number: " + sendSomewhere.getMoveID()                                     + "\n"
-                           +"pid: " + sendSomewhere.getPid()                                                + "\n"
-                           +"coordinate: " + sendSomewhere.getConstructionMoveTransmission().getCoordinate().getX() /* \n excluded on purpose */
-                           + " " + sendSomewhere.getConstructionMoveTransmission().getCoordinate().getY()   + "\n"
+                           +"gid: "+ incomingMessage.getGid()                                                 + "\n"
+                           +"move number: " + incomingMessage.getMoveID()                                     + "\n"
+                           +"pid: " + incomingMessage.getPid()                                                + "\n"
+                           +"coordinate: " + incomingMessage.getConstructionMoveTransmission().getCoordinate().getX() /* \n excluded on purpose */
+                           + " " + incomingMessage.getConstructionMoveTransmission().getCoordinate().getY()   + "\n"
                            +"---------------------------------\n");
     }
 
-    public static void printServerRequestAskingUsToMove(ServerRequestAskingUsToMove sendSomewhere) {
+    public static void printServerRequestAskingUsToMove(ServerRequestAskingUsToMove incomingMessage) {
         System.out.print("-- THE SERVER ASKED US TO MOVE --"                        +"\n"
-                         + "In the game with ID: "+ sendSomewhere.getGid()          +"\n"
-                         + "Move Number : " + sendSomewhere.getMoveNumber()         +"\n"
-                         + "Time allowed: : " + sendSomewhere.getTime()             +"\n"
-                         + "Tile to place : " + sendSomewhere.getTile().toString()  +"\n"
+                         + "In the game with ID: "+ incomingMessage.getGid()          +"\n"
+                         + "Move Number : " + incomingMessage.getMoveNumber()         +"\n"
+                         + "Time allowed: : " + incomingMessage.getTime()             +"\n"
+                         + "Tile to place : " + incomingMessage.getTile().toString()  +"\n"
                          +"---------------------------------\n");
     }
 
