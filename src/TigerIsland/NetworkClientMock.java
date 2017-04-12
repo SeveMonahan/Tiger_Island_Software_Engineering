@@ -20,7 +20,7 @@ public class NetworkClientMock extends NetworkClient {
     private int result_num;
 
     private String string_array[];
-    private String result_array[];
+    private String result_array[] = new String[400];
 
     public NetworkClientMock(String[] string_array){
         super(null, null);
@@ -29,6 +29,11 @@ public class NetworkClientMock extends NetworkClient {
     }
 
     public String readLine() throws IOException {
+
+        if(line_num == string_array.length){
+            return "";
+        }
+
         return string_array[line_num++];
     }
 
