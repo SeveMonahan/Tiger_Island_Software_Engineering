@@ -227,8 +227,11 @@ public class PostMan {
         }
 
 
-        readLine(); // Eat "GAME OVER" lines
-        readLine();
+        String game_over_1 = readLine(); // Eat "GAME OVER" lines
+        String game_over_2 = readLine();
+
+        assert(game_over_1.contains("OVER PLAYER"));
+        assert(game_over_2.contains("OVER PLAYER"));
     }
 
     public void HandleRound(){
