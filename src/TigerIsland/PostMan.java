@@ -23,7 +23,7 @@ public class PostMan {
         this.output_taker = output_taker;
     }
 
-    static PostMan grabPostMan(NetworkClient output_taker) {
+    public static PostMan grabPostMan(NetworkClient output_taker) {
         if( myPostMan == null ) {
             myPostMan = new PostMan(output_taker);
         }
@@ -162,7 +162,7 @@ public class PostMan {
     }
 
     private void passMoveInGameIncomingToMatchObject(MoveInGameIncoming moveInGameIncoming){
-        if (!moveInGameIncoming.getPid().equals(pid)) { // post only if opponent's move
+        if (!moveInGameIncoming.getPid().equals(toUnsignedString(pid))) { // post only if opponent's move
             printMoveInGameIncoming(moveInGameIncoming);
 
             if (moveInGameIncoming.getGid().equals(gid1)) {
@@ -258,6 +258,7 @@ public class PostMan {
 
     public boolean HandleChallengeAndReturnWhetherThereIsANewChallenge(){
         String message = readLine();
+        assert(message.contains("NEW CHALLENGE"));
 
         String[] token = stringSplitter(message);
 

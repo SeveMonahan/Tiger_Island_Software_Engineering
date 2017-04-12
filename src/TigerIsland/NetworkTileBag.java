@@ -31,13 +31,12 @@ public class NetworkTileBag implements TileBag {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if(tile != null) {
-                numberOfTilesInBag--;
-                return tile;
-            }
         }
 
-        return null;
+        assert(tile != null);
+
+        numberOfTilesInBag--;
+        return tile;
     }
 
     public LinkedList<Tile> getAllTilesInBag() {

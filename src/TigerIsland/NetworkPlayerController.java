@@ -29,6 +29,11 @@ public class NetworkPlayerController implements PlayerController {
         HexagonNeighborDirection hexagonNeighborDirection = moveInGameIncoming.getTileMove().getDirection();
         Coordinate coordinateTile = moveInGameIncoming.getTileMove().getCoordinate();
         TileMove tileMove = new TileMove(tile, hexagonNeighborDirection, coordinateTile);
+
+        String original_tile_string = gameStateWTile.getTile().toString();
+        String tilemove_string = tileMove.getTile().toString();
+        assert(original_tile_string.equals(tilemove_string));
+
         GameStateBeforeBuildAction gameStateBeforeBuildAction = GameStateBeforeBuildAction.createGameStateBeforeBuildAction(gameStateWTile, tileMove);
 
         Coordinate coordinateMove = moveInGameIncoming.getConstructionMoveTransmission().getCoordinate();
