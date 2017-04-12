@@ -182,9 +182,7 @@ public class PostMan {
         }else {
 
             MoveInGameIncoming Move_1 = Parser.opponentMoveStringToGameMove(message_1);
-            if(GrabGid2 && Move_1.getGid().equals(gid1)) {
-
-            }else{
+            if(GrabGid2 && !(Move_1.getGid().equals(gid1))) {
                 gid2 = Move_1.getGid();
                 System.out.println("Determined that gid#2 is: " + gid1);
             }
