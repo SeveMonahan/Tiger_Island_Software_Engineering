@@ -256,6 +256,7 @@ public class PostMan {
 
     public boolean HandleChallengeAndReturnWhetherThereIsANewChallenge(){
         String message = readLine();
+        assert(message.contains("NEW CHALLENGE"));
 
         String[] token = stringSplitter(message);
 
