@@ -210,7 +210,8 @@ public class PostMan {
     }
 
     public void HandleMatch() {
-        readLine(); // Eat "NEW MATCH BEGINNING NOW YOUR OPPONENT IS ..."
+        String new_match = readLine(); // Eat "NEW MATCH BEGINNING NOW YOUR OPPONENT IS ..."
+        assert(new_match.contains("NEW MATCH"));
 
         StartMatch();
 
