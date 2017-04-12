@@ -181,8 +181,6 @@ public class PostMan {
 
     private boolean HandleSingleGameStateUpdateAndReturnIfStillActive(boolean GrabGid2){
         String message_1 = readLine();
-        assert message_1.contains("FORFEITED") || message_1.contains("LOST: UNABLE TO BUILD");
-        // Handles all 4 cases of forfeiting and the case losing because you can't build
 
         if(message_1.contains("FORFEIT") || message_1.contains("UNABLE")){
             return false;
