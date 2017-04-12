@@ -23,7 +23,7 @@ public class PostMan {
         this.output_taker = output_taker;
     }
 
-    static PostMan grabPostMan(NetworkClient output_taker) {
+    public static PostMan grabPostMan(NetworkClient output_taker) {
         if( myPostMan == null ) {
             myPostMan = new PostMan(output_taker);
         }
