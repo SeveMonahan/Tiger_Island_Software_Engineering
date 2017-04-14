@@ -82,7 +82,7 @@ public class NetworkClient {
 
         PostMan postMan = PostMan.grabPostMan(this);
 
-        postMan.setpid(pid);
+        postMan.setPid(pid);
 
         postMan.main_loop();
     }

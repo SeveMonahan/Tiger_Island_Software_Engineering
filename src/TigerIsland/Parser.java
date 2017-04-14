@@ -1,7 +1,7 @@
 package TigerIsland;
 
 public class Parser {
-
+    // The Server asks us to make a move and gives us a tile.
     //reads type 1 messages (MAKE YOUR MOVE IN GAME <gid> WITHIN <timemove> SECOND: MOVE <#> PLACE <tile>)
     public static ServerRequestAskingUsToMove commandToObject(String command){
         String[] commandArray = command.split("\\s+");
@@ -16,6 +16,7 @@ public class Parser {
         return new ServerRequestAskingUsToMove(gid,time,moveNumber,tile);
     }
 
+    // The Server lets us know what our opponent did.
     //reads type 2 messages (GAME X MOVE Y PLAYER someID [...effect of whoever])
     public static MoveInGameIncoming opponentMoveStringToGameMove(String opponentMoveString){
         if (opponentMoveString.contains("FORFEIT") || opponentMoveString.contains("LOST")) {

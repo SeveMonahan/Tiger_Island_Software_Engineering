@@ -3,12 +3,13 @@ package TigerIsland;
 import java.util.LinkedList;
 
 public class NetworkTileBag implements TileBag {
-
+    // Members
     private LinkedList<Tile> bag;
     private int numberOfTilesInBag;
     private PostMan tileBagPostMan;
     private String gameID;
 
+    // Constructors
     public NetworkTileBag(PostMan postMan, String gameID) {
         bag = new LinkedList<Tile>();
         this.tileBagPostMan = postMan;
@@ -16,10 +17,14 @@ public class NetworkTileBag implements TileBag {
         numberOfTilesInBag = 48;
     }
 
+    // Methods
+    // Do we still need these "Override" keywords? Or can we delete them? -Cameron
     @Override
     public Tile drawTile() {
         System.out.println(this.gameID + " attempts to draw a tile.");
         Tile tile = tileBagPostMan.accessTileMailBox(gameID);
+
+        // TODO: Delete this block.
         while(tile == null){
             try {
                 synchronized (tileBagPostMan) {
