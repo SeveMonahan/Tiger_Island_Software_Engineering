@@ -119,17 +119,16 @@ public class PostMan {
         // The player is _01 must always be WHITE;
         PlayerController ai_01 = new DumbController(Color.WHITE);
         NetworkPlayerController network_02 = new NetworkPlayerController(Color.BLACK, "Strawberry", this);
-        OutputPlayerAI output = new OutputPlayerAI("Strawberry", Color.BLACK, this);
+        OutputPlayerAI output = new OutputPlayerAI("Strawberry", Color.WHITE, this);
 
         match_01 = new Match(this, ai_01, network_02, "Strawberry", output);
 
         /// The Second game
         PlayerController ai_02 = new DumbController(Color.BLACK);
         NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, "Chocolate", this);
-        OutputPlayerAI output_2 = new OutputPlayerAI("Chocolate", Color.WHITE, this);
+        OutputPlayerAI output_2 = new OutputPlayerAI("Chocolate", Color.BLACK, this);
 
         match_02 = new Match(this, network_01, ai_02, "Chocolate", output_2);
-
     }
 
     // The Server asks us to make a move and gives us a tile.
