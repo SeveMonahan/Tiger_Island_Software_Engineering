@@ -19,8 +19,4 @@ public class Match {
     public void makeMove() {
         this.referee.ControllerTakesTurn();
     }
-
-    public void opponentMove() {
-        this.referee.ControllerTakesTurn();
-    }
 }
