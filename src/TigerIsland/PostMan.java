@@ -10,7 +10,6 @@ public class PostMan {
     // Members
     private static PostMan myPostMan;
     private String pid = "-1"; // Our player ID.
-    private String gid1 = "";
     private String gid2 = "";
     private String moveID = "";
 
@@ -147,8 +146,14 @@ public class PostMan {
 
         if(grabgid1) {
             String[] token = stringSplitter(message);
-            gid1 = token[5]; //assign this to thread 1
+            String gid1 = token[5]; //assign this to thread 1
             System.out.println("Determined that gid#1 is: " + gid1);
+
+            PlayerController ai_01 = new DumbController(Color.WHITE);
+            NetworkPlayerController network_02 = new NetworkPlayerController(Color.BLACK, gid1, this);
+            OutputPlayerAI output = new OutputPlayerAI(gid1, Color.WHITE, this);
+
+            match_01 = new Match(this, ai_01, network_02, gid1, output);
         }
 
         HandleServerRequestAskingUsToMoveMessage(message);
@@ -158,16 +163,6 @@ public class PostMan {
         ServerRequestAskingUsToMove serverRequestAskingUsToMove = Parser.commandToObject(message);
 
         moveID = serverRequestAskingUsToMove.getMoveNumber();
-
-        if (serverRequestAskingUsToMove.getGid().equals(gid1)) {
-            serverRequestAskingUsToMove.setGid("Strawberry");
-        }
-        else if (serverRequestAskingUsToMove.getGid().equals(gid2)){
-            serverRequestAskingUsToMove.setGid("Chocolate");
-        }
-        else {
-            System.out.println("Received a Server Request Asking us to Move with an unknown gid");
-        }
 
         // Update tileMailBox.
         postTileMessage(serverRequestAskingUsToMove);
@@ -205,9 +200,9 @@ public class PostMan {
 
         return result;
     }
+
     private boolean HandleSingleGameStateUpdateAndReturnIfStillActive(boolean GrabGid2){
         String message_1 = readLine();
-                ;
         // Handles all 4 cases of forfeiting and the case losing because you can't build
 
         if(message_1.contains("FORFEIT") || message_1.contains("UNABLE")){
@@ -215,8 +210,8 @@ public class PostMan {
             return false;
         }else {
             MoveInGameIncoming Move_1 = Parser.opponentMoveStringToGameMove(message_1);
-            assert message_1.contains("PLACED"); // TODO doesn't check if our own move
-            if(GrabGid2 && !(Move_1.getGid().equals(gid1))) {
+            assert message_1.contains("PLACED");
+            if(GrabGid2 && !(Move_1.getGid().equals(match_01.gameID))) {
                 gid2 = Move_1.getGid();
                 System.out.println("Determined that gid#2 is: " + gid2);
             }
@@ -252,14 +247,6 @@ public class PostMan {
         if (!moveInGameIncoming.getPid().equals(pid)) { // post only if opponent's move
             printMoveInGameIncoming(moveInGameIncoming);
 
-            if (moveInGameIncoming.getGid().equals(gid1)) {
-                moveInGameIncoming.setGid("Strawberry");
-            } else if (moveInGameIncoming.getGid().equals(gid2)) {
-                moveInGameIncoming.setGid("Chocolate");
-            } else {
-                System.out.println("Unknown gid in MoveInGameIncoming");
-            }
-
             postTileMessage(new ServerRequestAskingUsToMove(moveInGameIncoming.getGid(), 0,
                     "SEEING_THIS_IS_AN_ERROR_IN_POSTMAN", moveInGameIncoming.getTileMove().getTile()));
             postNetworkPlayerMessage(moveInGameIncoming);
@@ -284,8 +271,6 @@ public class PostMan {
         Marshaller marshaller = new Marshaller();
         String parsedString = marshaller.convertTileMoveAndConstructionMoveToString(gameMoveOutgoingTransmission);
         parsedString = parsedString.replace("**********move_id**********", moveID);
-        parsedString = parsedString.replace("Strawberry", gid1);
-        parsedString = parsedString.replace("Chocolate", gid2);
         output_taker.sendMessage( parsedString );
     }
 
