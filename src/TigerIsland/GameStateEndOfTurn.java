@@ -1,7 +1,5 @@
 package TigerIsland;
 
-import java.util.Comparator;
-
 public class GameStateEndOfTurn extends GameState implements Comparable<GameStateEndOfTurn>  {
 
     private GameStateEndOfTurn() {

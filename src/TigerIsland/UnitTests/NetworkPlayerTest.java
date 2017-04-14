@@ -1,7 +1,5 @@
-import TigerIsland.Color;
-import TigerIsland.GameStateEndOfTurn;
-import TigerIsland.GameStateWTile;
-import TigerIsland.NetworkPlayerController;
+package TigerIsland.UnitTests;
+
 import org.junit.Test;
 
 public class NetworkPlayerTest {

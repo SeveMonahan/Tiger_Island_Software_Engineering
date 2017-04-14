@@ -1,7 +1,5 @@
 package TigerIsland;
 
-import java.util.ArrayList;
-
 // Effectively abstract, don't make instances of this except for testing
 public class GameState {
     private Player player_1;

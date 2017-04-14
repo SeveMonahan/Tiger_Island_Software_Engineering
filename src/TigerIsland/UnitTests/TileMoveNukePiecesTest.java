@@ -5,7 +5,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TileMoveNukePiecesTest {
+public class TileMoveNukePiecesTest
+{
     @Test
     public void entireSettlementShouldNotBeNukedSizeOne() throws Exception {
         Board board = new Board();

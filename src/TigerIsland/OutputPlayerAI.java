@@ -21,5 +21,4 @@ public class OutputPlayerAI implements OutputPlayerActions{
             postMan.mailAIMessages(gameMoveOutgoingTransmission);
         }
     }
-
 }

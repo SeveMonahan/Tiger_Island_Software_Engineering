@@ -1,22 +1,25 @@
 package TigerIsland;
 
-public class Match implements Runnable {
-    // Members
+public class Match {
     private Referee referee;
-    private PostMan postMan;
-    private TileBag tileBag;
-    String gameID;
+    private String gid;
+
+    public String getGid() {
+        return gid;
+    }
 
     // Constructor
-    Match(PostMan postMan, PlayerController player_01, PlayerController player_02, String gameID, OutputPlayerAI output) {
-        this.postMan = postMan;
-        this.gameID = gameID;
-        this.tileBag = new NetworkTileBag(this.postMan, this.gameID);
-        this.referee = new Referee(player_01, player_02, output, tileBag);
+    Match(PlayerController ai, OpponentPlayerController opponent, String gid, OutputPlayerAI output) {
+        this.gid = gid;
+        TileBag tileBag = new NetworkTileBag(this.gid);
+        this.referee = new Referee(ai, opponent, output, tileBag);
     }
 
     // Methods
-    public void run() {
-        referee.execute();
+    public void sendTileToAI(Tile tile) {
+        referee.tellAIToMakeAMoveUsingGivenTile(tile);
+    }
+    public void updateGameStateUsingOpponentMove(MoveUpdate moveUpdate) {
+        referee.updateGame(moveUpdate);
     }
 }

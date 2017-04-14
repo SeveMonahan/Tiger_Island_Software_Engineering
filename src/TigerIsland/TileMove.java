@@ -1,6 +1,7 @@
 package TigerIsland;
 
-public class TileMove {
+public class TileMove
+{
     // Members
     private final Tile tile;
     private final HexagonNeighborDirection direction;

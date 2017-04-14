@@ -2,41 +2,49 @@ package TigerIsland;
 
 public class Referee {
     // Members
-    PlayerController controller_1;
-    PlayerController controller_2;
+    PlayerController ai;
+    OpponentPlayerController opponent;
     OutputPlayerActions output;
     TileBag tileBag;
     GameStateEndOfTurn gameEndOfTurn;
 
     // Constructors
-    public Referee(PlayerController controller_1, PlayerController controller_2, OutputPlayerActions output,
+    public Referee(PlayerController ai, OpponentPlayerController opponent, OutputPlayerActions output,
                    TileBag tileBag) {
-        this.controller_1 = controller_1;
-        this.controller_2 = controller_2;
+        this.ai = ai;
+        this.opponent = opponent;
         this.output = output;
         this.tileBag = tileBag;
         gameEndOfTurn = GameStateEndOfTurn.createInitalGameState();
     }
 
     // Methods
-    public void execute(){
-        while(true){
-            ControllerTakesTurn(controller_1);
-            if(gameEndOfTurn.checkForGameOver() || tileBag.getNumberOfTilesInBag() == 0){
-                break;
-            }
-
-            ControllerTakesTurn(controller_2);
-            if(gameEndOfTurn.checkForGameOver() || tileBag.getNumberOfTilesInBag() == 0){
-                break;
-            }
-        }
-    }
-    private void ControllerTakesTurn(PlayerController controller){
-        Tile tile = tileBag.drawTile();
+    public void tellAIToMakeAMoveUsingGivenTile(Tile tile) {
+        // "Draw tile."
+        tileBag.drawTile();
         GameStateWTile gameStateWithTile = gameEndOfTurn.getChild(tile);
-        gameEndOfTurn = controller.newGameState(gameStateWithTile);
+
+        gameEndOfTurn = ai.newGameState(gameStateWithTile);
+
         if (gameEndOfTurn.getLastTileMove().getTile() != tile) throw new AssertionError();
         output.dispatchInformation(gameEndOfTurn);
+        if(gameEndOfTurn.checkForGameOver() || tileBag.getNumberOfTilesInBag() == 0) {
+            // TODO: Report that the game is over.
+        }
+    }
+    public void updateGame(MoveUpdate moveUpdate) {
+        // "Draw tile."
+        Tile tile = moveUpdate.getTileMove().getTile();
+        tileBag.drawTile();
+
+        GameStateWTile gameStateWithTile = gameEndOfTurn.getChild(tile);
+
+        gameEndOfTurn = opponent.updateGameState(gameStateWithTile, moveUpdate);
+
+        if (gameEndOfTurn.getLastTileMove().getTile() != tile) throw new AssertionError();
+        output.dispatchInformation(gameEndOfTurn);
+        if(gameEndOfTurn.checkForGameOver() || tileBag.getNumberOfTilesInBag() == 0) {
+            // TODO: Report that the game is over.
+        }
     }
 }

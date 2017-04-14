@@ -18,7 +18,7 @@ public class Parser {
 
     // The Server lets us know what our opponent did.
     //reads type 2 messages (GAME X MOVE Y PLAYER someID [...effect of whoever])
-    public static MoveInGameIncoming opponentMoveStringToGameMove(String opponentMoveString){
+    public static MoveUpdate opponentMoveStringToGameMove(String opponentMoveString){
         if (opponentMoveString.contains("FORFEIT") || opponentMoveString.contains("LOST")) {
             //TODO DAMMIT
             return null;
@@ -36,7 +36,7 @@ public class Parser {
         TileMove tileMove = opponentMoveStringToTileMove(opponentMoveString);
         ConstructionMoveTransmission constructionMoveTransmission = opponentMoveStringToBuildMove(opponentMoveString);
         //System.out.println("sending to postman...");
-        return new MoveInGameIncoming(gid, moveNumber, pid, tileMove, constructionMoveTransmission);
+        return new MoveUpdate(gid, moveNumber, pid, tileMove, constructionMoveTransmission);
     }
 
     //returns tile from type 1

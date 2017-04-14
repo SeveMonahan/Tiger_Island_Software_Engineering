@@ -12,5 +12,4 @@ public class OutputPlayerExample implements  OutputPlayerActions{
     public void dispatchInformation(GameStateEndOfTurn gameStateEndOfTurn){
         //new GameMoveOutgoingTransmission(gid, moveNumber, tileMove, convertConstructionMove(constructMove));
     }
-
 }
