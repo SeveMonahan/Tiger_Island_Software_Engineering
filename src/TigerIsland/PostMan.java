@@ -224,7 +224,9 @@ public class PostMan {
 
     public void HandleMatch() {
         String new_match = readLine(); // Eat "NEW MATCH BEGINNING NOW YOUR OPPONENT IS ..."
-        assert(new_match.contains("NEW MATCH"));
+        assert(new_match.contains("NEW MATCH BEGINNING NOW YOUR OPPONENT IS PLAYER"));
+        String[] token = stringSplitter(new_match);
+        String opponentID = token[8]; // Not sure we actually need to use this...
 
         StartMatch();
 
@@ -241,12 +243,16 @@ public class PostMan {
         String game_over_1 = readLine(); // Eat "GAME OVER" lines
         String game_over_2 = readLine();
 
+        // TODO write code to get our score from these games...
+        // TODO write code to compute tournament score
+
         assert(game_over_1.contains("OVER PLAYER"));
         assert(game_over_2.contains("OVER PLAYER"));
     }
 
     public void HandleRound(){
         String message = readLine();
+        assert message.contains("BEGIN ROUND");
         String[] token = stringSplitter(message);
 
         int rid = parseInt(token[2]);
@@ -255,7 +261,7 @@ public class PostMan {
 
         HandleMatch();
 
-        String end_message = readLine(); //Skip End of Round message
+        String end_message = readLine();
         assert(end_message.contains("END OF ROUND"));
 
     }
@@ -279,8 +285,7 @@ public class PostMan {
         String end_message = readLine();
         assert end_message.contains("WAIT FOR THE NEXT CHALLENGE TO BEGIN") || end_message.contains("END OF CHALLENGES");
 
-        return !end_message.contains("NEXT CHALLENGE");
-        // same as end_message.contains("END OF CHALLENGES");
+        return end_message.contains("END OF CHALLENGES");
     }
 
     /// The main loop of the program, which eventually calls System.exit() when
