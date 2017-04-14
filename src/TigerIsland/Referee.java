@@ -18,22 +18,11 @@ public class Referee {
         gameEndOfTurn = GameStateEndOfTurn.createInitalGameState();
     }
 
-    // Methods
-    public void execute(){
-        while(true){
-            ControllerTakesTurn(controller_1);
-            if(gameEndOfTurn.checkForGameOver() || tileBag.getNumberOfTilesInBag() == 0){
-                break;
-            }
-
-            ControllerTakesTurn(controller_2);
-            if(gameEndOfTurn.checkForGameOver() || tileBag.getNumberOfTilesInBag() == 0){
-                break;
-            }
+    public void ControllerTakesTurn(boolean pickingControllerTwo, Tile tile){
+        PlayerController controller = this.controller_1;
+        if (pickingControllerTwo) {
+            controller = this.controller_2;
         }
-    }
-    private void ControllerTakesTurn(PlayerController controller){
-        Tile tile = tileBag.drawTile();
         GameStateWTile gameStateWithTile = gameEndOfTurn.getChild(tile);
         gameEndOfTurn = controller.newGameState(gameStateWithTile);
         if (gameEndOfTurn.getLastTileMove().getTile() != tile) throw new AssertionError();

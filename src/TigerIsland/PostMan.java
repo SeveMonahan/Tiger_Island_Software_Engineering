@@ -130,17 +130,6 @@ public class PostMan {
 
         match_02 = new Match(this, network_01, ai_02, "Chocolate", output_2);
 
-        // TODO: Delete this block.
-        if(t1 != null){
-            t1.stop();
-        }
-        if(t2 != null){
-            t2.stop();
-        }
-        t1 = new Thread(match_01);
-        t2 = new Thread(match_02);
-        t1.start();
-        t2.start();
     }
 
     // The Server asks us to make a move and gives us a tile.
