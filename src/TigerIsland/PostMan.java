@@ -165,22 +165,15 @@ public class PostMan {
 
         // Update tileMailBox.
         postTileMessage(serverRequestAskingUsToMove);
-        // It is now safe for someone to draw a tile from the mailbox.
-        // Our AI in the correct game should get the tile and make a move.
-        // The code should look something like this, right? -Cameron
-        /*String gameID = serverRequestAskingUsToMove.getGid();
-        if (gameID == match_01.gameID) {
-            // TODO: Tell the AI in match_01 to make a move based on the constraints in serverRequestAskingUsToMove.
-            // Might need to add a new function that looks something like this:
-            // match_01.makeMoveUsingConstraints(serverRequestAskingUsToMove);
-        }
-        else if (gameID == match_02.gameID) {
-            // TODO: Tell the AI in match_02 to make a move based on the constraints in serverRequestAskingUsToMove.
-            // Might need to add a new function that looks something like this:
-            // match_02.makeMoveUsingConstraints(serverRequestAskingUsToMove);
-        }*/
 
         printServerRequestAskingUsToMove(serverRequestAskingUsToMove);
+
+        if(match_01.gameID.equals(serverRequestAskingUsToMove.getGid())){
+            match_01.makeMove();
+        }else{
+            match_02.makeMove();
+        }
+
     }
 
     // The Server lets us know what our opponent did.
@@ -243,7 +236,13 @@ public class PostMan {
     }
     public synchronized void postNetworkPlayerMessage(MoveInGameIncoming moveInGameIncoming) {
         networkMovement = moveInGameIncoming;
+        if(match_01.gameID.equals(moveInGameIncoming.getGid())){
+            match_01.makeMove();
+        }else{
+            match_02.makeMove();
+        }
     }
+
     public synchronized void postTileMessage(ServerRequestAskingUsToMove serverRequestAskingUsToMove) {
         tileMessage = serverRequestAskingUsToMove;
     }
