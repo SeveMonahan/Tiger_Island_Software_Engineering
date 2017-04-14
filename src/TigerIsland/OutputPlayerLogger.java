@@ -13,7 +13,7 @@ public class OutputPlayerLogger implements  OutputPlayerActions{
         this.color = colors;
     }
 
-    public void dispatchInformation(GameStateEndOfTurn gameStateEndOfTurn){
+    public void dispatchInformation(GameStateEndOfTurn gameStateEndOfTurn, PlayerController playerController){
         String moveNumber = "3";
         TileMove tileMove = gameStateEndOfTurn.getLastTileMove();
         ConstructionMoveInternal constructMove = gameStateEndOfTurn.getLastConstructionMove();

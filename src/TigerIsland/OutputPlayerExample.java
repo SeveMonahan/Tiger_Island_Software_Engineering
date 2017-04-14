@@ -9,7 +9,7 @@ public class OutputPlayerExample implements  OutputPlayerActions{
         this.color = color;
     }
 
-    public void dispatchInformation(GameStateEndOfTurn gameStateEndOfTurn){
+    public void dispatchInformation(GameStateEndOfTurn gameStateEndOfTurn, PlayerController playerController){
         //new GameMoveOutgoingTransmission(gid, moveNumber, tileMove, convertConstructionMove(constructMove));
     }
 

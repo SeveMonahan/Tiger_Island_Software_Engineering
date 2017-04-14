@@ -11,8 +11,8 @@ public class OutputPlayerAI implements OutputPlayerActions{
         this.postMan = postMan;
     }
 
-    public void dispatchInformation(GameStateEndOfTurn gameStateEndOfTurn){
-        if(gameStateEndOfTurn.getActivePlayer().getColor() == color) {
+    public void dispatchInformation(GameStateEndOfTurn gameStateEndOfTurn, PlayerController playerController){
+        if( !(playerController instanceof NetworkPlayerController)) {
             String moveNumber = "**********move_id**********";
             TileMove tileMove = gameStateEndOfTurn.getLastTileMove();
             ConstructionMoveInternal constructionMoveInternal = gameStateEndOfTurn.getLastConstructionMove();
@@ -21,5 +21,4 @@ public class OutputPlayerAI implements OutputPlayerActions{
             postMan.mailAIMessages(gameMoveOutgoingTransmission);
         }
     }
-
 }
