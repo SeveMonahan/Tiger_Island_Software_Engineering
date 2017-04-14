@@ -23,7 +23,7 @@ public class Referee {
         Tile tile = tileBag.drawTile();
         GameStateWTile gameStateWithTile = gameEndOfTurn.getChild(tile);
         gameEndOfTurn = currentTurnTaker.newGameState(gameStateWithTile);
-        output.dispatchInformation(gameEndOfTurn);
+        output.dispatchInformation(gameEndOfTurn, currentTurnTaker);
 
         // Swap turn takers
         if(currentTurnTaker == controller_1) {
