@@ -148,7 +148,7 @@ public class PostMan {
             String gid1 = token[5]; //assign this to thread 1
             System.out.println("Determined that gid#1 is: " + gid1);
 
-            PlayerController ai_01 = new DumbController(Color.WHITE);
+            PlayerController ai_01 = new SmartAIController(Color.WHITE);
             NetworkPlayerController network_02 = new NetworkPlayerController(Color.BLACK, gid1, this);
             OutputPlayerAI output = new OutputPlayerAI(gid1, Color.WHITE, this);
 
@@ -207,7 +207,7 @@ public class PostMan {
                 String gid2 = Move_1.getGid();
                 System.out.println("Determined that gid#2 is: " + gid2);
 
-                PlayerController ai_02 = new DumbController(Color.BLACK);
+                PlayerController ai_02 = new SmartAIController(Color.BLACK);
                 NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, gid2, this);
                 OutputPlayerAI output_2 = new OutputPlayerAI(gid2, Color.BLACK, this);
 
