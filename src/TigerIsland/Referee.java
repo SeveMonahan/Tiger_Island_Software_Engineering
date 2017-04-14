@@ -1,7 +1,7 @@
 package TigerIsland;
 
 public class Referee {
-    // Members
+    PlayerController currentTurnTaker;
     PlayerController controller_1;
     PlayerController controller_2;
     OutputPlayerActions output;
@@ -11,6 +11,7 @@ public class Referee {
     // Constructors
     public Referee(PlayerController controller_1, PlayerController controller_2, OutputPlayerActions output,
                    TileBag tileBag) {
+        this.currentTurnTaker = controller_1;
         this.controller_1 = controller_1;
         this.controller_2 = controller_2;
         this.output = output;
@@ -18,14 +19,16 @@ public class Referee {
         gameEndOfTurn = GameStateEndOfTurn.createInitalGameState();
     }
 
-    public void ControllerTakesTurn(boolean pickingControllerTwo, Tile tile){
-        PlayerController controller = this.controller_1;
-        if (pickingControllerTwo) {
-            controller = this.controller_2;
-        }
-        GameStateWTile gameStateWithTile = gameEndOfTurn.getChild(tile);
-        gameEndOfTurn = controller.newGameState(gameStateWithTile);
-        if (gameEndOfTurn.getLastTileMove().getTile() != tile) throw new AssertionError();
+    public void ControllerTakesTurn(MoveInGameIncoming moveInGameIncoming){
+        GameStateWTile gameStateWithTile = gameEndOfTurn.getChild(moveInGameIncoming.getTileMove().getTile());
+        gameEndOfTurn = currentTurnTaker.newGameState(gameStateWithTile);
         output.dispatchInformation(gameEndOfTurn);
+
+        // Swap turn takers
+        if(currentTurnTaker == controller_1) {
+            currentTurnTaker = controller_2;
+        } else {
+            currentTurnTaker = controller_1;
+        }
     }
 }

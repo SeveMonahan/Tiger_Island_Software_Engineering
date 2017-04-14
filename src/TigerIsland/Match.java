@@ -9,7 +9,6 @@ public class Match {
     private TileBag tileBag;
     String gameID;
 
-    // Constructor
     Match(PostMan postMan, PlayerController player_01, PlayerController player_02, String gameID, OutputPlayerAI output) {
         this.postMan = postMan;
         this.gameID = gameID;
@@ -17,15 +16,11 @@ public class Match {
         this.referee = new Referee(player_01, player_02, output, tileBag);
     }
 
-    //I am Assuming that PlayerController player_02 represents the networkplayer aka the one receiving the opponent's moves
-
-    public void makeMove(Tile tileFromPostMan) { //this signals referee "hey bro it's our turn to make a move in your game!"
-        this.referee.ControllerTakesTurn(false, tileFromPostMan);
+    public void makeMove(MoveInGameIncoming infoFromPostMan) {
+        this.referee.ControllerTakesTurn(infoFromPostMan);
     }
 
-    public void opponentMove(Tile tileFromPostMan) { //this signals referee "hey bro this is what our opponent did!"
-        this.referee.ControllerTakesTurn(true, tileFromPostMan);
+    public void opponentMove(MoveInGameIncoming infoFromPostMan) {
+        this.referee.ControllerTakesTurn(infoFromPostMan);
     }
-
-
 }

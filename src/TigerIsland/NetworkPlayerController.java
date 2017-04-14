@@ -11,6 +11,7 @@ public class NetworkPlayerController implements PlayerController {
         this.postMan = postMan;
     }
 
+
     public GameStateEndOfTurn newGameState(GameStateWTile gameStateWTile){
         MoveInGameIncoming moveInGameIncoming = postMan.accessNetworkMailBox(gameID);
 
