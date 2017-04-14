@@ -59,20 +59,22 @@ public class ParserTest {
     //Expanded
     @Test
     public void getGameMoveIncomingTransmissionFromGameMoveMadeStringForExpandedSettlement(){
-        String message = "GAME A MOVE 3 PLAYER myPlayerId PLACED JUNGLE+LAKE AT 0 3 -3 1 EXPANDED SETTLEMENT AT 1 -1 0 JUNGLE";
+        String message = "GAME B MOVE 3 PLAYER 14 PLACED GRASS+LAKE AT -2 0 2 3 EXPANDED SETTLEMENT AT 0 0 0 GRASS";
 
-        Tile expectedTile = new Tile(Terrain.JUNGLE, Terrain.LAKE);
-        Coordinate expectedTileCoordinate = new Coordinate(0, 3, -3);
-        TileMove expectedTileMove = new TileMove(expectedTile, HexagonNeighborDirection.UPPERLEFT, expectedTileCoordinate);
+        Tile expectedTile = new Tile(Terrain.GRASS, Terrain.LAKE);
+        Coordinate expectedTileCoordinate = new Coordinate(-2, 0, 2);
+        HexagonNeighborDirection expectedDirection = HexagonNeighborDirection.UPPERLEFT;
+        expectedDirection = expectedDirection.intToDirection(3);
+        TileMove expectedTileMove = new TileMove(expectedTile, expectedDirection, expectedTileCoordinate);
 
         BuildOption expectedBuildOption = BuildOption.EXPANDSETTLEMENT;
-        Coordinate expectedConstructionCoordinate = new Coordinate(1, -1, 0);
-        ExpandSettlementMoveTransmission expectedExpandSettlementMoveTransmission = new ExpandSettlementMoveTransmission(expectedBuildOption, expectedConstructionCoordinate, Terrain.JUNGLE);
+        Coordinate expectedConstructionCoordinate = new Coordinate(0, 0, 0);
+        ExpandSettlementMoveTransmission expectedExpandSettlementMoveTransmission = new ExpandSettlementMoveTransmission(expectedBuildOption, expectedConstructionCoordinate, Terrain.GRASS);
 
-        final String testGID = "A";
-        final String testMoveNumber = "3";
-        final String testPid = "myPlayerId";
-        MoveInGameIncoming expectedMoveInGameIncoming = new MoveInGameIncoming(testGID, testMoveNumber, testPid, expectedTileMove, expectedExpandSettlementMoveTransmission);
+        final String expectedGID = "B";
+        final String expectedMoveNumber = "3";
+        final String expectedPid = "14";
+        MoveInGameIncoming expectedMoveInGameIncoming = new MoveInGameIncoming(expectedGID, expectedMoveNumber, expectedPid, expectedTileMove, expectedExpandSettlementMoveTransmission);
 
         Parser parser = new Parser();
         MoveInGameIncoming testMoveInGameIncoming = parser.opponentMoveStringToGameMove(message);
