@@ -113,7 +113,7 @@ public class PostMan {
         assert(game_over_2.contains("OVER PLAYER"));
     }
     // This will be execute every time we want to start a match
-    public void StartMatch() {
+/*    public void StartMatch() {
         tileMailBox = new LinkedList<>();
         moveHistoryMailBox = new LinkedList<>();
 
@@ -131,6 +131,13 @@ public class PostMan {
         OutputPlayerAI output_2 = new OutputPlayerAI("Chocolate", Color.BLACK, this);
 
         match_02 = new Match(this, network_01, ai_02, "Chocolate", output_2);
+    }
+    */
+
+    public void StartMatch() {
+        tileMessage = null;
+        networkMovement = null;
+
     }
 
     // The Server asks us to make a move and gives us a tile.
