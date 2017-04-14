@@ -9,6 +9,10 @@ public class Match {
     private TileBag tileBag;
     String gameID;
 
+    public String getGameID() {
+        return gameID;
+    }
+
     Match(PostMan postMan, PlayerController player_01, PlayerController player_02, String gameID, OutputPlayerAI output) {
         this.postMan = postMan;
         this.gameID = gameID;
