@@ -16,9 +16,6 @@ public class PostMan {
     private Match match_01;
     private Match match_02;
 
-    private LinkedList<ServerRequestAskingUsToMove> tileMailBox; // Holds the server move request that gives us a tile.
-    private LinkedList<MoveInGameIncoming> moveHistoryMailBox; // Holds the moves that we use to update our games.
-
     private ServerRequestAskingUsToMove tileMessage;
     private MoveInGameIncoming networkMovement;
 
@@ -110,27 +107,6 @@ public class PostMan {
         assert(game_over_1.contains("OVER PLAYER"));
         assert(game_over_2.contains("OVER PLAYER"));
     }
-    // This will be execute every time we want to start a match
-/*    public void StartMatch() {
-        tileMailBox = new LinkedList<>();
-        moveHistoryMailBox = new LinkedList<>();
-
-        /// The First game
-        // The player is _01 must always be WHITE;
-        PlayerController ai_01 = new DumbController(Color.WHITE);
-        NetworkPlayerController network_02 = new NetworkPlayerController(Color.BLACK, "Strawberry", this);
-        OutputPlayerAI output = new OutputPlayerAI("Strawberry", Color.WHITE, this);
-
-        match_01 = new Match(this, ai_01, network_02, "Strawberry", output);
-
-        /// The Second game
-        PlayerController ai_02 = new DumbController(Color.BLACK);
-        NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, "Chocolate", this);
-        OutputPlayerAI output_2 = new OutputPlayerAI("Chocolate", Color.BLACK, this);
-
-        match_02 = new Match(this, network_01, ai_02, "Chocolate", output_2);
-    }
-    */
 
     public void StartMatch() {
         tileMessage = null;
@@ -148,7 +124,7 @@ public class PostMan {
             String gid1 = token[5]; //assign this to thread 1
             System.out.println("Determined that gid#1 is: " + gid1);
 
-            PlayerController ai_01 = new DumbController(Color.WHITE);
+            PlayerController ai_01 = new SmartAIController(Color.WHITE);
             NetworkPlayerController network_02 = new NetworkPlayerController(Color.BLACK, gid1, this);
             OutputPlayerAI output = new OutputPlayerAI(gid1, Color.WHITE, this);
 
@@ -207,7 +183,7 @@ public class PostMan {
                 String gid2 = Move_1.getGid();
                 System.out.println("Determined that gid#2 is: " + gid2);
 
-                PlayerController ai_02 = new DumbController(Color.BLACK);
+                PlayerController ai_02 = new SmartAIController(Color.BLACK);
                 NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, gid2, this);
                 OutputPlayerAI output_2 = new OutputPlayerAI(gid2, Color.BLACK, this);
 
@@ -234,6 +210,7 @@ public class PostMan {
             postNetworkPlayerMessage(moveInGameIncoming);
         }
     }
+
     public synchronized void postNetworkPlayerMessage(MoveInGameIncoming moveInGameIncoming) {
         networkMovement = moveInGameIncoming;
         if(match_01.gameID.equals(moveInGameIncoming.getGid())){
@@ -243,11 +220,11 @@ public class PostMan {
         }
     }
 
-    public synchronized void postTileMessage(ServerRequestAskingUsToMove serverRequestAskingUsToMove) {
+    public void postTileMessage(ServerRequestAskingUsToMove serverRequestAskingUsToMove) {
         tileMessage = serverRequestAskingUsToMove;
     }
 
-    public synchronized Tile accessTileMailBox(String gid) {
+    public Tile accessTileMailBox(String gid) {
         return tileMessage.getTile();
     }
 
@@ -255,7 +232,7 @@ public class PostMan {
         return networkMovement;
     }
 
-    public synchronized void mailAIMessages(GameMoveOutgoingTransmission gameMoveOutgoingTransmission) {
+    public void mailAIMessages(GameMoveOutgoingTransmission gameMoveOutgoingTransmission) {
         Marshaller marshaller = new Marshaller();
         String parsedString = marshaller.convertTileMoveAndConstructionMoveToString(gameMoveOutgoingTransmission);
         parsedString = parsedString.replace("**********move_id**********", moveID);
