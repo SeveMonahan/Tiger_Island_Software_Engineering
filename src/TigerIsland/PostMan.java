@@ -10,7 +10,6 @@ public class PostMan {
     // Members
     private static PostMan myPostMan;
     private String pid = "-1"; // Our player ID.
-    private String gid2 = "";
     private String moveID = "";
 
     // Need to add these here so that we can access these games.
@@ -212,27 +211,17 @@ public class PostMan {
             MoveInGameIncoming Move_1 = Parser.opponentMoveStringToGameMove(message_1);
             assert message_1.contains("PLACED");
             if(GrabGid2 && !(Move_1.getGid().equals(match_01.gameID))) {
-                gid2 = Move_1.getGid();
+                String gid2 = Move_1.getGid();
                 System.out.println("Determined that gid#2 is: " + gid2);
+
+                PlayerController ai_02 = new DumbController(Color.BLACK);
+                NetworkPlayerController network_01 = new NetworkPlayerController(Color.WHITE, gid2, this);
+                OutputPlayerAI output_2 = new OutputPlayerAI(gid2, Color.BLACK, this);
+
+                match_02 = new Match(this, network_01, ai_02, gid2, output_2);
             }
 
-            // Update moveHistoryMailBox and tileMailBox.
-            // Can we just use moveHistoryMailBox? -Cameron
             passMoveInGameIncomingToMatchObject(Move_1);
-            // It is now safe for someone to draw the opponent move update from the mailbox.
-            // We should update the corresponding game with the opponent's move.
-            // The code should look something like this, right? -Cameron
-            /*String gameID = Move_1.getGid();
-            if (gameID == match_01.gameID) {
-                // TODO: Tell the thing that controls the opponent to update the match with the Move_1.
-                // Might need to add a new function that looks something like this:
-                // match_01.updateGameUsingOpponentMove(Move_1);
-            }
-            else if (gameID == match_02.gameID) {
-                // TODO: Tell the thing that controls the opponent to update the match with the Move_1.
-                // Might need to add a new function that looks something like this:
-                // match_02.updateGameUsingOpponentMove(Move_1);
-            }*/
         }
         return true;
     }
