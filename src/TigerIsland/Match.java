@@ -16,11 +16,11 @@ public class Match {
         this.referee = new Referee(player_01, player_02, output, tileBag);
     }
 
-    public void makeMove(MoveInGameIncoming infoFromPostMan) {
-        this.referee.ControllerTakesTurn(infoFromPostMan);
+    public void makeMove() {
+        this.referee.ControllerTakesTurn();
     }
 
-    public void opponentMove(MoveInGameIncoming infoFromPostMan) {
-        this.referee.ControllerTakesTurn(infoFromPostMan);
+    public void opponentMove() {
+        this.referee.ControllerTakesTurn();
     }
 }

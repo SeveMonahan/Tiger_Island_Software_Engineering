@@ -19,8 +19,9 @@ public class Referee {
         gameEndOfTurn = GameStateEndOfTurn.createInitalGameState();
     }
 
-    public void ControllerTakesTurn(MoveInGameIncoming moveInGameIncoming){
-        GameStateWTile gameStateWithTile = gameEndOfTurn.getChild(moveInGameIncoming.getTileMove().getTile());
+    public void ControllerTakesTurn(){
+        Tile tile = tileBag.drawTile();
+        GameStateWTile gameStateWithTile = gameEndOfTurn.getChild(tile);
         gameEndOfTurn = currentTurnTaker.newGameState(gameStateWithTile);
         output.dispatchInformation(gameEndOfTurn);
 

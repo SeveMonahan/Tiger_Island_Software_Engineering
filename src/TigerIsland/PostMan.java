@@ -14,16 +14,15 @@ public class PostMan {
     private String gid2 = "";
     private String moveID = "";
 
-    // TODO: Delete these.
-    private Thread t1;
-    private Thread t2;
-
     // Need to add these here so that we can access these games.
     private Match match_01;
     private Match match_02;
 
     private LinkedList<ServerRequestAskingUsToMove> tileMailBox; // Holds the server move request that gives us a tile.
     private LinkedList<MoveInGameIncoming> moveHistoryMailBox; // Holds the moves that we use to update our games.
+
+    private ServerRequestAskingUsToMove tileMessage;
+    private MoveInGameIncoming networkMovement;
 
     private NetworkClient output_taker;
 
@@ -51,6 +50,7 @@ public class PostMan {
         }
         endOfTournament();
     }
+
     public boolean HandleChallengeAndReturnWhetherThereIsANewChallenge(){
         String message = readLine();
         assert(message.contains("NEW CHALLENGE"));
@@ -73,7 +73,8 @@ public class PostMan {
         return !end_message.contains("NEXT CHALLENGE");
         // same as end_message.contains("END OF CHALLENGES");
     }
-    public void HandleRound(){
+
+    public void HandleRound() {
         String message = readLine();
         String[] token = stringSplitter(message);
 
@@ -87,6 +88,7 @@ public class PostMan {
         assert(end_message.contains("END OF ROUND"));
 
     }
+
     public void HandleMatch() {
         String new_match = readLine(); // Eat "NEW MATCH BEGINNING NOW YOUR OPPONENT IS ..."
         assert(new_match.contains("NEW MATCH"));
@@ -144,6 +146,7 @@ public class PostMan {
 
         HandleServerRequestAskingUsToMoveMessage(message);
     }
+
     private void HandleServerRequestAskingUsToMoveMessage(String message){
         ServerRequestAskingUsToMove serverRequestAskingUsToMove = Parser.commandToObject(message);
 
@@ -256,41 +259,18 @@ public class PostMan {
         }
     }
     public synchronized void postNetworkPlayerMessage(MoveInGameIncoming moveInGameIncoming) {
-        moveHistoryMailBox.push(moveInGameIncoming);
-        notifyAll();
+        networkMovement = moveInGameIncoming;
     }
     public synchronized void postTileMessage(ServerRequestAskingUsToMove serverRequestAskingUsToMove) {
-        tileMailBox.push(serverRequestAskingUsToMove);
-        notifyAll();
+        tileMessage = serverRequestAskingUsToMove;
     }
 
-    // Get things from mailbox methods.
     public synchronized Tile accessTileMailBox(String gid) {
-        Tile tile = null;
-
-        for (int i = 0; i < tileMailBox.size(); i++) {
-            ServerRequestAskingUsToMove serverRequestAskingUsToMove = tileMailBox.get(i);
-
-            if (serverRequestAskingUsToMove.getGid().equals(gid)) {
-                tile = serverRequestAskingUsToMove.getTile();
-                tileMailBox.remove(i);
-                return tile;
-            }
-        }
-
-        return tile;
+        return tileMessage.getTile();
     }
-    public synchronized MoveInGameIncoming accessNetworkMailBox(String gid) {
-        MoveInGameIncoming moveInGameIncoming = null;
 
-        for(MoveInGameIncoming opponentMove : moveHistoryMailBox) {
-            if( opponentMove.getGid().toString().equals(gid) ) {
-                moveInGameIncoming = opponentMove;
-                moveHistoryMailBox.remove(opponentMove);
-                return moveInGameIncoming;
-            }
-        }
-        return moveInGameIncoming;
+    public MoveInGameIncoming accessNetworkMailBox(String gid) {
+        return networkMovement;
     }
 
     public synchronized void mailAIMessages(GameMoveOutgoingTransmission gameMoveOutgoingTransmission) {
