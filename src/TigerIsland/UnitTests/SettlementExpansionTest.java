@@ -232,4 +232,33 @@ public class SettlementExpansionTest
         Settlement settlement = TestBoard.getSettlement(sourceCoordinateOne);
         assertEquals(5, settlement.getSettlementSize());
     }
+
+    @Test
+    public void levelTwoToLevelOneExpansionShouldPass() {
+        Board board = new Board();
+        board.placeStartingTile();
+
+        Tile tile1 = new Tile(Terrain.JUNGLE, Terrain.JUNGLE);
+        Tile tile2 = new Tile(Terrain.JUNGLE, Terrain.JUNGLE);
+
+        TileMove tileMove1 = new TileMove(tile1, HexagonNeighborDirection.LEFT, new Coordinate(99,100));
+        TileMove tileMove2 = new TileMove(tile2, HexagonNeighborDirection.UPPERLEFT, new Coordinate(99,100));
+
+        board.placeTile(tileMove1);
+        board.placeTile(tileMove2);
+
+        Player player = new Player(Color.BLACK);
+
+        player.foundSettlement(new Coordinate(98,100), board);
+        player.expandSettlement(new Coordinate(98,100), board, Terrain.JUNGLE);
+
+        assertEquals(15, player.getMeeplesCount());
+
+        boolean isSuccess = player.expandSettlement(new Coordinate(99,101), board, Terrain.LAKE);
+
+        assertEquals(2, board.getHexagonAt(new Coordinate(99,101)).getLevel());
+        assertEquals(1, board.getHexagonAt(new Coordinate(100,101)).getLevel());
+        assertEquals(true, isSuccess);
+        assertEquals(14, player.getMeeplesCount());
+    }
 }
