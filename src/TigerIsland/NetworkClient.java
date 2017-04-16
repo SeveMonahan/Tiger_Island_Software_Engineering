@@ -74,6 +74,13 @@ public class NetworkClient {
     public String readLine() throws IOException {
         return in.readLine();
     }
+    public String peekLine() throws IOException {
+        int BUFFER_SIZE = 1000;
+        this.in.mark(BUFFER_SIZE);
+        String line = in.readLine();
+        this.in.reset();
+        return line;
+    }
 
     private void challengeProtocol(String pid) throws IOException, InterruptedException {
         startTime = System.currentTimeMillis();

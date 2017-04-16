@@ -1,7 +1,6 @@
 package TigerIsland;
 
 import java.io.IOException;
-import java.util.LinkedList;
 
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.toUnsignedString;
@@ -81,7 +80,6 @@ public class PostMan {
 
         String end_message = readLine(); //Skip End of Round message
         assert(end_message.contains("END OF ROUND"));
-
     }
 
     public void HandleMatch() {
@@ -90,16 +88,22 @@ public class PostMan {
 
         StartMatch();
 
-        // The Server asks us to make a move and gives us a tile.
-        HandleMakeAMoveMessage(true);
-
-        int activeGames = HandleGameStateUpdateAndReturnActiveGames(2, true);
-
-        while(activeGames != 0){
-            HandleMakeAMoveMessage(false);
-            activeGames = HandleGameStateUpdateAndReturnActiveGames(activeGames, false);
+        // Keep reading Game Move Updates until we hit a MAKE A MOVE or until both games are over.
+        while (true) {
+            String nextLine = "";
+            try {
+                nextLine = output_taker.peekLine();
+            } catch (IOException e) {
+                break;
+            }
+            if (nextLine.contains("MAKE YOUR MOVE")) { // MAKE YOUR MOVE
+                HandleMakeYourMoveMessage();
+            } else if (nextLine.contains("MOVE") && nextLine.contains("PLAYER")) { // Move Update
+                HandleSingleGameStateUpdateAndReturnIfStillActive();
+            } else if (nextLine.contains("GAME") && nextLine.contains("OVER")) { // Both games are over.
+                break;
+            }
         }
-
 
         String game_over_1 = readLine(); // Eat "GAME OVER" lines
         String game_over_2 = readLine();
@@ -115,11 +119,12 @@ public class PostMan {
     }
 
     // The Server asks us to make a move and gives us a tile.
-    private void HandleMakeAMoveMessage(boolean grabgid1){
+    private void HandleMakeYourMoveMessage() {
         String message = readLine();
         assert message.contains("MAKE YOUR MOVE IN GAME");
 
-        if(grabgid1) {
+        // If we haven't seen our first MAKE A MOVE line yet...
+        if(match_01 == null) {
             String[] token = stringSplitter(message);
             String gid1 = token[5]; //assign this to thread 1
             System.out.println("Determined that gid#1 is: " + gid1);
@@ -152,35 +157,20 @@ public class PostMan {
 
     }
 
-    // The Server lets us know what our opponent did.
-    private int HandleGameStateUpdateAndReturnActiveGames(int activeGames, boolean GrabGid2){
-        int result = 0;
+    private void HandleSingleGameStateUpdateAndReturnIfStillActive() {
+        String line = readLine();
+        // Handles all 4 cases of forfeiting and the case where you lose because you can't build.
 
-        if(HandleSingleGameStateUpdateAndReturnIfStillActive(GrabGid2)){
-            result++;
-        }
+        if (line.contains("FORFEIT") || line.contains("UNABLE")) {
+            assert line.contains("FORFEITED") || line.contains("LOST: UNABLE TO BUILD");
+        } else {
+            MoveInGameIncoming moveUpdate = Parser.getMoveInGameIncomingObjectFromLine(line);
 
-        if(activeGames == 2) {
-            if(HandleSingleGameStateUpdateAndReturnIfStillActive(GrabGid2)){
-                result++;
-            }
-        }
+            assert line.contains("PLACED");
 
-        return result;
-    }
-
-    private boolean HandleSingleGameStateUpdateAndReturnIfStillActive(boolean GrabGid2){
-        String message_1 = readLine();
-        // Handles all 4 cases of forfeiting and the case losing because you can't build
-
-        if(message_1.contains("FORFEIT") || message_1.contains("UNABLE")){
-            assert message_1.contains("FORFEITED") || message_1.contains("LOST: UNABLE TO BUILD");
-            return false;
-        }else {
-            MoveInGameIncoming Move_1 = Parser.opponentMoveStringToGameMove(message_1);
-            assert message_1.contains("PLACED");
-            if(GrabGid2 && !(Move_1.getGid().equals(match_01.gameID))) {
-                String gid2 = Move_1.getGid();
+            // If, we're looking at a game update in gid2 for the first time...
+            if (match_02 == null) {
+                String gid2 = moveUpdate.getGid();
                 System.out.println("Determined that gid#2 is: " + gid2);
 
                 PlayerController ai_02 = new SmartAIController(Color.BLACK);
@@ -190,9 +180,8 @@ public class PostMan {
                 match_02 = new Match(this, network_01, ai_02, gid2, output_2);
             }
 
-            passMoveInGameIncomingToMatchObject(Move_1);
+            passMoveInGameIncomingToMatchObject(moveUpdate);
         }
-        return true;
     }
 
     private void endOfTournament(){
@@ -241,21 +230,21 @@ public class PostMan {
 
     // Debug methods.
     public static void printMoveInGameIncoming(MoveInGameIncoming incomingMessage) {
-        System.out.println("-SERVER INFORMED US OF FOLLOWING MOVE--"
+        /*System.out.println("-SERVER INFORMED US OF FOLLOWING MOVE--"
                            +"gid: "+ incomingMessage.getGid()                                                 + "\n"
                            +"move number: " + incomingMessage.getMoveID()                                     + "\n"
                            +"pid: " + incomingMessage.getPid()                                                + "\n"
-                           +"coordinate: " + incomingMessage.getConstructionMoveTransmission().getCoordinate().getX() /* \n excluded on purpose */
+                           +"coordinate: " + incomingMessage.getConstructionMoveTransmission().getCoordinate().getX() *//* \n excluded on purpose *//*
                            + " " + incomingMessage.getConstructionMoveTransmission().getCoordinate().getY()   + "\n"
-                           +"---------------------------------\n");
+                           +"---------------------------------\n");*/
     }
     public static void printServerRequestAskingUsToMove(ServerRequestAskingUsToMove incomingMessage) {
-        System.out.print("-- THE SERVER ASKED US TO MOVE --"                        +"\n"
+        /*System.out.print("-- THE SERVER ASKED US TO MOVE --"                        +"\n"
                          + "In the game with ID: "+ incomingMessage.getGid()          +"\n"
                          + "Move Number : " + incomingMessage.getMoveNumber()         +"\n"
                          + "Time allowed: : " + incomingMessage.getTime()             +"\n"
                          + "Tile to place : " + incomingMessage.getTile().toString()  +"\n"
-                         +"---------------------------------\n");
+                         +"---------------------------------\n");*/
     }
 
     // Other methods.

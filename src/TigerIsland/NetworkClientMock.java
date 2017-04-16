@@ -36,6 +36,12 @@ public class NetworkClientMock extends NetworkClient {
 
         return string_array[line_num++];
     }
+    public String peekLine() throws IOException {
+        if(line_num == string_array.length){
+            return "";
+        }
+        return string_array[line_num];
+    }
 
     public synchronized void sendMessage(String stringToServer) {
         System.out.println("Client : " + stringToServer);
@@ -45,5 +51,4 @@ public class NetworkClientMock extends NetworkClient {
     public String[] get_array(){
         return result_array;
     }
-
 }

@@ -41,7 +41,7 @@ public class ParserTest {
         MoveInGameIncoming expectedMoveInGameIncoming = new MoveInGameIncoming(testGID, testMoveNumber, testPid, expectedTileMove, expectedConstructionMoveTransmission);
 
         Parser parser = new Parser();
-        MoveInGameIncoming testMoveInGameIncoming = parser.opponentMoveStringToGameMove(message);
+        MoveInGameIncoming testMoveInGameIncoming = parser.getMoveInGameIncomingObjectFromLine(message);
 
         assertEquals(expectedMoveInGameIncoming.getTileMove().getCoordinate().getX(), testMoveInGameIncoming.getTileMove().getCoordinate().getX());
         assertEquals(expectedMoveInGameIncoming.getTileMove().getCoordinate().getY(), testMoveInGameIncoming.getTileMove().getCoordinate().getY());
@@ -77,7 +77,7 @@ public class ParserTest {
         MoveInGameIncoming expectedMoveInGameIncoming = new MoveInGameIncoming(expectedGID, expectedMoveNumber, expectedPid, expectedTileMove, expectedExpandSettlementMoveTransmission);
 
         Parser parser = new Parser();
-        MoveInGameIncoming testMoveInGameIncoming = parser.opponentMoveStringToGameMove(message);
+        MoveInGameIncoming testMoveInGameIncoming = parser.getMoveInGameIncomingObjectFromLine(message);
 
         assertEquals(expectedMoveInGameIncoming.getTileMove().getCoordinate().getX(), testMoveInGameIncoming.getTileMove().getCoordinate().getX());
         assertEquals(expectedMoveInGameIncoming.getTileMove().getCoordinate().getY(), testMoveInGameIncoming.getTileMove().getCoordinate().getY());
@@ -115,7 +115,7 @@ public class ParserTest {
         MoveInGameIncoming expectedMoveInGameIncoming = new MoveInGameIncoming(testGID, testMoveNumber, testPid, expectedTileMove, expectedConstructionMoveTransmission);
 
         Parser parser = new Parser();
-        MoveInGameIncoming testMoveInGameIncoming = parser.opponentMoveStringToGameMove(message);
+        MoveInGameIncoming testMoveInGameIncoming = parser.getMoveInGameIncomingObjectFromLine(message);
 
         assertEquals(expectedMoveInGameIncoming.getTileMove().getCoordinate().getX(), testMoveInGameIncoming.getTileMove().getCoordinate().getX());
         assertEquals(expectedMoveInGameIncoming.getTileMove().getCoordinate().getY(), testMoveInGameIncoming.getTileMove().getCoordinate().getY());
@@ -150,7 +150,7 @@ public class ParserTest {
         MoveInGameIncoming expectedMoveInGameIncoming = new MoveInGameIncoming(testGID, testMoveNumber, testPid, expectedTileMove, expectedConstructionMoveTransmission);
 
         Parser parser = new Parser();
-        MoveInGameIncoming testMoveInGameIncoming = parser.opponentMoveStringToGameMove(message);
+        MoveInGameIncoming testMoveInGameIncoming = parser.getMoveInGameIncomingObjectFromLine(message);
 
         assertEquals(expectedMoveInGameIncoming.getTileMove().getCoordinate().getX(), testMoveInGameIncoming.getTileMove().getCoordinate().getX());
         assertEquals(expectedMoveInGameIncoming.getTileMove().getCoordinate().getY(), testMoveInGameIncoming.getTileMove().getCoordinate().getY());

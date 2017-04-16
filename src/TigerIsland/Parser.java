@@ -18,7 +18,7 @@ public class Parser {
 
     // The Server lets us know what our opponent did.
     //reads type 2 messages (GAME X MOVE Y PLAYER someID [...effect of whoever])
-    public static MoveInGameIncoming opponentMoveStringToGameMove(String opponentMoveString){
+    public static MoveInGameIncoming getMoveInGameIncomingObjectFromLine(String opponentMoveString){
         if (opponentMoveString.contains("FORFEIT") || opponentMoveString.contains("LOST")) {
             //TODO DAMMIT
             return null;
