@@ -172,7 +172,7 @@ public class PostMan {
             assert line.contains("PLACED");
 
             // If, we're looking at a game update in gid2 for the first time...
-            if (match_02 == null) {
+            if (!moveUpdate.getGid().equals(match_01.gameID) && match_02 == null) {
                 String gid2 = moveUpdate.getGid();
                 System.out.println("Determined that gid#2 is: " + gid2);
 
