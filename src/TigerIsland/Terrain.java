@@ -7,5 +7,6 @@ public enum Terrain {
     JUNGLE,
     LAKE,
     GRASS,
+    PADDY,
     UNKNOWN // used in AI and nowhere else
 }

@@ -28,8 +28,8 @@ public class RandomTileBag implements TileBag {
     }
 
     private void permutationForAllTiles() {
-        for(Terrain terrain_1 : new Terrain[]{Terrain.GRASS, Terrain.JUNGLE, Terrain.LAKE, Terrain.ROCK}){
-            for(Terrain terrain_2 : new Terrain[]{Terrain.GRASS, Terrain.JUNGLE, Terrain.LAKE, Terrain.ROCK}){
+        for(Terrain terrain_1 : new Terrain[]{Terrain.GRASS, Terrain.JUNGLE, Terrain.LAKE, Terrain.ROCK, Terrain.PADDY}){
+            for(Terrain terrain_2 : new Terrain[]{Terrain.GRASS, Terrain.JUNGLE, Terrain.LAKE, Terrain.ROCK, Terrain.PADDY}){
                 Tile newTile = new Tile(terrain_1, terrain_2);
                 this.bag.push(newTile);
                 this.bag.push(newTile);
@@ -39,6 +39,9 @@ public class RandomTileBag implements TileBag {
         }
 
         Collections.shuffle(bag);
+
+        final int MAXIMUM_NUMBER_OF_TILES = 48;
+        bag = new LinkedList<>(bag.subList(0, MAXIMUM_NUMBER_OF_TILES));
 
         numberOfTilesInBag = bag.size();
     }
