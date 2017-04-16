@@ -59,12 +59,15 @@ public class PostMan {
 
         for(int i = 0; i < rounds; i++){
             HandleRound();
+            // We need to set these to null or we won't catch that we ended the last match...
+            match_01 = null;
+            match_02 = null;
         }
 
         String end_message = readLine();
         assert end_message.contains("WAIT FOR THE NEXT CHALLENGE TO BEGIN") || end_message.contains("END OF CHALLENGES");
 
-        return !end_message.contains("NEXT CHALLENGE");
+        return end_message.contains("NEXT CHALLENGE");
         // same as end_message.contains("END OF CHALLENGES");
     }
 
@@ -115,7 +118,6 @@ public class PostMan {
     public void StartMatch() {
         tileMessage = null;
         networkMovement = null;
-
     }
 
     // The Server asks us to make a move and gives us a tile.
@@ -140,6 +142,7 @@ public class PostMan {
     }
 
     private void HandleServerRequestAskingUsToMoveMessage(String message){
+        // TODO forfeit message are sent in here by mistake
         ServerRequestAskingUsToMove serverRequestAskingUsToMove = Parser.commandToObject(message);
 
         moveID = serverRequestAskingUsToMove.getMoveNumber();
