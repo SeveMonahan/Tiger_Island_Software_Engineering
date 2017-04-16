@@ -56,7 +56,7 @@ public class GameStateBeforeBuildAction extends GameState {
         Queue<ConstructionMoveInternal> result = new LinkedList<>();
 
         if(board.getHexagonAt(coordinate).containsPieces()){
-           for(Terrain terrain : new Terrain[]{Terrain.GRASS, Terrain.JUNGLE, Terrain.LAKE, Terrain.ROCK}){
+           for(Terrain terrain : new Terrain[]{Terrain.GRASS, Terrain.JUNGLE, Terrain.LAKE, Terrain.ROCK, Terrain.PADDY}){
                result.add(new ExpandSettlementConstructionMove(coordinate, terrain));
            }
            return result;

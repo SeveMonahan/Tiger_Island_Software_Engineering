@@ -184,7 +184,7 @@ public class GenuisAIController implements PlayerController {
                 return result;
             }
 
-            for(Terrain terrain : new Terrain[]{Terrain.GRASS, Terrain.JUNGLE, Terrain.LAKE, Terrain.ROCK}){
+            for(Terrain terrain : new Terrain[]{Terrain.GRASS, Terrain.JUNGLE, Terrain.LAKE, Terrain.ROCK, Terrain.PADDY}){
                 result.add(new ExpandSettlementConstructionMove(coordinate, terrain));
                 Settlement settlement = board.getSettlement(coordinate);
                 Coordinate settlementCoordinates[] = settlement.getSettlementCoordinates();
