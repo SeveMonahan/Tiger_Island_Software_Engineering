@@ -62,9 +62,10 @@ public class Settlement {
 
             for (Coordinate neighbor : neighbors) {
                 // If our original settlement contains the neighbor we can use it to expand further...
+                // Or if we have this coordinate in our expansion queu we can expand further with it
                 boolean insideSettlement = false;
                 for(Coordinate coord : settlement) {
-                    if(coord == neighbor ) {
+                    if(coord.getX() == neighbor.getX() && coord.getY() == neighbor.getY() ) {
                         insideSettlement = true;
                     }
                 }
