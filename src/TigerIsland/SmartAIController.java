@@ -179,9 +179,10 @@ public class SmartAIController implements PlayerController {
             }
         }
 
-        GameStateEndOfTurn currentGameState = GameStateEndOfTurn.createGameStateFromConstructionMove(gameStateBeforeBuildAction, new UnableToBuildConstructionMove());
-
-        result.add(currentGameState);
+        if(result.isEmpty()) {
+            GameStateEndOfTurn currentGameState = GameStateEndOfTurn.createGameStateFromConstructionMove(gameStateBeforeBuildAction, new UnableToBuildConstructionMove());
+            result.add(currentGameState);
+        }
 
         return result;
     }
@@ -271,13 +272,18 @@ public class SmartAIController implements PlayerController {
 
             Player active_player = bestLeafNode.getInactivePlayer();
 
-            int active_player_pieces = active_player.getMeeplesCount() + active_player.getMeeplesCount() + active_player.getTotoroCount();
+            // int active_player_pieces = active_player.getMeeplesCount() + active_player.getMeeplesCount() + active_player.getTotoroCount();
+            int active_player_pieces = active_player.getMeeplesCount();
+            // int active_player_pieces = active_player.getMeeplesCount() + active_player.getTigerCount()*75 + active_player.getTotoroCount()*200;
 
             Player inactive_player = bestLeafNode.getActivePlayer();
 
-            int inactive_player_pieces = inactive_player.getMeeplesCount() + inactive_player.getMeeplesCount() + inactive_player.getTotoroCount();
+            //int inactive_player_pieces = inactive_player.getMeeplesCount() + inactive_player.getMeeplesCount() + inactive_player.getTotoroCount();
+            int inactive_player_pieces = inactive_player.getMeeplesCount();
+            // int inactive_player_pieces = inactive_player.getMeeplesCount() + inactive_player.getTotoroCount()*200 + inactive_player.getTigerCount()*75;
 
             int netScoreGain = active_player_pieces - inactive_player_pieces;
+            // int netScoreGain = active_player_pieces;
 
             if(netScoreGain > bestNetScoreGain){
                 best_state = current_state;

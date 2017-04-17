@@ -25,8 +25,13 @@ public class Referee {
         gameEndOfTurn = currentTurnTaker.newGameState(gameStateWithTile);
         output.dispatchInformation(gameEndOfTurn, currentTurnTaker);
 
-        System.out.println("Active player meeples: " + gameEndOfTurn.getActivePlayer().getMeeplesCount() );
-        System.out.println("Inactive player meeples: " + gameEndOfTurn.getInactivePlayer().getMeeplesCount() );
+       // System.out.println("Active player meeples: " + gameEndOfTurn.getActivePlayer().getMeeplesCount() );
+       // System.out.println("Inactive player meeples: " + gameEndOfTurn.getInactivePlayer().getMeeplesCount() );
+
+       boolean trigger = gameEndOfTurn.getActivePlayer().triggeredGameEnd();
+       if(trigger) {
+           System.out.println("########### Game Should have Ended #############");
+       }
 
         // Swap turn takers
         if(currentTurnTaker == controller_1) {
