@@ -305,4 +305,32 @@ public class ExpandSettlementConstructionMoveTest {
         assertEquals(1,player.getTigerCount());
     }
 
+    @Test
+    public void settlementShouldExpandFromAllCoordinates() {
+        Board board = new Board();
+        board.placeStartingTile();
+
+        Tile tile1 = new Tile(Terrain.GRASS, Terrain.GRASS);
+        Tile tile2 = new Tile(Terrain.JUNGLE, Terrain.JUNGLE);
+
+        TileMove tileMove1 = new TileMove(tile1, HexagonNeighborDirection.LEFT, new Coordinate(99,100));
+        TileMove tileMove2 = new TileMove(tile2, HexagonNeighborDirection.LOWERLEFT, new Coordinate(98, 99));
+
+        board.placeTile(tileMove1);
+        board.placeTile(tileMove2);
+
+        Player player = new Player(Color.BLACK);
+
+        player.foundSettlement(new Coordinate(98,100), board);
+
+        player.expandSettlement(new Coordinate(98,100), board, Terrain.GRASS);
+        player.expandSettlement(new Coordinate(98,100), board, Terrain.JUNGLE);
+
+        assertEquals(PieceStatusHexagon.MEEPLE, board.getHexagonAt(new Coordinate(98,98)).getPiecesStatus());
+        assertEquals(PieceStatusHexagon.MEEPLE, board.getHexagonAt(new Coordinate(97,99)).getPiecesStatus());
+        assertEquals(PieceStatusHexagon.MEEPLE, board.getHexagonAt(new Coordinate(98,100)).getPiecesStatus());
+        assertEquals(PieceStatusHexagon.MEEPLE, board.getHexagonAt(new Coordinate(98,101)).getPiecesStatus());
+        assertEquals(PieceStatusHexagon.MEEPLE, board.getHexagonAt(new Coordinate(99,101)).getPiecesStatus());
+        assertEquals(15, player.getMeeplesCount());
+    }
 }
