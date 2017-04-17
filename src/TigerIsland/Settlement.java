@@ -61,6 +61,13 @@ public class Settlement {
             Coordinate[] neighbors = currentCoordinate.getNeighboringCoordinates();
 
             for (Coordinate neighbor : neighbors) {
+                // If our original settlement contains the neighbor we can use it to expand further...
+                boolean insideSettlement = false;
+                for(Coordinate coord : settlement) {
+                    if(coord == neighbor ) {
+                        insideSettlement = true;
+                    }
+                }
                 Hexagon hexagon = board.getHexagonAt(neighbor);
                 if( !searched.containsKey(neighbor) &&
                         hexagon.getTerrain() ==  terrain &&
@@ -68,6 +75,9 @@ public class Settlement {
                     // ...then, expand to this hexagon.
                     coordinateQueue.add(neighbor);
                     expansion.add(neighbor);
+                } else if( !searched.containsKey(neighbor) &&
+                         insideSettlement == true) {
+                    coordinateQueue.add(neighbor);
                 }
                 searched.put(neighbor, true);
             }

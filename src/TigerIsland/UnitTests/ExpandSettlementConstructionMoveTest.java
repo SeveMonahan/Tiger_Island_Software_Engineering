@@ -322,8 +322,13 @@ public class ExpandSettlementConstructionMoveTest {
         Player player = new Player(Color.BLACK);
 
         player.foundSettlement(new Coordinate(98,100), board);
+        assertEquals(19, player.getMeeplesCount());
 
         player.expandSettlement(new Coordinate(98,100), board, Terrain.GRASS);
+
+        assertEquals(PieceStatusHexagon.MEEPLE, board.getHexagonAt(new Coordinate(98,100)).getPiecesStatus());
+        assertEquals(18, player.getMeeplesCount());
+
         player.expandSettlement(new Coordinate(98,100), board, Terrain.JUNGLE);
 
         assertEquals(PieceStatusHexagon.MEEPLE, board.getHexagonAt(new Coordinate(98,98)).getPiecesStatus());
